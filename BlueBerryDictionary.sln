@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36414.22 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlueBerryDictionary", "BlueBerryDictionary.csproj", "{6A8B70D3-8E12-497A-BF89-F62F541F6392}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6A8B70D3-8E12-497A-BF89-F62F541F6392}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A8B70D3-8E12-497A-BF89-F62F541F6392}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A8B70D3-8E12-497A-BF89-F62F541F6392}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A8B70D3-8E12-497A-BF89-F62F541F6392}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {126E5377-9B99-4B36-8B43-1B4B135183B4}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,42 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Dynamic resources (sẽ thay đổi theo theme) -->
+    <LinearGradientBrush x:Key="MainBackground" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="#E8F1FF" Offset="0"/>
+        <GradientStop Color="#F0E8FF" Offset="0.5"/>
+        <GradientStop Color="#F5E8FF" Offset="1"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="NavbarBackground" StartPoint="0,0" EndPoint="1,0">
+        <GradientStop Color="#1A2D6D" Offset="0"/>
+        <GradientStop Color="#2D4ACC" Offset="1"/>
+    </LinearGradientBrush>
+
+    <SolidColorBrush x:Key="TextColor" Color="#1A2D6D"/>
+    <SolidColorBrush x:Key="ButtonColor" Color="#2D4ACC"/>
+    <SolidColorBrush x:Key="CardBackground" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="BorderColor" Color="#5B7FFF"/>
+
+    <LinearGradientBrush x:Key="WordItemBackground" StartPoint="0,0" EndPoint="1,0">
+        <GradientStop Color="#E8F1FF" Offset="0"/>
+        <GradientStop Color="#F5E8FF" Offset="1"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="WordItemHoverBackground" StartPoint="0,0" EndPoint="1,0">
+        <GradientStop Color="#D0E4FF" Offset="0"/>
+        <GradientStop Color="#E8D4FF" Offset="1"/>
+    </LinearGradientBrush>
+
+    <SolidColorBrush x:Key="WordItemBorder" Color="#2D4ACC"/>
+
+    <LinearGradientBrush x:Key="ToolbarBackground" StartPoint="0,0" EndPoint="1,0">
+        <GradientStop Color="#E8F1FF" Offset="0"/>
+        <GradientStop Color="#F5E8FF" Offset="1"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="SidebarBackground" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="#FFFFFF" Offset="0"/>
+        <GradientStop Color="#E8F1FF" Offset="1"/>
+    </LinearGradientBrush>
+</ResourceDictionary>
