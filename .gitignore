@@ -1,0 +1,71 @@
+﻿# Tên file: .gitignore
+# Dành cho các dự án .NET/WPF sử dụng Visual Studio
+
+## 💡 Thư mục/File tạo ra khi Build (Quan trọng nhất)
+###################################################
+# Thư mục chứa các file đầu ra khi biên dịch (binaries)
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+[Aa]rm/
+[Aa]rm64/
+[Xx]64/
+[Xx]86/
+
+# Các file Database cục bộ (Local Database Cache)
+*.sdf
+*.vshost.exe
+*.vshost.exe.config
+
+# Các file tạo ra khi chạy test
+*.trx
+*.dll.config
+
+# Cache do .NET Core/5+/6+ tạo ra
+.vs/
+.nupkg/
+.dll
+
+## 💻 Visual Studio/IDE Settings
+###################################
+# Thư mục cấu hình người dùng (User-specific settings)
+*.user
+*.suo
+*.sln.docstates
+
+# Files tạm thời
+~$*
+*~
+*.log
+*.rpt
+*.tmp
+
+# Visual Studio Code Cache
+.vscode/
+
+## 📦 NuGet
+###################################
+# Thư mục package mặc định (nếu bạn không dùng PackageReference trong .csproj)
+[Pp]ackages/
+# Lock file cho packages (nếu không dùng PackageReference)
+packages.config
+
+# NuGet cache files
+*.nupkg
+
+## 🛡️ Other Files (Windows/VS Specific)
+###################################
+# Kết quả IntelliTrace
+*.iTrace
+
+# Thư mục ReSharper/JetBrains (nếu dùng)
+.idea/
+_ReSharper*/
+*.resharper
+*.dotSettings
+
+# Các file cấu hình/caching khác
+app.publish/
+TestResults/
+Thumbs.db # Windows thumbnail cache
