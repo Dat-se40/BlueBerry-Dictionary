@@ -83,8 +83,7 @@ namespace BlueBerryDictionary.ViewModels
                 await Task.Delay(300, _searchCts.Token);
 
                 // Get autocomplete suggestions
-                var suggestions = _searchService.GetSuggestions(SearchText, 10);
-
+                var suggestions = _searchService.GetSuggestions(SearchText, 5);
                 Suggestions.Clear();
                 foreach (var suggestion in suggestions)
                 {
@@ -105,7 +104,7 @@ namespace BlueBerryDictionary.ViewModels
         /// Execute full search
         /// </summary>
         [RelayCommand]
-        private async Task ExecuteSearchAsync()
+        public async Task ExecuteSearchAsync()
         {
             if (string.IsNullOrWhiteSpace(SearchText))
             {
@@ -117,7 +116,7 @@ namespace BlueBerryDictionary.ViewModels
             HasResults = false;
             StatusMessage = $"Searching for '{SearchText}'...";
             IsSuggestionsOpen = false;
-
+            Console.WriteLine(StatusMessage);
             try
             {
                 // Cancel any ongoing search
