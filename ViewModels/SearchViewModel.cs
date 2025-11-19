@@ -16,6 +16,9 @@ namespace BlueBerryDictionary.ViewModels
         private readonly WordSearchService _searchService;
         private CancellationTokenSource _searchCts;
 
+        // Modifier attributed
+        //public int numberSuggestion = 5;
+        //public int delayTime = 200;
         // ==================== OBSERVABLE PROPERTIES ====================
 
         [ObservableProperty]

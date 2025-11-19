@@ -417,8 +417,7 @@ namespace BlueBerryDictionary
 
         private void SuggestionsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            string term = SuggestionsList.SelectedItem.ToString() ?? "";
-            Console.Write(term);    
+            _searchViewModel.SearchText = SuggestionsList.SelectedItem.ToString()?? "";           
         }
     }
 }
