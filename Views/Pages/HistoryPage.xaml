@@ -1,0 +1,305 @@
+﻿<Page x:Class="BlueBerryDictionary.Pages.HistoryPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BlueBerryDictionary.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="800" d:DesignWidth="1400"
+      Background="{DynamicResource MainBackground}">
+
+    <Page.Resources>
+        <!-- Stats Card Style -->
+        <Style x:Key="StatsCardStyle" TargetType="Border">
+            <Setter Property="Background" Value="{DynamicResource CardBackground}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource AccentBrush}"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="CornerRadius" Value="15"/>
+            <Setter Property="Padding" Value="20"/>
+        </Style>
+
+        <!-- Filter Button Style -->
+        <Style x:Key="FilterButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="{DynamicResource CardBackground}"/>
+            <Setter Property="Foreground" Value="{DynamicResource AccentBrush}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource AccentBrush}"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Padding" Value="15,10"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="25"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource AccentBrush}"/>
+                    <Setter Property="Foreground" Value="White"/>
+                </Trigger>
+                <DataTrigger Binding="{Binding IsActive}" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource AccentBrush}"/>
+                    <Setter Property="Foreground" Value="White"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- History Card Style -->
+        <Style x:Key="HistoryCardStyle" TargetType="Border">
+            <Setter Property="Background" Value="{DynamicResource CardBackground}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource AccentBrush}"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="CornerRadius" Value="16"/>
+            <Setter Property="Padding" Value="25"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="10" ShadowDepth="2" Opacity="0.3" Color="#000000"/>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect BlurRadius="20" ShadowDepth="4" Opacity="0.4" Color="#2d4acc"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Action Button Style -->
+        <Style x:Key="ActionButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{DynamicResource AccentBrush}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Width" Value="36"/>
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource HoverBackground}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <StackPanel Margin="30">
+            <!-- Page Header -->
+            <Border Style="{StaticResource StatsCardStyle}" Margin="0,0,0,30">
+                <StackPanel>
+                    <!-- Title Section -->
+                    <Grid Margin="0,0,0,25">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Title with Icon -->
+                        <StackPanel Grid.Column="0" Orientation="Horizontal">
+                            <TextBlock Text="🕐" FontSize="48" VerticalAlignment="Center" Margin="0,0,15,0"/>
+                            <TextBlock Text="History" 
+                                       FontSize="36" 
+                                       FontWeight="Bold" 
+                                       Foreground="{DynamicResource TextBrush}"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+
+                        <!-- Clear Button -->
+                        <Button Grid.Column="2"
+                                x:Name="ClearAllBtn"
+                                Click="ClearAllBtn_Click"
+                                Style="{StaticResource FilterButtonStyle}"
+                                Background="#fee"
+                                BorderBrush="#dc2626"
+                                Foreground="#dc2626">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="🗑️" FontSize="16" Margin="0,0,8,0"/>
+                                <TextBlock Text="Xóa tất cả" FontSize="14"/>
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+
+                    <!-- Stats Bar -->
+                    <Border Style="{StaticResource StatsCardStyle}" Margin="0,0,0,25">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Total Words -->
+                            <StackPanel Grid.Column="0" HorizontalAlignment="Center">
+                                <TextBlock x:Name="TotalWordsText" 
+                                           Text="247" 
+                                           FontSize="32" 
+                                           FontWeight="Bold"
+                                           Foreground="{DynamicResource AccentBrush}"
+                                           HorizontalAlignment="Center"/>
+                                <TextBlock Text="Tổng số từ" 
+                                           FontSize="14"
+                                           Foreground="{DynamicResource TextBrush}"
+                                           Opacity="0.8"
+                                           HorizontalAlignment="Center"/>
+                            </StackPanel>
+
+                            <!-- Today -->
+                            <StackPanel Grid.Column="1" HorizontalAlignment="Center">
+                                <TextBlock x:Name="TodayWordsText"
+                                           Text="18" 
+                                           FontSize="32" 
+                                           FontWeight="Bold"
+                                           Foreground="{DynamicResource AccentBrush}"
+                                           HorizontalAlignment="Center"/>
+                                <TextBlock Text="Hôm nay" 
+                                           FontSize="14"
+                                           Foreground="{DynamicResource TextBrush}"
+                                           Opacity="0.8"
+                                           HorizontalAlignment="Center"/>
+                            </StackPanel>
+
+                            <!-- This Week -->
+                            <StackPanel Grid.Column="2" HorizontalAlignment="Center">
+                                <TextBlock x:Name="WeekWordsText"
+                                           Text="89" 
+                                           FontSize="32" 
+                                           FontWeight="Bold"
+                                           Foreground="{DynamicResource AccentBrush}"
+                                           HorizontalAlignment="Center"/>
+                                <TextBlock Text="Tuần này" 
+                                           FontSize="14"
+                                           Foreground="{DynamicResource TextBrush}"
+                                           Opacity="0.8"
+                                           HorizontalAlignment="Center"/>
+                            </StackPanel>
+
+                            <!-- This Month -->
+                            <StackPanel Grid.Column="3" HorizontalAlignment="Center">
+                                <TextBlock x:Name="MonthWordsText"
+                                           Text="156" 
+                                           FontSize="32" 
+                                           FontWeight="Bold"
+                                           Foreground="{DynamicResource AccentBrush}"
+                                           HorizontalAlignment="Center"/>
+                                <TextBlock Text="Tháng này" 
+                                           FontSize="14"
+                                           Foreground="{DynamicResource TextBrush}"
+                                           Opacity="0.8"
+                                           HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <!-- Filters -->
+                    <WrapPanel x:Name="FiltersPanel">
+                        <Button x:Name="FilterAll" 
+                                Style="{StaticResource FilterButtonStyle}"
+                                Click="FilterBtn_Click"
+                                Tag="all"
+                                Margin="0,0,12,0">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="📊" FontSize="16" Margin="0,0,8,0"/>
+                                <TextBlock Text="Tất cả" FontSize="14"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button x:Name="FilterToday"
+                                Style="{StaticResource FilterButtonStyle}"
+                                Click="FilterBtn_Click"
+                                Tag="today"
+                                Margin="0,0,12,0">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="⏰" FontSize="16" Margin="0,0,8,0"/>
+                                <TextBlock Text="Hôm nay" FontSize="14"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button x:Name="FilterWeek"
+                                Style="{StaticResource FilterButtonStyle}"
+                                Click="FilterBtn_Click"
+                                Tag="week"
+                                Margin="0,0,12,0">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="📅" FontSize="16" Margin="0,0,8,0"/>
+                                <TextBlock Text="Tuần này" FontSize="14"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button x:Name="FilterMonth"
+                                Style="{StaticResource FilterButtonStyle}"
+                                Click="FilterBtn_Click"
+                                Tag="month"
+                                Margin="0,0,12,0">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="📅" FontSize="16" Margin="0,0,8,0"/>
+                                <TextBlock Text="Tháng này" FontSize="14"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button x:Name="FilterFavorites"
+                                Style="{StaticResource FilterButtonStyle}"
+                                Click="FilterBtn_Click"
+                                Tag="favorites">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="⭐" FontSize="16" Margin="0,0,8,0"/>
+                                <TextBlock Text="Yêu thích" FontSize="14"/>
+                            </StackPanel>
+                        </Button>
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- History Content -->
+            <StackPanel x:Name="HistoryContent">
+                <!-- Content will be populated dynamically -->
+            </StackPanel>
+
+            <!-- Empty State (Initially Hidden) -->
+            <StackPanel x:Name="EmptyState" 
+                        Visibility="Collapsed"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Margin="0,100,0,0">
+                <TextBlock Text="🕐" 
+                           FontSize="120" 
+                           Opacity="0.3"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,25"/>
+                <TextBlock Text="Lịch sử trống" 
+                           FontSize="28" 
+                           FontWeight="Bold"
+                           Foreground="{DynamicResource TextBrush}"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,12"/>
+                <TextBlock Text="Bạn chưa tra cứu từ nào. Hãy bắt đầu khám phá!" 
+                           FontSize="16"
+                           Foreground="{DynamicResource TextBrush}"
+                           Opacity="0.8"
+                           HorizontalAlignment="Center"/>
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

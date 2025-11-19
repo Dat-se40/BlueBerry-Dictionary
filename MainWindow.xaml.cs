@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using BlueBerryDictionary.Pages;
 
 namespace BlueBerryDictionary
 {
@@ -97,6 +98,9 @@ namespace BlueBerryDictionary
 
                 // TODO: Các page chưa làm - Tạm thời hiển thị thông báo
                 case "History":
+                    newPage = new HistoryPage();
+                    break;
+                
                 case "Favourite":
                 case "MyWords":
                 case "Game":
