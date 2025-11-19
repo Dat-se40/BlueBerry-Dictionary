@@ -57,7 +57,7 @@
     <SolidColorBrush x:Key="LightSearchBackground" Color="#FFFFFF"/>
     <SolidColorBrush x:Key="LightSearchBorder" Color="#5B7FFF"/>
     <SolidColorBrush x:Key="LightSearchIcon" Color="#2D4ACC"/>
-    <SolidColorBrush x:Key="LightSearchText" Color="#1A2D6D"/>
+    <SolidColorBrush x:Key="LightSearchText" Color="Black"/>
     <SolidColorBrush x:Key="LightSearchPlaceholder" Color="#94A3B8"/>
 
     <!-- Search Button -->
@@ -150,7 +150,7 @@
     <SolidColorBrush x:Key="DarkSearchBackground" Color="#2D3748"/>
     <SolidColorBrush x:Key="DarkSearchBorder" Color="#4A5568"/>
     <SolidColorBrush x:Key="DarkSearchIcon" Color="#60A5FA"/>
-    <SolidColorBrush x:Key="DarkSearchText" Color="#E2E8F0"/>
+    <SolidColorBrush x:Key="DarkSearchText" Color="White"/>
     <SolidColorBrush x:Key="DarkSearchPlaceholder" Color="#64748B"/>
 
     <!-- Search Button -->
@@ -239,7 +239,7 @@
     <SolidColorBrush x:Key="SearchBackground" Color="#FFFFFF"/>
     <SolidColorBrush x:Key="SearchBorder" Color="#5B7FFF"/>
     <SolidColorBrush x:Key="SearchIcon" Color="#2D4ACC"/>
-    <SolidColorBrush x:Key="SearchText" Color="#1A2D6D"/>
+    <SolidColorBrush x:Key="SearchText" Color="Black"/>
     <SolidColorBrush x:Key="SearchPlaceholder" Color="#94A3B8"/>
 
     <LinearGradientBrush x:Key="SearchButton" StartPoint="0,0" EndPoint="1,0">

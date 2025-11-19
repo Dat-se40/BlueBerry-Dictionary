@@ -9,7 +9,6 @@
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Foreground" Value="{DynamicResource SearchText}"/>
         <Setter Property="CaretBrush" Value="{DynamicResource SearchText}"/>
         <Setter Property="Template">
             <Setter.Value>

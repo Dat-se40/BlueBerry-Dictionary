@@ -201,7 +201,7 @@ namespace BlueBerryDictionary
             if (SearchInput.Text == "Nhập từ cần tra...")
             {
                 SearchInput.Text = "";
-                SearchInput.Foreground = (SolidColorBrush)this.Resources["SearchText"];
+                SearchInput.Foreground = (SolidColorBrush)Application.Current.Resources["SearchText"];
             }
         }
 
@@ -210,7 +210,7 @@ namespace BlueBerryDictionary
             if (string.IsNullOrWhiteSpace(SearchInput.Text))
             {
                 SearchInput.Text = "Nhập từ cần tra...";
-                SearchInput.Foreground = (SolidColorBrush)this.Resources["SearchPlaceholder"];
+                SearchInput.Foreground = (SolidColorBrush)Application.Current.Resources["SearchPlaceholder"];
             }
         }
 
@@ -321,11 +321,18 @@ namespace BlueBerryDictionary
             app.Resources["ThemeSliderBackground"] = app.Resources["LightThemeSliderBackground"];
             app.Resources["ThemeIconColor"] = app.Resources["LightThemeIconColor"];
 
-            // Update search placeholder color
+            // Update search input color
             if (SearchInput.Text == "Nhập từ cần tra...")
             {
+                // Nếu đang hiện placeholder → màu xám
                 SearchInput.Foreground = (SolidColorBrush)app.Resources["SearchPlaceholder"];
             }
+            else if (!string.IsNullOrEmpty(SearchInput.Text))
+            {
+                // Nếu đang có chữ → màu đen (Light Mode)
+                SearchInput.Foreground = (SolidColorBrush)app.Resources["SearchText"];
+            }
+
         }
 
         private void ApplyDarkMode()
@@ -374,11 +381,18 @@ namespace BlueBerryDictionary
             app.Resources["ThemeSliderBackground"] = app.Resources["DarkThemeSliderBackground"];
             app.Resources["ThemeIconColor"] = app.Resources["DarkThemeIconColor"];
 
-            // Update search placeholder color
+            // Update search input color
             if (SearchInput.Text == "Nhập từ cần tra...")
             {
+                // Nếu đang hiện placeholder → màu xám
                 SearchInput.Foreground = (SolidColorBrush)app.Resources["SearchPlaceholder"];
             }
+            else if (!string.IsNullOrEmpty(SearchInput.Text))
+            {
+                // Nếu đang có chữ → màu trắng (Dark Mode)
+                SearchInput.Foreground = (SolidColorBrush)app.Resources["SearchText"];
+            }
+
         }
 
     }
