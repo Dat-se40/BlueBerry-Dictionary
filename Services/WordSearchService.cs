@@ -1,48 +1,105 @@
-﻿using BlueBerryDictionary.Models;
+﻿using BlueBerryDictionary.ApiClient;
 using BlueBerryDictionary.Data;
+using BlueBerryDictionary.Models;
 using System.IO;
+using System.Net.Http;
 
 namespace MyDictionary.Services
 {
     public class WordSearchService
     {
-        private readonly WordCacheManager _cacheManager = new WordCacheManager();
-        private List<string> _dictionary = FileStorage.BuildDictionary();
+        private readonly WordCacheManager _cacheManager;
+        private readonly DictionaryApiClient _apiClient;
+        private readonly List<string> _dictionary;
 
-        #region
-        /// <summary>
-        /// Tìm kiếm chính xác một từ (async)
-        /// </summary>
-        //public async Task<SearchResponse> SearchExact(SearchRequest request)
-        //{
-        //    SearchResponse response = new SearchResponse() { _isSuccess = false };
-        //    string term = request._searchTerm;
-        //    string path = FileStorage.GetWordFilePath(term);
+        public WordSearchService()
+        {
+            _cacheManager = new WordCacheManager();
+            _apiClient = new DictionaryApiClient();
+            _dictionary = FileStorage.BuildDictionary();
+        }
 
-        //    var cachedWords = _cacheManager.GetWordsFormCache(term);
-        //    if (cachedWords != null)
-        //    {
-        //        response._words = cachedWords;
-        //    }
-        //    else if (File.Exists(path))
-        //    {
-        //        response._words = await FileStorage.LoadWordAsync(term) ?? new List<Word>();
-        //    }
-        //    else
-        //    {
-        //        response._words = await ApiClient.FetchWordAsync(term);
-        //    }
 
-        //    if (response._words != null && response._words.Count > 0)
-        //    {
-        //        response._isSuccess = true;
-        //        _cacheManager.AddToCache(term, response._words);
-        //    }
+        #region Search 
+        public async Task<List<Word>> SearchWordAsync(string word, CancellationToken ct = default)
+        {
+            word = word.ToLower().Trim();
 
-        //    return response;
-        //}
+            // ========== CHECK CACHE ==========
+            var cachedWords = _cacheManager.GetWordsFormCache(word);
+            if (cachedWords != null)
+            {
+                Console.WriteLine("✅ Found in cache");
+                return cachedWords;
+            }
+
+            // ========== CHECK LOCAL FILE ==========
+            var localWords = await FileStorage.LoadWordAsync(word);
+            if (localWords != null && localWords.Count > 0)
+            {
+                Console.WriteLine("✅ Found in local storage");
+                _cacheManager.AddToCache(word, localWords);
+                return localWords;
+            }
+
+            // ========== TRY API 1: FREE DICTIONARY ==========
+            try
+            {
+                using var cts = CancellationTokenSource.CreateLinkedTokenSource(ct);
+                cts.CancelAfter(TimeSpan.FromSeconds(3));
+
+                var words = await _apiClient.FetchFromFreeDictionary(word, cts.Token);
+                if (words?.Count > 0)
+                {
+                    Console.WriteLine("✅ Found in Free Dictionary");
+                    _cacheManager.AddToCache(word, words);
+                    return words;
+                }
+            }
+            catch (TaskCanceledException)
+            {
+                Console.WriteLine("⏱️ Free Dictionary timeout");
+            }
+            catch (HttpRequestException ex)
+            {
+                Console.WriteLine($"⚠️ Free Dictionary failed: {ex.Message}");
+            }
+
+            // ========== TRY API 2: MERRIAM-WEBSTER ==========
+            try
+            {
+                using var cts = CancellationTokenSource.CreateLinkedTokenSource(ct);
+                cts.CancelAfter(TimeSpan.FromSeconds(3));
+
+                Console.WriteLine("🔄 Trying Merriam-Webster...");
+                var words = await _apiClient.FetchFromMerriamWebster(word, cts.Token);
+
+                if (words?.Count > 0)
+                {
+                    Console.WriteLine("✅ Found in Merriam-Webster");
+                    _cacheManager.AddToCache(word, words);
+                    return words;
+                }
+            }
+            catch (TaskCanceledException)
+            {
+                Console.WriteLine("⏱️ Merriam-Webster timeout");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"❌ Merriam-Webster failed: {ex.Message}");
+            }
+
+            // ========== NOT FOUND ==========
+            Console.WriteLine($"❌ Word '{word}' not found");
+            return new List<Word>();
+        }
+
+        public async Task<(string usAudio, string ukAudio)> GetAudioAsync(string word)
+        {
+            return await DictionaryApiClient.FetchAudioUrlsAsync(word);
+        }
         #endregion
-
 
         #region Autocomplete
         public List<string>GetSuggestions(string request , int maxResults = 5)

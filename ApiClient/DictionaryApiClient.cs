@@ -7,7 +7,7 @@ using MyDictionary.Model.MerriamWebster;
 
 namespace BlueBerryDictionary.ApiClient
 {
-    public class ApiClient
+    public class DictionaryApiClient
     {
         private static readonly HttpClient _client = new HttpClient { Timeout = TimeSpan.FromSeconds(5) };
         private static readonly MerriamWebster _merriamService = new MerriamWebster();
@@ -18,73 +18,33 @@ namespace BlueBerryDictionary.ApiClient
         /// 2. Merriam-Webster (3s timeout)
         /// 3. Local Dictionary
         /// </summary>
-        public static async Task<List<Word>> FetchWordAsync(string word, CancellationToken cancellationToken = default)
+        public async Task<List<Word>> FetchFromFreeDictionary(string word, CancellationToken ct)
         {
-            Console.WriteLine($"🔍 Searching: {word}");
+            string url = Config.Instance.FreeDictionaryEndpoint + word;
+            string json = await _client.GetStringAsync(url, ct);
+            return JsonConvert.DeserializeObject<List<Word>>(json);
+        }
 
-            // ========== TRY 1: FREE DICTIONARY ==========
-            try
+        public async Task<List<Word>> FetchFromMerriamWebster(string word, CancellationToken ct)
+        {
+            string dictJson = await _merriamService.LookupWordAsync(word);
+            if (string.IsNullOrEmpty(dictJson)) return null;
+
+            var words = MerriamWebsterParser.ParseDictionary(dictJson);
+
+            // Enrich với thesaurus
+            if (words?.Count > 0)
             {
-                using var cts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
-                cts.CancelAfter(TimeSpan.FromSeconds(3));
-
-                string url = Config.Instance.FreeDictionaryEndpoint + word;
-                string json = await _client.GetStringAsync(url, cts.Token);
-
-                var result = JsonConvert.DeserializeObject<List<Word>>(json);
-
-                if (result != null && result.Count > 0)
+                string thesaurusJson = await _merriamService.LookupThesaurusAsync(word);
+                if (!string.IsNullOrEmpty(thesaurusJson))
                 {
-                    Console.WriteLine("✅ Found in Free Dictionary");
-                    return result;
+                    var (synonyms, antonyms) = MerriamWebsterParser.ParseThesaurus(thesaurusJson);
+                    words[0].meanings[0].synonyms = synonyms;
+                    words[0].meanings[0].antonyms = antonyms;
                 }
             }
-            catch (TaskCanceledException)
-            {
-                Console.WriteLine("⏱️ Free Dictionary timeout");
-            }
-            catch (HttpRequestException ex)
-            {
-                Console.WriteLine($"⚠️ Free Dictionary failed: {ex.Message}");
-            }
 
-            // ========== TRY 2: MERRIAM-WEBSTER ==========
-            try
-            {
-                using var cts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
-                cts.CancelAfter(TimeSpan.FromSeconds(3));
-
-                Console.WriteLine("🔄 Trying Merriam-Webster...");
-
-                // Fetch dictionary
-                string dictJson = await _merriamService.LookupWordAsync(word);
-
-                if (!string.IsNullOrEmpty(dictJson))
-                {
-                    var words = MerriamWebsterParser.ParseDictionary(dictJson);
-
-                    if (words != null && words.Count > 0)
-                    {
-                        // Enrich với thesaurus (synonyms/antonyms)
-                        await EnrichWithThesaurus(words[0], word);
-
-                        Console.WriteLine("✅ Found in Merriam-Webster");
-                        return words;
-                    }
-                }
-            }
-            catch (TaskCanceledException)
-            {
-                Console.WriteLine("⏱️ Merriam-Webster timeout");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"❌ Merriam-Webster failed: {ex.Message}");
-            }
-
-            // ========== NOT FOUND ==========
-            Console.WriteLine($"❌ Word '{word}' not found in any API");
-            return new List<Word>();
+            return words;
         }
 
         /// <summary>
