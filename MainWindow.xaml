@@ -216,7 +216,7 @@
                                 Tag="Home">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="🏠" FontSize="20" Margin="0,0,15,0"/>
-                                <TextBlock Text="Trang chủ" FontSize="15"/>
+                                <TextBlock Text="Home" FontSize="15"/>
                             </StackPanel>
                         </Button>
 
@@ -226,7 +226,7 @@
                                 Tag="History">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="🕐" FontSize="20" Margin="0,0,15,0"/>
-                                <TextBlock Text="Lịch sử tra cứu" FontSize="15"/>
+                                <TextBlock Text="History" FontSize="15"/>
                             </StackPanel>
                         </Button>
 
@@ -236,7 +236,7 @@
                                 Tag="Favourite">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="⭐" FontSize="20" Margin="0,0,15,0"/>
-                                <TextBlock Text="Từ yêu thích" FontSize="15"/>
+                                <TextBlock Text="Favorite" FontSize="15"/>
                             </StackPanel>
                         </Button>
 
@@ -246,7 +246,7 @@
                                 Tag="MyWords">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="📚" FontSize="20" Margin="0,0,15,0"/>
-                                <TextBlock Text="Bộ sưu tập của tôi" FontSize="15"/>
+                                <TextBlock Text="My collection" FontSize="15"/>
                             </StackPanel>
                         </Button>
 
@@ -256,7 +256,7 @@
                                 Tag="Game">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="🎮" FontSize="20" Margin="0,0,15,0"/>
-                                <TextBlock Text="Trò chơi học từ" FontSize="15"/>
+                                <TextBlock Text="Game" FontSize="15"/>
                             </StackPanel>
                         </Button>
 
@@ -266,7 +266,7 @@
                                 Tag="Offline">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="📥" FontSize="20" Margin="0,0,15,0"/>
-                                <TextBlock Text="Tải về offline" FontSize="15"/>
+                                <TextBlock Text="Offline mode" FontSize="15"/>
                             </StackPanel>
                         </Button>
 
@@ -276,7 +276,7 @@
                                 Tag="Account">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="👤" FontSize="20" Margin="0,0,15,0"/>
-                                <TextBlock Text="Tài khoản" FontSize="15"/>
+                                <TextBlock Text="Account" FontSize="15"/>
                             </StackPanel>
                         </Button>
 
@@ -286,7 +286,7 @@
                                 Tag="Setting">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="⚙️" FontSize="20" Margin="0,0,15,0"/>
-                                <TextBlock Text="Cài đặt" FontSize="15"/>
+                                <TextBlock Text="Setting" FontSize="15"/>
                             </StackPanel>
                         </Button>
                     </StackPanel>
