@@ -153,6 +153,7 @@ namespace BlueBerryDictionary.ViewModels
             {
                 IsSearching = false;
             }
+            Console.WriteLine(StatusMessage);   
         }
 
         /// <summary>

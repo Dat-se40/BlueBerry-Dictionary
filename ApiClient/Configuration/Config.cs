@@ -22,8 +22,9 @@ namespace BlueBerryDictionary.ApiClient.Configuration
 
         private Config()
         {
+            // Làm ơn đừng thay đổi đường dẫn ở đây mà
             var builder = new ConfigurationBuilder()
-               .SetBasePath(Directory.GetCurrentDirectory())
+               .SetBasePath(Directory.GetCurrentDirectory() + @"..\..\..\..\ApiClient\Configuration")
                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
             _configuration = builder.Build();

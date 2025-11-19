@@ -9,7 +9,7 @@ namespace BlueBerryDictionary.ApiClient
 {
     public class DictionaryApiClient
     {
-        private static readonly HttpClient _client = new HttpClient { Timeout = TimeSpan.FromSeconds(5) };
+        private static readonly HttpClient _client = new HttpClient { Timeout = TimeSpan.FromSeconds(8) };
         private static readonly MerriamWebster _merriamService = new MerriamWebster();
 
         /// <summary>
