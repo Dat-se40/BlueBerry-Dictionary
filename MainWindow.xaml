@@ -5,8 +5,293 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BlueBerryDictionary"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="English Dictionary"
+        Height="800" Width="1400"
+        WindowStartupLocation="CenterScreen"
+        Background="{DynamicResource MainBackground}">
 
+    <Grid>
+        <!-- Overlay cho Sidebar -->
+        <Border x:Name="Overlay"
+                Background="#80000000"
+                Visibility="Collapsed"
+                MouseDown="Overlay_MouseDown"
+                Panel.ZIndex="99"/>
+
+        <!-- Main Layout -->
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <!-- Navbar -->
+                <RowDefinition Height="*"/>
+                <!-- Content (Frame) -->
+            </Grid.RowDefinitions>
+
+            <!-- ================================= -->
+            <!-- NAVBAR -->
+            <!-- ================================= -->
+            <Border Grid.Row="0"
+                    Background="{DynamicResource NavbarBackground}"
+                    Padding="15"
+                    Effect="{StaticResource NavbarShadow}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <!-- Hamburger -->
+                        <ColumnDefinition Width="Auto"/>
+                        <!-- Back -->
+                        <ColumnDefinition Width="Auto"/>
+                        <!-- Forward -->
+                        <ColumnDefinition Width="Auto"/>
+                        <!-- Reload -->
+                        <ColumnDefinition Width="*"/>
+                        <!-- Search -->
+                        <ColumnDefinition Width="Auto"/>
+                        <!-- Theme Toggle -->
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Hamburger Button -->
+                    <Button x:Name="HamburgerBtn"
+                            Grid.Column="0"
+                            Style="{StaticResource HamburgerButtonStyle}"
+                            Click="HamburgerBtn_Click"
+                            Margin="0,0,10,0"/>
+
+                    <!-- Back Button -->
+                    <Button x:Name="BackBtn"
+                            Grid.Column="1"
+                            Style="{StaticResource NavButtonStyle}"
+                            Click="BackBtn_Click"
+                            IsEnabled="False"
+                            ToolTip="Quay lại"
+                            Margin="0,0,8,0">
+                        <TextBlock Text="◀" FontSize="16" FontWeight="Bold"/>
+                    </Button>
+
+                    <!-- Forward Button -->
+                    <Button x:Name="ForwardBtn"
+                            Grid.Column="2"
+                            Style="{StaticResource NavButtonStyle}"
+                            Click="ForwardBtn_Click"
+                            IsEnabled="False"
+                            ToolTip="Tiến tới"
+                            Margin="0,0,8,0">
+                        <TextBlock Text="▶" FontSize="16" FontWeight="Bold"/>
+                    </Button>
+
+                    <!-- Reload Button -->
+                    <Button x:Name="ReloadBtn"
+                            Grid.Column="3"
+                            Style="{StaticResource NavButtonStyle}"
+                            Click="ReloadBtn_Click"
+                            ToolTip="Tải lại"
+                            Margin="0,0,20,0">
+                        <TextBlock x:Name="ReloadIcon" Text="🔄" FontSize="16"/>
+                    </Button>
+
+                    <!-- Search Container -->
+                    <Border Grid.Column="4"
+                        Background="{DynamicResource SearchBackground}"
+                        BorderBrush="{DynamicResource SearchBorder}"
+                        BorderThickness="2"
+                        CornerRadius="25"
+                        Padding="15,8"
+                        MaxWidth="700"
+                        HorizontalAlignment="Stretch"
+                        Margin="20,0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Search Icon -->
+                            <TextBlock Grid.Column="0"
+                                       Text="🔍"
+                                       FontSize="18"
+                                       VerticalAlignment="Center"
+                                       Margin="0,0,10,0"/>
+
+                            <!-- Search Input -->
+                            <TextBox x:Name="SearchInput"
+                                     Grid.Column="1"
+                                     Style="{StaticResource SearchTextBoxStyle}"
+                                     Text="Nhập từ cần tra..."
+                                     GotFocus="SearchInput_GotFocus"
+                                     LostFocus="SearchInput_LostFocus"
+                                     KeyDown="SearchInput_KeyDown"/>
+
+                            <!-- Search Button -->
+                            <Button Grid.Column="2"
+                                    Content="Tìm kiếm"
+                                    Style="{StaticResource SearchButtonStyle}"
+                                    Click="SearchBtn_Click"
+                                    Margin="10,0,0,0"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- Theme Toggle -->
+                    <Border x:Name="ThemeToggle"
+                            Grid.Column="5"
+                            Width="70"
+                            Height="34"
+                            Background="{DynamicResource ThemeToggleBackground}"
+                            CornerRadius="17"
+                            Cursor="Hand"
+                            MouseDown="ThemeToggle_MouseDown">
+                        <Canvas>
+                            <Border x:Name="ThemeSlider"
+                                    Width="28"
+                                    Height="28"
+                                    Background="{DynamicResource ThemeSliderBackground}"
+                                    CornerRadius="14"
+                                    Canvas.Left="3"
+                                    Canvas.Top="3">
+                                <TextBlock x:Name="ThemeIcon"
+                                    Text="🌙"
+                                    FontSize="16"
+                                    Foreground="{DynamicResource ThemeIconColor}"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"/>
+                            </Border>
+                        </Canvas>
+                    </Border>
+                </Grid>
+            </Border>
+
+            <!-- ================================= -->
+            <!-- CONTENT FRAME -->
+            <!-- ================================= -->
+            <Frame x:Name="MainFrame"
+                   Grid.Row="1"
+                   NavigationUIVisibility="Hidden"
+                   Navigated="MainFrame_Navigated"/>
+        </Grid>
+
+        <!-- ================================= -->
+        <!-- SIDEBAR -->
+        <!-- ================================= -->
+        <Border x:Name="Sidebar"
+                Width="280"
+                HorizontalAlignment="Left"
+                Background="{DynamicResource SidebarBackground}"
+                Panel.ZIndex="100"
+                Effect="{StaticResource SidebarShadow}">
+            <Border.RenderTransform>
+                <TranslateTransform X="-280"/>
+            </Border.RenderTransform>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Sidebar Header -->
+                <Border Grid.Row="0"
+                        Background="{DynamicResource NavbarBackground}"
+                        Padding="25">
+                    <StackPanel>
+                        <TextBlock Text="📖 Dictionary"
+                                   FontSize="24"
+                                   FontWeight="Bold"
+                                   Foreground="White"
+                                   HorizontalAlignment="Center"/>
+                        <TextBlock Text="Quick Access Menu"
+                                   FontSize="12"
+                                   Foreground="White"
+                                   Opacity="0.9"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,5,0,0"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Sidebar Menu -->
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="0,20,0,0">
+                        <!-- Trang chủ -->
+                        <Button Style="{StaticResource SidebarButtonStyle}"
+                                Click="SidebarItem_Click"
+                                Tag="Home">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="🏠" FontSize="20" Margin="0,0,15,0"/>
+                                <TextBlock Text="Trang chủ" FontSize="15"/>
+                            </StackPanel>
+                        </Button>
+
+                        <!-- Lịch sử -->
+                        <Button Style="{StaticResource SidebarButtonStyle}"
+                                Click="SidebarItem_Click"
+                                Tag="History">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="🕐" FontSize="20" Margin="0,0,15,0"/>
+                                <TextBlock Text="Lịch sử tra cứu" FontSize="15"/>
+                            </StackPanel>
+                        </Button>
+
+                        <!-- Yêu thích -->
+                        <Button Style="{StaticResource SidebarButtonStyle}"
+                                Click="SidebarItem_Click"
+                                Tag="Favourite">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="⭐" FontSize="20" Margin="0,0,15,0"/>
+                                <TextBlock Text="Từ yêu thích" FontSize="15"/>
+                            </StackPanel>
+                        </Button>
+
+                        <!-- Bộ sưu tập -->
+                        <Button Style="{StaticResource SidebarButtonStyle}"
+                                Click="SidebarItem_Click"
+                                Tag="MyWords">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="📚" FontSize="20" Margin="0,0,15,0"/>
+                                <TextBlock Text="Bộ sưu tập của tôi" FontSize="15"/>
+                            </StackPanel>
+                        </Button>
+
+                        <!-- Trò chơi -->
+                        <Button Style="{StaticResource SidebarButtonStyle}"
+                                Click="SidebarItem_Click"
+                                Tag="Game">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="🎮" FontSize="20" Margin="0,0,15,0"/>
+                                <TextBlock Text="Trò chơi học từ" FontSize="15"/>
+                            </StackPanel>
+                        </Button>
+
+                        <!-- Offline -->
+                        <Button Style="{StaticResource SidebarButtonStyle}"
+                                Click="SidebarItem_Click"
+                                Tag="Offline">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="📥" FontSize="20" Margin="0,0,15,0"/>
+                                <TextBlock Text="Tải về offline" FontSize="15"/>
+                            </StackPanel>
+                        </Button>
+
+                        <!-- Tài khoản -->
+                        <Button Style="{StaticResource SidebarButtonStyle}"
+                                Click="SidebarItem_Click"
+                                Tag="Account">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="👤" FontSize="20" Margin="0,0,15,0"/>
+                                <TextBlock Text="Tài khoản" FontSize="15"/>
+                            </StackPanel>
+                        </Button>
+
+                        <!-- Cài đặt -->
+                        <Button Style="{StaticResource SidebarButtonStyle}"
+                                Click="SidebarItem_Click"
+                                Tag="Setting">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="⚙️" FontSize="20" Margin="0,0,15,0"/>
+                                <TextBlock Text="Cài đặt" FontSize="15"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+        </Border>
     </Grid>
 </Window>

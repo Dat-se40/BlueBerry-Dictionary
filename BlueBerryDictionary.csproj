@@ -12,6 +12,7 @@
     <Folder Include="Data\PersistentStorage\StoredQuote\" />
     <Folder Include="Data\PersistentStorage\StoredWord\" />
     <Folder Include="Resources\Styles\" />
+    <Folder Include="Resources\Styles\" />
     <Folder Include="ViewModels\" />
   </ItemGroup>
 
