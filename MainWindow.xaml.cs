@@ -10,6 +10,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using BlueBerryDictionary.Pages;
+using BlueBerryDictionary.Views;
+using DictionaryApp;
 
 namespace BlueBerryDictionary
 {
@@ -95,14 +97,19 @@ namespace BlueBerryDictionary
                 case "Home":
                     newPage = new HomePage();
                     break;
-
-                // TODO: Các page chưa làm - Tạm thời hiển thị thông báo
+                
                 case "History":
                     newPage = new HistoryPage();
                     break;
                 
                 case "Favourite":
+                    newPage = new FavouriteWordsPage();
+                    break;
+                
                 case "MyWords":
+                    newPage = new MyWordsPage();
+                    break;
+                // TODO: Các page chưa làm - Tạm thời hiển thị thông báo
                 case "Game":
                 case "Offline":
                 case "Setting":

@@ -3,9 +3,9 @@ using System.Windows.Controls;
 
 namespace BlueBerryDictionary.Pages
 {
-    public partial class HistoryPage : Page
+    public partial class MyWordsPage : Page
     {
-        public HistoryPage()
+        public MyWordsPage()
         {
             InitializeComponent();
         }
