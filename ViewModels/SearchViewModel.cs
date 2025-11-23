@@ -25,6 +25,9 @@ namespace BlueBerryDictionary.ViewModels
         private string _searchText;
 
         [ObservableProperty]
+        private string _searchButtonText = "Tìm kiếm";
+
+        [ObservableProperty]
         private ObservableCollection<string> _suggestions;
 
         [ObservableProperty]
@@ -114,6 +117,7 @@ namespace BlueBerryDictionary.ViewModels
                 StatusMessage = "Please enter a word to search";
                 return;
             }
+            SearchButtonText = "Đang tìm...";
 
             IsSearching = true;
             HasResults = false;
@@ -152,7 +156,9 @@ namespace BlueBerryDictionary.ViewModels
             finally
             {
                 IsSearching = false;
+                SearchButtonText = "Tìm kiếm";
             }
+
             Console.WriteLine(StatusMessage);   
         }
 

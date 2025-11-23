@@ -125,10 +125,11 @@
                                          KeyDown="SearchInput_KeyDown"/>
 
                                 <!-- Search Button -->
-                                <Button Grid.Column="2"
-                                        Content="Tìm kiếm"
+                                <Button x:Name="SearchBtn"  
+                                        Grid.Column="2"
+                                        Content="{Binding SearchButtonText}"
                                         Style="{StaticResource SearchButtonStyle}"
-                                        Command="{Binding ExecuteSearchCommand}"
+                                        Click="SearchBtn_Click"
                                         Margin="10,0,0,0"/>
                             </Grid>
                         </Border>

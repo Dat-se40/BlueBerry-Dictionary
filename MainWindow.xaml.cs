@@ -188,10 +188,17 @@ namespace BlueBerryDictionary
         {
             if (e.Key == Key.Enter)
             {
-                // Execute search command
                 if (_searchViewModel.ExecuteSearchCommand.CanExecute(null))
                 {
                     await _searchViewModel.ExecuteSearchCommand.ExecuteAsync(null);
+
+                    // Navigate to DetailsPage
+                    if (_searchViewModel.HasResults &&
+                        _searchViewModel.CurrentWords != null &&
+                        _searchViewModel.CurrentWords.Count > 0)
+                    {
+                        MainFrame.Navigate(new DetailsPage(_searchViewModel.CurrentWords[0]));
+                    }
                 }
             }
             else if (e.Key == Key.Escape)
@@ -354,11 +361,33 @@ namespace BlueBerryDictionary
             app.Resources["ThemeSliderBackground"] = app.Resources["LightThemeSliderBackground"];
             app.Resources["ThemeIconColor"] = app.Resources["LightThemeIconColor"];
 
-            // Update search placeholder color
+            // Meaning Section
+            app.Resources["MeaningBackground"] = app.Resources["LightMeaningBackground"];
+            app.Resources["MeaningBorder"] = app.Resources["LightMeaningBorder"];
+            app.Resources["MeaningBorderLeft"] = app.Resources["LightMeaningBorderLeft"];
+
+            // Example
+            app.Resources["ExampleBackground"] = app.Resources["LightExampleBackground"];
+            app.Resources["ExampleBorder"] = app.Resources["LightExampleBorder"];
+
+            // Related Section
+            app.Resources["RelatedBackground"] = app.Resources["LightRelatedBackground"];
+            app.Resources["RelatedBorder"] = app.Resources["LightRelatedBorder"];
+
+
+
+            // Update search input color
             if (SearchInput.Text == "Nhập từ cần tra...")
             {
+                // Nếu đang hiện placeholder → màu xám
                 SearchInput.Foreground = (SolidColorBrush)app.Resources["SearchPlaceholder"];
             }
+            else if (!string.IsNullOrEmpty(SearchInput.Text))
+            {
+                // Nếu đang có chữ → màu đen (Light Mode)
+                SearchInput.Foreground = (SolidColorBrush)app.Resources["SearchText"];
+            }
+
         }
 
         private void ApplyDarkMode()
@@ -407,17 +436,78 @@ namespace BlueBerryDictionary
             app.Resources["ThemeSliderBackground"] = app.Resources["DarkThemeSliderBackground"];
             app.Resources["ThemeIconColor"] = app.Resources["DarkThemeIconColor"];
 
-            // Update search placeholder color
+            // Meaning Section
+            app.Resources["MeaningBackground"] = app.Resources["DarkMeaningBackground"];
+            app.Resources["MeaningBorder"] = app.Resources["DarkMeaningBorder"];
+            app.Resources["MeaningBorderLeft"] = app.Resources["DarkMeaningBorderLeft"];
+
+            // Example
+            app.Resources["ExampleBackground"] = app.Resources["DarkExampleBackground"];
+            app.Resources["ExampleBorder"] = app.Resources["DarkExampleBorder"];
+
+            // Related Section
+            app.Resources["RelatedBackground"] = app.Resources["DarkRelatedBackground"];
+            app.Resources["RelatedBorder"] = app.Resources["DarkRelatedBorder"];
+
+
+            // Update search input color
             if (SearchInput.Text == "Nhập từ cần tra...")
             {
+                // Nếu đang hiện placeholder → màu xám
                 SearchInput.Foreground = (SolidColorBrush)app.Resources["SearchPlaceholder"];
             }
+            else if (!string.IsNullOrEmpty(SearchInput.Text))
+            {
+                // Nếu đang có chữ → màu trắng (Dark Mode)
+                SearchInput.Foreground = (SolidColorBrush)app.Resources["SearchText"];
+            }
+
         }
         #endregion
 
-        private void SuggestionsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void SuggestionsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _searchViewModel.SearchText = SuggestionsList.SelectedItem.ToString()?? "";           
+            if (SuggestionsList.SelectedItem == null) return;
+            string selectedWord = SuggestionsList.SelectedItem.ToString();
+            _searchViewModel.SearchText = selectedWord;
+
+            // Tự động search luôn (optional)
+            if (_searchViewModel.ExecuteSearchCommand.CanExecute(null))
+            {
+                await _searchViewModel.ExecuteSearchCommand.ExecuteAsync(null);
+                if (_searchViewModel.HasResults &&
+                    _searchViewModel.CurrentWords != null &&
+                    _searchViewModel.CurrentWords.Count > 0)
+                {
+                    MainFrame.Navigate(new DetailsPage(_searchViewModel.CurrentWords[0]));
+                }
+            }
+
+            _searchViewModel.IsSuggestionsOpen = false;
         }
+        /// <summary>
+        /// Search button click handler
+        /// </summary>
+        private async void SearchBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (_searchViewModel.ExecuteSearchCommand.CanExecute(null))
+            {
+                await _searchViewModel.ExecuteSearchCommand.ExecuteAsync(null);
+
+                // Navigate đến DetailsPage nếu tìm thấy từ
+                if (_searchViewModel.HasResults &&
+                    _searchViewModel.CurrentWords != null &&
+                    _searchViewModel.CurrentWords.Count > 0)
+                {
+                    MainFrame.Navigate(new DetailsPage(_searchViewModel.CurrentWords[0]));
+                }
+                else if (!_searchViewModel.HasResults)
+                {
+                    MessageBox.Show($"Không tìm thấy từ '{_searchViewModel.SearchText}'",
+                        "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+        }
+
     }
 }
