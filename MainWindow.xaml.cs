@@ -1,12 +1,12 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using BlueBerryDictionary.Services;
+using BlueBerryDictionary.ViewModels;
+using BlueBerryDictionary.Views.Pages;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
-using BlueBerryDictionary.ViewModels;
-using BlueBerryDictionary.Views.Pages;
+using NavigationService = BlueBerryDictionary.Services.NavigationService;
 
 namespace BlueBerryDictionary
 {
@@ -15,13 +15,14 @@ namespace BlueBerryDictionary
         private SearchViewModel _searchViewModel;
         private bool _isSidebarOpen = false;
         private bool _isDarkMode = false;
-
+        private INavigationService _navigationService;   
         public MainWindow()
         {
             InitializeComponent();
 
             // Initialize ViewModel
-            _searchViewModel = new SearchViewModel();
+            _navigationService = new NavigationService(MainFrame); 
+            _searchViewModel = new SearchViewModel(_navigationService);
             DataContext = _searchViewModel;
 
             // Navigate to Home page
@@ -105,7 +106,7 @@ namespace BlueBerryDictionary
         {
             Page page = pageTag switch
             {
-                //"Home" => new Home(),
+                "Home" => new HomePage(),
                 //"History" => new Home(), // TODO: Create History page
                 //"Favourite" => new Home(), // TODO: Create Favourite page
                 //"MyWords" => new Home(), // TODO: Create MyWords page
@@ -197,7 +198,7 @@ namespace BlueBerryDictionary
                         _searchViewModel.CurrentWords != null &&
                         _searchViewModel.CurrentWords.Count > 0)
                     {
-                        MainFrame.Navigate(new DetailsPage(_searchViewModel.CurrentWords[0]));
+                      //[se fix sau]  MainFrame.Navigate(new DetailsPage(_searchViewModel.CurrentWords[0]));
                     }
                 }
             }
@@ -273,6 +274,49 @@ namespace BlueBerryDictionary
                 }
             }
         }
+        private async void SuggestionsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (SuggestionsList.SelectedItem == null) return;
+            string selectedWord = SuggestionsList.SelectedItem.ToString();
+            _searchViewModel.SearchText = selectedWord;
+
+            // Tự động search luôn (optional)
+            //if (_searchViewModel.ExecuteSearchCommand.CanExecute(null))
+            //{
+            //    await _searchViewModel.ExecuteSearchCommand.ExecuteAsync(null);
+            //    if (_searchViewModel.HasResults &&
+            //        _searchViewModel.CurrentWords != null &&
+            //        _searchViewModel.CurrentWords.Count > 0)
+            //    {
+            //        //[Se fix sau]MainFrame.Navigate(new DetailsPage(_searchViewModel.CurrentWords[0]));
+            //    }
+            //}
+
+            _searchViewModel.IsSuggestionsOpen = false;
+        }
+        /// <summary>
+        /// Search button click handler
+        /// </summary>
+        //private async void SearchBtn_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (_searchViewModel.ExecuteSearchCommand.CanExecute(null))
+        //    {
+        //        await _searchViewModel.ExecuteSearchCommand.ExecuteAsync(null);
+
+        //        // Navigate đến DetailsPage nếu tìm thấy từ
+        //        if (_searchViewModel.HasResults &&
+        //            _searchViewModel.CurrentWords != null &&
+        //            _searchViewModel.CurrentWords.Count > 0)
+        //        {
+        //            MainFrame.Navigate(new DetailsPage(_searchViewModel.CurrentWords[0]));
+        //        }
+        //        else if (!_searchViewModel.HasResults)
+        //        {
+        //            MessageBox.Show($"Không tìm thấy từ '{_searchViewModel.SearchText}'",
+        //                "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+        //        }
+        //    }
+        //}
         #endregion
 
         #region THEME TOGGLE 
@@ -465,49 +509,7 @@ namespace BlueBerryDictionary
         }
         #endregion
 
-        private async void SuggestionsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (SuggestionsList.SelectedItem == null) return;
-            string selectedWord = SuggestionsList.SelectedItem.ToString();
-            _searchViewModel.SearchText = selectedWord;
-
-            // Tự động search luôn (optional)
-            if (_searchViewModel.ExecuteSearchCommand.CanExecute(null))
-            {
-                await _searchViewModel.ExecuteSearchCommand.ExecuteAsync(null);
-                if (_searchViewModel.HasResults &&
-                    _searchViewModel.CurrentWords != null &&
-                    _searchViewModel.CurrentWords.Count > 0)
-                {
-                    MainFrame.Navigate(new DetailsPage(_searchViewModel.CurrentWords[0]));
-                }
-            }
-
-            _searchViewModel.IsSuggestionsOpen = false;
-        }
-        /// <summary>
-        /// Search button click handler
-        /// </summary>
-        private async void SearchBtn_Click(object sender, RoutedEventArgs e)
-        {
-            if (_searchViewModel.ExecuteSearchCommand.CanExecute(null))
-            {
-                await _searchViewModel.ExecuteSearchCommand.ExecuteAsync(null);
-
-                // Navigate đến DetailsPage nếu tìm thấy từ
-                if (_searchViewModel.HasResults &&
-                    _searchViewModel.CurrentWords != null &&
-                    _searchViewModel.CurrentWords.Count > 0)
-                {
-                    MainFrame.Navigate(new DetailsPage(_searchViewModel.CurrentWords[0]));
-                }
-                else if (!_searchViewModel.HasResults)
-                {
-                    MessageBox.Show($"Không tìm thấy từ '{_searchViewModel.SearchText}'",
-                        "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-            }
-        }
+        
 
     }
 }

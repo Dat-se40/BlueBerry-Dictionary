@@ -5,6 +5,7 @@ using System.Windows;
 
 namespace BlueBerryDictionary.Data
 {
+    #region Tương tác với PersientStorage
     internal class FileStorage
     {
         static private string _storedWordPath = Path.Combine(
@@ -80,7 +81,7 @@ namespace BlueBerryDictionary.Data
             return list1.Concat(list2).Distinct().ToList();
         }
         public static void Download(List<Word> target)
-        { 
+        {
             string message = string.Empty;
             if (target != null && target.Count != 0)
             {
@@ -98,19 +99,19 @@ namespace BlueBerryDictionary.Data
                 }
 
             }
-            else 
+            else
             {
-                message = "have no word to download"; 
+                message = "have no word to download";
             }
 
-                MessageBox.Show(message, "Download status", MessageBoxButton.OK); 
+            MessageBox.Show(message, "Download status", MessageBoxButton.OK);
         }
 
         public static async Task<Quote?> LoadQuoteAsync(int ID)
         {
             string path = Path.Combine(_storedQuotePath, $"quote_{ID}") + ".json";
             var result = await LoadQuoteAsync(path);
-            return result; 
+            return result;
         }
         public static async Task<Quote?> LoadQuoteAsync(string path)
         {
@@ -118,8 +119,10 @@ namespace BlueBerryDictionary.Data
 
             var content = await File.ReadAllTextAsync(path);
             var obj = JsonConvert.DeserializeObject<Quote>(content);
-            return obj; 
+            return obj;
         }
 
+
+        #endregion
     }
 }

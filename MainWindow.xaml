@@ -129,7 +129,7 @@
                                         Grid.Column="2"
                                         Content="{Binding SearchButtonText}"
                                         Style="{StaticResource SearchButtonStyle}"
-                                        Click="SearchBtn_Click"
+                                        Command="{Binding ExecuteSearchCommand}"
                                         Margin="10,0,0,0"/>
                             </Grid>
                         </Border>
@@ -144,7 +144,7 @@
                                StaysOpen="False"
                                AllowsTransparency="True"
                                PopupAnimation="Slide">
-
+                              
                             <Border Background="White"
                                     BorderBrush="{DynamicResource BorderColor}"
                                     BorderThickness="2"

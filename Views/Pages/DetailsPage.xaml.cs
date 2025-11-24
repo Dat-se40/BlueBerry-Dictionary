@@ -1,5 +1,4 @@
-﻿
-using BlueBerryDictionary.Models;
+﻿using BlueBerryDictionary.Models;
 using System;
 using System.Linq;
 using System.Windows;
@@ -21,11 +20,15 @@ namespace BlueBerryDictionary.Views.Pages
         private string _usAudioUrl;
         private string _ukAudioUrl;
 
-        public DetailsPage(Word word)
+        // Command để search từ mới
+        private ICommand _searchCommand;
+
+        public DetailsPage(Word word, ICommand searchCommand)
         {
             InitializeComponent();
             _word = word;
             _mediaPlayer = new MediaPlayer();
+            _searchCommand = searchCommand;
 
             // Subscribe to Unloaded event
             this.Unloaded += DetailsPage_Unloaded;
@@ -299,9 +302,25 @@ namespace BlueBerryDictionary.Views.Pages
                 tagText.SetResourceReference(TextBlock.ForegroundProperty, "ButtonColor");
                 tag.Child = tagText;
 
-
+                // Capture word và bind với command
                 string capturedWord = word;
-                tag.MouseDown += (s, e) => RelatedWord_Click(capturedWord);
+                tag.MouseDown += (s, e) =>
+                {
+                    Console.WriteLine($"🖱️ Click word: {capturedWord}");
+                    Console.WriteLine($"Command is null? {_searchCommand == null}");
+                    Console.WriteLine($"CanExecute? {_searchCommand?.CanExecute(capturedWord)}");
+
+                    if (_searchCommand != null && _searchCommand.CanExecute(capturedWord))
+                    {
+                        Console.WriteLine("✅ Executing command");
+                        _searchCommand.Execute(capturedWord);
+                    }
+                    else
+                    {
+                        Console.WriteLine("⚠️ Fallback to RelatedWord_Click");
+                        RelatedWord_Click(capturedWord);
+                    }
+                };
 
                 wrapPanel.Children.Add(tag);
             }

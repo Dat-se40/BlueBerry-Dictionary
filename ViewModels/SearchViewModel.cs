@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using BlueBerryDictionary.Models;
+using BlueBerryDictionary.Services;
+using BlueBerryDictionary.Views.Pages;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using BlueBerryDictionary.Models;
 using MyDictionary.Services;
+using System.Collections.ObjectModel;
+using System.IO;
+using System.Windows;
+using System.Windows.Input;
 
 namespace BlueBerryDictionary.ViewModels
 {
@@ -15,10 +16,9 @@ namespace BlueBerryDictionary.ViewModels
         // ==================== SERVICES ====================
         private readonly WordSearchService _searchService;
         private CancellationTokenSource _searchCts;
+        private INavigationService _navigationService;
+        private DetailsPage _detailsPage;
 
-        // Modifier attributed
-        //public int numberSuggestion = 5;
-        //public int delayTime = 200;
         // ==================== OBSERVABLE PROPERTIES ====================
 
         [ObservableProperty]
@@ -50,12 +50,26 @@ namespace BlueBerryDictionary.ViewModels
 
         [ObservableProperty]
         private string _ukAudioUrl;
+        public ICommand SearchFromRelatedWordCommand { get; }
 
         // ==================== CONSTRUCTOR ====================
-        public SearchViewModel()
+        public SearchViewModel(INavigationService navigationService)
         {
             _searchService = new WordSearchService();
             _suggestions = new ObservableCollection<string>();
+            _navigationService = navigationService;
+
+
+            // Thêm command cho các từ đồng nghĩa trái nghĩa
+            SearchFromRelatedWordCommand = new RelayCommand<string>(async (word) =>
+            {
+                if (!string.IsNullOrWhiteSpace(word))
+                {
+                    SearchText = word;
+                    await ExecuteSearchAsync();
+                }
+            });
+
         }
 
         // ==================== PROPERTY CHANGED HANDLERS ====================
@@ -63,6 +77,16 @@ namespace BlueBerryDictionary.ViewModels
         partial void OnSearchTextChanged(string value)
         {
             OnSearchTextChangedAsync();
+        }
+
+        partial void OnCurrentWordsChanged(List<Word> value)
+        {
+            if (value != null && value.Count > 0)
+            {
+                _detailsPage = new DetailsPage(value[0], SearchFromRelatedWordCommand);
+                _detailsPage.DataContext = this;
+                _navigationService.Navigate(_detailsPage);
+            }
         }
 
         // ==================== SEARCH LOGIC ====================
@@ -159,9 +183,10 @@ namespace BlueBerryDictionary.ViewModels
                 SearchButtonText = "Tìm kiếm";
             }
 
-            Console.WriteLine(StatusMessage);   
+            Console.WriteLine(StatusMessage);
         }
 
+        
         /// <summary>
         /// Clear search
         /// </summary>
@@ -195,6 +220,7 @@ namespace BlueBerryDictionary.ViewModels
         [RelayCommand]
         private async Task PlayUsAudio()
         {
+            Console.WriteLine("OKe" + CurrentWords[0].phonetic);
             await PlayAudioAsync(UsAudioUrl);
         }
 
@@ -215,7 +241,12 @@ namespace BlueBerryDictionary.ViewModels
         {
             if (CurrentWords != null && CurrentWords.Count > 0)
             {
-                Data.FileStorage.Download(CurrentWords);
+                if (File.Exists(Data.FileStorage.GetWordFilePath(CurrentWords[0].word)))
+                {
+                    MessageBox.Show("Từ này đã được tải");
+                }
+                else
+                    Data.FileStorage.Download(CurrentWords);
             }
         }
 

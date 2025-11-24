@@ -278,7 +278,7 @@
 
                                 <!-- Download -->
                                 <Button Style="{StaticResource ActionButtonStyle}"
-                                       Click="Download_Click"
+                                       Command="{Binding ExecuteDownloadCommand}"
                                        ToolTip="Tải offline">
                                     <Viewbox Width="18" Height="18">
                                         <Canvas Width="24" Height="24">
