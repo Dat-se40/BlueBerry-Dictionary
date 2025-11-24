@@ -90,46 +90,46 @@
                     </Grid>
 
                     <!-- STATS BAR -->
-                    <Border Background="White" CornerRadius="15" 
-                            BorderBrush="#5b7fff" BorderThickness="2" 
-                            Padding="20" Margin="0,0,0,25">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-
-                            <StackPanel Grid.Column="0" HorizontalAlignment="Center">
-                                <TextBlock Text="24" FontSize="32" FontWeight="Bold" 
-                                           Foreground="#2d4acc" HorizontalAlignment="Center"/>
-                                <TextBlock Text="Tổng số từ" FontSize="14" 
-                                           Foreground="#64748b" HorizontalAlignment="Center"/>
-                            </StackPanel>
-
-                            <StackPanel Grid.Column="1" HorizontalAlignment="Center">
-                                <TextBlock Text="8" FontSize="32" FontWeight="Bold" 
-                                           Foreground="#2d4acc" HorizontalAlignment="Center"/>
-                                <TextBlock Text="Tuần này" FontSize="14" 
-                                           Foreground="#64748b" HorizontalAlignment="Center"/>
-                            </StackPanel>
-
-                            <StackPanel Grid.Column="2" HorizontalAlignment="Center">
-                                <TextBlock Text="16" FontSize="32" FontWeight="Bold" 
-                                           Foreground="#2d4acc" HorizontalAlignment="Center"/>
-                                <TextBlock Text="Tháng này" FontSize="14" 
-                                           Foreground="#64748b" HorizontalAlignment="Center"/>
-                            </StackPanel>
-
-                            <StackPanel Grid.Column="3" HorizontalAlignment="Center">
-                                <TextBlock Text="12" FontSize="32" FontWeight="Bold" 
-                                           Foreground="#2d4acc" HorizontalAlignment="Center"/>
-                                <TextBlock Text="Đã chuyển sang My Words" FontSize="14" 
-                                           Foreground="#64748b" HorizontalAlignment="Center" TextWrapping="Wrap"/>
-                            </StackPanel>
-                        </Grid>
-                    </Border>
+                    <!-- <Border Background="White" CornerRadius="15"  -->
+                    <!--         BorderBrush="#5b7fff" BorderThickness="2"  -->
+                    <!--         Padding="20" Margin="0,0,0,25"> -->
+                    <!--     <Grid> -->
+                    <!--         <Grid.ColumnDefinitions> -->
+                    <!--             <ColumnDefinition Width="*"/> -->
+                    <!--             <ColumnDefinition Width="*"/> -->
+                    <!--             <ColumnDefinition Width="*"/> -->
+                    <!--             <ColumnDefinition Width="*"/> -->
+                    <!--         </Grid.ColumnDefinitions> -->
+                    <!-- -->
+                    <!--         <StackPanel Grid.Column="0" HorizontalAlignment="Center"> -->
+                    <!--             <TextBlock Text="24" FontSize="32" FontWeight="Bold"  -->
+                    <!--                        Foreground="#2d4acc" HorizontalAlignment="Center"/> -->
+                    <!--             <TextBlock Text="Tổng số từ" FontSize="14"  -->
+                    <!--                        Foreground="#64748b" HorizontalAlignment="Center"/> -->
+                    <!--         </StackPanel> -->
+                    <!-- -->
+                    <!--         <StackPanel Grid.Column="1" HorizontalAlignment="Center"> -->
+                    <!--             <TextBlock Text="8" FontSize="32" FontWeight="Bold"  -->
+                    <!--                        Foreground="#2d4acc" HorizontalAlignment="Center"/> -->
+                    <!--             <TextBlock Text="Tuần này" FontSize="14"  -->
+                    <!--                        Foreground="#64748b" HorizontalAlignment="Center"/> -->
+                    <!--         </StackPanel> -->
+                    <!-- -->
+                    <!--         <StackPanel Grid.Column="2" HorizontalAlignment="Center"> -->
+                    <!--             <TextBlock Text="16" FontSize="32" FontWeight="Bold"  -->
+                    <!--                        Foreground="#2d4acc" HorizontalAlignment="Center"/> -->
+                    <!--             <TextBlock Text="Tháng này" FontSize="14"  -->
+                    <!--                        Foreground="#64748b" HorizontalAlignment="Center"/> -->
+                    <!--         </StackPanel> -->
+                    <!-- -->
+                    <!--         <StackPanel Grid.Column="3" HorizontalAlignment="Center"> -->
+                    <!--             <TextBlock Text="12" FontSize="32" FontWeight="Bold"  -->
+                    <!--                        Foreground="#2d4acc" HorizontalAlignment="Center"/> -->
+                    <!--             <TextBlock Text="Đã chuyển sang My Words" FontSize="14"  -->
+                    <!--                        Foreground="#64748b" HorizontalAlignment="Center" TextWrapping="Wrap"/> -->
+                    <!--         </StackPanel> -->
+                    <!--     </Grid> -->
+                    <!-- </Border> -->
 
                     <!-- FILTERS -->
                     <WrapPanel>
