@@ -26,7 +26,7 @@ namespace BlueBerryDictionary
             DataContext = _searchViewModel;
 
             // Navigate to Home page
-            MainFrame.Navigate(new HomePage());
+            MainFrame.Navigate(new HomePage(_searchViewModel.OnWordClicked));
         }
 
         #region SideBar
@@ -104,9 +104,9 @@ namespace BlueBerryDictionary
         /// </summary>
         private void NavigateToPage(string pageTag)
         {
-            Page page = pageTag switch
+            var page = pageTag switch
             {
-                "Home" => new HomePage(),
+                "Home" => new HomePage(_searchViewModel.OnWordClicked),
                 //"History" => new Home(), // TODO: Create History page
                 //"Favourite" => new Home(), // TODO: Create Favourite page
                 //"MyWords" => new Home(), // TODO: Create MyWords page

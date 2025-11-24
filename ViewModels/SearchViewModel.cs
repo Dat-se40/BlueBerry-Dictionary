@@ -88,7 +88,7 @@ namespace BlueBerryDictionary.ViewModels
                 _navigationService.Navigate(_detailsPage);
             }
         }
-        private async void OnWordClicked(string word)
+        public async void OnWordClicked(string word)
         {
             if (string.IsNullOrWhiteSpace(word))
                 return;
