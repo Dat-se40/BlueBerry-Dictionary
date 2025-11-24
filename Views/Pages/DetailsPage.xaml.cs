@@ -9,7 +9,7 @@ using System.Windows.Media;
 
 namespace BlueBerryDictionary.Views.Pages
 {
-    public partial class DetailsPage : Page, IDisposable
+    public partial class DetailsPage : WordListPageBase, IDisposable
     {
         private Word _word;
         private MediaPlayer _mediaPlayer;
@@ -23,12 +23,12 @@ namespace BlueBerryDictionary.Views.Pages
         // Command để search từ mới
         private ICommand _searchCommand;
 
-        public DetailsPage(Word word, ICommand searchCommand)
+        public DetailsPage(Word word, Action<string> action) : base(action)
         {
             InitializeComponent();
             _word = word;
             _mediaPlayer = new MediaPlayer();
-            _searchCommand = searchCommand;
+            //_searchCommand = searchCommand;
 
             // Subscribe to Unloaded event
             this.Unloaded += DetailsPage_Unloaded;
@@ -306,20 +306,7 @@ namespace BlueBerryDictionary.Views.Pages
                 string capturedWord = word;
                 tag.MouseDown += (s, e) =>
                 {
-                    Console.WriteLine($"🖱️ Click word: {capturedWord}");
-                    Console.WriteLine($"Command is null? {_searchCommand == null}");
-                    Console.WriteLine($"CanExecute? {_searchCommand?.CanExecute(capturedWord)}");
-
-                    if (_searchCommand != null && _searchCommand.CanExecute(capturedWord))
-                    {
-                        Console.WriteLine("✅ Executing command");
-                        _searchCommand.Execute(capturedWord);
-                    }
-                    else
-                    {
-                        Console.WriteLine("⚠️ Fallback to RelatedWord_Click");
-                        RelatedWord_Click(capturedWord);
-                    }
+                    base.HandleWordClick(capturedWord); 
                 };
 
                 wrapPanel.Children.Add(tag);

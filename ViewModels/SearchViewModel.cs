@@ -83,12 +83,19 @@ namespace BlueBerryDictionary.ViewModels
         {
             if (value != null && value.Count > 0)
             {
-                _detailsPage = new DetailsPage(value[0], SearchFromRelatedWordCommand);
+                _detailsPage = new DetailsPage(value[0], OnWordClicked);
                 _detailsPage.DataContext = this;
                 _navigationService.Navigate(_detailsPage);
             }
         }
+        private async void OnWordClicked(string word)
+        {
+            if (string.IsNullOrWhiteSpace(word))
+                return;
 
+            SearchText = word;
+            await ExecuteSearchAsync();
+        }
         // ==================== SEARCH LOGIC ====================
 
         /// <summary>

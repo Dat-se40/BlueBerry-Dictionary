@@ -1,13 +1,14 @@
-﻿<Page x:Class="BlueBerryDictionary.Views.Pages.DetailsPage"
+﻿<local:WordListPageBase x:Class="BlueBerryDictionary.Views.Pages.DetailsPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      mc:Ignorable="d"
-      d:DesignHeight="800" d:DesignWidth="1400"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BlueBerryDictionary.Views.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="800" d:DesignWidth="1080"
       Background="{DynamicResource MainBackground}">
 
-    <Page.Resources>
+    <local:WordListPageBase.Resources>
         <!-- Phonetic Button Style với Hover Animation -->
         <Style x:Key="PhoneticButtonStyle" TargetType="Border">
             <Setter Property="Background" Value="{DynamicResource WordItemBackground}"/>
@@ -70,7 +71,7 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-    </Page.Resources>
+    </local:WordListPageBase.Resources>
 
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <Grid Margin="30">
@@ -341,4 +342,4 @@
             </Border>
         </Grid>
     </ScrollViewer>
-</Page>
+</local:WordListPageBase>
