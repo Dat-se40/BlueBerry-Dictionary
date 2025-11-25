@@ -1,4 +1,5 @@
-﻿using BlueBerryDictionary.Services;
+﻿using BlueBerryDictionary.Pages;
+using BlueBerryDictionary.Services;
 using BlueBerryDictionary.ViewModels;
 using BlueBerryDictionary.Views.Pages;
 using System.Windows;
@@ -104,19 +105,42 @@ namespace BlueBerryDictionary
         /// </summary>
         private void NavigateToPage(string pageTag)
         {
-            var page = pageTag switch
+            Page? page = null;
+            switch (pageTag)
             {
-                "Home" => new HomePage(_searchViewModel.OnWordClicked),
-                //"History" => new Home(), // TODO: Create History page
-                //"Favourite" => new Home(), // TODO: Create Favourite page
-                //"MyWords" => new Home(), // TODO: Create MyWords page
-                //"Game" => new Home(), // TODO: Create Game page
-                //"Offline" => new Home(), // TODO: Create Offline page
-                //"Account" => new Home(), // TODO: Create Account page
-                //"Setting" => new Home(), // TODO: Create Setting page
-                //_ => new Home()
-            };
-
+                case "Home":
+                    page = new HomePage(_searchViewModel.OnWordClicked);
+                    break;
+                case "History":
+                    var hisp = new HistoryPage(); // TODO: Create History page
+                    hisp.LoadCache();
+                    page = hisp;    
+                    break;
+                // Uncomment and implement these cases when the pages are available
+                //case "Favourite":
+                //    page = new FavouritePage();
+                //    break;
+                //case "MyWords":
+                //    page = new MyWordsPage();
+                //    break;
+                //case "Game":
+                //    page = new GamePage();
+                //    break;
+                //case "Offline":
+                //    page = new OfflinePage();
+                //    break;
+                //case "Account":
+                //    page = new AccountPage();
+                //    break;
+                //case "Setting":
+                //    page = new SettingPage();
+                //    break;
+                default:
+                    // Handle unknown or empty pageTag
+                    page = new HomePage(_searchViewModel.OnWordClicked);
+                    break;
+            }
+            Console.WriteLine("Navigate to " + page.ToString());
             MainFrame.Navigate(page);
         }
 

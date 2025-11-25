@@ -1,18 +1,44 @@
 ﻿using BlueBerryDictionary.Models;
 using System.Collections.Concurrent;
+using System.Runtime.CompilerServices;
 
 namespace MyDictionary.Services
 {
+    public class CacheEntry
+    {
+        public List<Word> _words { get; set; }
+        public DateTime _lastAccessed { get; set; }
+    }
     internal class WordCacheManager
     {
         private int _maxCacheSize = 100;
-        private ConcurrentDictionary<string, CacheEntry> _memoryCache = new(); 
+        private ConcurrentDictionary<string, CacheEntry> _memoryCache = new();
 
-        private class CacheEntry
+        // Singleton pattern
+        private static WordCacheManager? _instance;
+        private static readonly object _lock = new object();
+
+        public static WordCacheManager Instance
         {
-            public List<Word> _words { get; set; }  
-            public DateTime _lastAccessed { get; set; } 
+            get
+            {
+                if (_instance == null)
+                {
+                    lock (_lock)
+                    {
+                        if (_instance == null)
+                        {
+                            _instance = new WordCacheManager();
+                        }
+                    }
+                }
+                return _instance;
+            }
         }
+
+        private WordCacheManager() { }
+
+      
         public void AddToCache(string word, List<Word> words)
         {
             if (_memoryCache.ContainsKey(word)) return;
@@ -41,6 +67,11 @@ namespace MyDictionary.Services
         {
             if (_memoryCache.ContainsKey(key)) return _memoryCache[key]._words;
             else return null; 
+        }
+
+        public List<CacheEntry> GetAllCacheEntries() 
+        {
+            return _memoryCache.Values.ToList();    
         }
     }
 }
