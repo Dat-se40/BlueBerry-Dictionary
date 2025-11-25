@@ -1,12 +1,14 @@
 ﻿<UserControl x:Class="BlueBerryDictionary.Views.UserControls.WordDefinitionCard"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:BlueBerryDictionary.Views.UserControls"
-             mc:Ignorable="d" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
+
     <UserControl.Resources>
+
+        <!-- MAIN GRADIENTS -->
         <LinearGradientBrush x:Key="ButtonGradient" StartPoint="0,0" EndPoint="1,1">
             <GradientStop Color="#2d4acc" Offset="0"/>
             <GradientStop Color="#5b7fff" Offset="1"/>
@@ -17,45 +19,115 @@
             <GradientStop Color="#f8faff" Offset="1"/>
         </LinearGradientBrush>
 
-        <!-- Button Style -->
+        <!-- HOVER BUTTON STYLE -->
         <Style x:Key="RoundButton" TargetType="Button">
             <Setter Property="Background" Value="{StaticResource ButtonGradient}"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                </Setter.Value>
+            </Setter>
+
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" 
-                         CornerRadius="10" 
-                         Padding="{TemplateBinding Padding}">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="10"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Opacity" Value="0.85"/>
+                    <Setter Property="RenderTransform">
+                        <Setter.Value>
+                            <ScaleTransform ScaleX="1.07" ScaleY="1.07"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
         </Style>
 
-        <!-- Card Style -->
+        <!-- CARD STYLE WITH HOVER -->
         <Style x:Key="FavCard" TargetType="Border">
             <Setter Property="Background" Value="{StaticResource CardGradient}"/>
             <Setter Property="CornerRadius" Value="15"/>
             <Setter Property="Padding" Value="25"/>
             <Setter Property="BorderBrush" Value="#e8f1ff"/>
             <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                </Setter.Value>
+            </Setter>
             <Setter Property="Effect">
                 <Setter.Value>
                     <DropShadowEffect Color="Black" Opacity="0.1" BlurRadius="10" ShadowDepth="2"/>
                 </Setter.Value>
             </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect Color="Black" Opacity="0.25" BlurRadius="18" ShadowDepth="0"/>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="RenderTransform">
+                        <Setter.Value>
+                            <ScaleTransform ScaleX="1.02" ScaleY="1.02"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
         </Style>
+
+        <!-- MINI BUTTON TEMPLATE (❤️ 💾 ❌) -->
+        <ControlTemplate x:Key="IconButtonTemplate" TargetType="Button">
+            <Border x:Name="btnBorder"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="10"
+                    RenderTransformOrigin="0.5,0.5">
+                <Border.RenderTransform>
+                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                </Border.RenderTransform>
+
+                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="btnBorder" Property="Opacity" Value="0.85"/>
+                    <Setter TargetName="btnBorder" Property="RenderTransform">
+                        <Setter.Value>
+                            <ScaleTransform ScaleX="1.12" ScaleY="1.12"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
     </UserControl.Resources>
 
-    <Border Background="{StaticResource CardGradient}" 
-            CornerRadius="15" Padding="25" Margin="10"
-            BorderBrush="#e8f1ff" BorderThickness="2">
+
+    <!-- MAIN CARD -->
+    <Border Style="{StaticResource FavCard}" Margin="10">
+
         <StackPanel>
+
             <!-- HEADER -->
             <Grid Margin="0,0,0,20">
                 <Grid.ColumnDefinitions>
@@ -63,7 +135,7 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <!-- Word + POS -->
+                <!-- WORD + POS -->
                 <StackPanel Grid.Column="0">
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                         <TextBlock Text="{Binding Word}" FontSize="24"
@@ -72,11 +144,12 @@
                         <Border Background="{StaticResource ButtonGradient}"
                                 CornerRadius="15" Padding="8,3" Margin="10,0,0,0">
                             <TextBlock Text="{Binding PartOfSpeech}"
-                                       FontSize="10" FontWeight="Bold" Foreground="White"/>
+                                       FontSize="10" FontWeight="Bold" Foreground="White"
+                                       Margin="10"/>
                         </Border>
                     </StackPanel>
 
-                    <!-- Pronounce -->
+                    <!-- PRONOUNCE -->
                     <StackPanel Orientation="Horizontal">
                         <Border Background="#E8F1FF" CornerRadius="8" Padding="8,3" Margin="0,0,10,0">
                             <TextBlock Text="{Binding Region}" FontSize="11"
@@ -89,55 +162,29 @@
                     </StackPanel>
                 </StackPanel>
 
+
                 <!-- ACTION BUTTONS -->
                 <StackPanel Grid.Column="1" Orientation="Horizontal">
-                    <Button Content="❤️" Width="40" Height="40" 
-         Background="White" Foreground="#2d4acc"
-         BorderBrush="#5b7fff" BorderThickness="2" 
-         Margin="3" Cursor="Hand">
-                        <Button.Template>
-                            <ControlTemplate TargetType="Button">
-                                <Border Background="{TemplateBinding Background}" 
-                     BorderBrush="{TemplateBinding BorderBrush}"
-                     BorderThickness="{TemplateBinding BorderThickness}"
-                     CornerRadius="10">
-                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
-                    <Button Content="💾" Width="40" Height="40" 
-         Background="White" Foreground="#2d4acc"
-         BorderBrush="#5b7fff" BorderThickness="2" 
-         Margin="3" Cursor="Hand">
-                        <Button.Template>
-                            <ControlTemplate TargetType="Button">
-                                <Border Background="{TemplateBinding Background}" 
-                     BorderBrush="{TemplateBinding BorderBrush}"
-                     BorderThickness="{TemplateBinding BorderThickness}"
-                     CornerRadius="10">
-                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
-                    <Button Content="❌" Width="40" Height="40" 
-         Background="White" Foreground="#dc2626"
-         BorderBrush="#5b7fff" BorderThickness="2" 
-         Margin="3" Cursor="Hand">
-                        <Button.Template>
-                            <ControlTemplate TargetType="Button">
-                                <Border Background="{TemplateBinding Background}" 
-                     BorderBrush="{TemplateBinding BorderBrush}"
-                     BorderThickness="{TemplateBinding BorderThickness}"
-                     CornerRadius="10">
-                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
+                    <Button Content="❤️" Width="40" Height="40"
+                            Background="White" Foreground="#2d4acc"
+                            BorderBrush="#5b7fff" BorderThickness="2"
+                            Margin="3" Cursor="Hand"
+                            Template="{StaticResource IconButtonTemplate}"/>
+
+                    <Button Content="💾" Width="40" Height="40"
+                            Background="White" Foreground="#2d4acc"
+                            BorderBrush="#5b7fff" BorderThickness="2"
+                            Margin="3" Cursor="Hand"
+                            Template="{StaticResource IconButtonTemplate}"/>
+
+                    <Button Content="❌" Width="40" Height="40"
+                            Background="White" Foreground="#dc2626"
+                            BorderBrush="#5b7fff" BorderThickness="2"
+                            Margin="3" Cursor="Hand"
+                            Template="{StaticResource IconButtonTemplate}"/>
                 </StackPanel>
             </Grid>
+
 
             <!-- DEFINITION -->
             <StackPanel Margin="0,0,0,20">
@@ -152,6 +199,7 @@
                         <TextBlock Text="{Binding Example1}"
                                    FontStyle="Italic" FontSize="12"
                                    Foreground="#64748b" Margin="0,0,0,5"/>
+
                         <TextBlock Text="{Binding Example2}"
                                    FontStyle="Italic" FontSize="12"
                                    Foreground="#64748b"/>
@@ -159,12 +207,14 @@
                 </Border>
             </StackPanel>
 
+
             <!-- FOOTER -->
             <Border BorderBrush="#cbd5e1" BorderThickness="0,1,0,0" Padding="0,15,0,0">
-                <TextBlock Text="{Binding TimeSpan}"
+                <TextBlock Text="{Binding TimeStamp}"
                            FontSize="12" Foreground="#64748b"/>
             </Border>
 
         </StackPanel>
     </Border>
+
 </UserControl>
