@@ -1,14 +1,13 @@
-﻿
-
+﻿using BlueBerryDictionary.Pages;
+using BlueBerryDictionary.Services;
+using BlueBerryDictionary.ViewModels;
 using BlueBerryDictionary.Views.Pages;
-using BlueBerryDictionary.Views.UserControls;
-using System;
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using NavigationService = BlueBerryDictionary.Services.NavigationService;
 using BlueBerryDictionary.Pages;
 using BlueBerryDictionary.Views;
 using DictionaryApp;
@@ -17,243 +16,345 @@ namespace BlueBerryDictionary
 {
     public partial class MainWindow : Window
     {
-        private bool isDarkMode = false;
-        private bool isSidebarOpen = false;
-
-        // Navigation history
-        private Stack<Page> backStack = new Stack<Page>();
-        private Stack<Page> forwardStack = new Stack<Page>();
-
+        private SearchViewModel _searchViewModel;
+        private bool _isSidebarOpen = false;
+        private bool _isDarkMode = false;
+        private INavigationService _navigationService;   
         public MainWindow()
         {
             InitializeComponent();
 
-            // Load HomePage mặc định
-            MainFrame.Navigate(new HomePage());
+            // Initialize ViewModel
+            _navigationService = new NavigationService(MainFrame); 
+            _searchViewModel = new SearchViewModel(_navigationService);
+            DataContext = _searchViewModel;
+
+            // Navigate to Home page
+            MainFrame.Navigate(new HomePage(_searchViewModel.OnWordClicked));
         }
 
-        // ============ HAMBURGER BUTTON ============
+        #region SideBar
+
+        /// <summary>
+        /// Toggle Sidebar (Hamburger button)
+        /// </summary>
         private void HamburgerBtn_Click(object sender, RoutedEventArgs e)
         {
-            ToggleSidebar();
+            if (_isSidebarOpen)
+                CloseSidebar();
+            else
+                OpenSidebar();
         }
 
-        private void ToggleSidebar()
+        /// <summary>
+        /// Open Sidebar with animation
+        /// </summary>
+        private void OpenSidebar()
         {
-            isSidebarOpen = !isSidebarOpen;
+            _isSidebarOpen = true;
+            Overlay.Visibility = Visibility.Visible;
 
-            var transform = Sidebar.RenderTransform as TranslateTransform;
-            if (transform == null)
+            var animation = new DoubleAnimation
             {
-                transform = new TranslateTransform();
-                Sidebar.RenderTransform = transform;
-            }
-
-            DoubleAnimation animation = new DoubleAnimation
-            {
+                From = -280,
+                To = 0,
                 Duration = TimeSpan.FromMilliseconds(300),
-                EasingFunction = new QuadraticEase { EasingMode = EasingMode.EaseOut }
+                EasingFunction = new CubicEase { EasingMode = EasingMode.EaseOut }
             };
 
-            if (isSidebarOpen)
-            {
-                animation.To = 0;
-                Overlay.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                animation.To = -280;
-                Overlay.Visibility = Visibility.Collapsed;
-            }
-
-            transform.BeginAnimation(TranslateTransform.XProperty, animation);
+            Sidebar.RenderTransform.BeginAnimation(TranslateTransform.XProperty, animation);
         }
 
+        /// <summary>
+        /// Close Sidebar with animation
+        /// </summary>
+        private void CloseSidebar()
+        {
+            _isSidebarOpen = false;
+
+            var animation = new DoubleAnimation
+            {
+                From = 0,
+                To = -280,
+                Duration = TimeSpan.FromMilliseconds(300),
+                EasingFunction = new CubicEase { EasingMode = EasingMode.EaseIn }
+            };
+
+            animation.Completed += (s, e) => Overlay.Visibility = Visibility.Collapsed;
+            Sidebar.RenderTransform.BeginAnimation(TranslateTransform.XProperty, animation);
+        }
+
+        /// <summary>
+        /// Close sidebar when clicking overlay
+        /// </summary>
         private void Overlay_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (isSidebarOpen)
-            {
-                ToggleSidebar();
-            }
+            CloseSidebar();
         }
 
-        // ============ SIDEBAR NAVIGATION ============
+        /// <summary>
+        /// Sidebar menu item click
+        /// </summary>
         private void SidebarItem_Click(object sender, RoutedEventArgs e)
         {
-            var button = sender as Button;
-            if (button == null) return;
-
-            string tag = button.Tag?.ToString();
-            NavigateToPage(tag);
-            ToggleSidebar();
+            if (sender is Button button && button.Tag is string pageTag)
+            {
+                NavigateToPage(pageTag);
+                CloseSidebar();
+            }
         }
-
-        private void NavigateToPage(string pageName)
+        /// <summary>
+        /// Navigate to page based on tag
+        /// </summary>
+        private void NavigateToPage(string pageTag)
         {
-            Page newPage = null;
-
-            switch (pageName)
+            Page? page = null;
+            switch (pageTag)
             {
                 case "Home":
-                    newPage = new HomePage();
+                    page = new HomePage(_searchViewModel.OnWordClicked);
                     break;
                 
                 case "History":
-                    newPage = new HistoryPage();
+                    var hisp = new HistoryPage(); // TODO: Create History page
+                    hisp.LoadCache();
+                    page = hisp;    
                     break;
-                
-                case "Favourite":
-                    newPage = new FavouriteWordsPage();
-                    break;
-                
-                case "MyWords":
-                    newPage = new MyWordsPage();
-                    break;
-                // TODO: Các page chưa làm - Tạm thời hiển thị thông báo
-                case "Game":
-                case "Offline":
-                case "Setting":
-                case "Account":
-                    MessageBox.Show($"Trang '{pageName}' đang được phát triển...",
-                        "Thông báo",
-                        MessageBoxButton.OK,
-                        MessageBoxImage.Information);
-                    return;
-
+                // Uncomment and implement these cases when the pages are available
+                //case "Favourite":
+                //    page = new FavouritePage();
+                //    break;
+                //case "MyWords":
+                //    page = new MyWordsPage();
+                //    break;
+                //case "Game":
+                //    page = new GamePage();
+                //    break;
+                //case "Offline":
+                //    page = new OfflinePage();
+                //    break;
+                //case "Account":
+                //    page = new AccountPage();
+                //    break;
+                //case "Setting":
+                //    page = new SettingPage();
+                //    break;
                 default:
-                    return;
+                    // Handle unknown or empty pageTag
+                    page = new HomePage(_searchViewModel.OnWordClicked);
+                    break;
             }
-
-            if (newPage != null)
-            {
-                // Lưu trang hiện tại vào backStack
-                if (MainFrame.Content != null)
-                {
-                    backStack.Push((Page)MainFrame.Content);
-                }
-
-                // Clear forward stack
-                forwardStack.Clear();
-
-                MainFrame.Navigate(newPage);
-                UpdateNavigationButtons();
-            }
+            Console.WriteLine("Navigate to " + page.ToString());
+            MainFrame.Navigate(page);
         }
 
-        // ============ NAVIGATION BUTTONS ============
+        #endregion
+
+        #region Navigation
+        // ==================== NAVIGATION ====================
+
+        /// <summary>
+        /// Back button click
+        /// </summary>
         private void BackBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (backStack.Count > 0)
-            {
-                // Lưu trang hiện tại vào forwardStack
-                forwardStack.Push((Page)MainFrame.Content);
-
-                // Lấy trang trước đó
-                var previousPage = backStack.Pop();
-                MainFrame.Navigate(previousPage);
-
-                UpdateNavigationButtons();
-            }
+            if (MainFrame.CanGoBack)
+                MainFrame.GoBack();
         }
 
+        /// <summary>
+        /// Forward button click
+        /// </summary>
         private void ForwardBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (forwardStack.Count > 0)
-            {
-                // Lưu trang hiện tại vào backStack
-                backStack.Push((Page)MainFrame.Content);
-
-                // Lấy trang tiếp theo
-                var nextPage = forwardStack.Pop();
-                MainFrame.Navigate(nextPage);
-
-                UpdateNavigationButtons();
-            }
+            if (MainFrame.CanGoForward)
+                MainFrame.GoForward();
         }
 
+        /// <summary>
+        /// Reload button click
+        /// </summary>
         private void ReloadBtn_Click(object sender, RoutedEventArgs e)
         {
-            // Animation xoay cho reload button
-            DoubleAnimation rotateAnimation = new DoubleAnimation
+            // Rotate animation for reload icon
+            var rotateAnimation = new DoubleAnimation
             {
                 From = 0,
                 To = 360,
                 Duration = TimeSpan.FromMilliseconds(500),
-                EasingFunction = new QuadraticEase { EasingMode = EasingMode.EaseInOut }
+                EasingFunction = new QuadraticEase()
             };
 
-            RotateTransform rotateTransform = new RotateTransform();
+            var rotateTransform = new RotateTransform();
             ReloadIcon.RenderTransform = rotateTransform;
             ReloadIcon.RenderTransformOrigin = new Point(0.5, 0.5);
-
             rotateTransform.BeginAnimation(RotateTransform.AngleProperty, rotateAnimation);
 
-            // Reload trang hiện tại
+            // Refresh current page
             if (MainFrame.Content != null)
             {
                 MainFrame.Refresh();
             }
         }
 
+        /// <summary>
+        /// Update navigation buttons when frame navigated
+        /// </summary>
         private void MainFrame_Navigated(object sender, System.Windows.Navigation.NavigationEventArgs e)
         {
-            UpdateNavigationButtons();
+            BackBtn.IsEnabled = MainFrame.CanGoBack;
+            ForwardBtn.IsEnabled = MainFrame.CanGoForward;
         }
+        #endregion
 
-        private void UpdateNavigationButtons()
-        {
-            BackBtn.IsEnabled = backStack.Count > 0;
-            ForwardBtn.IsEnabled = forwardStack.Count > 0;
-        }
+        #region Search & Suggestion
+        // ==================== SEARCH & SUGGESTIONS ====================
 
-        // ============ SEARCH ============
-        private void SearchInput_GotFocus(object sender, RoutedEventArgs e)
-        {
-            if (SearchInput.Text == "Nhập từ cần tra...")
-            {
-                SearchInput.Text = "";
-                SearchInput.Foreground = (SolidColorBrush)this.Resources["SearchText"];
-            }
-        }
-
-        private void SearchInput_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(SearchInput.Text))
-            {
-                SearchInput.Text = "Nhập từ cần tra...";
-                SearchInput.Foreground = (SolidColorBrush)this.Resources["SearchPlaceholder"];
-            }
-        }
-
-        private void SearchInput_KeyDown(object sender, KeyEventArgs e)
+        /// <summary>
+        /// Search input key down (Enter to search, Esc to close suggestions)
+        /// </summary>
+        private async void SearchInput_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                SearchBtn_Click(sender, e);
+                if (_searchViewModel.ExecuteSearchCommand.CanExecute(null))
+                {
+                    await _searchViewModel.ExecuteSearchCommand.ExecuteAsync(null);
+
+                    // Navigate to DetailsPage
+                    if (_searchViewModel.HasResults &&
+                        _searchViewModel.CurrentWords != null &&
+                        _searchViewModel.CurrentWords.Count > 0)
+                    {
+                      //[se fix sau]  MainFrame.Navigate(new DetailsPage(_searchViewModel.CurrentWords[0]));
+                    }
+                }
+            }
+            else if (e.Key == Key.Escape)
+            {
+                // Close suggestions popup
+                _searchViewModel.IsSuggestionsOpen = false;
+                SearchInput.Focus();
+            }
+            else if (e.Key == Key.Down && _searchViewModel.IsSuggestionsOpen)
+            {
+                // Navigate to suggestions list with arrow keys
+                if (SuggestionsList.Items.Count > 0)
+                {
+                    SuggestionsList.Focus();
+                    SuggestionsList.SelectedIndex = 0;
+
+                    // Focus on first item
+                    var listBoxItem = SuggestionsList.ItemContainerGenerator
+                        .ContainerFromIndex(0) as ListBoxItem;
+                    listBoxItem?.Focus();
+                }
+                e.Handled = true;
             }
         }
 
-        private void SearchBtn_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// When search input gets focus, show suggestions if available
+        /// </summary>
+        private void SearchInput_GotFocus(object sender, RoutedEventArgs e)
         {
-            string searchText = SearchInput.Text;
-
-            if (!string.IsNullOrWhiteSpace(searchText) && searchText != "Nhập từ cần tra...")
+            if (!string.IsNullOrWhiteSpace(_searchViewModel.SearchText) &&
+                _searchViewModel.Suggestions.Count > 0)
             {
-                MessageBox.Show($"Đang tìm kiếm: {searchText}", "Tìm kiếm",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-                // TODO: Implement search logic
-            }
-            else
-            {
-                MessageBox.Show("Vui lòng nhập từ cần tra!", "Cảnh báo",
-                    MessageBoxButton.OK, MessageBoxImage.Warning);
+                _searchViewModel.IsSuggestionsOpen = true;
             }
         }
 
-        // ============ THEME TOGGLE ============
+        /// <summary>
+        /// When search input loses focus, close suggestions (with delay for click handling)
+        /// </summary>
+        private void SearchInput_LostFocus(object sender, RoutedEventArgs e)
+        {
+            // Delay to allow click on suggestion item
+            Dispatcher.BeginInvoke(new Action(() =>
+            {
+                if (!SuggestionsList.IsMouseOver && !SuggestionsPopup.IsMouseOver)
+                {
+                    _searchViewModel.IsSuggestionsOpen = false;
+                }
+            }), System.Windows.Threading.DispatcherPriority.Input);
+        }
+
+        /// <summary>
+        /// Handle suggestion item click
+        /// </summary>
+        private async void SuggestionsList_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            // Find clicked ListBoxItem
+            var listBox = sender as ListBox;
+            if (listBox == null) return;
+
+            // Get the clicked item
+            var clickedElement = e.OriginalSource as DependencyObject;
+            var item = ItemsControl.ContainerFromElement(listBox, clickedElement) as ListBoxItem;
+
+            if (item != null && item.Content is string selectedWord)
+            {
+                // Execute select suggestion command
+                if (_searchViewModel.ExecuteSelectSuggestionCommand.CanExecute(selectedWord))
+                {
+                    await _searchViewModel.ExecuteSelectSuggestionCommand.ExecuteAsync(selectedWord);
+                }
+            }
+        }
+        private async void SuggestionsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (SuggestionsList.SelectedItem == null) return;
+            string selectedWord = SuggestionsList.SelectedItem.ToString();
+            _searchViewModel.SearchText = selectedWord;
+
+            // Tự động search luôn (optional)
+            //if (_searchViewModel.ExecuteSearchCommand.CanExecute(null))
+            //{
+            //    await _searchViewModel.ExecuteSearchCommand.ExecuteAsync(null);
+            //    if (_searchViewModel.HasResults &&
+            //        _searchViewModel.CurrentWords != null &&
+            //        _searchViewModel.CurrentWords.Count > 0)
+            //    {
+            //        //[Se fix sau]MainFrame.Navigate(new DetailsPage(_searchViewModel.CurrentWords[0]));
+            //    }
+            //}
+
+            _searchViewModel.IsSuggestionsOpen = false;
+        }
+        /// <summary>
+        /// Search button click handler
+        /// </summary>
+        //private async void SearchBtn_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (_searchViewModel.ExecuteSearchCommand.CanExecute(null))
+        //    {
+        //        await _searchViewModel.ExecuteSearchCommand.ExecuteAsync(null);
+
+        //        // Navigate đến DetailsPage nếu tìm thấy từ
+        //        if (_searchViewModel.HasResults &&
+        //            _searchViewModel.CurrentWords != null &&
+        //            _searchViewModel.CurrentWords.Count > 0)
+        //        {
+        //            MainFrame.Navigate(new DetailsPage(_searchViewModel.CurrentWords[0]));
+        //        }
+        //        else if (!_searchViewModel.HasResults)
+        //        {
+        //            MessageBox.Show($"Không tìm thấy từ '{_searchViewModel.SearchText}'",
+        //                "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+        //        }
+        //    }
+        //}
+        #endregion
+
+        #region THEME TOGGLE 
+
+        /// <summary>
+        /// Toggle between light and dark theme
+        /// </summary>
         private void ThemeToggle_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            isDarkMode = !isDarkMode;
+            _isDarkMode = !_isDarkMode;
 
             DoubleAnimation sliderAnimation = new DoubleAnimation
             {
@@ -268,7 +369,7 @@ namespace BlueBerryDictionary
                 ThemeSlider.RenderTransform = transform;
             }
 
-            if (isDarkMode)
+            if (_isDarkMode)
             {
                 // Chuyển sang Dark Mode
                 sliderAnimation.To = 36;
@@ -332,11 +433,33 @@ namespace BlueBerryDictionary
             app.Resources["ThemeSliderBackground"] = app.Resources["LightThemeSliderBackground"];
             app.Resources["ThemeIconColor"] = app.Resources["LightThemeIconColor"];
 
-            // Update search placeholder color
+            // Meaning Section
+            app.Resources["MeaningBackground"] = app.Resources["LightMeaningBackground"];
+            app.Resources["MeaningBorder"] = app.Resources["LightMeaningBorder"];
+            app.Resources["MeaningBorderLeft"] = app.Resources["LightMeaningBorderLeft"];
+
+            // Example
+            app.Resources["ExampleBackground"] = app.Resources["LightExampleBackground"];
+            app.Resources["ExampleBorder"] = app.Resources["LightExampleBorder"];
+
+            // Related Section
+            app.Resources["RelatedBackground"] = app.Resources["LightRelatedBackground"];
+            app.Resources["RelatedBorder"] = app.Resources["LightRelatedBorder"];
+
+
+
+            // Update search input color
             if (SearchInput.Text == "Nhập từ cần tra...")
             {
+                // Nếu đang hiện placeholder → màu xám
                 SearchInput.Foreground = (SolidColorBrush)app.Resources["SearchPlaceholder"];
             }
+            else if (!string.IsNullOrEmpty(SearchInput.Text))
+            {
+                // Nếu đang có chữ → màu đen (Light Mode)
+                SearchInput.Foreground = (SolidColorBrush)app.Resources["SearchText"];
+            }
+
         }
 
         private void ApplyDarkMode()
@@ -385,12 +508,36 @@ namespace BlueBerryDictionary
             app.Resources["ThemeSliderBackground"] = app.Resources["DarkThemeSliderBackground"];
             app.Resources["ThemeIconColor"] = app.Resources["DarkThemeIconColor"];
 
-            // Update search placeholder color
+            // Meaning Section
+            app.Resources["MeaningBackground"] = app.Resources["DarkMeaningBackground"];
+            app.Resources["MeaningBorder"] = app.Resources["DarkMeaningBorder"];
+            app.Resources["MeaningBorderLeft"] = app.Resources["DarkMeaningBorderLeft"];
+
+            // Example
+            app.Resources["ExampleBackground"] = app.Resources["DarkExampleBackground"];
+            app.Resources["ExampleBorder"] = app.Resources["DarkExampleBorder"];
+
+            // Related Section
+            app.Resources["RelatedBackground"] = app.Resources["DarkRelatedBackground"];
+            app.Resources["RelatedBorder"] = app.Resources["DarkRelatedBorder"];
+
+
+            // Update search input color
             if (SearchInput.Text == "Nhập từ cần tra...")
             {
+                // Nếu đang hiện placeholder → màu xám
                 SearchInput.Foreground = (SolidColorBrush)app.Resources["SearchPlaceholder"];
             }
+            else if (!string.IsNullOrEmpty(SearchInput.Text))
+            {
+                // Nếu đang có chữ → màu trắng (Dark Mode)
+                SearchInput.Foreground = (SolidColorBrush)app.Resources["SearchText"];
+            }
+
         }
+        #endregion
+
+        
 
     }
 }

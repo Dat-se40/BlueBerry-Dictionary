@@ -14,7 +14,7 @@ namespace MyDictionary.Services
 
         public WordSearchService()
         {
-            _cacheManager = new WordCacheManager();
+            _cacheManager = WordCacheManager.Instance;
             _apiClient = new DictionaryApiClient();
             _dictionary = FileStorage.BuildDictionary();
         }

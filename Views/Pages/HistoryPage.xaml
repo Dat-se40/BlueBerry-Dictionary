@@ -1,18 +1,18 @@
 ﻿<Page x:Class="BlueBerryDictionary.Pages.HistoryPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:uc="clr-namespace:BlueBerryDictionary.Views.UserControls"
-      mc:Ignorable="d"
+      xmlns:userControls="clr-namespace:BlueBerryDictionary.Views.UserControls"
+      mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="1200"
       Background="{DynamicResource MainBackground}">
 
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
         <Grid Margin="30">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
             <!-- ================================= -->
@@ -26,15 +26,15 @@
                     Padding="40,30"
                     Margin="0,0,0,30">
                 <Border.Effect>
-                    <DropShadowEffect BlurRadius="16" ShadowDepth="4" Opacity="0.1" Color="Black" />
+                    <DropShadowEffect BlurRadius="16" ShadowDepth="4" Opacity="0.1" Color="Black"/>
                 </Border.Effect>
 
                 <StackPanel>
                     <!-- Header Top -->
                     <Grid Margin="0,0,0,0">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
 
                         <!-- Title Section -->
@@ -52,12 +52,12 @@
                         </StackPanel>
 
                         <!-- Clear All Button -->
-                        <Button Grid.Column="1"
+                        <Button Grid.Column="1" 
                                 Style="{StaticResource ClearButtonStyle}"
                                 VerticalAlignment="Center">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="🗑️" FontSize="16" Margin="0,0,8,0" />
-                                <TextBlock Text="Xóa tất cả" />
+                                <TextBlock Text="🗑️" FontSize="16" Margin="0,0,8,0"/>
+                                <TextBlock Text="Xóa tất cả"/>
                             </StackPanel>
                         </Button>
                     </Grid>
@@ -69,41 +69,8 @@
             <!-- ================================= -->
             <StackPanel Grid.Row="1">
                 <!-- History Cards Grid - Today -->
-                <UniformGrid x:Name="FavGrid" Columns="3" Margin="0,30,0,0">
-
-                    <!-- Card 1: Beautiful -->
-                    <uc:WordDefinitionCard
-                        Word="Beautiful"
-                        PartOfSpeech="ADJ"
-                        Region="US"
-                        Pronunciation="/ˈbjuː.tɪ.fəl/"
-                        Definition="Đẹp, xinh đẹp, tuyệt đẹp - Có vẻ đẹp làm hài lòng các giác quan hoặc tâm trí"
-                        Example1='"She wore a beautiful dress to the party."'
-                        Example2='"The sunset was absolutely beautiful tonight."'
-                        TimeStamp="📅 2 ngày trước" />
-
-                    <!-- Card 2: Achieve -->
-                    <uc:WordDefinitionCard
-                        Word="Achieve"
-                        PartOfSpeech="VERB"
-                        Region="US"
-                        Pronunciation="/əˈtʃiːv/"
-                        Definition="Đạt được, giành được - Thành công trong việc đạt được điều gì đó qua nỗ lực"
-                        Example1='"She achieved her goal of becoming a doctor."'
-                        Example2='"We finally achieved what we set out to do."'
-                        TimeStamp="📅 5 ngày trước" />
-
-                    <!-- Card 3: Knowledge -->
-                    <uc:WordDefinitionCard
-                        Word="abcdefghijklmnopqrstuvwxyz1234567890"
-                        PartOfSpeech="NOUN"
-                        Region="US"
-                        Pronunciation="/ˈnɑː.lɪdʒ/"
-                        Definition="Kiến thức, sự hiểu biết - Thông tin và kỹ năng có được thông qua kinh nghiệm hoặc giáo dục"
-                        Example1='"She has extensive knowledge of computer science."'
-                        Example2='"His knowledge of history is impressive."'
-                        TimeStamp="📅 1 tuần trước" />
-
+                <UniformGrid Columns="3" Margin="0,0,0,30" Name ="mainContent">
+                    
                 </UniformGrid>
             </StackPanel>
         </Grid>

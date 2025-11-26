@@ -3,12 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BlueBerryDictionary"
+        xmlns:vm="clr-namespace:BlueBerryDictionary.ViewModels"
         mc:Ignorable="d"
         Title="English Dictionary"
         Height="800" Width="1400"
         WindowStartupLocation="CenterScreen"
         Background="{DynamicResource MainBackground}">
-
     <Grid>
         <!-- Overlay cho Sidebar -->
         <Border x:Name="Overlay"
@@ -88,47 +89,136 @@
                         <TextBlock x:Name="ReloadIcon" Text="🔄" FontSize="16"/>
                     </Button>
 
-                    <!-- Search Container -->
-                    <Border Grid.Column="4"
-                        Background="{DynamicResource SearchBackground}"
-                        BorderBrush="{DynamicResource SearchBorder}"
-                        BorderThickness="2"
-                        CornerRadius="25"
-                        Padding="15,8"
-                        MaxWidth="700"
-                        HorizontalAlignment="Stretch"
-                        Margin="20,0">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
+                    <!-- Search Container - ĐỔI THÀNH GRID -->
+                    <Grid Grid.Column="4"
+                          MaxWidth="700"
+                          HorizontalAlignment="Stretch"
+                          Margin="20,0">
 
-                            <!-- Search Icon -->
-                            <TextBlock Grid.Column="0"
-                                       Text="🔍"
-                                       FontSize="18"
-                                       VerticalAlignment="Center"
-                                       Margin="0,0,10,0"/>
+                        <!-- Border chứa Search Input -->
+                        <Border Background="{DynamicResource SearchBackground}"
+                                BorderBrush="{DynamicResource SearchBorder}"
+                                BorderThickness="2"
+                                CornerRadius="25"
+                                Padding="15,8">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
 
-                            <!-- Search Input -->
-                            <TextBox x:Name="SearchInput"
-                                     Grid.Column="1"
-                                     Style="{StaticResource SearchTextBoxStyle}"
-                                     Text="Nhập từ cần tra..."
-                                     GotFocus="SearchInput_GotFocus"
-                                     LostFocus="SearchInput_LostFocus"
-                                     KeyDown="SearchInput_KeyDown"/>
+                                <!-- Search Icon -->
+                                <TextBlock Grid.Column="0"
+                                           Text="🔍"
+                                           FontSize="18"
+                                           VerticalAlignment="Center"
+                                           Margin="0,0,10,0"/>
 
-                            <!-- Search Button -->
-                            <Button Grid.Column="2"
-                                    Content="Tìm kiếm"
-                                    Style="{StaticResource SearchButtonStyle}"
-                                    Click="SearchBtn_Click"
-                                    Margin="10,0,0,0"/>
-                        </Grid>
-                    </Border>
+                                <!-- Search Input -->
+                                <TextBox x:Name="SearchInput"
+                                         Grid.Column="1"
+                                         Style="{StaticResource SearchTextBoxStyle}"
+                                         Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+                                         GotFocus="SearchInput_GotFocus"
+                                         LostFocus="SearchInput_LostFocus"
+                                         KeyDown="SearchInput_KeyDown"/>
+
+                                <!-- Search Button -->
+                                <Button x:Name="SearchBtn"  
+                                        Grid.Column="2"
+                                        Content="{Binding SearchButtonText}"
+                                        Style="{StaticResource SearchButtonStyle}"
+                                        Command="{Binding ExecuteSearchCommand}"
+                                        Margin="10,0,0,0"/>
+                            </Grid>
+                        </Border>
+
+                        <!-- Popup Suggestions  -->
+                        <Popup x:Name="SuggestionsPopup"
+                               PlacementTarget="{Binding ElementName=SearchInput}"
+                               Placement="Bottom"
+                               Width="{Binding ElementName=SearchInput, Path=ActualWidth}"
+                               MaxHeight="300"
+                               IsOpen="{Binding IsSuggestionsOpen, Mode=TwoWay}"
+                               StaysOpen="False"
+                               AllowsTransparency="True"
+                               PopupAnimation="Slide">
+                              
+                            <Border Background="White"
+                                    BorderBrush="{DynamicResource BorderColor}"
+                                    BorderThickness="2"
+                                    CornerRadius="0,0,12,12"
+                                    Padding="0">
+                                <Border.Effect>
+                                    <DropShadowEffect BlurRadius="10"
+                                                      ShadowDepth="2"
+                                                      Opacity="0.3"
+                                                      Color="#5B7FFF"/>
+                                </Border.Effect>
+
+                                <!-- Suggestions List -->
+                                <ListBox x:Name="SuggestionsList"
+                                         Background="Transparent"
+                                         BorderThickness="0"
+                                         ItemsSource="{Binding Suggestions}"
+                                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                         ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                         MouseDown="SuggestionsList_MouseDown"
+                                         SelectionChanged="SuggestionsList_SelectionChanged"
+                                         SelectionMode="Single">
+                                        
+                                    <!-- ListBox Item Style -->
+                                    <ListBox.ItemContainerStyle>
+                                        <Style TargetType="ListBoxItem">
+                                            <Setter Property="Padding" Value="15,12"/>
+                                            <Setter Property="Cursor" Value="Hand"/>
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="ListBoxItem">
+                                                        <Border Background="{TemplateBinding Background}"
+                                                                Padding="{TemplateBinding Padding}"
+                                                                BorderThickness="0,0,0,1"
+                                                                BorderBrush="#E8F1FF">
+                                                            <Grid>
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="Auto"/>
+                                                                    <ColumnDefinition Width="*"/>
+                                                                </Grid.ColumnDefinitions>
+
+                                                                <!-- Search Icon -->
+                                                                <TextBlock Grid.Column="0"
+                                                                           Text="🔍"
+                                                                           FontSize="14"
+                                                                           VerticalAlignment="Center"
+                                                                           Margin="0,0,10,0"
+                                                                           Opacity="0.6"/>
+
+                                                                <!-- Word Text -->
+                                                                <TextBlock Grid.Column="1"
+                                                                           Text="{Binding}"
+                                                                           FontSize="14"
+                                                                           VerticalAlignment="Center"
+                                                                           Foreground="{DynamicResource TextColor}"/>
+                                                            </Grid>
+                                                        </Border>
+                                                        <ControlTemplate.Triggers>
+                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                <Setter Property="Background" Value="#E8F1FF"/>
+                                                            </Trigger>
+                                                            <Trigger Property="IsSelected" Value="True">
+                                                                <Setter Property="Background" Value="#D1E3FF"/>
+                                                            </Trigger>
+                                                        </ControlTemplate.Triggers>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </ListBox.ItemContainerStyle>
+                                </ListBox>
+                            </Border>
+                        </Popup>
+                    </Grid>
 
                     <!-- Theme Toggle -->
                     <Border x:Name="ThemeToggle"
@@ -148,11 +238,11 @@
                                     Canvas.Left="3"
                                     Canvas.Top="3">
                                 <TextBlock x:Name="ThemeIcon"
-                                    Text="🌙"
-                                    FontSize="16"
-                                    Foreground="{DynamicResource ThemeIconColor}"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"/>
+                                           Text="🌙"
+                                           FontSize="16"
+                                           Foreground="{DynamicResource ThemeIconColor}"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"/>
                             </Border>
                         </Canvas>
                     </Border>
@@ -215,7 +305,7 @@
                                 Tag="Home">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="🏠" FontSize="20" Margin="0,0,15,0"/>
-                                <TextBlock Text="Trang chủ" FontSize="15"/>
+                                <TextBlock Text="Home" FontSize="15"/>
                             </StackPanel>
                         </Button>
 
@@ -225,7 +315,7 @@
                                 Tag="History">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="🕐" FontSize="20" Margin="0,0,15,0"/>
-                                <TextBlock Text="Lịch sử tra cứu" FontSize="15"/>
+                                <TextBlock Text="History" FontSize="15"/>
                             </StackPanel>
                         </Button>
 
@@ -235,7 +325,7 @@
                                 Tag="Favourite">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="⭐" FontSize="20" Margin="0,0,15,0"/>
-                                <TextBlock Text="Từ yêu thích" FontSize="15"/>
+                                <TextBlock Text="Favorite" FontSize="15"/>
                             </StackPanel>
                         </Button>
 
@@ -245,7 +335,7 @@
                                 Tag="MyWords">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="📚" FontSize="20" Margin="0,0,15,0"/>
-                                <TextBlock Text="Bộ sưu tập của tôi" FontSize="15"/>
+                                <TextBlock Text="My collection" FontSize="15"/>
                             </StackPanel>
                         </Button>
 
@@ -255,7 +345,7 @@
                                 Tag="Game">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="🎮" FontSize="20" Margin="0,0,15,0"/>
-                                <TextBlock Text="Trò chơi học từ" FontSize="15"/>
+                                <TextBlock Text="Game" FontSize="15"/>
                             </StackPanel>
                         </Button>
 
@@ -265,7 +355,7 @@
                                 Tag="Offline">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="📥" FontSize="20" Margin="0,0,15,0"/>
-                                <TextBlock Text="Tải về offline" FontSize="15"/>
+                                <TextBlock Text="Offline mode" FontSize="15"/>
                             </StackPanel>
                         </Button>
 
@@ -275,7 +365,7 @@
                                 Tag="Account">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="👤" FontSize="20" Margin="0,0,15,0"/>
-                                <TextBlock Text="Tài khoản" FontSize="15"/>
+                                <TextBlock Text="Account" FontSize="15"/>
                             </StackPanel>
                         </Button>
 
@@ -285,7 +375,7 @@
                                 Tag="Setting">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="⚙️" FontSize="20" Margin="0,0,15,0"/>
-                                <TextBlock Text="Cài đặt" FontSize="15"/>
+                                <TextBlock Text="Setting" FontSize="15"/>
                             </StackPanel>
                         </Button>
                     </StackPanel>

@@ -1,4 +1,5 @@
-﻿using System;
+using BlueBerryDictionary.Models;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -93,15 +94,23 @@ namespace BlueBerryDictionary.Views.UserControls
         public event EventHandler DeleteClicked;
         public event EventHandler CardClicked;
 
-        public WordDefinitionCard()
+        public WordDefinitionCard(Word? mainWord = null)
         {
             InitializeComponent();
             DataContext = this;
 
             // Handle card click
             MouseLeftButtonDown += (s, e) => CardClicked?.Invoke(this, EventArgs.Empty);
+            
+            if (mainWord != null) 
+            {
+                this.Word = mainWord.word;
+                this.Pronunciation = mainWord.phonetic;
+                this.Region = "US"; // Sẽ fix cái nì
+                this.PartOfSpeech = mainWord.meanings[0].partOfSpeech;
+                this.Definition = mainWord.meanings[0].definitions[0].definition;
+            }
         }
-
         private void FavoriteButton_Click(object sender, RoutedEventArgs e)
         {
             e.Handled = true; // Prevent card click event

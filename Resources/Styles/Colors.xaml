@@ -46,6 +46,23 @@
         <GradientStop Color="#D0E4FF" Offset="0"/>
         <GradientStop Color="#E8D4FF" Offset="1"/>
     </LinearGradientBrush>
+    
+    <!-- Meaning Section -->
+    <SolidColorBrush x:Key="LightMeaningBackground" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="LightMeaningBorder" Color="#E8F1FF"/>
+    <SolidColorBrush x:Key="LightMeaningBorderLeft" Color="#2D4ACC"/>
+
+
+    <!-- Example (inside meaning) -->
+    <LinearGradientBrush x:Key="LightExampleBackground" StartPoint="0,0" EndPoint="1,0">
+        <GradientStop Color="#F8FAFF" Offset="0"/>
+        <GradientStop Color="#F0F4FF" Offset="1"/>
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="LightExampleBorder" Color="#5B7FFF"/>
+
+    <!-- Related Section (synonyms/antonyms) -->
+    <SolidColorBrush x:Key="LightRelatedBackground" Color="#F8FAFF"/>
+    <SolidColorBrush x:Key="LightRelatedBorder" Color="#E8F1FF"/>
 
     <!-- Màu chữ và button -->
     <SolidColorBrush x:Key="LightTextColor" Color="#1A2D6D"/>
@@ -57,7 +74,7 @@
     <SolidColorBrush x:Key="LightSearchBackground" Color="#FFFFFF"/>
     <SolidColorBrush x:Key="LightSearchBorder" Color="#5B7FFF"/>
     <SolidColorBrush x:Key="LightSearchIcon" Color="#2D4ACC"/>
-    <SolidColorBrush x:Key="LightSearchText" Color="#1A2D6D"/>
+    <SolidColorBrush x:Key="LightSearchText" Color="Black"/>
     <SolidColorBrush x:Key="LightSearchPlaceholder" Color="#94A3B8"/>
 
     <!-- Search Button -->
@@ -140,6 +157,20 @@
     <SolidColorBrush x:Key="DarkWordItemBackground" Color="#2D3748"/>
     <SolidColorBrush x:Key="DarkWordItemHover" Color="#374151"/>
 
+    <!-- Meaning Section -->
+    <SolidColorBrush x:Key="DarkMeaningBackground" Color="#1E293B"/>
+    <SolidColorBrush x:Key="DarkMeaningBorder" Color="#334155"/>
+    <SolidColorBrush x:Key="DarkMeaningBorderLeft" Color="#3B82F6"/>
+
+    <!-- Example (inside meaning) -->
+    <SolidColorBrush x:Key="DarkExampleBackground" Color="#2D3748"/>
+    <SolidColorBrush x:Key="DarkExampleBorder" Color="#60A5FA"/>
+
+    <!-- Related Section (synonyms/antonyms) -->
+    <SolidColorBrush x:Key="DarkRelatedBackground" Color="#2D3748"/>
+    <SolidColorBrush x:Key="DarkRelatedBorder" Color="#374151"/>
+
+
     <!-- Màu chữ và button -->
     <SolidColorBrush x:Key="DarkTextColor" Color="#93C5FD"/>
     <SolidColorBrush x:Key="DarkBorderColor" Color="#3B82F6"/>
@@ -150,7 +181,7 @@
     <SolidColorBrush x:Key="DarkSearchBackground" Color="#2D3748"/>
     <SolidColorBrush x:Key="DarkSearchBorder" Color="#4A5568"/>
     <SolidColorBrush x:Key="DarkSearchIcon" Color="#60A5FA"/>
-    <SolidColorBrush x:Key="DarkSearchText" Color="#E2E8F0"/>
+    <SolidColorBrush x:Key="DarkSearchText" Color="White"/>
     <SolidColorBrush x:Key="DarkSearchPlaceholder" Color="#64748B"/>
 
     <!-- Search Button -->
@@ -231,6 +262,22 @@
         <GradientStop Color="#D0E4FF" Offset="0"/>
         <GradientStop Color="#E8D4FF" Offset="1"/>
     </LinearGradientBrush>
+    
+    <!-- Meaning Section -->
+    <SolidColorBrush x:Key="MeaningBackground" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="MeaningBorder" Color="#E8F1FF"/>
+    <SolidColorBrush x:Key="MeaningBorderLeft" Color="#2D4ACC"/>
+    <!-- Example (inside meaning) -->
+    <LinearGradientBrush x:Key="ExampleBackground" StartPoint="0,0" EndPoint="1,0">
+        <GradientStop Color="#F8FAFF" Offset="0"/>
+        <GradientStop Color="#F0F4FF" Offset="1"/>
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="ExampleBorder" Color="#5B7FFF"/>
+
+    <!-- Related Section (synonyms/antonyms) -->
+    <SolidColorBrush x:Key="RelatedBackground" Color="#F8FAFF"/>
+    <SolidColorBrush x:Key="RelatedBorder" Color="#E8F1FF"/>
+
 
     <SolidColorBrush x:Key="TextColor" Color="#1A2D6D"/>
     <SolidColorBrush x:Key="BorderColor" Color="#5B7FFF"/>
@@ -239,7 +286,7 @@
     <SolidColorBrush x:Key="SearchBackground" Color="#FFFFFF"/>
     <SolidColorBrush x:Key="SearchBorder" Color="#5B7FFF"/>
     <SolidColorBrush x:Key="SearchIcon" Color="#2D4ACC"/>
-    <SolidColorBrush x:Key="SearchText" Color="#1A2D6D"/>
+    <SolidColorBrush x:Key="SearchText" Color="Black"/>
     <SolidColorBrush x:Key="SearchPlaceholder" Color="#94A3B8"/>
 
     <LinearGradientBrush x:Key="SearchButton" StartPoint="0,0" EndPoint="1,0">

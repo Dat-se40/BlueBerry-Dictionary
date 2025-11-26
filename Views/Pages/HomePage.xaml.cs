@@ -18,9 +18,9 @@ namespace BlueBerryDictionary.Views.Pages
     /// <summary>
     /// Interaction logic for HomePage.xaml
     /// </summary>
-    public partial class HomePage : Page
+    public partial class HomePage : WordListPageBase
     {
-        public HomePage()
+        public HomePage(Action<string> action) : base(action) 
         {
             InitializeComponent();
         }
