@@ -4,14 +4,6 @@
       xmlns:uc="clr-namespace:BlueBerryDictionary.Views.UserControls"
       Background="{DynamicResource MainBackground}">
 
-    <Page.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Resources/Styles/ButtonStyles.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Page.Resources>
-
     <!-- MAIN CONTENT -->
     <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="30">
         <StackPanel>
