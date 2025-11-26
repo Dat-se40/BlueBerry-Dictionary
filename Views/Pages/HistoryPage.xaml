@@ -1,11 +1,11 @@
 ﻿<local:WordListPageBase x:Class="BlueBerryDictionary.Pages.HistoryPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:BlueBerryDictionary.Views.Pages"
       xmlns:userControls="clr-namespace:BlueBerryDictionary.Views.UserControls"
-      mc:Ignorable="d" 
+      mc:Ignorable="d"
       d:DesignHeight="600" d:DesignWidth="1200"
       Background="{DynamicResource MainBackground}">
 
@@ -153,20 +153,20 @@
 
                         <!-- Title Section -->
                         <StackPanel Grid.Column="0" Orientation="Horizontal">
-                            <TextBlock Text="🕐" 
-                                       FontSize="48" 
-                                       VerticalAlignment="Center" 
+                            <TextBlock Text="🕐"
+                                       FontSize="48"
+                                       VerticalAlignment="Center"
                                        Margin="0,0,15,0"/>
-                            <TextBlock Text="History" 
-                                       FontSize="40" 
-                                       FontWeight="Bold" 
+                            <TextBlock Text="History"
+                                       FontSize="40"
+                                       FontWeight="Bold"
                                        Foreground="{DynamicResource TextColor}"
                                        VerticalAlignment="Center"/>
                                        <!-- Margin="0,0,0,0"/> -->
                         </StackPanel>
 
                         <!-- Clear All Button -->
-                        <Button Grid.Column="1" 
+                        <Button Grid.Column="1"
                                 Style="{StaticResource ClearButtonStyle}"
                                 VerticalAlignment="Center">
                             <StackPanel Orientation="Horizontal">
@@ -187,7 +187,7 @@
             
                 <!-- History Cards Grid - Today -->
                 <UniformGrid Columns="3" Margin="0,0,0,30" Name ="mainContent">
-                    
+
                 </UniformGrid>
             </StackPanel>
         </Grid>

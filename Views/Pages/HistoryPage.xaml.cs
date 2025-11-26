@@ -21,7 +21,7 @@ namespace BlueBerryDictionary.Pages
         {
             get { return _historyItems; }   
             set 
-            {
+    {
                 _historyItems = value;
                 OnPropertyChanged(nameof(HistoryItems));
                 LoadDefCards(); 
