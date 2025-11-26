@@ -679,44 +679,6 @@
                                 HorizontalAlignment="Stretch" />
                     </StackPanel>
                 </Border>
-
-                <!-- ===== WORD CARDS (Grid.Column="1") ===== -->
-                <UniformGrid x:Name="FavGrid" Columns="3" Margin="0,30,0,0">
-
-                    <!-- Card 1: Beautiful -->
-                    <uc:WordDefinitionCard
-                        Word="Beautiful"
-                        PartOfSpeech="ADJ"
-                        Region="US"
-                        Pronunciation="/ˈbjuː.tɪ.fəl/"
-                        Definition="Đẹp, xinh đẹp, tuyệt đẹp - Có vẻ đẹp làm hài lòng các giác quan hoặc tâm trí"
-                        Example1='"She wore a beautiful dress to the party."'
-                        Example2='"The sunset was absolutely beautiful tonight."'
-                        TimeStamp="📅 2 ngày trước" />
-
-                    <!-- Card 2: Achieve -->
-                    <uc:WordDefinitionCard
-                        Word="Achieve"
-                        PartOfSpeech="VERB"
-                        Region="US"
-                        Pronunciation="/əˈtʃiːv/"
-                        Definition="Đạt được, giành được - Thành công trong việc đạt được điều gì đó qua nỗ lực"
-                        Example1='"She achieved her goal of becoming a doctor."'
-                        Example2='"We finally achieved what we set out to do."'
-                        TimeStamp="📅 5 ngày trước" />
-
-                    <!-- Card 3: Knowledge -->
-                    <uc:WordDefinitionCard
-                        Word="Knowledge"
-                        PartOfSpeech="NOUN"
-                        Region="US"
-                        Pronunciation="/ˈnɑː.lɪdʒ/"
-                        Definition="Kiến thức, sự hiểu biết - Thông tin và kỹ năng có được thông qua kinh nghiệm hoặc giáo dục"
-                        Example1='"She has extensive knowledge of computer science."'
-                        Example2='"His knowledge of history is impressive."'
-                        TimeStamp="📅 1 tuần trước" />
-
-                </UniformGrid>
             </StackPanel>
         </Grid>
     </ScrollViewer>
