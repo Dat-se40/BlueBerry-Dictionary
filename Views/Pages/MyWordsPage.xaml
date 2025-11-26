@@ -1,239 +1,166 @@
 ﻿<Page x:Class="BlueBerryDictionary.Pages.MyWordsPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      mc:Ignorable="d" 
+      xmlns:uc="clr-namespace:BlueBerryDictionary.Views.UserControls"
+      mc:Ignorable="d"
       d:DesignHeight="600" d:DesignWidth="1200"
       Background="{DynamicResource MainBackground}">
 
     <Page.Resources>
-        <!-- Word Card Style -->
-        <Style x:Key="WordCardStyle" TargetType="Border">
-            <Setter Property="Background" Value="{DynamicResource CardBackground}"/>
-            <Setter Property="BorderBrush" Value="#FFE8F1FF"/>
-            <Setter Property="BorderThickness" Value="2"/>
-            <Setter Property="CornerRadius" Value="15"/>
-            <Setter Property="Padding" Value="25"/>
-            <Setter Property="Margin" Value="12"/>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
-                    <Setter Property="Effect">
-                        <Setter.Value>
-                            <DropShadowEffect BlurRadius="24" ShadowDepth="8" Opacity="0.15" Color="#2D4ACC"/>
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/Styles/ButtonStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            
+            <!-- Primary Button Style -->
+            <Style x:Key="PrimaryButtonStyle" TargetType="Button">
+                <Setter Property="Background" Value="{DynamicResource ToolButtonActive}" />
+                <Setter Property="Foreground" Value="White" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="Padding" Value="24,12" />
+                <Setter Property="FontWeight" Value="SemiBold" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="Cursor" Value="Hand" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}"
+                                    CornerRadius="12"
+                                    Padding="{TemplateBinding Padding}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="RenderTransform">
+                            <Setter.Value>
+                                <TranslateTransform Y="-2" />
+                            </Setter.Value>
+                        </Setter>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
 
-        <!-- Filter Chip Style -->
-        <Style x:Key="FilterChipStyle" TargetType="Button">
-            <Setter Property="Background" Value="{DynamicResource SearchBackground}"/>
-            <Setter Property="Foreground" Value="{DynamicResource ButtonColor}"/>
-            <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
-            <Setter Property="BorderThickness" Value="2"/>
-            <Setter Property="Padding" Value="20,10"/>
-            <Setter Property="Margin" Value="5"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="25"
-                                Padding="{TemplateBinding Padding}">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="{DynamicResource ToolButtonActive}"/>
-                    <Setter Property="Foreground" Value="White"/>
-                </Trigger>
-                <Trigger Property="Tag" Value="Active">
-                    <Setter Property="Background" Value="{DynamicResource ToolButtonActive}"/>
-                    <Setter Property="Foreground" Value="White"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+            <!-- Secondary Button Style -->
+            <Style x:Key="SecondaryButtonStyle" TargetType="Button">
+                <Setter Property="Background" Value="{DynamicResource SearchBackground}" />
+                <Setter Property="Foreground" Value="{DynamicResource ButtonColor}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}" />
+                <Setter Property="BorderThickness" Value="2" />
+                <Setter Property="Padding" Value="24,12" />
+                <Setter Property="FontWeight" Value="SemiBold" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="Cursor" Value="Hand" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="12"
+                                    Padding="{TemplateBinding Padding}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="{DynamicResource WordItemHover}" />
+                        <Setter Property="RenderTransform">
+                            <Setter.Value>
+                                <TranslateTransform Y="-2" />
+                            </Setter.Value>
+                        </Setter>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
 
-        <!-- Primary Button Style -->
-        <Style x:Key="PrimaryButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="{DynamicResource ToolButtonActive}"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Padding" Value="24,12"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}"
-                                CornerRadius="12"
-                                Padding="{TemplateBinding Padding}">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="RenderTransform">
-                        <Setter.Value>
-                            <TranslateTransform Y="-2"/>
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+            <!-- Tag Dropdown Button Style -->
+            <Style x:Key="TagDropdownButtonStyle" TargetType="ToggleButton">
+                <Setter Property="Background" Value="{DynamicResource SearchBackground}" />
+                <Setter Property="Foreground" Value="{DynamicResource ButtonColor}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}" />
+                <Setter Property="BorderThickness" Value="2" />
+                <Setter Property="Padding" Value="20,10" />
+                <Setter Property="FontWeight" Value="SemiBold" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="Cursor" Value="Hand" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ToggleButton">
+                            <Border Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="25"
+                                    Padding="{TemplateBinding Padding}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="{DynamicResource WordItemHover}" />
+                        <Setter Property="RenderTransform">
+                            <Setter.Value>
+                                <TranslateTransform Y="-2" />
+                            </Setter.Value>
+                        </Setter>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
 
-        <!-- Secondary Button Style -->
-        <Style x:Key="SecondaryButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="{DynamicResource SearchBackground}"/>
-            <Setter Property="Foreground" Value="{DynamicResource ButtonColor}"/>
-            <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
-            <Setter Property="BorderThickness" Value="2"/>
-            <Setter Property="Padding" Value="24,12"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="12"
-                                Padding="{TemplateBinding Padding}">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="{DynamicResource WordItemHover}"/>
-                    <Setter Property="RenderTransform">
-                        <Setter.Value>
-                            <TranslateTransform Y="-2"/>
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-
-        <!-- Card Action Button Style -->
-        <Style x:Key="CardActionButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="{DynamicResource SearchBackground}"/>
-            <Setter Property="Foreground" Value="{DynamicResource ButtonColor}"/>
-            <Setter Property="BorderBrush" Value="#FFE8F1FF"/>
-            <Setter Property="BorderThickness" Value="2"/>
-            <Setter Property="Width" Value="36"/>
-            <Setter Property="Height" Value="36"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="8">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="{DynamicResource WordItemHover}"/>
-                    <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-
-        <!-- Tag Dropdown Button Style -->
-        <Style x:Key="TagDropdownButtonStyle" TargetType="ToggleButton">
-            <Setter Property="Background" Value="{DynamicResource SearchBackground}"/>
-            <Setter Property="Foreground" Value="{DynamicResource ButtonColor}"/>
-            <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
-            <Setter Property="BorderThickness" Value="2"/>
-            <Setter Property="Padding" Value="20,10"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ToggleButton">
-                        <Border Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="25"
-                                Padding="{TemplateBinding Padding}">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="{DynamicResource WordItemHover}"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-        
-        <!-- Alphabet style -->
-        <Style x:Key="AlphabetButtonStyle" TargetType="Button">
-            <Setter Property="Width" Value="40"/>
-            <Setter Property="Height" Value="40"/>
-            <Setter Property="Margin" Value="0,0,8,0"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="FontSize" Value="15"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Background" Value="{DynamicResource SearchBackground}"/>
-            <Setter Property="Foreground" Value="{DynamicResource TextColor}"/>
-            <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
-            <Setter Property="BorderThickness" Value="2"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="10">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="{DynamicResource WordItemHover}"/>
-                </Trigger>
-                <Trigger Property="Tag" Value="Active">
-                    <Setter Property="Background" Value="{DynamicResource ToolButtonActive}"/>
-                    <Setter Property="Foreground" Value="White"/>
-                    <Setter Property="BorderBrush" Value="{DynamicResource ToolButtonActive}"/>
-                </Trigger>
-                <Trigger Property="Tag" Value="Inactive">
-                    <Setter Property="Opacity" Value="0.4"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+            <!-- Alphabet style -->
+            <Style x:Key="AlphabetButtonStyle" TargetType="Button">
+                <Setter Property="Width" Value="40" />
+                <Setter Property="Height" Value="40" />
+                <Setter Property="Margin" Value="0,0,0,8" />
+                <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property="FontSize" Value="15" />
+                <Setter Property="Cursor" Value="Hand" />
+                <Setter Property="Background" Value="{DynamicResource SearchBackground}" />
+                <Setter Property="Foreground" Value="{DynamicResource TextColor}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}" />
+                <Setter Property="BorderThickness" Value="2" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="10">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="{DynamicResource WordItemHover}" />
+                    </Trigger>
+                    <Trigger Property="Tag" Value="Active">
+                        <Setter Property="Background" Value="{DynamicResource ToolButtonActive}" />
+                        <Setter Property="Foreground" Value="White" />
+                        <Setter Property="BorderBrush" Value="{DynamicResource ToolButtonActive}" />
+                    </Trigger>
+                    <Trigger Property="Tag" Value="Inactive">
+                        <Setter Property="Opacity" Value="0.4" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
     </Page.Resources>
 
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
         <Grid Margin="30">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
             <!-- ================================= -->
@@ -247,42 +174,42 @@
                     Padding="40,30"
                     Margin="0,0,0,30">
                 <Border.Effect>
-                    <DropShadowEffect BlurRadius="16" ShadowDepth="4" Opacity="0.1" Color="Black"/>
+                    <DropShadowEffect BlurRadius="16" ShadowDepth="4" Opacity="0.1" Color="Black" />
                 </Border.Effect>
 
                 <StackPanel>
                     <!-- Header Top -->
                     <Grid Margin="0,0,0,25">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
                         <!-- Title Section -->
                         <StackPanel Grid.Column="0" Orientation="Horizontal">
-                            <TextBlock Text="📚" 
-                                       FontSize="48" 
-                                       VerticalAlignment="Center" 
-                                       Margin="0,0,15,0"/>
-                            <TextBlock Text="My Words" 
-                                       FontSize="40" 
-                                       FontWeight="Bold" 
+                            <TextBlock Text="📚"
+                                       FontSize="48"
+                                       VerticalAlignment="Center"
+                                       Margin="0,0,15,0" />
+                            <TextBlock Text="My Words"
+                                       FontSize="40"
+                                       FontWeight="Bold"
                                        Foreground="{DynamicResource TextColor}"
-                                       VerticalAlignment="Center"/>
+                                       VerticalAlignment="Center" />
                         </StackPanel>
 
                         <!-- Header Actions -->
                         <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
                             <Button Style="{StaticResource SecondaryButtonStyle}" Margin="0,0,12,0">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="🏷️" FontSize="16" Margin="0,0,8,0"/>
-                                    <TextBlock Text="Tạo nhãn mới"/>
+                                    <TextBlock Text="🏷️" FontSize="16" Margin="0,0,8,0" />
+                                    <TextBlock Text="Tạo nhãn mới" />
                                 </StackPanel>
                             </Button>
                             <Button Style="{StaticResource PrimaryButtonStyle}">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="➕" FontSize="16" Margin="0,0,8,0"/>
-                                    <TextBlock Text="Thêm từ mới"/>
+                                    <TextBlock Text="➕" FontSize="16" Margin="0,0,8,0" />
+                                    <TextBlock Text="Thêm từ mới" />
                                 </StackPanel>
                             </Button>
                         </StackPanel>
@@ -297,66 +224,66 @@
                             Margin="0,0,0,25">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
 
                             <!-- Stat 1 -->
                             <StackPanel Grid.Column="0" HorizontalAlignment="Center">
-                                <TextBlock Text="3" 
-                                           FontSize="32" 
-                                           FontWeight="Bold" 
+                                <TextBlock Text="3"
+                                           FontSize="32"
+                                           FontWeight="Bold"
                                            Foreground="{DynamicResource ButtonColor}"
-                                           HorizontalAlignment="Center"/>
-                                <TextBlock Text="Tổng số từ" 
-                                           FontSize="15" 
+                                           HorizontalAlignment="Center" />
+                                <TextBlock Text="Tổng số từ"
+                                           FontSize="15"
                                            Foreground="{DynamicResource TextColor}"
                                            Opacity="0.8"
-                                           HorizontalAlignment="Center"/>
+                                           HorizontalAlignment="Center" />
                             </StackPanel>
 
                             <!-- Stat 2 -->
                             <StackPanel Grid.Column="1" HorizontalAlignment="Center">
-                                <TextBlock Text="3" 
-                                           FontSize="32" 
-                                           FontWeight="Bold" 
+                                <TextBlock Text="3"
+                                           FontSize="32"
+                                           FontWeight="Bold"
                                            Foreground="{DynamicResource ButtonColor}"
-                                           HorizontalAlignment="Center"/>
-                                <TextBlock Text="Nhãn" 
-                                           FontSize="15" 
+                                           HorizontalAlignment="Center" />
+                                <TextBlock Text="Nhãn"
+                                           FontSize="15"
                                            Foreground="{DynamicResource TextColor}"
                                            Opacity="0.8"
-                                           HorizontalAlignment="Center"/>
+                                           HorizontalAlignment="Center" />
                             </StackPanel>
 
                             <!-- Stat 3 -->
                             <StackPanel Grid.Column="2" HorizontalAlignment="Center">
-                                <TextBlock Text="2" 
-                                           FontSize="32" 
-                                           FontWeight="Bold" 
+                                <TextBlock Text="2"
+                                           FontSize="32"
+                                           FontWeight="Bold"
                                            Foreground="{DynamicResource ButtonColor}"
-                                           HorizontalAlignment="Center"/>
-                                <TextBlock Text="Tuần này" 
-                                           FontSize="15" 
+                                           HorizontalAlignment="Center" />
+                                <TextBlock Text="Tuần này"
+                                           FontSize="15"
                                            Foreground="{DynamicResource TextColor}"
                                            Opacity="0.8"
-                                           HorizontalAlignment="Center"/>
+                                           HorizontalAlignment="Center" />
                             </StackPanel>
 
                             <!-- Stat 4 -->
                             <StackPanel Grid.Column="3" HorizontalAlignment="Center">
-                                <TextBlock Text="3" 
-                                           FontSize="32" 
-                                           FontWeight="Bold" 
+                                <TextBlock Text="3"
+                                           FontSize="32"
+                                           FontWeight="Bold"
                                            Foreground="{DynamicResource ButtonColor}"
-                                           HorizontalAlignment="Center"/>
-                                <TextBlock Text="Tháng này" 
-                                           FontSize="15" 
+                                           HorizontalAlignment="Center" />
+                                <TextBlock Text="Tháng này"
+                                           FontSize="15"
                                            Foreground="{DynamicResource TextColor}"
                                            Opacity="0.8"
-                                           HorizontalAlignment="Center"/>
+                                           HorizontalAlignment="Center" />
                             </StackPanel>
                         </Grid>
                     </Border>
@@ -364,263 +291,367 @@
                     <!-- Filters & Tags Row -->
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
                         <!-- Filters Section -->
                         <WrapPanel Grid.Column="0" HorizontalAlignment="Left">
                             <Button Style="{StaticResource FilterChipStyle}" Tag="Active">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="🔧" FontSize="14" Margin="0,0,8,0"/>
-                                    <TextBlock Text="Tất cả (3)"/>
+                                    <TextBlock Text="🔧" FontSize="14" Margin="0,0,8,0" />
+                                    <TextBlock Text="Tất cả (3)" />
                                 </StackPanel>
                             </Button>
 
                             <Button Style="{StaticResource FilterChipStyle}">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="📝" FontSize="14" Margin="0,0,8,0"/>
-                                    <TextBlock Text="Danh từ"/>
+                                    <TextBlock Text="📝" FontSize="14" Margin="0,0,8,0" />
+                                    <TextBlock Text="Danh từ" />
                                 </StackPanel>
                             </Button>
 
                             <Button Style="{StaticResource FilterChipStyle}">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="⚡" FontSize="14" Margin="0,0,8,0"/>
-                                    <TextBlock Text="Động từ"/>
+                                    <TextBlock Text="⚡" FontSize="14" Margin="0,0,8,0" />
+                                    <TextBlock Text="Động từ" />
                                 </StackPanel>
                             </Button>
 
                             <Button Style="{StaticResource FilterChipStyle}">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="💎" FontSize="14" Margin="0,0,8,0"/>
-                                    <TextBlock Text="Tính từ"/>
+                                    <TextBlock Text="💎" FontSize="14" Margin="0,0,8,0" />
+                                    <TextBlock Text="Tính từ" />
                                 </StackPanel>
                             </Button>
                         </WrapPanel>
 
-                        <!-- Tags Dropdown -->
-                        <Grid Grid.Column="1">
-                            <ToggleButton x:Name="TagsDropdownToggle" 
-                                          Style="{StaticResource TagDropdownButtonStyle}">
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="🏷️" FontSize="14" Margin="0,0,8,0"/>
-                                    <TextBlock Text="Lọc theo nhãn" Margin="0,0,8,0"/>
-                                    <TextBlock Text="▼" FontSize="12"/>
-                                </StackPanel>
-                            </ToggleButton>
-
-                            <Popup IsOpen="{Binding IsChecked, ElementName=TagsDropdownToggle}" 
-                                   PlacementTarget="{Binding ElementName=TagsDropdownToggle}"
-                                   Placement="Bottom"
-                                   StaysOpen="False"
-                                   AllowsTransparency="True">
-                                <Border Background="{DynamicResource SearchBackground}"
-                                        BorderBrush="{DynamicResource BorderColor}"
-                                        BorderThickness="2"
-                                        CornerRadius="15"
-                                        Padding="15"
-                                        Width="320"
-                                        MaxHeight="400">
-                                    <Border.Effect>
-                                        <DropShadowEffect BlurRadius="24" ShadowDepth="8" Opacity="0.2" Color="Black"/>
-                                    </Border.Effect>
-
-                                    <StackPanel>
-                                        <!-- Search Box -->
-                                        <TextBox Text="Tìm nhãn..." 
-                                                 Background="{DynamicResource MainBackground}"
-                                                 BorderBrush="{DynamicResource BorderColor}"
-                                                 BorderThickness="2"
-                                                 Padding="15,10"
-                                                 FontSize="14"
-                                                 Margin="0,0,0,10">
-                                            <TextBox.Style>
-                                                <Style TargetType="TextBox">
-                                                    <Setter Property="Template">
-                                                        <Setter.Value>
-                                                            <ControlTemplate TargetType="TextBox">
-                                                                <Border Background="{TemplateBinding Background}"
-                                                                        BorderBrush="{TemplateBinding BorderBrush}"
-                                                                        BorderThickness="{TemplateBinding BorderThickness}"
-                                                                        CornerRadius="10"
-                                                                        Padding="{TemplateBinding Padding}">
-                                                                    <ScrollViewer x:Name="PART_ContentHost"/>
-                                                                </Border>
-                                                            </ControlTemplate>
-                                                        </Setter.Value>
-                                                    </Setter>
-                                                </Style>
-                                            </TextBox.Style>
-                                        </TextBox>
-
-                                        <!-- Tags List -->
-                                        <ScrollViewer MaxHeight="300" VerticalScrollBarVisibility="Auto">
-                                            <StackPanel>
-                                                <!-- Tag Item 1 -->
-                                                <Border Background="Transparent" 
-                                                        Padding="15,12" 
-                                                        Margin="0,0,0,5"
-                                                        CornerRadius="10"
-                                                        Cursor="Hand">
-                                                    <Border.Style>
-                                                        <Style TargetType="Border">
-                                                            <Style.Triggers>
-                                                                <Trigger Property="IsMouseOver" Value="True">
-                                                                    <Setter Property="Background" Value="{DynamicResource WordItemHover}"/>
-                                                                </Trigger>
-                                                            </Style.Triggers>
-                                                        </Style>
-                                                    </Border.Style>
-                                                    <Grid>
-                                                        <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition Width="Auto"/>
-                                                            <ColumnDefinition Width="*"/>
-                                                        </Grid.ColumnDefinitions>
-
-                                                        <TextBlock Grid.Column="0" 
-                                                                   Text="📚" 
-                                                                   FontSize="20" 
-                                                                   Margin="0,0,10,0"
-                                                                   VerticalAlignment="Center"/>
-
-                                                        <StackPanel Grid.Column="1">
-                                                            <TextBlock Text="Tất cả" 
-                                                                       FontWeight="SemiBold" 
-                                                                       Foreground="{DynamicResource TextColor}"
-                                                                       FontSize="14"/>
-                                                            <TextBlock Text="3 từ" 
-                                                                       FontSize="13" 
-                                                                       Foreground="{DynamicResource TextColor}"
-                                                                       Opacity="0.7"/>
-                                                        </StackPanel>
-                                                    </Grid>
-                                                </Border>
-
-                                                <!-- Tag Item 2 -->
-                                                <Border Background="Transparent" 
-                                                        Padding="15,12" 
-                                                        Margin="0,0,0,5"
-                                                        CornerRadius="10"
-                                                        Cursor="Hand">
-                                                    <Border.Style>
-                                                        <Style TargetType="Border">
-                                                            <Style.Triggers>
-                                                                <Trigger Property="IsMouseOver" Value="True">
-                                                                    <Setter Property="Background" Value="{DynamicResource WordItemHover}"/>
-                                                                </Trigger>
-                                                            </Style.Triggers>
-                                                        </Style>
-                                                    </Border.Style>
-                                                    <Grid>
-                                                        <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition Width="Auto"/>
-                                                            <ColumnDefinition Width="*"/>
-                                                        </Grid.ColumnDefinitions>
-
-                                                        <TextBlock Grid.Column="0" 
-                                                                   Text="🎯" 
-                                                                   FontSize="20" 
-                                                                   Margin="0,0,10,0"
-                                                                   VerticalAlignment="Center"/>
-
-                                                        <StackPanel Grid.Column="1">
-                                                            <TextBlock Text="IELTS" 
-                                                                       FontWeight="SemiBold" 
-                                                                       Foreground="{DynamicResource TextColor}"
-                                                                       FontSize="14"/>
-                                                            <TextBlock Text="1 từ" 
-                                                                       FontSize="13" 
-                                                                       Foreground="{DynamicResource TextColor}"
-                                                                       Opacity="0.7"/>
-                                                        </StackPanel>
-                                                    </Grid>
-                                                </Border>
-
-                                                <!-- Tag Item 3 -->
-                                                <Border Background="Transparent" 
-                                                        Padding="15,12" 
-                                                        Margin="0,0,0,5"
-                                                        CornerRadius="10"
-                                                        Cursor="Hand">
-                                                    <Border.Style>
-                                                        <Style TargetType="Border">
-                                                            <Style.Triggers>
-                                                                <Trigger Property="IsMouseOver" Value="True">
-                                                                    <Setter Property="Background" Value="{DynamicResource WordItemHover}"/>
-                                                                </Trigger>
-                                                            </Style.Triggers>
-                                                        </Style>
-                                                    </Border.Style>
-                                                    <Grid>
-                                                        <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition Width="Auto"/>
-                                                            <ColumnDefinition Width="*"/>
-                                                        </Grid.ColumnDefinitions>
-
-                                                        <TextBlock Grid.Column="0" 
-                                                                   Text="💬" 
-                                                                   FontSize="20" 
-                                                                   Margin="0,0,10,0"
-                                                                   VerticalAlignment="Center"/>
-
-                                                        <StackPanel Grid.Column="1">
-                                                            <TextBlock Text="Giao tiếp" 
-                                                                       FontWeight="SemiBold" 
-                                                                       Foreground="{DynamicResource TextColor}"
-                                                                       FontSize="14"/>
-                                                            <TextBlock Text="2 từ" 
-                                                                       FontSize="13" 
-                                                                       Foreground="{DynamicResource TextColor}"
-                                                                       Opacity="0.7"/>
-                                                        </StackPanel>
-                                                    </Grid>
-                                                </Border>
-
-                                                <!-- Tag Item 4 -->
-                                                <Border Background="Transparent" 
-                                                        Padding="15,12"
-                                                        CornerRadius="10"
-                                                        Cursor="Hand">
-                                                    <Border.Style>
-                                                        <Style TargetType="Border">
-                                                            <Style.Triggers>
-                                                                <Trigger Property="IsMouseOver" Value="True">
-                                                                    <Setter Property="Background" Value="{DynamicResource WordItemHover}"/>
-                                                                </Trigger>
-                                                            </Style.Triggers>
-                                                        </Style>
-                                                    </Border.Style>
-                                                    <Grid>
-                                                        <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition Width="Auto"/>
-                                                            <ColumnDefinition Width="*"/>
-                                                        </Grid.ColumnDefinitions>
-
-                                                        <TextBlock Grid.Column="0" 
-                                                                   Text="💼" 
-                                                                   FontSize="20" 
-                                                                   Margin="0,0,10,0"
-                                                                   VerticalAlignment="Center"/>
-
-                                                        <StackPanel Grid.Column="1">
-                                                            <TextBlock Text="Business" 
-                                                                       FontWeight="SemiBold" 
-                                                                       Foreground="{DynamicResource TextColor}"
-                                                                       FontSize="14"/>
-                                                            <TextBlock Text="1 từ" 
-                                                                       FontSize="13" 
-                                                                       Foreground="{DynamicResource TextColor}"
-                                                                       Opacity="0.7"/>
-                                                        </StackPanel>
-                                                    </Grid>
-                                                </Border>
-                                            </StackPanel>
-                                        </ScrollViewer>
+                        <!-- Dropdowns Section -->
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                            <!-- Alphabet Filter Dropdown -->
+                            <Grid Margin="0,0,10,0">
+                                <ToggleButton x:Name="AlphabetDropdownToggle"
+                                              Style="{StaticResource TagDropdownButtonStyle}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="🔤" FontSize="14" Margin="0,0,8,0" />
+                                        <TextBlock Text="Lọc theo chữ cái" Margin="0,0,8,0" />
+                                        <TextBlock Text="▼" FontSize="12" />
                                     </StackPanel>
-                                </Border>
-                            </Popup>
-                        </Grid>
+                                </ToggleButton>
+
+                                <Popup IsOpen="{Binding IsChecked, ElementName=AlphabetDropdownToggle}"
+                                       PlacementTarget="{Binding ElementName=AlphabetDropdownToggle}"
+                                       Placement="Bottom"
+                                       StaysOpen="False"
+                                       AllowsTransparency="True">
+                                    <Border Background="{DynamicResource SearchBackground}"
+                                            BorderBrush="{DynamicResource BorderColor}"
+                                            BorderThickness="2"
+                                            CornerRadius="15"
+                                            Padding="20">
+                                        <Border.Effect>
+                                            <DropShadowEffect BlurRadius="24" ShadowDepth="8" Opacity="0.2"
+                                                              Color="Black" />
+                                        </Border.Effect>
+
+                                        <StackPanel>
+                                            <TextBlock Text="Chọn chữ cái"
+                                                       FontSize="16"
+                                                       FontWeight="Bold"
+                                                       Foreground="{DynamicResource TextColor}"
+                                                       Margin="0,0,0,15" />
+
+                                            <UniformGrid Columns="7" Width="380">
+                                                <!-- Alphabet Buttons -->
+                                                <Button Content="All" Style="{StaticResource AlphabetButtonStyle}"
+                                                        Tag="Active" Click="AlphabetButton_Click" />
+                                                <Button Content="A" Style="{StaticResource AlphabetButtonStyle}"
+                                                        Tag="A" Click="AlphabetButton_Click" />
+                                                <Button Content="B" Style="{StaticResource AlphabetButtonStyle}"
+                                                        Tag="B" Click="AlphabetButton_Click" />
+                                                <Button Content="C" Style="{StaticResource AlphabetButtonStyle}"
+                                                        Tag="C" Click="AlphabetButton_Click" />
+                                                <Button Content="D" Style="{StaticResource AlphabetButtonStyle}"
+                                                        Tag="D" Click="AlphabetButton_Click" />
+                                                <Button Content="E" Style="{StaticResource AlphabetButtonStyle}"
+                                                        Tag="E" Click="AlphabetButton_Click" />
+                                                <Button Content="F" Style="{StaticResource AlphabetButtonStyle}"
+                                                        Tag="F" Click="AlphabetButton_Click" />
+                                                <Button Content="G" Style="{StaticResource AlphabetButtonStyle}"
+                                                        Tag="G" Click="AlphabetButton_Click" />
+                                                <Button Content="H" Style="{StaticResource AlphabetButtonStyle}"
+                                                        Tag="H" Click="AlphabetButton_Click" />
+                                                <Button Content="I" Style="{StaticResource AlphabetButtonStyle}"
+                                                        Tag="I" Click="AlphabetButton_Click" />
+                                                <Button Content="J" Style="{StaticResource AlphabetButtonStyle}"
+                                                        Tag="J" Click="AlphabetButton_Click" />
+                                                <Button Content="K" Style="{StaticResource AlphabetButtonStyle}"
+                                                        Tag="K" Click="AlphabetButton_Click" />
+                                                <Button Content="L" Style="{StaticResource AlphabetButtonStyle}"
+                                                        Tag="L" Click="AlphabetButton_Click" />
+                                                <Button Content="M" Style="{StaticResource AlphabetButtonStyle}"
+                                                        Tag="M" Click="AlphabetButton_Click" />
+                                                <Button Content="N" Style="{StaticResource AlphabetButtonStyle}"
+                                                        Tag="N" Click="AlphabetButton_Click" />
+                                                <Button Content="O" Style="{StaticResource AlphabetButtonStyle}"
+                                                        Tag="O" Click="AlphabetButton_Click" />
+                                                <Button Content="P" Style="{StaticResource AlphabetButtonStyle}"
+                                                        Tag="P" Click="AlphabetButton_Click" />
+                                                <Button Content="Q" Style="{StaticResource AlphabetButtonStyle}"
+                                                        Tag="Q" Click="AlphabetButton_Click" />
+                                                <Button Content="R" Style="{StaticResource AlphabetButtonStyle}"
+                                                        Tag="R" Click="AlphabetButton_Click" />
+                                                <Button Content="S" Style="{StaticResource AlphabetButtonStyle}"
+                                                        Tag="S" Click="AlphabetButton_Click" />
+                                                <Button Content="T" Style="{StaticResource AlphabetButtonStyle}"
+                                                        Tag="T" Click="AlphabetButton_Click" />
+                                                <Button Content="U" Style="{StaticResource AlphabetButtonStyle}"
+                                                        Tag="U" Click="AlphabetButton_Click" />
+                                                <Button Content="V" Style="{StaticResource AlphabetButtonStyle}"
+                                                        Tag="V" Click="AlphabetButton_Click" />
+                                                <Button Content="W" Style="{StaticResource AlphabetButtonStyle}"
+                                                        Tag="W" Click="AlphabetButton_Click" />
+                                                <Button Content="X" Style="{StaticResource AlphabetButtonStyle}"
+                                                        Tag="X" Click="AlphabetButton_Click" />
+                                                <Button Content="Y" Style="{StaticResource AlphabetButtonStyle}"
+                                                        Tag="Y" Click="AlphabetButton_Click" />
+                                                <Button Content="Z" Style="{StaticResource AlphabetButtonStyle}"
+                                                        Tag="Z" Click="AlphabetButton_Click" />
+                                                <!-- <Button Visibility="Hidden" IsEnabled="False"/> -->
+                                            </UniformGrid>
+                                        </StackPanel>
+                                    </Border>
+                                </Popup>
+                            </Grid>
+
+                            <!-- Tags Dropdown -->
+                            <Grid>
+                                <ToggleButton x:Name="TagsDropdownToggle"
+                                              Style="{StaticResource TagDropdownButtonStyle}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="🏷️" FontSize="14" Margin="0,0,8,0" />
+                                        <TextBlock Text="Lọc theo nhãn" Margin="0,0,8,0" />
+                                        <TextBlock Text="▼" FontSize="12" />
+                                    </StackPanel>
+                                </ToggleButton>
+
+                                <Popup IsOpen="{Binding IsChecked, ElementName=TagsDropdownToggle}"
+                                       PlacementTarget="{Binding ElementName=TagsDropdownToggle}"
+                                       Placement="Bottom"
+                                       StaysOpen="False"
+                                       AllowsTransparency="True">
+                                    <Border Background="{DynamicResource SearchBackground}"
+                                            BorderBrush="{DynamicResource BorderColor}"
+                                            BorderThickness="2"
+                                            CornerRadius="15"
+                                            Padding="15"
+                                            Width="320"
+                                            MaxHeight="400">
+                                        <Border.Effect>
+                                            <DropShadowEffect BlurRadius="24" ShadowDepth="8" Opacity="0.2"
+                                                              Color="Black" />
+                                        </Border.Effect>
+
+                                        <StackPanel>
+                                            <!-- Search Box -->
+                                            <TextBox Text="Tìm nhãn..."
+                                                     Background="{DynamicResource MainBackground}"
+                                                     BorderBrush="{DynamicResource BorderColor}"
+                                                     BorderThickness="2"
+                                                     Padding="15,10"
+                                                     FontSize="14"
+                                                     Margin="0,0,0,10">
+                                                <TextBox.Style>
+                                                    <Style TargetType="TextBox">
+                                                        <Setter Property="Template">
+                                                            <Setter.Value>
+                                                                <ControlTemplate TargetType="TextBox">
+                                                                    <Border Background="{TemplateBinding Background}"
+                                                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                                                            BorderThickness="{TemplateBinding BorderThickness}"
+                                                                            CornerRadius="10"
+                                                                            Padding="{TemplateBinding Padding}">
+                                                                        <ScrollViewer x:Name="PART_ContentHost" />
+                                                                    </Border>
+                                                                </ControlTemplate>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                    </Style>
+                                                </TextBox.Style>
+                                            </TextBox>
+
+                                            <!-- Tags List -->
+                                            <ScrollViewer MaxHeight="300" VerticalScrollBarVisibility="Auto">
+                                                <StackPanel>
+                                                    <!-- Tag Item 1 -->
+                                                    <Border Background="Transparent"
+                                                            Padding="15,12"
+                                                            Margin="0,0,0,5"
+                                                            CornerRadius="10"
+                                                            Cursor="Hand">
+                                                        <Border.Style>
+                                                            <Style TargetType="Border">
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="Background"
+                                                                                Value="{DynamicResource WordItemHover}" />
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Border.Style>
+                                                        <Grid>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="Auto" />
+                                                                <ColumnDefinition Width="*" />
+                                                            </Grid.ColumnDefinitions>
+
+                                                            <TextBlock Grid.Column="0"
+                                                                       Text="📚"
+                                                                       FontSize="20"
+                                                                       Margin="0,0,10,0"
+                                                                       VerticalAlignment="Center" />
+
+                                                            <StackPanel Grid.Column="1">
+                                                                <TextBlock Text="Tất cả"
+                                                                           FontWeight="SemiBold"
+                                                                           Foreground="{DynamicResource TextColor}"
+                                                                           FontSize="14" />
+                                                                <TextBlock Text="3 từ"
+                                                                           FontSize="13"
+                                                                           Foreground="{DynamicResource TextColor}"
+                                                                           Opacity="0.7" />
+                                                            </StackPanel>
+                                                        </Grid>
+                                                    </Border>
+
+                                                    <!-- Tag Item 2 -->
+                                                    <Border Background="Transparent"
+                                                            Padding="15,12"
+                                                            Margin="0,0,0,5"
+                                                            CornerRadius="10"
+                                                            Cursor="Hand">
+                                                        <Border.Style>
+                                                            <Style TargetType="Border">
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="Background"
+                                                                                Value="{DynamicResource WordItemHover}" />
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Border.Style>
+                                                        <Grid>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="Auto" />
+                                                                <ColumnDefinition Width="*" />
+                                                            </Grid.ColumnDefinitions>
+
+                                                            <TextBlock Grid.Column="0"
+                                                                       Text="🎯"
+                                                                       FontSize="20"
+                                                                       Margin="0,0,10,0"
+                                                                       VerticalAlignment="Center" />
+
+                                                            <StackPanel Grid.Column="1">
+                                                                <TextBlock Text="IELTS"
+                                                                           FontWeight="SemiBold"
+                                                                           Foreground="{DynamicResource TextColor}"
+                                                                           FontSize="14" />
+                                                                <TextBlock Text="1 từ"
+                                                                           FontSize="13"
+                                                                           Foreground="{DynamicResource TextColor}"
+                                                                           Opacity="0.7" />
+                                                            </StackPanel>
+                                                        </Grid>
+                                                    </Border>
+
+                                                    <!-- Tag Item 3 -->
+                                                    <Border Background="Transparent"
+                                                            Padding="15,12"
+                                                            Margin="0,0,0,5"
+                                                            CornerRadius="10"
+                                                            Cursor="Hand">
+                                                        <Border.Style>
+                                                            <Style TargetType="Border">
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="Background"
+                                                                                Value="{DynamicResource WordItemHover}" />
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Border.Style>
+                                                        <Grid>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="Auto" />
+                                                                <ColumnDefinition Width="*" />
+                                                            </Grid.ColumnDefinitions>
+
+                                                            <TextBlock Grid.Column="0"
+                                                                       Text="💬"
+                                                                       FontSize="20"
+                                                                       Margin="0,0,10,0"
+                                                                       VerticalAlignment="Center" />
+
+                                                            <StackPanel Grid.Column="1">
+                                                                <TextBlock Text="Giao tiếp"
+                                                                           FontWeight="SemiBold"
+                                                                           Foreground="{DynamicResource TextColor}"
+                                                                           FontSize="14" />
+                                                                <TextBlock Text="2 từ"
+                                                                           FontSize="13"
+                                                                           Foreground="{DynamicResource TextColor}"
+                                                                           Opacity="0.7" />
+                                                            </StackPanel>
+                                                        </Grid>
+                                                    </Border>
+
+                                                    <!-- Tag Item 4 -->
+                                                    <Border Background="Transparent"
+                                                            Padding="15,12"
+                                                            CornerRadius="10"
+                                                            Cursor="Hand">
+                                                        <Border.Style>
+                                                            <Style TargetType="Border">
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="Background"
+                                                                                Value="{DynamicResource WordItemHover}" />
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Border.Style>
+                                                        <Grid>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="Auto" />
+                                                                <ColumnDefinition Width="*" />
+                                                            </Grid.ColumnDefinitions>
+
+                                                            <TextBlock Grid.Column="0"
+                                                                       Text="💼"
+                                                                       FontSize="20"
+                                                                       Margin="0,0,10,0"
+                                                                       VerticalAlignment="Center" />
+
+                                                            <StackPanel Grid.Column="1">
+                                                                <TextBlock Text="Business"
+                                                                           FontWeight="SemiBold"
+                                                                           Foreground="{DynamicResource TextColor}"
+                                                                           FontSize="14" />
+                                                                <TextBlock Text="1 từ"
+                                                                           FontSize="13"
+                                                                           Foreground="{DynamicResource TextColor}"
+                                                                           Opacity="0.7" />
+                                                            </StackPanel>
+                                                        </Grid>
+                                                    </Border>
+                                                </StackPanel>
+                                            </ScrollViewer>
+                                        </StackPanel>
+                                    </Border>
+                                </Popup>
+                            </Grid>
+                        </StackPanel>
                     </Grid>
                 </StackPanel>
             </Border>
@@ -629,390 +660,68 @@
             <!-- WORDS GRID -->
             <!-- ================================= -->
             <StackPanel Grid.Row="1">
-                <!-- ===== ALPHABET FILTER BAR ===== -->
-                <Border Background="{DynamicResource CardBackground}"
-                        BorderBrush="{DynamicResource BorderColor}"
-                        BorderThickness="2"
-                        CornerRadius="15"
-                        Padding="25,20"
-                        Margin="0,0,0,20">
-                    <Border.Effect>
-                        <DropShadowEffect BlurRadius="12" ShadowDepth="4" Opacity="0.08" Color="Black"/>
-                    </Border.Effect>
-                    
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        
-                        <!-- Left: Alphabet Buttons -->
-                        <ScrollViewer Grid.Column="0" 
-                                      HorizontalScrollBarVisibility="Auto" 
-                                      VerticalScrollBarVisibility="Disabled"
-                                      Margin="0,0,30,0">
-                            <StackPanel Orientation="Horizontal">
-                                <!-- ALL Button -->
-                                <Button Content="All" 
-                                        Style="{StaticResource AlphabetButtonStyle}"
-                                        Width="55"
-                                        Tag = "Active"
-                                        Click="AlphabetButton_Click"/>
-                                
-                                <!-- Alphabet Buttons A-Z -->
-                                <Button Content="A" Style="{StaticResource AlphabetButtonStyle}" Tag="A" Click="AlphabetButton_Click"/>
-                                <Button Content="B" Style="{StaticResource AlphabetButtonStyle}" Tag="B" Click="AlphabetButton_Click"/>
-                                <Button Content="C" Style="{StaticResource AlphabetButtonStyle}" Tag="C" Click="AlphabetButton_Click"/>
-                                <Button Content="D" Style="{StaticResource AlphabetButtonStyle}" Tag="D" Click="AlphabetButton_Click"/>
-                                <Button Content="E" Style="{StaticResource AlphabetButtonStyle}" Tag="E" Click="AlphabetButton_Click"/>
-                                <Button Content="F" Style="{StaticResource AlphabetButtonStyle}" Tag="F" Click="AlphabetButton_Click"/>
-                                <Button Content="G" Style="{StaticResource AlphabetButtonStyle}" Tag="G" Click="AlphabetButton_Click"/>
-                                <Button Content="H" Style="{StaticResource AlphabetButtonStyle}" Tag="H" Click="AlphabetButton_Click"/>
-                                <Button Content="I" Style="{StaticResource AlphabetButtonStyle}" Tag="I" Click="AlphabetButton_Click"/>
-                                <Button Content="J" Style="{StaticResource AlphabetButtonStyle}" Tag="J" Click="AlphabetButton_Click"/>
-                                <Button Content="K" Style="{StaticResource AlphabetButtonStyle}" Tag="K" Click="AlphabetButton_Click"/>
-                                <Button Content="L" Style="{StaticResource AlphabetButtonStyle}" Tag="L" Click="AlphabetButton_Click"/>
-                                <Button Content="M" Style="{StaticResource AlphabetButtonStyle}" Tag="M" Click="AlphabetButton_Click"/>
-                                <Button Content="N" Style="{StaticResource AlphabetButtonStyle}" Tag="N" Click="AlphabetButton_Click"/>
-                                <Button Content="O" Style="{StaticResource AlphabetButtonStyle}" Tag="O" Click="AlphabetButton_Click"/>
-                                <Button Content="P" Style="{StaticResource AlphabetButtonStyle}" Tag="P" Click="AlphabetButton_Click"/>
-                                <Button Content="Q" Style="{StaticResource AlphabetButtonStyle}" Tag="Q" Click="AlphabetButton_Click"/>
-                                <Button Content="R" Style="{StaticResource AlphabetButtonStyle}" Tag="R" Click="AlphabetButton_Click"/>
-                                <Button Content="S" Style="{StaticResource AlphabetButtonStyle}" Tag="S" Click="AlphabetButton_Click"/>
-                                <Button Content="T" Style="{StaticResource AlphabetButtonStyle}" Tag="T" Click="AlphabetButton_Click"/>
-                                <Button Content="U" Style="{StaticResource AlphabetButtonStyle}" Tag="U" Click="AlphabetButton_Click"/>
-                                <Button Content="V" Style="{StaticResource AlphabetButtonStyle}" Tag="V" Click="AlphabetButton_Click"/>
-                                <Button Content="W" Style="{StaticResource AlphabetButtonStyle}" Tag="W" Click="AlphabetButton_Click"/>
-                                <Button Content="X" Style="{StaticResource AlphabetButtonStyle}" Tag="X" Click="AlphabetButton_Click"/>
-                                <Button Content="Y" Style="{StaticResource AlphabetButtonStyle}" Tag="Y" Click="AlphabetButton_Click"/>
-                                <Button Content="Z" Style="{StaticResource AlphabetButtonStyle}" Tag="Z" Click="AlphabetButton_Click"/>
-                            </StackPanel>
-                        </ScrollViewer>
-                    </Grid>
-                </Border>
-                
-                <Border Background="Transparent" 
+                <Border Background="Transparent"
                         Padding="15,0"
                         Margin="0,0,0,20">
                     <StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
-                            <TextBlock Text="A" 
-                                       FontSize="48" 
-                                       FontWeight="Bold" 
+                            <TextBlock Text="A"
+                                       FontSize="48"
+                                       FontWeight="Bold"
                                        Foreground="{DynamicResource ToolButtonActive}"
-                                       Margin="0,0,15,0"/>
-                            <TextBlock Text="(1 word)" 
-                                       FontSize="20" 
+                                       Margin="0,0,15,0" />
+                            <TextBlock Text="(1 word)"
+                                       FontSize="20"
                                        Foreground="{DynamicResource TextColor}"
                                        Opacity="0.6"
                                        VerticalAlignment="Bottom"
-                                       Margin="0,0,0,8"/>
+                                       Margin="0,0,0,8" />
                         </StackPanel>
-            
+
                         <!-- Underline -->
-                        <Border Height="3" 
+                        <Border Height="3"
                                 Background="{DynamicResource ToolButtonActive}"
                                 CornerRadius="2"
-                                HorizontalAlignment="Stretch"/>
+                                HorizontalAlignment="Stretch" />
                     </StackPanel>
                 </Border>
-    
+
                 <!-- ===== WORD CARDS (Grid.Column="1") ===== -->
-                <UniformGrid Columns="3">
-                    <!-- Word Card 1 - Beautiful -->
-                    <Border Style="{StaticResource WordCardStyle}">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
+                <UniformGrid x:Name="FavGrid" Columns="3" Margin="0,30,0,0">
 
-                            <!-- Card Header -->
-                            <Grid Grid.Row="0" Margin="0,0,0,15">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
+                    <!-- Card 1: Beautiful -->
+                    <uc:WordDefinitionCard
+                        Word="Beautiful"
+                        PartOfSpeech="ADJ"
+                        Region="US"
+                        Pronunciation="/ˈbjuː.tɪ.fəl/"
+                        Definition="Đẹp, xinh đẹp, tuyệt đẹp - Có vẻ đẹp làm hài lòng các giác quan hoặc tâm trí"
+                        Example1='"She wore a beautiful dress to the party."'
+                        Example2='"The sunset was absolutely beautiful tonight."'
+                        TimeStamp="📅 2 ngày trước" />
 
-                                <!-- Word Info -->
-                                <StackPanel Grid.Column="0">
-                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                                        <TextBlock Text="Beautiful" 
-                                                   FontSize="25" 
-                                                   FontWeight="Bold" 
-                                                   Foreground="{DynamicResource TextColor}"
-                                                   Margin="0,0,12,0"/>
-                                        <Border Background="{DynamicResource ToolButtonActive}"
-                                                CornerRadius="12"
-                                                Padding="12,4">
-                                            <TextBlock Text="ADJ" 
-                                                       FontSize="11" 
-                                                       FontWeight="Bold"
-                                                       Foreground="White"/>
-                                        </Border>
-                                    </StackPanel>
+                    <!-- Card 2: Achieve -->
+                    <uc:WordDefinitionCard
+                        Word="Achieve"
+                        PartOfSpeech="VERB"
+                        Region="US"
+                        Pronunciation="/əˈtʃiːv/"
+                        Definition="Đạt được, giành được - Thành công trong việc đạt được điều gì đó qua nỗ lực"
+                        Example1='"She achieved her goal of becoming a doctor."'
+                        Example2='"We finally achieved what we set out to do."'
+                        TimeStamp="📅 5 ngày trước" />
 
-                                    <Border Background="{DynamicResource WordItemBackground}"
-                                            CornerRadius="8"
-                                            Padding="12,6"
-                                            HorizontalAlignment="Left">
-                                        <TextBlock Text="/ˈbjuː.tɪ.fəl/" 
-                                                   FontFamily="Courier New"
-                                                   FontSize="14" 
-                                                   FontWeight="SemiBold"
-                                                   Foreground="{DynamicResource ButtonColor}"/>
-                                    </Border>
-                                </StackPanel>
+                    <!-- Card 3: Knowledge -->
+                    <uc:WordDefinitionCard
+                        Word="Knowledge"
+                        PartOfSpeech="NOUN"
+                        Region="US"
+                        Pronunciation="/ˈnɑː.lɪdʒ/"
+                        Definition="Kiến thức, sự hiểu biết - Thông tin và kỹ năng có được thông qua kinh nghiệm hoặc giáo dục"
+                        Example1='"She has extensive knowledge of computer science."'
+                        Example2='"His knowledge of history is impressive."'
+                        TimeStamp="📅 1 tuần trước" />
 
-                                <!-- Actions -->
-                                <StackPanel Grid.Column="1" Orientation="Horizontal">
-                                    <Button Style="{StaticResource CardActionButtonStyle}" ToolTip="Edit">
-                                        <TextBlock Text="✏️" FontSize="16"/>
-                                    </Button>
-                                    <Button Style="{StaticResource CardActionButtonStyle}" Margin="8,0,0,0" ToolTip="Delete">
-                                        <TextBlock Text="🗑️" FontSize="16"/>
-                                    </Button>
-                                </StackPanel>
-                            </Grid>
-
-                            <!-- Card Body -->
-                            <StackPanel Grid.Row="1" Margin="0,15,0,15">
-                                <TextBlock TextWrapping="Wrap" LineHeight="27">
-                                    <Run Text="Nghĩa:" FontWeight="Bold" Foreground="{DynamicResource TextColor}"/>
-                                    <Run Text="Đẹp, xinh đẹp" Foreground="{DynamicResource TextColor}"/>
-                                </TextBlock>
-
-                                <Border BorderBrush="{DynamicResource TextColor}"
-                                        BorderThickness="3,0,0,0"
-                                        Padding="15,0,0,0"
-                                        Margin="0,12,0,0">
-                                    <TextBlock Text="&quot;She is beautiful&quot;" 
-                                               FontStyle="Italic" 
-                                               Foreground="{DynamicResource TextColor}"
-                                               Opacity="0.9"
-                                               FontSize="15"
-                                               TextWrapping="Wrap"/>
-                                </Border>
-                            </StackPanel>
-
-                            <!-- Card Footer -->
-                            <WrapPanel Grid.Row="2">
-                                <Border Background="{DynamicResource WordItemBackground}"
-                                        CornerRadius="15"
-                                        Padding="14,6"
-                                        Margin="0,0,8,0">
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="💬" FontSize="14" Margin="0,0,6,0"/>
-                                        <TextBlock Text="Giao tiếp" 
-                                                   FontSize="13" 
-                                                   FontWeight="SemiBold"
-                                                   Foreground="{DynamicResource TextColor}"/>
-                                    </StackPanel>
-                                </Border>
-
-                                <Border Background="{DynamicResource WordItemBackground}"
-                                        CornerRadius="15"
-                                        Padding="14,6">
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="🎯" FontSize="14" Margin="0,0,6,0"/>
-                                        <TextBlock Text="IELTS" 
-                                                   FontSize="13" 
-                                                   FontWeight="SemiBold"
-                                                   Foreground="{DynamicResource TextColor}"/>
-                                    </StackPanel>
-                                </Border>
-                            </WrapPanel>
-                        </Grid>
-                    </Border>
-
-                    <!-- Word Card 2 - Achieve -->
-                    <Border Style="{StaticResource WordCardStyle}">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-
-                            <!-- Card Header -->
-                            <Grid Grid.Row="0" Margin="0,0,0,15">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-
-                                <!-- Word Info -->
-                                <StackPanel Grid.Column="0">
-                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                                        <TextBlock Text="Achieve" 
-                                                   FontSize="25" 
-                                                   FontWeight="Bold" 
-                                                   Foreground="{DynamicResource TextColor}"
-                                                   Margin="0,0,12,0"/>
-                                        <Border Background="{DynamicResource ToolButtonActive}"
-                                                CornerRadius="12"
-                                                Padding="12,4">
-                                            <TextBlock Text="VERB" 
-                                                       FontSize="11" 
-                                                       FontWeight="Bold"
-                                                       Foreground="White"/>
-                                        </Border>
-                                    </StackPanel>
-
-                                    <Border Background="{DynamicResource WordItemBackground}"
-                                            CornerRadius="8"
-                                            Padding="12,6"
-                                            HorizontalAlignment="Left">
-                                        <TextBlock Text="/əˈtʃiːv/" 
-                                                   FontFamily="Courier New"
-                                                   FontSize="14" 
-                                                   FontWeight="SemiBold"
-                                                   Foreground="{DynamicResource ButtonColor}"/>
-                                    </Border>
-                                </StackPanel>
-
-                                <!-- Actions -->
-                                <StackPanel Grid.Column="1" Orientation="Horizontal">
-                                    <Button Style="{StaticResource CardActionButtonStyle}" ToolTip="Edit">
-                                        <TextBlock Text="✏️" FontSize="16"/>
-                                    </Button>
-                                    <Button Style="{StaticResource CardActionButtonStyle}" Margin="8,0,0,0" ToolTip="Delete">
-                                        <TextBlock Text="🗑️" FontSize="16"/>
-                                    </Button>
-                                </StackPanel>
-                            </Grid>
-
-                            <!-- Card Body -->
-                            <StackPanel Grid.Row="1" Margin="0,15,0,15">
-                                <TextBlock TextWrapping="Wrap" LineHeight="27">
-                                    <Run Text="Nghĩa:" FontWeight="Bold" Foreground="{DynamicResource TextColor}"/>
-                                    <Run Text="Đạt được" Foreground="{DynamicResource TextColor}"/>
-                                </TextBlock>
-
-                                <Border BorderBrush="{DynamicResource TextColor}"
-                                        BorderThickness="3,0,0,0"
-                                        Padding="15,0,0,0"
-                                        Margin="0,12,0,0">
-                                    <TextBlock Text="&quot;She achieved success&quot;" 
-                                               FontStyle="Italic" 
-                                               Foreground="{DynamicResource TextColor}"
-                                               Opacity="0.9"
-                                               FontSize="15"
-                                               TextWrapping="Wrap"/>
-                                </Border>
-                            </StackPanel>
-
-                            <!-- Card Footer -->
-                            <WrapPanel Grid.Row="2">
-                                <Border Background="{DynamicResource WordItemBackground}"
-                                        CornerRadius="15"
-                                        Padding="14,6">
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="💼" FontSize="14" Margin="0,0,6,0"/>
-                                        <TextBlock Text="Business" 
-                                                   FontSize="13" 
-                                                   FontWeight="SemiBold"
-                                                   Foreground="{DynamicResource TextColor}"/>
-                                    </StackPanel>
-                                </Border>
-                            </WrapPanel>
-                        </Grid>
-                    </Border>
-
-                    <!-- Word Card 3 - Knowledge -->
-                    <Border Style="{StaticResource WordCardStyle}">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-
-                            <!-- Card Header -->
-                            <Grid Grid.Row="0" Margin="0,0,0,15">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-
-                                <!-- Word Info -->
-                                <StackPanel Grid.Column="0">
-                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                                        <TextBlock Text="Knowledge" 
-                                                   FontSize="25" 
-                                                   FontWeight="Bold" 
-                                                   Foreground="{DynamicResource TextColor}"
-                                                   Margin="0,0,12,0"/>
-                                        <Border Background="{DynamicResource ToolButtonActive}"
-                                                CornerRadius="12"
-                                                Padding="12,4">
-                                            <TextBlock Text="NOUN" 
-                                                       FontSize="11" 
-                                                       FontWeight="Bold"
-                                                       Foreground="White"/>
-                                        </Border>
-                                    </StackPanel>
-
-                                    <Border Background="{DynamicResource WordItemBackground}"
-                                            CornerRadius="8"
-                                            Padding="12,6"
-                                            HorizontalAlignment="Left">
-                                        <TextBlock Text="/ˈnɒl.ɪdʒ/" 
-                                                   FontFamily="Courier New"
-                                                   FontSize="14" 
-                                                   FontWeight="SemiBold"
-                                                   Foreground="{DynamicResource ButtonColor}"/>
-                                    </Border>
-                                </StackPanel>
-
-                                <!-- Actions -->
-                                <StackPanel Grid.Column="1" Orientation="Horizontal">
-                                    <Button Style="{StaticResource CardActionButtonStyle}" ToolTip="Edit">
-                                        <TextBlock Text="✏️" FontSize="16"/>
-                                    </Button>
-                                    <Button Style="{StaticResource CardActionButtonStyle}" Margin="8,0,0,0" ToolTip="Delete">
-                                        <TextBlock Text="🗑️" FontSize="16"/>
-                                    </Button>
-                                </StackPanel>
-                            </Grid>
-
-                            <!-- Card Body -->
-                            <StackPanel Grid.Row="1" Margin="0,15,0,15">
-                                <TextBlock TextWrapping="Wrap" LineHeight="27">
-                                    <Run Text="Nghĩa:" FontWeight="Bold" Foreground="{DynamicResource TextColor}"/>
-                                    <Run Text="Kiến thức" Foreground="{DynamicResource TextColor}"/>
-                                </TextBlock>
-
-                                <Border BorderBrush="{DynamicResource TextColor}"
-                                        BorderThickness="3,0,0,0"
-                                        Padding="15,0,0,0"
-                                        Margin="0,12,0,0">
-                                    <TextBlock Text="&quot;He has knowledge&quot;" 
-                                               FontStyle="Italic" 
-                                               Foreground="{DynamicResource TextColor}"
-                                               Opacity="0.9"
-                                               FontSize="15"
-                                               TextWrapping="Wrap"/>
-                                </Border>
-                            </StackPanel>
-
-                            <!-- Card Footer -->
-                            <WrapPanel Grid.Row="2">
-                                <Border Background="{DynamicResource WordItemBackground}"
-                                        CornerRadius="15"
-                                        Padding="14,6">
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="💬" FontSize="14" Margin="0,0,6,0"/>
-                                        <TextBlock Text="Giao tiếp" 
-                                                   FontSize="13" 
-                                                   FontWeight="SemiBold"
-                                                   Foreground="{DynamicResource TextColor}"/>
-                                    </StackPanel>
-                                </Border>
-                            </WrapPanel>
-                        </Grid>
-                    </Border>
                 </UniformGrid>
             </StackPanel>
         </Grid>
