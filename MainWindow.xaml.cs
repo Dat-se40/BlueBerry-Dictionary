@@ -121,12 +121,12 @@ namespace BlueBerryDictionary
                     page = hisp;    
                     break;
                 // Uncomment and implement these cases when the pages are available
-                //case "Favourite":
-                //    page = new FavouritePage();
-                //    break;
-                //case "MyWords":
-                //    page = new MyWordsPage();
-                //    break;
+                case "Favourite":
+                    page = new FavouriteWordsPage();
+                    break;
+                case "MyWords":
+                    page = new MyWordsPage();
+                    break;
                 //case "Game":
                 //    page = new GamePage();
                 //    break;
