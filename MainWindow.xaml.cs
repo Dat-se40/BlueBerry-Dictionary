@@ -112,7 +112,7 @@ namespace BlueBerryDictionary
                     page = new HomePage(_searchViewModel.OnWordClicked);
                     break;
                 case "History":
-                    var hisp = new HistoryPage(); // TODO: Create History page
+                    var hisp = new HistoryPage(_searchViewModel.OnWordClicked); // TODO: Create History page
                     hisp.LoadCache();
                     page = hisp;    
                     break;

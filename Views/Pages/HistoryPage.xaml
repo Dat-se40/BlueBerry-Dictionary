@@ -1,14 +1,15 @@
-﻿<Page x:Class="BlueBerryDictionary.Pages.HistoryPage"
+﻿<local:WordListPageBase x:Class="BlueBerryDictionary.Pages.HistoryPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:BlueBerryDictionary.Views.Pages"
       xmlns:userControls="clr-namespace:BlueBerryDictionary.Views.UserControls"
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="1200"
       Background="{DynamicResource MainBackground}">
 
-    <Page.Resources>
+    <local:WordListPageBase.Resources>
         <!-- History Card Style -->
         <Style x:Key="HistoryCardStyle" TargetType="Border">
             <Setter Property="Background" Value="{DynamicResource CardBackground}"/>
@@ -119,7 +120,7 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-    </Page.Resources>
+    </local:WordListPageBase.Resources>
 
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
         <Grid Margin="30">
@@ -191,4 +192,4 @@
             </StackPanel>
         </Grid>
     </ScrollViewer>
-</Page>
+</local:WordListPageBase>
