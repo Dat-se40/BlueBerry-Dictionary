@@ -1,4 +1,6 @@
 ﻿using BlueBerryDictionary.Models;
+using BlueBerryDictionary.Services;
+using BlueBerryDictionary.Views.Dialogs;
 using System;
 using System.Linq;
 using System.Windows;
@@ -360,7 +362,65 @@ namespace BlueBerryDictionary.Views.Pages
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Chức năng lưu từ đang phát triển");
+            if (_word == null) return;
+
+            try
+            {
+                var tagService = TagService.Instance;
+
+                // Show dialog
+                var dialog = new MeaningSelectorDialog(_word)
+                {
+                    Owner = Window.GetWindow(this)
+                };
+
+                if (dialog.ShowDialog() == true && !dialog.IsCancelled)
+                {
+                    int meaningIndex = dialog.SelectedMeaningIndex;
+                    List<string> selectedTags = dialog.SelectedTagIds;
+
+                    // Create WordShortened with selected meaning
+                    var shortened = WordShortened.FromWord(_word, meaningIndex);
+
+                    if (shortened == null)
+                    {
+                        MessageBox.Show("Lỗi khi xử lý từ", "Lỗi",
+                            MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+
+                    // Add tags to the shortened word
+                    shortened.Tags = selectedTags;
+
+                    // Save to TagService (which will also add to tags)
+                    var added = tagService.AddWord(_word, selectedTags);
+
+                    if (added != null)
+                    {
+                        var selectedMeaning = _word.meanings[meaningIndex];
+                        string tagInfo = selectedTags.Count > 0
+                            ? $" với {selectedTags.Count} nhãn"
+                            : "";
+
+                        MessageBox.Show(
+                            $"✅ Đã lưu '{_word.word}' ({selectedMeaning.partOfSpeech}){tagInfo} vào My Words",
+                            "Thành công",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Information
+                        );
+                    }
+                    else
+                    {
+                        MessageBox.Show("Từ này đã có trong My Words",
+                            "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"❌ Lỗi: {ex.Message}",
+                    "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void Share_Click(object sender, RoutedEventArgs e)
