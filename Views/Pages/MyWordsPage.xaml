@@ -184,6 +184,7 @@
                             <TextBlock Text="📚"
                                        FontSize="48"
                                        VerticalAlignment="Center"
+                                       Foreground="{DynamicResource TextColor}"
                                        Margin="0,0,15,0" />
                             <TextBlock Text="My Words"
                                        FontSize="40"
@@ -293,28 +294,24 @@
                         <WrapPanel Grid.Column="0" HorizontalAlignment="Left">
                             <Button Style="{StaticResource FilterChipStyle}" Tag="Active">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="🔧" FontSize="14" Margin="0,0,8,0" />
                                     <TextBlock Text="Tất cả (3)" />
                                 </StackPanel>
                             </Button>
 
                             <Button Style="{StaticResource FilterChipStyle}">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="📝" FontSize="14" Margin="0,0,8,0" />
                                     <TextBlock Text="Danh từ" />
                                 </StackPanel>
                             </Button>
 
                             <Button Style="{StaticResource FilterChipStyle}">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="⚡" FontSize="14" Margin="0,0,8,0" />
                                     <TextBlock Text="Động từ" />
                                 </StackPanel>
                             </Button>
 
                             <Button Style="{StaticResource FilterChipStyle}">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="💎" FontSize="14" Margin="0,0,8,0" />
                                     <TextBlock Text="Tính từ" />
                                 </StackPanel>
                             </Button>
@@ -338,7 +335,7 @@
                                        Placement="Bottom"
                                        StaysOpen="False"
                                        AllowsTransparency="True">
-                                    <Border Background="{DynamicResource SearchBackground}"
+                                    <Border Background="{DynamicResource CardBackground}"
                                             BorderBrush="{DynamicResource BorderColor}"
                                             BorderThickness="2"
                                             CornerRadius="15"
@@ -434,7 +431,7 @@
                                        Placement="Bottom"
                                        StaysOpen="False"
                                        AllowsTransparency="True">
-                                    <Border Background="{DynamicResource SearchBackground}"
+                                    <Border Background="{DynamicResource CardBackground}"
                                             BorderBrush="{DynamicResource BorderColor}"
                                             BorderThickness="2"
                                             CornerRadius="15"
