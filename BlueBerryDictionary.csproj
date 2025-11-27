@@ -11,7 +11,6 @@
   <ItemGroup>
     <Folder Include="Data\PersistentStorage\StoredQuote\" />
     <Folder Include="Data\PersistentStorage\StoredWord\" />
-    <Folder Include="ViewModels\" />
   </ItemGroup>
 
   <ItemGroup>

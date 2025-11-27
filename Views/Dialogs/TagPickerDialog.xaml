@@ -1,0 +1,234 @@
+﻿<Window x:Class="BlueBerryDictionary.Views.Dialogs.TagPickerDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Tạo nhãn mới"
+        Height="650" Width="550"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        Background="{DynamicResource MainBackground}">
+
+    <Window.Resources>
+        <!-- Icon Button Style -->
+        <Style x:Key="IconButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="#E2E8F0"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="10">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#F1F5F9"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Border BorderBrush="{DynamicResource BorderColor}"
+            BorderThickness="2"
+            CornerRadius="20"
+            Margin="20"
+            Padding="30"
+            Background="{DynamicResource CardBackground}">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <!-- HEADER -->
+                <TextBlock Text="🏷️ Tạo nhãn mới"
+                           FontSize="28"
+                           FontWeight="Bold"
+                           Foreground="{DynamicResource TextColor}"
+                           Margin="0,0,0,10"/>
+
+                <TextBlock Text="Tạo nhãn để phân loại từ vựng của bạn"
+                           FontSize="14"
+                           Opacity="0.8"
+                           Foreground="{DynamicResource TextColor}"
+                           Margin="0,0,0,30"/>
+
+                <!-- PREVIEW -->
+                <Border x:Name="PreviewBorder"
+                        Background="{DynamicResource ToolButtonActive}"
+                        CornerRadius="25"
+                        Padding="20,12"
+                        HorizontalAlignment="Center"
+                        Margin="0,0,0,30">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock x:Name="PreviewIcon"
+                                   Text="🏷️"
+                                   FontSize="20"
+                                   Margin="0,0,10,0"
+                                   Foreground="White"/>
+                        <TextBlock x:Name="PreviewName"
+                                   Text="Tên tag"
+                                   FontSize="16"
+                                   FontWeight="SemiBold"
+                                   Foreground="White"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- TAG NAME -->
+                <TextBlock Text="Tên nhãn"
+                           FontSize="14"
+                           FontWeight="SemiBold"
+                           Foreground="{DynamicResource TextColor}"
+                           Margin="0,0,0,10"/>
+
+                <TextBox x:Name="TagNameInput"
+                         FontSize="14"
+                         Padding="15,12"
+                         BorderBrush="{DynamicResource BorderColor}"
+                         BorderThickness="2"
+                         MaxLength="30"
+                         TextChanged="TagNameInput_TextChanged"
+                         Margin="0,0,0,25">
+                    <TextBox.Style>
+                        <Style TargetType="TextBox">
+                            <Setter Property="Background" Value="{DynamicResource SearchBackground}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource TextColor}"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="TextBox">
+                                        <Border Background="{TemplateBinding Background}"
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                BorderThickness="{TemplateBinding BorderThickness}"
+                                                CornerRadius="10"
+                                                Padding="{TemplateBinding Padding}">
+                                            <ScrollViewer x:Name="PART_ContentHost"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </TextBox.Style>
+                </TextBox>
+
+                <!-- ICON SELECTION -->
+                <TextBlock Text="Chọn biểu tượng"
+                           FontSize="14"
+                           FontWeight="SemiBold"
+                           Foreground="{DynamicResource TextColor}"
+                           Margin="0,0,0,10"/>
+
+                <Border Background="{DynamicResource SearchBackground}"
+                        BorderBrush="{DynamicResource BorderColor}"
+                        BorderThickness="2"
+                        CornerRadius="12"
+                        Padding="15"
+                        Margin="0,0,0,25">
+                    <WrapPanel x:Name="IconsPanel" HorizontalAlignment="Center"/>
+                </Border>
+
+                <!-- COLOR SELECTION -->
+                <TextBlock Text="Chọn màu"
+                           FontSize="14"
+                           FontWeight="SemiBold"
+                           Foreground="{DynamicResource TextColor}"
+                           Margin="0,0,0,10"/>
+
+                <Border Background="{DynamicResource SearchBackground}"
+                        BorderBrush="{DynamicResource BorderColor}"
+                        BorderThickness="2"
+                        CornerRadius="12"
+                        Padding="15"
+                        Margin="0,0,0,30">
+                    <WrapPanel x:Name="ColorsPanel" HorizontalAlignment="Center"/>
+                </Border>
+
+                <!-- BUTTONS -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Cancel Button -->
+                    <Button Grid.Column="0"
+                            Content="❌ Hủy"
+                            Padding="0,14"
+                            FontSize="14"
+                            FontWeight="SemiBold"
+                            Margin="0,0,10,0"
+                            Click="CancelButton_Click">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="{DynamicResource SearchBackground}"/>
+                                <Setter Property="Foreground" Value="#DC2626"/>
+                                <Setter Property="BorderBrush" Value="#DC2626"/>
+                                <Setter Property="BorderThickness" Value="2"/>
+                                <Setter Property="Cursor" Value="Hand"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="{TemplateBinding Background}"
+                                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                                    CornerRadius="12"
+                                                    Padding="{TemplateBinding Padding}">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#DC2626"/>
+                                        <Setter Property="Foreground" Value="White"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+
+                    <!-- Create Button -->
+                    <Button x:Name="CreateButton"
+                            Grid.Column="1"
+                            Content="✅ Tạo nhãn"
+                            Padding="0,14"
+                            FontSize="14"
+                            FontWeight="SemiBold"
+                            Margin="10,0,0,0"
+                            IsEnabled="False"
+                            Click="CreateButton_Click">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="{DynamicResource ToolButtonActive}"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="Cursor" Value="Hand"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="{TemplateBinding Background}"
+                                                    CornerRadius="12"
+                                                    Padding="{TemplateBinding Padding}">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Opacity" Value="0.9"/>
+                                    </Trigger>
+                                    <Trigger Property="IsEnabled" Value="False">
+                                        <Setter Property="Opacity" Value="0.5"/>
+                                        <Setter Property="Cursor" Value="No"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
+    </Border>
+</Window>
