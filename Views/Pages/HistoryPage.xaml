@@ -156,6 +156,7 @@
                             <TextBlock Text="🕐"
                                        FontSize="48"
                                        VerticalAlignment="Center"
+                                       Foreground="{DynamicResource TextColor}"
                                        Margin="0,0,15,0"/>
                             <TextBlock Text="History"
                                        FontSize="40"
