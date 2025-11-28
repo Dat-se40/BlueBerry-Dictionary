@@ -141,7 +141,7 @@ namespace BlueBerryDictionary
                     break;
             }
             Console.WriteLine("Navigate to " + page.ToString());
-            MainFrame.Navigate(page);
+            _navigationService.Navigate(page,page.ToString());
         }
 
         #endregion

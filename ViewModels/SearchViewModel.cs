@@ -85,7 +85,7 @@ namespace BlueBerryDictionary.ViewModels
             {
                 _detailsPage = new DetailsPage(value[0], OnWordClicked);
                 _detailsPage.DataContext = this;
-                _navigationService.Navigate(_detailsPage);
+                _navigationService.Navigate(_detailsPage, _detailsPage.ToString() + $" {CurrentWords}");
             }
         }
         public async void OnWordClicked(string word)
@@ -166,10 +166,12 @@ namespace BlueBerryDictionary.ViewModels
 
                 if (words != null && words.Count > 0)
                 {
-                    CurrentWords = words;
+                    CurrentWords = words; // <- nếu cùng bấm lại từ này ở trang khác thì ko load được vì ko có OnChanged
+                    // Check thêm Frame.Content != Frame.Previous content hay ko?
+                    
                     HasResults = true;
                     StatusMessage = $"Found definition for '{SearchText}'";
-
+                    _navigationService.Navigate(_detailsPage, _detailsPage.ToString() + $" {CurrentWords}");
                     // Load audio URLs
                     await LoadAudioAsync(SearchText);
                 }
