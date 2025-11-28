@@ -41,6 +41,29 @@ namespace MyDictionary.Services
                 _cacheManager.AddToCache(word, localWords);
                 return localWords;
             }
+            
+            // ========== TRY API 1: FREE DICTIONARY ==========
+            try
+            {
+                using var cts = CancellationTokenSource.CreateLinkedTokenSource(ct);
+                cts.CancelAfter(TimeSpan.FromSeconds(3));
+
+                var words = await _apiClient.FetchFromFreeDictionary(word, cts.Token);
+                if (words?.Count > 0)
+                {
+                    Console.WriteLine("✅ Found in Free Dictionary");
+                    _cacheManager.AddToCache(word, words);
+                    return words;
+                }
+            }
+            catch (TaskCanceledException)
+            {
+                Console.WriteLine("⏱️ Free Dictionary timeout");
+            }
+            catch (HttpRequestException ex)
+            {
+                Console.WriteLine($"⚠️ Free Dictionary failed: {ex.Message}");
+            }
             // ========== TRY API 2: MERRIAM-WEBSTER ==========
             try
             {
@@ -64,28 +87,6 @@ namespace MyDictionary.Services
             catch (Exception ex)
             {
                 Console.WriteLine($"❌ Merriam-Webster failed: {ex.Message}");
-            }
-            // ========== TRY API 1: FREE DICTIONARY ==========
-            try
-            {
-                using var cts = CancellationTokenSource.CreateLinkedTokenSource(ct);
-                cts.CancelAfter(TimeSpan.FromSeconds(3));
-
-                var words = await _apiClient.FetchFromFreeDictionary(word, cts.Token);
-                if (words?.Count > 0)
-                {
-                    Console.WriteLine("✅ Found in Free Dictionary");
-                    _cacheManager.AddToCache(word, words);
-                    return words;
-                }
-            }
-            catch (TaskCanceledException)
-            {
-                Console.WriteLine("⏱️ Free Dictionary timeout");
-            }
-            catch (HttpRequestException ex)
-            {
-                Console.WriteLine($"⚠️ Free Dictionary failed: {ex.Message}");
             }
             // ========== NOT FOUND ==========
             Console.WriteLine($"❌ Word '{word}' not found");

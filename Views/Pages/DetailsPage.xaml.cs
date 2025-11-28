@@ -357,6 +357,21 @@ namespace BlueBerryDictionary.Views.Pages
         private void Favorite_Click(object sender, RoutedEventArgs e)
         {
             _isFavorite = !_isFavorite;
+            if (_isFavorite == true)
+            {
+                FavoriteBtn.Background = Brushes.LightPink;
+                FavoriteBtn.Foreground = Brushes.DeepPink;
+                var newWS = WordShortened.FromWord(_word);
+                newWS.isFavorited = true; 
+                TagService.Instance.AddNewWordShortened(newWS); 
+            }
+            else
+            {
+                FavoriteBtn.ClearValue(Button.BackgroundProperty);
+                FavoriteBtn.ClearValue(Button.ForegroundProperty);
+                FavoriteBtn.SetResourceReference(Button.StyleProperty, "ActionButtonStyle");
+                TagService.Instance.GetWordShortened(_word.word).isFavorited = false; 
+            }
             MessageBox.Show(_isFavorite ? "Đã thêm vào yêu thích" : "Đã xóa khỏi yêu thích");
         }
 

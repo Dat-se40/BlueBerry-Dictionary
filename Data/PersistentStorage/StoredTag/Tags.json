@@ -1,90 +1,23 @@
 [
   {
-    "Id": "6a0e33aa-92cb-4278-8a73-c0e75c31b13f",
-    "Name": "Toy",
-    "Icon": "🎮",
-    "Color": "#F59E0B",
-    "CreatedAt": "2025-11-27T11:28:54.4457234+07:00",
-    "RelatedWords": [
-      "doll"
-    ],
-    "WordCount": 1
-  },
-  {
-    "Id": "d2c30d76-30af-4589-b3ae-a498ff51ea2c",
-    "Name": "Toeic",
+    "Id": "20e6e8f8-e78f-46fb-9b6e-40ea75d0238a",
+    "Name": "Body",
     "Icon": "🎓",
-    "Color": "#10B981",
-    "CreatedAt": "2025-11-27T11:43:13.6713512+07:00",
+    "Color": "#EF4444",
+    "CreatedAt": "2025-11-28T21:36:53.4283175+07:00",
     "RelatedWords": [
-      "agreement",
-      "conflict",
-      "precious"
+      "body",
+      "pack"
     ],
-    "WordCount": 3
+    "WordCount": 2
   },
   {
-    "Id": "b995bba7-bd41-4b1d-85f2-94965494c922",
-    "Name": "Verb",
-    "Icon": "🌟",
+    "Id": "a989780a-03c1-4f5c-bc76-e56ad092f8fc",
+    "Name": "Time",
+    "Icon": "🌈",
     "Color": "#2D4ACC",
-    "CreatedAt": "2025-11-27T15:05:10.8081834+07:00",
+    "CreatedAt": "2025-11-28T23:29:13.4467229+07:00",
     "RelatedWords": [],
     "WordCount": 0
-  },
-  {
-    "Id": "45369e57-575b-456f-b814-0a481bbfd95b",
-    "Name": "greeting",
-    "Icon": "🌟",
-    "Color": "#F59E0B",
-    "CreatedAt": "2025-11-27T15:54:25.0508669+07:00",
-    "RelatedWords": [
-      "hello",
-      "habitation"
-    ],
-    "WordCount": 2
-  },
-  {
-    "Id": "85f5b0f6-17b8-43bc-8b55-dbe058b5420a",
-    "Name": "home",
-    "Icon": "🔥",
-    "Color": "#EC4899",
-    "CreatedAt": "2025-11-28T10:37:51.9977005+07:00",
-    "RelatedWords": [
-      "family"
-    ],
-    "WordCount": 1
-  },
-  {
-    "Id": "8e058214-4de2-454b-aed2-7be3a60316b3",
-    "Name": "?",
-    "Icon": "📱",
-    "Color": "#8B5CF6",
-    "CreatedAt": "2025-11-28T11:02:18.0449876+07:00",
-    "RelatedWords": [
-      "habitation",
-      "whatever"
-    ],
-    "WordCount": 2
-  },
-  {
-    "Id": "0841d31a-d05e-410a-b1ab-29634700f4ec",
-    "Name": "appearance",
-    "Icon": "🎭",
-    "Color": "#10B981",
-    "CreatedAt": "2025-11-28T16:10:37.6125412+07:00",
-    "RelatedWords": [],
-    "WordCount": 0
-  },
-  {
-    "Id": "093fd8eb-77f4-4c0f-9dce-92dadeb6e621",
-    "Name": "wh-question",
-    "Icon": "📚",
-    "Color": "#EC4899",
-    "CreatedAt": "2025-11-28T16:12:54.314454+07:00",
-    "RelatedWords": [
-      "whatever"
-    ],
-    "WordCount": 1
   }
 ]

@@ -195,6 +195,10 @@ namespace BlueBerryDictionary.Services
             return _words.Values.OrderByDescending(w => w.AddedAt).ToList();
         }
 
+        public void AddNewWordShortened(WordShortened newWord) 
+        {
+            if(!_words.ContainsKey(newWord.Word)) _words.Add(newWord.Word, newWord);
+        }
         /// <summary>
         /// Lấy từ theo tag
         /// </summary>
@@ -317,7 +321,10 @@ namespace BlueBerryDictionary.Services
             }
             return distribution;
         }
-
+        public WordShortened GetWordShortened(string word) 
+        {
+            return _words.TryGetValue(word, out WordShortened valure) ? valure : null; 
+        }
         // ========================================
         // PERSISTENCE
         // ========================================

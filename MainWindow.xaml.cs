@@ -113,7 +113,7 @@ namespace BlueBerryDictionary
                     break;
                 case "History":
                     var hisp = new HistoryPage(_searchViewModel.OnWordClicked); // TODO: Create History page
-                    hisp.LoadCache();
+                    hisp.LoadData();
                     page = hisp;    
                     break;
                 // Uncomment and implement these cases when the pages are available
@@ -187,10 +187,20 @@ namespace BlueBerryDictionary
             rotateTransform.BeginAnimation(RotateTransform.AngleProperty, rotateAnimation);
 
             // Refresh current page
-            if (MainFrame.Content != null)
+            var currentPage = MainFrame.Content;
+            if (currentPage != null)
             {
-                MainFrame.Refresh();
+                try
+                {
+                    dynamic dynPage = currentPage;
+                    dynPage.LoadData(); // sẽ gọi nếu có, nếu không thì runtime exception
+                }
+                catch (Microsoft.CSharp.RuntimeBinder.RuntimeBinderException)
+                {
+                    // Page không có hàm LoadData, bỏ qua
+                }
             }
+
         }
 
         /// <summary>

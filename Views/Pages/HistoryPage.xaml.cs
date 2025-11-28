@@ -1,4 +1,6 @@
 ﻿using BlueBerryDictionary.Data;
+using BlueBerryDictionary.Models;
+using BlueBerryDictionary.Services;
 using BlueBerryDictionary.Views.Pages;
 using BlueBerryDictionary.Views.UserControls;
 using MyDictionary.Services;
@@ -32,7 +34,7 @@ namespace BlueBerryDictionary.Pages
             InitializeComponent();
             _wordCacheManager = WordCacheManager.Instance; 
         }
-        public void LoadCache() 
+        public void LoadData() 
         {
             var caches = _wordCacheManager.GetAllCacheEntries();
             Console.WriteLine("[history] Caches.size ==" + caches.Count); 
@@ -49,6 +51,10 @@ namespace BlueBerryDictionary.Pages
                 {
                     base.HandleWordClick(newCard.Word);
                 };
+                if (TagService.Instance.GetWordShortened(newCard.Word) is WordShortened ws)
+                {
+                    newCard.IsFavorite = ws.isFavorited ; 
+                }
                 mainContent.Children.Add(newCard);  
             }
         }

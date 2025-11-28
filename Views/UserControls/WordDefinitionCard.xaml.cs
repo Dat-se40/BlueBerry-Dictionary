@@ -1,8 +1,9 @@
 ﻿using BlueBerryDictionary.Models;
-using System;
+using BlueBerryDictionary.Services;
+using System.Security.Policy;
 using System.Windows;
 using System.Windows.Controls;
-
+using System.Windows.Media;
 namespace BlueBerryDictionary.Views.UserControls
 {
     public partial class WordDefinitionCard : UserControl
@@ -88,12 +89,23 @@ namespace BlueBerryDictionary.Views.UserControls
             get { return (string)GetValue(ViewCountProperty); }
             set { SetValue(ViewCountProperty, value); }
         }
+        private bool isFavorite = false ;
 
+        public bool IsFavorite
+        {
+            get { return isFavorite; }
+            set 
+            { 
+                isFavorite = value;
+                OnIsFavoritedChanged(); 
+            }
+        }
+        public WordShortened _mainWord; 
         // Events
         public event EventHandler FavoriteClicked;
         public event EventHandler DeleteClicked;
         public event EventHandler CardClicked;
-
+        
         public WordDefinitionCard(Word mainWord = null)
         {
             InitializeComponent();
@@ -109,6 +121,7 @@ namespace BlueBerryDictionary.Views.UserControls
                 this.Region = "US"; // Sẽ fix cái nì
                 this.PartOfSpeech = mainWord.meanings[0].partOfSpeech;
                 this.Definition = mainWord.meanings[0].definitions[0].definition;
+                this._mainWord = WordShortened.FromWord(mainWord);  
             }
         }
         public WordDefinitionCard(WordShortened mainWord) 
@@ -124,7 +137,9 @@ namespace BlueBerryDictionary.Views.UserControls
                 this.PartOfSpeech = mainWord.PartOfSpeech;
                 this.Definition = mainWord.Definition;
                 this.Example1 = mainWord.Example;
-                this.TimeStamp = mainWord.AddedAt.ToShortDateString(); 
+                this.TimeStamp = mainWord.AddedAt.ToShortDateString();
+                this.IsFavorite = mainWord.isFavorited; 
+                this._mainWord = mainWord;
             }
         }
         public WordDefinitionCard() 
@@ -134,13 +149,39 @@ namespace BlueBerryDictionary.Views.UserControls
         private void FavoriteButton_Click(object sender, RoutedEventArgs e)
         {
             e.Handled = true; // Prevent card click event
+            IsFavorite = !IsFavorite ;
+            if (TagService.Instance.GetWordShortened(this.Word) is WordShortened ws) 
+            {
+                ws.isFavorited = IsFavorite ;
+            }else 
+            {
+                TagService.Instance.AddNewWordShortened(_mainWord); 
+
+            }
             FavoriteClicked?.Invoke(this, EventArgs.Empty);
         }
+        /*
+         Note: Gán trực tiếp UI > style, resource 
+                Nên phải ClearValue trước
 
+         */
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
             e.Handled = true; // Prevent card click event
             DeleteClicked?.Invoke(this, EventArgs.Empty);
+        }
+        private void OnIsFavoritedChanged() 
+        {
+            if (isFavorite == true)
+            {
+                btnFav.Background = Brushes.LightPink;
+                btnFav.Foreground = Brushes.DeepPink; 
+            }else
+            {
+                btnFav.ClearValue(Button.BackgroundProperty);
+                btnFav.ClearValue(Button.ForegroundProperty);
+                btnFav.SetResourceReference(Button.StyleProperty, "CardActionButton");
+            }
         }
     }
 }
