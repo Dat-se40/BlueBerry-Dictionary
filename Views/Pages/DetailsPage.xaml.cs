@@ -403,7 +403,7 @@ namespace BlueBerryDictionary.Views.Pages
                             : "";
 
                         MessageBox.Show(
-                            $"✅ Đã lưu '{_word.word}' ({selectedMeaning.partOfSpeech}){tagInfo} vào My Words",
+                            $"✅ Đã lưu '{_word.word}' ({selectedMeaning.partOfSpeech}) -> {tagInfo} vào My Words",
                             "Thành công",
                             MessageBoxButton.OK,
                             MessageBoxImage.Information

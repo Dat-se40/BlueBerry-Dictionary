@@ -111,6 +111,22 @@ namespace BlueBerryDictionary.Views.UserControls
                 this.Definition = mainWord.meanings[0].definitions[0].definition;
             }
         }
+        public WordDefinitionCard(WordShortened mainWord) 
+        {
+            InitializeComponent();
+            DataContext = this;
+            MouseLeftButtonDown += (s, e) => CardClicked?.Invoke(this, EventArgs.Empty);
+            if (mainWord != null)
+            {
+                this.Word = mainWord.Word;
+                this.Pronunciation = mainWord.Phonetic;
+                this.Region = "UK";                 
+                this.PartOfSpeech = mainWord.PartOfSpeech;
+                this.Definition = mainWord.Definition;
+                this.Example1 = mainWord.Example;
+                this.TimeStamp = mainWord.AddedAt.ToShortDateString(); 
+            }
+        }
         public WordDefinitionCard() 
         {
             InitializeComponent();
