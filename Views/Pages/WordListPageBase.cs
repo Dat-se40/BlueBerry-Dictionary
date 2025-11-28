@@ -1,8 +1,11 @@
-﻿using System;
+﻿using BlueBerryDictionary.Models;
+using BlueBerryDictionary.Views.UserControls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls.Primitives;
 
 namespace BlueBerryDictionary.Views.Pages
 {
@@ -16,6 +19,21 @@ namespace BlueBerryDictionary.Views.Pages
         protected void HandleWordClick(string word)
         {
             _onWordClick?.Invoke(word);
+        }
+        public virtual void LoadData() { }
+
+        public virtual void LoadDefCards(UniformGrid mainContent , IEnumerable<WordShortened> wordShorteneds) 
+        {
+            mainContent.Children.Clear();
+            foreach (WordShortened ws in wordShorteneds) 
+            {
+                var wfc = new WordDefinitionCard(ws);
+                wfc.MouseDown += (s, e) => 
+                {
+                    HandleWordClick(ws.Word);
+                };
+                mainContent.Children.Add(wfc);  
+            }
         }
     }
 }

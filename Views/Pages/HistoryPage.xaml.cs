@@ -42,6 +42,7 @@ namespace BlueBerryDictionary.Pages
         }
         void LoadDefCards() 
         {
+            // Se lam lai sau!
             mainContent.Children.Clear();
             foreach (var item in HistoryItems)
             {
@@ -53,10 +54,11 @@ namespace BlueBerryDictionary.Pages
                 };
                 if (TagService.Instance.GetWordShortened(newCard.Word) is WordShortened ws)
                 {
-                    newCard.IsFavorite = ws.isFavorited ; 
+                    newCard.IsFavorite = ws.isFavorited;
                 }
-                mainContent.Children.Add(newCard);  
+                mainContent.Children.Add(newCard);
             }
+
         }
         protected void OnPropertyChanged(string propertyName)
         {

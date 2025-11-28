@@ -1,6 +1,7 @@
 ﻿using BlueBerryDictionary.Models;
 using BlueBerryDictionary.Services;
 using BlueBerryDictionary.ViewModels;
+using BlueBerryDictionary.Views.Pages;
 using BlueBerryDictionary.Views.UserControls;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,19 +10,19 @@ using System.Windows.Media;
 
 namespace BlueBerryDictionary.Pages
 {
-    public partial class MyWordsPage : Page
+    public partial class MyWordsPage : WordListPageBase
     {
         private string currentFilter = "All"; // Lưu filter hiện tại
         private MyWordsViewModel myWordsViewModel;
        
-        public MyWordsPage()
+        public MyWordsPage(Action<string> CardOnClicked) : base(CardOnClicked)
         {
             InitializeComponent();
             myWordsViewModel = new MyWordsViewModel();  
             this.DataContext = myWordsViewModel;
-            myWordsViewModel.acOnFilterWordsChanged += LoadWords; 
+            myWordsViewModel.acOnFilterWordsChanged += this.LoadDefCards; 
             LoadTags();
-            LoadWords(); 
+            this.LoadDefCards(); 
         }
 
         // Event handler cho các alphabet buttons
@@ -59,15 +60,10 @@ namespace BlueBerryDictionary.Pages
                 }
             }
         }
-        void LoadWords() 
+        public  void LoadDefCards() 
         {
-            mainContent.Children.Clear(); 
-            var upload = myWordsViewModel.FilteredWords;
-            foreach (var item in upload)
-            {
-                var wordCard = new WordDefinitionCard(item);
-                mainContent.Children.Add(wordCard);
-            }
+            var upload = myWordsViewModel.FilteredWords.Where(ws => ws.Tags.Count != 0 );
+            base.LoadDefCards(mainContent, upload); 
         }
         private void LoadTags() 
         {

@@ -118,10 +118,10 @@ namespace BlueBerryDictionary
                     break;
                 // Uncomment and implement these cases when the pages are available
                 case "Favourite":
-                    page = new FavouriteWordsPage();
+                    page = new FavouriteWordsPage(_searchViewModel.OnWordClicked);
                     break;
                 case "MyWords":
-                    page = new MyWordsPage();
+                    page = new MyWordsPage(_searchViewModel.OnWordClicked);
                     break;
                 //case "Game":
                 //    page = new GamePage();

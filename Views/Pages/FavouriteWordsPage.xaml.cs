@@ -8,21 +8,23 @@ namespace BlueBerryDictionary.Views.Pages
     /// <summary>
     /// Interaction logic for FavouriteWordsPage.xaml
     /// </summary>
-    public partial class FavouriteWordsPage : Page
+    public partial class FavouriteWordsPage : WordListPageBase
     {
-        public FavouriteWordsPage()
+        public FavouriteWordsPage(Action<string> onClicked) : base(onClicked)
         {
             InitializeComponent();
             LoadData();
         }
         public void LoadData() 
         {
-            mainContent.Children.Clear();   
-            var words = TagService.Instance.GetAllWords().Where(ws => ws.isFavorited == true);
-            foreach (WordShortened word in words) 
-            {
-                mainContent.Children.Add(new WordDefinitionCard(word));
-            }
+            LoadDefCards(); 
         }
+        public void LoadDefCards() 
+        {
+            var words = TagService.Instance.GetAllWords().Where(ws => ws.isFavorited == true);
+            base.LoadDefCards(mainContent, words); 
+        }
+
+
     }
 }
