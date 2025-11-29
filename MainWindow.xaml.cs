@@ -27,7 +27,7 @@ namespace BlueBerryDictionary
             DataContext = _searchViewModel;
 
             // Navigate to Home page
-            MainFrame.Navigate(new HomePage(_searchViewModel.OnWordClicked));
+            MainFrame.Navigate(new HomePage(_searchViewModel.OnWordClicked,SidebarItem_Click));
         }
 
         #region SideBar
@@ -109,7 +109,7 @@ namespace BlueBerryDictionary
             switch (pageTag)
             {
                 case "Home":
-                    page = new HomePage(_searchViewModel.OnWordClicked);
+                    page = new HomePage(_searchViewModel.OnWordClicked,SidebarItem_Click);
                     break;
                 case "History":
                     var hisp = new HistoryPage(_searchViewModel.OnWordClicked); // TODO: Create History page
@@ -137,7 +137,7 @@ namespace BlueBerryDictionary
                 //    break;
                 default:
                     // Handle unknown or empty pageTag
-                    page = new HomePage(_searchViewModel.OnWordClicked);
+                    page = new HomePage(_searchViewModel.OnWordClicked,SidebarItem_Click);
                     break;
             }
             Console.WriteLine("Navigate to " + page.ToString());

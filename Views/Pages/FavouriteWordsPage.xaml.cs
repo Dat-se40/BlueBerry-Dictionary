@@ -15,7 +15,7 @@ namespace BlueBerryDictionary.Views.Pages
             InitializeComponent();
             LoadData();
         }
-        public void LoadData() 
+        public override void LoadData() 
         {
             LoadDefCards(); 
         }

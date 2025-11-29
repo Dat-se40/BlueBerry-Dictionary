@@ -1,14 +1,10 @@
-﻿using BlueBerryDictionary.Data;
-using BlueBerryDictionary.Models;
+﻿using BlueBerryDictionary.Models;
 using BlueBerryDictionary.Services;
 using BlueBerryDictionary.Views.Pages;
 using BlueBerryDictionary.Views.UserControls;
 using MyDictionary.Services;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Windows;
-using System.Windows.Controls;
 
 namespace BlueBerryDictionary.Pages
 {

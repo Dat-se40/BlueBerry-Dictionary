@@ -35,7 +35,8 @@
                         </Button>
 
                         <!-- History -->
-                        <Button Style="{StaticResource ToolButtonStyle}" Tag="History">
+                        <Button Style="{StaticResource ToolButtonStyle}" Tag="History"
+                                Click="ButtnNavigate_Click">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="🕐" FontSize="18" Margin="0,0,8,0"/>
                             <TextBlock Text="History" Tag="History"/>
@@ -43,7 +44,8 @@
                         </Button>
 
                         <!-- Favourite -->
-                        <Button Style="{StaticResource ToolButtonStyle}" Tag="Favourite">
+                        <Button Style="{StaticResource ToolButtonStyle}" Tag="Favourite"
+                                Click="ButtnNavigate_Click">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="⭐" FontSize="18" Margin="0,0,8,0"/>
                             <TextBlock Text="Favourite" Tag="Favourite"/>
@@ -51,7 +53,8 @@
                         </Button>
 
                         <!-- My Words -->
-                        <Button Style="{StaticResource ToolButtonStyle}" Tag="MyWords">
+                        <Button Style="{StaticResource ToolButtonStyle}" Tag="MyWords"
+                                Click="ButtnNavigate_Click">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="📖" FontSize="18" Margin="0,0,8,0"/>
                                 <TextBlock Text="My Words"/>

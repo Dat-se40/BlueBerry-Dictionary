@@ -52,7 +52,7 @@
                         <Button Style="{StaticResource FilterChipStyle}" Tag="Active">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="🔧" FontSize="14" Margin="0,0,8,0" />
-                                <TextBlock Text="Tất cả (3)" />
+                                <TextBlock Text="Tất cả" />
                             </StackPanel>
                         </Button>
 
@@ -74,15 +74,6 @@
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="💎" FontSize="14" Margin="0,0,8,0" />
                                 <TextBlock Text="Tính từ" />
-                            </StackPanel>
-                        </Button>
-
-                        <Button Style="{StaticResource FilterChipStyle}">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="💎"
-                                           FontSize="14"
-                                           Margin="0,0,8,0" />
-                                <TextBlock Text="Gần đây" />
                             </StackPanel>
                         </Button>
                     </WrapPanel>

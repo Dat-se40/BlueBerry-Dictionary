@@ -19,15 +19,11 @@ namespace BlueBerryDictionary.Services
         public void Navigate(Page page, string namePage) 
         {
             Console.WriteLine("[NaviService] " + namePage);
-            bool isValid = false ;
-            if (namePages.Count != 0 && namePage != namePages.Peek() || namePages.Count == 0 ) isValid = true ;
-           
-            if (isValid)
+            if (namePages.Count != 0 && namePage != namePages.Peek() || namePages.Count == 0) 
             {
                 namePages.Push(namePage);
                 _frame.Navigate(page);
-            }
-             
+            } 
         } 
         public NavigationService(Frame frame) => _frame = frame;    
     }
