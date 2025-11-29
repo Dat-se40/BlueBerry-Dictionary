@@ -13,7 +13,8 @@ namespace BlueBerryDictionary.ViewModels
     public partial class MyWordsViewModel : ObservableObject
     {
         private readonly TagService _tagService;
-        public Action acOnFilterWordsChanged; 
+        public Action acOnFilterWordsChanged;
+        public Action acOnTagChanged; 
         // ========== OBSERVABLE PROPERTIES ==========
         [ObservableProperty]
         private string currFilter = "All"; // "All" for default
@@ -60,7 +61,7 @@ namespace BlueBerryDictionary.ViewModels
             Tags = new ObservableCollection<Tag>();
             FilteredWords = new ObservableCollection<WordShortened>();
             AlphabetItems = new ObservableCollection<AlphabetItem>();
-
+            _tagService.OnWordsChanged += UpdateStatistics; 
             LoadData();
         }
 
@@ -84,7 +85,7 @@ namespace BlueBerryDictionary.ViewModels
             // Load all words initially
             ApplyFilters();
         }
-
+        
         private void LoadAlphabetDistribution()
         {
             AlphabetItems.Clear();
@@ -116,12 +117,13 @@ namespace BlueBerryDictionary.ViewModels
             }
         }
 
-        private void UpdateStatistics()
+        public  void UpdateStatistics()
         {
             TotalWords = _tagService.GetTotalWords();
             TotalTags = _tagService.GetTotalTags();
             WordsThisWeek = _tagService.GetWordsAddedThisWeek();
             WordsThisMonth = _tagService.GetWordsAddedThisMonth();
+            WordsCount =  FilteredWords.Count;
         }
 
         // ========== FILTERING ==========
@@ -207,8 +209,9 @@ namespace BlueBerryDictionary.ViewModels
         private void CreateTag()
         {
             TagPickerDialog dialog = new TagPickerDialog();
-            dialog.ShowDialog();    
+            dialog.ShowDialog();  
             LoadData();
+            acOnTagChanged?.Invoke();
         }
 
         [RelayCommand]
@@ -225,6 +228,7 @@ namespace BlueBerryDictionary.ViewModels
             {
                 _tagService.DeleteTag(tagId);
                 LoadData();
+                acOnTagChanged?.Invoke();
             }
         }
 

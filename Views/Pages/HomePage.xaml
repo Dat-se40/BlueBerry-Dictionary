@@ -30,7 +30,7 @@
                         <Button Style="{StaticResource ToolButtonStyle}" Tag="Home">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="🏠" FontSize="18" Margin="0,0,8,0"/>
-                                <TextBlock Text="Home"/>
+                                <TextBlock Text="Home" Tag="Home"/>
                             </StackPanel>
                         </Button>
 
@@ -38,7 +38,7 @@
                         <Button Style="{StaticResource ToolButtonStyle}" Tag="History">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="🕐" FontSize="18" Margin="0,0,8,0"/>
-                                <TextBlock Text="History"/>
+                            <TextBlock Text="History" Tag="History"/>
                             </StackPanel>
                         </Button>
 
@@ -46,7 +46,7 @@
                         <Button Style="{StaticResource ToolButtonStyle}" Tag="Favourite">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="⭐" FontSize="18" Margin="0,0,8,0"/>
-                                <TextBlock Text="Favourite"/>
+                            <TextBlock Text="Favourite" Tag="Favourite"/>
                             </StackPanel>
                         </Button>
 

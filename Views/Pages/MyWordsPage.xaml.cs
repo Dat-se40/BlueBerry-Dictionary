@@ -5,6 +5,7 @@ using BlueBerryDictionary.Views.Pages;
 using BlueBerryDictionary.Views.UserControls;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -20,11 +21,15 @@ namespace BlueBerryDictionary.Pages
             InitializeComponent();
             myWordsViewModel = new MyWordsViewModel();  
             this.DataContext = myWordsViewModel;
-            myWordsViewModel.acOnFilterWordsChanged += this.LoadDefCards; 
-            LoadTags();
-            this.LoadDefCards(); 
+            myWordsViewModel.acOnFilterWordsChanged += this.LoadDefCards;
+            myWordsViewModel.acOnTagChanged += this.LoadTags;
+            LoadData(); 
         }
-
+        public override void LoadData() 
+        {
+            LoadTags();
+            LoadDefCards();
+        }
         // Event handler cho các alphabet buttons
         private void AlphabetButton_Click(object sender, RoutedEventArgs e)
         {
@@ -62,11 +67,25 @@ namespace BlueBerryDictionary.Pages
         }
         public  void LoadDefCards() 
         {
-            var upload = myWordsViewModel.FilteredWords.Where(ws => ws.Tags.Count != 0 );
-            base.LoadDefCards(mainContent, upload); 
+            var upload = myWordsViewModel.FilteredWords.Where(ws => ws.Tags.Count != 0 || ws.isFavorited == true);
+
+            base.LoadDefCards(mainContent, upload);
+            foreach (var child in mainContent.Children)
+            {
+                if (child is WordDefinitionCard wdc)
+                {
+                    wdc.DeleteWord += () => 
+                    {
+                        myWordsViewModel.FilteredWords.Remove(wdc._mainWord);
+                        myWordsViewModel.UpdateStatistics(); 
+                    };
+                }
+            }
+
         }
         private void LoadTags() 
         {
+            stpTags.Children.Clear(); 
             var tags = myWordsViewModel.Tags;
             foreach (var tag in tags) stpTags.Children.Add(CreateTagItem(tag));
         }
@@ -122,11 +141,15 @@ namespace BlueBerryDictionary.Pages
 
             var countText = new TextBlock
             {
+                Name = "tbCount", 
                 Text = $"{tag.WordCount} từ",
+                Tag = tag.Id,
                 FontSize = 13,
                 Opacity = 0.7
             };
             countText.SetResourceReference(TextBlock.ForegroundProperty, "TextColor");
+            countText.SetBinding(TextBlock.TextProperty,new Binding("WordCount") { StringFormat = "{0} từ" });
+            countText.DataContext = tag;
 
             textPanel.Children.Add(nameText);
             textPanel.Children.Add(countText);

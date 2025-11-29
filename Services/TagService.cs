@@ -2,24 +2,26 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace BlueBerryDictionary.Services
 {
-    /// <summary>
+    /// <summary>4
     /// Service quản lý Tags và WordShortened
     /// Singleton pattern với thread-safe
     /// </summary>
-    public class TagService
+    public class TagService 
     {
         private static TagService _instance;
         private static readonly object _lock = new object();
 
         private Dictionary<string, Tag> _tags; // tagId -> Tag
-        private Dictionary<string, WordShortened> _words; // word -> WordShortened
-
+        private Dictionary<string, WordShortened> _words; // word -> WordShortened, có luôn các từ đã được thích
+        public Action OnWordsChanged; 
+        
         private readonly string _tagsPath;
         private readonly string _wordsPath;
 
@@ -279,7 +281,21 @@ namespace BlueBerryDictionary.Services
             SaveTags();
             return true;
         }
-
+        /// <summary>
+        /// Xóa 1 từ!
+        /// </summary>
+        public void DeleteWordShortened(string word) 
+        {
+            var ws = GetWordShortened(word);
+            foreach (var item in _tags)
+            {
+                item.Value.RelatedWords.Remove(word); 
+            }
+            _words.Remove(word);
+            OnWordsChanged?.Invoke();
+            SaveTags();
+            SaveWords(); 
+        }
         /// <summary>
         /// Tăng view count
         /// </summary>
@@ -291,6 +307,59 @@ namespace BlueBerryDictionary.Services
                 SaveWords();
             }
         }
+        // ========================================
+// FAVORITE OPERATIONS
+// ========================================
+
+/// <summary>
+/// Toggle favorite cho word (auto save)
+/// </summary>
+public bool ToggleFavorite(string word)
+{
+    if (string.IsNullOrWhiteSpace(word))
+        return false;
+
+    // v1 giữ word gốc, fallback insensitive
+    var wordObj = _words.TryGetValue(word, out var val)
+        ? val
+        : _words.Values.FirstOrDefault(w =>
+            w.Word.Equals(word, StringComparison.OrdinalIgnoreCase));
+
+    if (wordObj == null)
+        return false;
+
+    wordObj.isFavorited = !wordObj.isFavorited;
+    SaveWords();
+
+    return wordObj.isFavorited;
+}
+
+/// <summary>
+/// Check word có được favorite không
+/// </summary>
+public bool IsFavorited(string word)
+{
+    if (string.IsNullOrWhiteSpace(word))
+        return false;
+
+    var wordObj = _words.TryGetValue(word, out var val)
+        ? val
+        : _words.Values.FirstOrDefault(w =>
+            w.Word.Equals(word, StringComparison.OrdinalIgnoreCase));
+
+    return wordObj?.isFavorited == true;
+}
+
+/// <summary>
+/// Lấy tất cả favorite words
+/// </summary>
+public List<WordShortened> GetFavoriteWords()
+{
+    return _words.Values
+        .Where(w => w.isFavorited)
+        .OrderByDescending(w => w.AddedAt)
+        .ToList();
+}
 
         // ========================================
         // STATISTICS

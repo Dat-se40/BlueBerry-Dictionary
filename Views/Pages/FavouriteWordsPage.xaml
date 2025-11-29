@@ -37,7 +37,9 @@
 
                         <Button Grid.Column="1"
                                 Style="{StaticResource ClearButtonStyle}"
-                                VerticalAlignment="Center">
+                                VerticalAlignment="Center"
+                                Name="btnDeleteAll"
+>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="🗑️" FontSize="16" Margin="0,0,8,0" />
                                 <TextBlock Text="Xóa tất cả" />

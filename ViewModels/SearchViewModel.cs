@@ -85,7 +85,7 @@ namespace BlueBerryDictionary.ViewModels
             {
                 _detailsPage = new DetailsPage(value[0], OnWordClicked);
                 _detailsPage.DataContext = this;
-                _navigationService.Navigate(_detailsPage, _detailsPage.ToString() + $" {CurrentWords}");
+                _navigationService.Navigate(_detailsPage, _detailsPage.ToString() + $" {CurrentWords[0].word}");
             }
         }
         public async void OnWordClicked(string word)

@@ -1,6 +1,9 @@
-﻿using BlueBerryDictionary.Models;
+﻿using BlueBerryDictionary.Data;
+using BlueBerryDictionary.Models;
 using BlueBerryDictionary.Services;
+using System.IO;
 using System.Security.Policy;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -165,9 +168,19 @@ namespace BlueBerryDictionary.Views.UserControls
                 Nên phải ClearValue trước
 
          */
+        /// <summary>
+        /// Phương thức xóa, sẽ gọi các hàm dã đăng kí DeleteWord
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public Action DeleteWord; 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
             e.Handled = true; // Prevent card click event
+            this.Visibility = Visibility.Collapsed; 
+            TagService.Instance.DeleteWordShortened(this.Word);
+            File.Delete(FileStorage.GetWordFilePath(this.Word));
+            DeleteWord?.Invoke(); 
             DeleteClicked?.Invoke(this, EventArgs.Empty);
         }
         private void OnIsFavoritedChanged() 
@@ -183,5 +196,28 @@ namespace BlueBerryDictionary.Views.UserControls
                 btnFav.SetResourceReference(Button.StyleProperty, "CardActionButton");
             }
         }
+
+        private async void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+            if (File.Exists(FileStorage.GetWordFilePath(Word)))
+            {
+                MessageBox.Show($"{Word} này đã được tải !");
+            }
+            else
+            {
+                var downloadedWord = await FileStorage.LoadWordAsync(Word);
+                try
+                {
+                    FileStorage.Download(downloadedWord);
+                    MessageBox.Show($"{Word} này đã được tải thành công!");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message); 
+                }
+
+            }
+        }
+
     }
 }

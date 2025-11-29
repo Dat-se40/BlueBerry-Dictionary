@@ -22,7 +22,7 @@ namespace BlueBerryDictionary.Views.Pages
         }
         public virtual void LoadData() { }
 
-        public virtual void LoadDefCards(UniformGrid mainContent , IEnumerable<WordShortened> wordShorteneds) 
+        public virtual void LoadDefCards(UniformGrid mainContent , IEnumerable<WordShortened> wordShorteneds, Action? DeleteWord = null) 
         {
             mainContent.Children.Clear();
             foreach (WordShortened ws in wordShorteneds) 
@@ -32,6 +32,7 @@ namespace BlueBerryDictionary.Views.Pages
                 {
                     HandleWordClick(ws.Word);
                 };
+                wfc.DeleteWord += DeleteWord; 
                 mainContent.Children.Add(wfc);  
             }
         }

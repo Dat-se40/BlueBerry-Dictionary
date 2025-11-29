@@ -1,22 +1,10 @@
 [
   {
-    "Id": "20e6e8f8-e78f-46fb-9b6e-40ea75d0238a",
-    "Name": "Body",
-    "Icon": "🎓",
-    "Color": "#EF4444",
-    "CreatedAt": "2025-11-28T21:36:53.4283175+07:00",
-    "RelatedWords": [
-      "body",
-      "pack"
-    ],
-    "WordCount": 2
-  },
-  {
-    "Id": "a989780a-03c1-4f5c-bc76-e56ad092f8fc",
-    "Name": "Time",
-    "Icon": "🌈",
-    "Color": "#2D4ACC",
-    "CreatedAt": "2025-11-28T23:29:13.4467229+07:00",
+    "Id": "d5eee809-5768-4351-bc1b-441e1ffc7bd7",
+    "Name": "test",
+    "Icon": "🏷️",
+    "Color": "#EC4899",
+    "CreatedAt": "2025-11-29T20:07:35.552574+07:00",
     "RelatedWords": [],
     "WordCount": 0
   }

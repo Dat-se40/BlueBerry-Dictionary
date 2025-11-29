@@ -335,7 +335,7 @@
                                 Tag="MyWords">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="📚" FontSize="20" Margin="0,0,15,0"/>
-                                <TextBlock Text="My collection" FontSize="15"/>
+                                <TextBlock Text="My Words" FontSize="15"/>
                             </StackPanel>
                         </Button>
 

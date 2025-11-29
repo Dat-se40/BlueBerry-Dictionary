@@ -110,13 +110,14 @@
                             Style="{StaticResource CardActionButton}"
                             Margin="3" Click="FavoriteButton_Click"/>
         
-                    <Button Content="💾" Width="40" Height="40"
+                    <Button Content="💾" Width="40" Height="40" Name="btnSave"
                             Style="{StaticResource CardActionButton}"
-                            Margin="3"/>
+                            Margin="3" Click="btnSave_Click"/>
         
                     <Button Content="❌" Width="40" Height="40"
                             Style="{StaticResource DeleteButton}"
-                            Margin="3"/>
+                            Margin="3"
+                            Name="btnDelete" Click="DeleteButton_Click"/>
                 </StackPanel>
             </Grid>
 
