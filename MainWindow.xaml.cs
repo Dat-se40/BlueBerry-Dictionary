@@ -112,31 +112,17 @@ namespace BlueBerryDictionary
                     page = new HomePage(_searchViewModel.OnWordClicked,SidebarItem_Click);
                     break;
                 case "History":
-                    var hisp = new HistoryPage(_searchViewModel.OnWordClicked); // TODO: Create History page
+                    var hisp = new HistoryPage(_searchViewModel.OnWordClicked); 
                     hisp.LoadData();
                     page = hisp;    
                     break;
-                // Uncomment and implement these cases when the pages are available
                 case "Favourite":
                     page = new FavouriteWordsPage(_searchViewModel.OnWordClicked);
                     break;
                 case "MyWords":
                     page = new MyWordsPage(_searchViewModel.OnWordClicked);
                     break;
-                //case "Game":
-                //    page = new GamePage();
-                //    break;
-                //case "Offline":
-                //    page = new OfflinePage();
-                //    break;
-                //case "Account":
-                //    page = new AccountPage();
-                //    break;
-                //case "Setting":
-                //    page = new SettingPage();
-                //    break;
                 default:
-                    // Handle unknown or empty pageTag
                     page = new HomePage(_searchViewModel.OnWordClicked,SidebarItem_Click);
                     break;
             }
