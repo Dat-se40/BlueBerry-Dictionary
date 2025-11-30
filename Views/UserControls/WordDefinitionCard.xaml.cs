@@ -94,7 +94,7 @@ namespace BlueBerryDictionary.Views.UserControls
         public event EventHandler DeleteClicked;
         public event EventHandler CardClicked;
 
-        public WordDefinitionCard(Word? mainWord = null)
+        public WordDefinitionCard(Word mainWord = null)
         {
             InitializeComponent();
             DataContext = this;
@@ -110,6 +110,10 @@ namespace BlueBerryDictionary.Views.UserControls
                 this.PartOfSpeech = mainWord.meanings[0].partOfSpeech;
                 this.Definition = mainWord.meanings[0].definitions[0].definition;
             }
+        }
+        public WordDefinitionCard() 
+        {
+            InitializeComponent();
         }
         private void FavoriteButton_Click(object sender, RoutedEventArgs e)
         {

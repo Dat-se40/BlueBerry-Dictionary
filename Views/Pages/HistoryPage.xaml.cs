@@ -1,4 +1,5 @@
 using BlueBerryDictionary.Data;
+using BlueBerryDictionary.Views.Pages;
 using BlueBerryDictionary.Views.UserControls;
 using MyDictionary.Services;
 using System.Collections.ObjectModel;
@@ -9,7 +10,7 @@ using System.Windows.Controls;
 
 namespace BlueBerryDictionary.Pages
 {
-    public partial class HistoryPage : Page, INotifyPropertyChanged
+    public partial class HistoryPage : WordListPageBase, INotifyPropertyChanged
     {
         WordCacheManager _wordCacheManager;
 
@@ -20,13 +21,13 @@ namespace BlueBerryDictionary.Pages
         {
             get { return _historyItems; }   
             set 
-            {
+    {
                 _historyItems = value;
                 OnPropertyChanged(nameof(HistoryItems));
                 LoadDefCards(); 
             }
         }
-        public HistoryPage()
+        public HistoryPage(Action<string> action) : base(action) 
         {
             InitializeComponent();
             _wordCacheManager = WordCacheManager.Instance; 
@@ -41,9 +42,13 @@ namespace BlueBerryDictionary.Pages
         {
             mainContent.Children.Clear();
             foreach (var item in HistoryItems)
-            { 
+            {
                 var newCard = new WordDefinitionCard(item._words[0]);
-                newCard.TimeStamp = item._lastAccessed.ToShortTimeString(); 
+                newCard.TimeStamp = item._lastAccessed.ToShortTimeString();
+                newCard.MouseDown += (s, e) =>
+                {
+                    base.HandleWordClick(newCard.Word);
+                };
                 mainContent.Children.Add(newCard);  
             }
         }

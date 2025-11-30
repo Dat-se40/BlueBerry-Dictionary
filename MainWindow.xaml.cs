@@ -2,15 +2,15 @@
 using BlueBerryDictionary.Services;
 using BlueBerryDictionary.ViewModels;
 using BlueBerryDictionary.Views.Pages;
+using BlueBerryDictionary.Views.UserControls;
+using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using NavigationService = BlueBerryDictionary.Services.NavigationService;
-using BlueBerryDictionary.Pages;
-using BlueBerryDictionary.Views;
-using DictionaryApp;
 
 namespace BlueBerryDictionary
 {
@@ -114,9 +114,8 @@ namespace BlueBerryDictionary
                 case "Home":
                     page = new HomePage(_searchViewModel.OnWordClicked);
                     break;
-                
                 case "History":
-                    var hisp = new HistoryPage(); // TODO: Create History page
+                    var hisp = new HistoryPage(_searchViewModel.OnWordClicked); // TODO: Create History page
                     hisp.LoadCache();
                     page = hisp;    
                     break;

@@ -135,7 +135,7 @@
                                     <Border Grid.Row="0" Background="{DynamicResource ToolbarBackground}"
                                             CornerRadius="16,16,0,0" Padding="20">
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="📚" FontSize="22" Margin="0,0,10,0"/>
+                                            <TextBlock Text="📚" FontSize="22" Foreground="{DynamicResource TextColor}" Margin="0,0,10,0"/>
                                             <TextBlock Text="Bộ sưu tập từ vựng của bạn" FontSize="17" FontWeight="Bold"
                                                        Foreground="{DynamicResource TextColor}"/>
                                         </StackPanel>
