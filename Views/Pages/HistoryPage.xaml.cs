@@ -1,13 +1,10 @@
-using BlueBerryDictionary.Data;
+using BlueBerryDictionary.Models;
+using BlueBerryDictionary.Services;
 using BlueBerryDictionary.Views.Pages;
 using BlueBerryDictionary.Views.UserControls;
 using MyDictionary.Services;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Windows;
-using System.Windows.Controls;
-
 namespace BlueBerryDictionary.Pages
 {
     public partial class HistoryPage : WordListPageBase, INotifyPropertyChanged
@@ -24,7 +21,6 @@ namespace BlueBerryDictionary.Pages
     {
                 _historyItems = value;
                 OnPropertyChanged(nameof(HistoryItems));
-                LoadDefCards(); 
             }
         }
         public HistoryPage(Action<string> action) : base(action) 
@@ -32,14 +28,16 @@ namespace BlueBerryDictionary.Pages
             InitializeComponent();
             _wordCacheManager = WordCacheManager.Instance; 
         }
-        public void LoadCache() 
+        public override void LoadData() 
         {
             var caches = _wordCacheManager.GetAllCacheEntries();
             Console.WriteLine("[history] Caches.size ==" + caches.Count); 
             HistoryItems = new ObservableCollection<CacheEntry>(caches) ;
+            LoadDefCards();
         }
         void LoadDefCards() 
         {
+            // Se lam lai sau!
             mainContent.Children.Clear();
             foreach (var item in HistoryItems)
             {
@@ -49,8 +47,13 @@ namespace BlueBerryDictionary.Pages
                 {
                     base.HandleWordClick(newCard.Word);
                 };
-                mainContent.Children.Add(newCard);  
+                if (TagService.Instance.GetWordShortened(newCard.Word) is WordShortened ws)
+                {
+                    newCard.IsFavorite = ws.isFavorited;
+                }
+                mainContent.Children.Add(newCard);
             }
+
         }
         protected void OnPropertyChanged(string propertyName)
         {

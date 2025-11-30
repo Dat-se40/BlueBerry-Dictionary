@@ -65,8 +65,7 @@ namespace BlueBerryDictionary.ViewModels
             {
                 if (!string.IsNullOrWhiteSpace(word))
                 {
-                    SearchText = word;
-                    await ExecuteSearchAsync();
+                    _ = SearchAndNavigate(word); 
                 }
             });
 
@@ -79,22 +78,25 @@ namespace BlueBerryDictionary.ViewModels
             OnSearchTextChangedAsync();
         }
 
-        partial void OnCurrentWordsChanged(List<Word> value)
+        private async Task SearchAndNavigate(string word)
         {
-            if (value != null && value.Count > 0)
+            SearchText = word;
+            await ExecuteSearchAsync();
+
+            if (HasResults && CurrentWords != null && CurrentWords.Count > 0)
             {
-                _detailsPage = new DetailsPage(value[0], OnWordClicked);
-                _detailsPage.DataContext = this;
-                _navigationService.Navigate(_detailsPage);
+                var detailsPage = new DetailsPage(CurrentWords[0], OnWordClicked);
+                detailsPage.DataContext = this;
+
+                string uniqueId = $"Details_{word}_{DateTime.Now.Ticks}";
+                _navigationService.NavigateTo("Details", detailsPage, uniqueId);
             }
         }
         public async void OnWordClicked(string word)
         {
             if (string.IsNullOrWhiteSpace(word))
                 return;
-
-            SearchText = word;
-            await ExecuteSearchAsync();
+            await SearchAndNavigate(word);
         }
         // ==================== SEARCH LOGIC ====================
 
@@ -136,7 +138,11 @@ namespace BlueBerryDictionary.ViewModels
         }
 
         // ==================== RELAY COMMANDS ====================
-
+        [RelayCommand] 
+        public async Task ExcuteSearchAndNavigate() 
+        {
+            await SearchAndNavigate(SearchText);
+        }
         /// <summary>
         /// Execute full search
         /// </summary>
@@ -148,30 +154,33 @@ namespace BlueBerryDictionary.ViewModels
                 StatusMessage = "Please enter a word to search";
                 return;
             }
-            SearchButtonText = "Đang tìm...";
 
+            SearchButtonText = "Đang tìm...";
             IsSearching = true;
             HasResults = false;
-            StatusMessage = $"Searching for '{SearchText}'...";
             IsSuggestionsOpen = false;
-            Console.WriteLine(StatusMessage);
+
             try
             {
-                // Cancel any ongoing search
                 _searchCts?.Cancel();
                 _searchCts = new CancellationTokenSource();
 
-                // Search word
-                var words = await _searchService.SearchWordAsync(SearchText, _searchCts.Token);
+                // 🔥 PARALLEL EXECUTION
+                var searchTask = _searchService.SearchWordAsync(SearchText, _searchCts.Token);
+                var audioTask = _searchService.GetAudioAsync(SearchText);
+
+                await Task.WhenAll(searchTask, audioTask);
+
+                var words = searchTask.Result;
+                var (usAudio, ukAudio) = audioTask.Result;
 
                 if (words != null && words.Count > 0)
                 {
                     CurrentWords = words;
                     HasResults = true;
                     StatusMessage = $"Found definition for '{SearchText}'";
-
-                    // Load audio URLs
-                    await LoadAudioAsync(SearchText);
+                    UsAudioUrl = usAudio;
+                    UkAudioUrl = ukAudio;
                 }
                 else
                 {
