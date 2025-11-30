@@ -1,13 +1,14 @@
-﻿using BlueBerryDictionary.Pages;
+﻿
 using BlueBerryDictionary.Services;
 using BlueBerryDictionary.ViewModels;
 using BlueBerryDictionary.Views.Pages;
-using System;
+
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Diagnostics;
 
 namespace BlueBerryDictionary
 {
@@ -111,7 +112,8 @@ namespace BlueBerryDictionary
                 CloseSidebar();
             }
         }
-
+        // Xử lý sự kiện khi click vào Hyperlink
+        
         #endregion
 
         #region Navigation

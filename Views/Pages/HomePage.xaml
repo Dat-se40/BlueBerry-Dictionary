@@ -295,32 +295,40 @@
                                            Foreground="White" Margin="0,0,0,10"/>
                                 <TextBlock Foreground="White" Opacity="0.9" TextWrapping="Wrap">
                                     <Run Text="Bắt đầu: " FontWeight="Bold"/>
-                                    <Run Text="01/01/2024"/>
+                                    <Run Text="08/09/2025"/>
                                 </TextBlock>
                                 <TextBlock Foreground="White" Opacity="0.9" TextWrapping="Wrap">
                                     <Run Text="Kết thúc: " FontWeight="Bold"/>
-                                    <Run Text="15/02/2024"/>
+                                    <Run Text="27/12/2025"/>
                                 </TextBlock>
                                 <TextBlock Foreground="White" Opacity="0.9" TextWrapping="Wrap">
                                     <Run Text="Công nghệ: " FontWeight="Bold"/>
-                                    <Run Text="WPF C#"/>
+                                    <Run Text="WPF .NET"/>
                                 </TextBlock>
                                 <TextBlock Foreground="White" Opacity="0.9" TextWrapping="Wrap">
                                     <Run Text="Version: " FontWeight="Bold"/>
-                                    <Run Text="1.0.0"/>
+                                    <Run Text="Microsoft.NETCore.App 9.0.8"/>
                                 </TextBlock>
                             </StackPanel>
 
                             <!-- Liên hệ -->
-                            <StackPanel Grid.Column="3">
-                                <TextBlock Text="📞 Liên hệ" FontSize="16" FontWeight="Bold"
-                                           Foreground="White" Margin="0,0,0,10"/>
-                                <TextBlock Text="Email: 24520280@uit.edu.vn" Foreground="White" Opacity="0.9" TextWrapping="Wrap"/>
-                                <TextBlock Text="GitHub: github.com/dictionary" Foreground="White" Opacity="0.9" TextWrapping="Wrap"/>
-                                <TextBlock Text="© 2024 Dictionary App" FontWeight="Bold" Foreground="White" Margin="0,10,0,0"/>
-                                <TextBlock Text="All rights reserved" Foreground="White" Opacity="0.9"/>
-                            </StackPanel>
-                        </Grid>
+                        <StackPanel Grid.Column="3">
+                            <TextBlock Text="📞 Liên hệ" FontSize="16" FontWeight="Bold"
+               Foreground="White" Margin="0,0,0,10"/>
+                            <TextBlock Text="Email: 24520280@gm.uit.edu.vn" Foreground="White" Opacity="0.9" TextWrapping="Wrap"/>
+
+                            <!-- Hyperlink có thể click -->
+                            <TextBlock Foreground="White" Opacity="0.9" TextWrapping="Wrap">
+        <Hyperlink NavigateUri="https://github.com/Dat-se40/BlueBerry-Dictionary.git"
+                   RequestNavigate="Hyperlink_RequestNavigate" Foreground="White">
+            https://github.com/Dat-se40/BlueBerry-Dictionary.git
+        </Hyperlink>
+                            </TextBlock>
+
+                            <TextBlock Text="© 2024 Dictionary App" FontWeight="Bold" Foreground="White" Margin="0,10,0,0"/>
+                            <TextBlock Text="All rights reserved" Foreground="White" Opacity="0.9"/>
+                        </StackPanel>
+                    </Grid>
                     </Border>
                 </StackPanel>
             </ScrollViewer>

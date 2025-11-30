@@ -1,6 +1,7 @@
 ﻿namespace BlueBerryDictionary.Views.Pages
 {
     using System;
+    using System.Diagnostics;
     using System.Windows;
     /// <summary>
     /// Interaction logic for HomePage.xaml
@@ -31,6 +32,11 @@
         internal void ButtnNavigate_Click(object sender, RoutedEventArgs e)
         {
             Navigate?.Invoke(sender, e);
+        }
+        private void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri) { UseShellExecute = true });
+            e.Handled = true;
         }
     }
 
