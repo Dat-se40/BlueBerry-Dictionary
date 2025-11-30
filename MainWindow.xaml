@@ -129,7 +129,7 @@
                                         Grid.Column="2"
                                         Content="{Binding SearchButtonText}"
                                         Style="{StaticResource SearchButtonStyle}"
-                                        Command="{Binding ExecuteSearchCommand}"
+                                        Command="{Binding ExcuteSearchAndNavigateCommand}"
                                         Margin="10,0,0,0"/>
                             </Grid>
                         </Border>

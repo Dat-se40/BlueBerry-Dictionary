@@ -1,31 +1,118 @@
-﻿using BlueBerryDictionary.Views.Pages;
-using System;
+﻿// NavigationService.cs - Complete implementation
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 
 namespace BlueBerryDictionary.Services
 {
     public interface INavigationService
     {
-        void Navigate(Page page, string namePage);
+        void NavigateTo(string pageTag, Page customPage = null, string uniqueId = null);
+        void GoBack();
+        void GoForward();
+        bool CanGoBack { get; }
+        bool CanGoForward { get; }
     }
-    public class NavigationService : INavigationService 
+
+    public class NavigationService : INavigationService
     {
         private Frame _frame;
-        private Stack<string> namePages = new Stack<string>() ; 
-        public void Navigate(Page page, string namePage) 
+        private Stack<string> _backStack = new Stack<string>();
+        private Stack<string> _forwardStack = new Stack<string>();
+        private string _currentPage;
+        private Action<string> _onWordClick;
+        private Action<object, System.Windows.RoutedEventArgs> _sidebarNavigate;
+
+        public bool CanGoBack => _backStack.Count > 0;
+        public bool CanGoForward => _forwardStack.Count > 0;
+
+        public NavigationService(
+            Frame frame,
+            Action<string> onWordClick,
+            Action<object, System.Windows.RoutedEventArgs> sidebarNavigate = null)
         {
-            Console.WriteLine("[NaviService] " + namePage);
-            if (namePages.Count != 0 && namePage != namePages.Peek() || namePages.Count == 0) 
+            _frame = frame;
+            _onWordClick = onWordClick;
+            _sidebarNavigate = sidebarNavigate;
+
+            // Clear Frame's journal to prevent caching
+            _frame.Navigated += (s, e) =>
             {
-                namePages.Push(namePage);
-                _frame.Navigate(page);
-            } 
-        } 
-        public NavigationService(Frame frame) => _frame = frame;    
+                while (_frame.CanGoBack)
+                {
+                    _frame.RemoveBackEntry();
+                }
+            };
+        }
+
+        public void NavigateTo(string pageTag, Page customPage = null, string uniqueId = null)
+        {
+            // Save current to back stack
+            if (!string.IsNullOrEmpty(_currentPage) && _currentPage != pageTag)
+            {
+                _backStack.Push(_currentPage);
+                _forwardStack.Clear(); // User navigated away
+            }
+
+            _currentPage = pageTag;
+
+            // Create fresh page
+            var page = (customPage != null ) ? customPage : CreatePage(pageTag);
+            _frame.Navigate(page);
+
+            System.Console.WriteLine($"📄 {pageTag} | Back: {_backStack.Count} | Forward: {_forwardStack.Count}");
+        }
+
+        public void GoBack()
+        {
+            if (!CanGoBack) return;
+
+            _forwardStack.Push(_currentPage);
+            _currentPage = _backStack.Pop();
+
+            var page = CreatePage(_currentPage);
+            _frame.Navigate(page);
+
+            System.Console.WriteLine($"⬅️ {_currentPage} | Back: {_backStack.Count} | Forward: {_forwardStack.Count}");
+        }
+
+        public void GoForward()
+        {
+            if (!CanGoForward) return;
+
+            _backStack.Push(_currentPage);
+            _currentPage = _forwardStack.Pop();
+
+            var page = CreatePage(_currentPage);
+            _frame.Navigate(page);
+
+            System.Console.WriteLine($"➡️ {_currentPage} | Back: {_backStack.Count} | Forward: {_forwardStack.Count}");
+        }
+
+        private Page CreatePage(string pageTag)
+        {
+            Page page = pageTag switch
+            {
+                "Home" => new Views.Pages.HomePage(_onWordClick, (s, e) => 
+                {
+                    if (s is Button btn && btn.Tag != null) 
+                    {
+                        NavigateTo(btn.Tag.ToString());     
+                    }
+                }),
+                "History" => new Pages.HistoryPage(_onWordClick),
+                "Favourite" => new Views.Pages.FavouriteWordsPage(_onWordClick),
+                "MyWords" => new Pages.MyWordsPage(_onWordClick),
+                _ => new Views.Pages.HomePage(_onWordClick, _sidebarNavigate)
+            };
+
+            // Auto-load data
+            if (page is Views.Pages.WordListPageBase basePage)
+            {
+                Console.WriteLine("[Navigation Service] " + pageTag + " is loading");
+                basePage.LoadData();
+            }
+
+            return page;
+        }
     }
 }
-    

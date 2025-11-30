@@ -276,16 +276,16 @@
                                 <TextBlock Text="👥 Thành viên nhóm" FontSize="16" FontWeight="Bold"
                                            Foreground="White" Margin="0,0,0,10"/>
                                 <TextBlock Foreground="White" Opacity="0.9" TextWrapping="Wrap" Margin="0,0,0,5">
-                                    <Run Text="Nguyễn Văn A" FontWeight="Bold"/><LineBreak/>
-                                    <Run Text="MSSV: 123456"/>
+                                    <Run Text="Nguyễn Tấn Đạt" FontWeight="Bold"/><LineBreak/>
+                                    <Run Text="MSSV: 24520280"/>
                                 </TextBlock>
                                 <TextBlock Foreground="White" Opacity="0.9" TextWrapping="Wrap" Margin="0,0,0,5">
-                                    <Run Text="Trần Thị B" FontWeight="Bold"/><LineBreak/>
-                                    <Run Text="MSSV: 123457"/>
+                                    <Run Text="Võ Nguyễn Thanh Hương" FontWeight="Bold"/><LineBreak/>
+                                    <Run Text="MSSV: 24520649"/>
                                 </TextBlock>
                                 <TextBlock Foreground="White" Opacity="0.9" TextWrapping="Wrap">
-                                    <Run Text="Lê Văn C" FontWeight="Bold"/><LineBreak/>
-                                    <Run Text="MSSV: 123458"/>
+                                    <Run Text="Phan Thế Phong" FontWeight="Bold"/><LineBreak/>
+                                    <Run Text="MSSV: 24521342"/>
                                 </TextBlock>
                             </StackPanel>
 
@@ -315,7 +315,7 @@
                             <StackPanel Grid.Column="3">
                                 <TextBlock Text="📞 Liên hệ" FontSize="16" FontWeight="Bold"
                                            Foreground="White" Margin="0,0,0,10"/>
-                                <TextBlock Text="Email: dictionary@example.com" Foreground="White" Opacity="0.9" TextWrapping="Wrap"/>
+                                <TextBlock Text="Email: 24520280@uit.edu.vn" Foreground="White" Opacity="0.9" TextWrapping="Wrap"/>
                                 <TextBlock Text="GitHub: github.com/dictionary" Foreground="White" Opacity="0.9" TextWrapping="Wrap"/>
                                 <TextBlock Text="© 2024 Dictionary App" FontWeight="Bold" Foreground="White" Margin="0,10,0,0"/>
                                 <TextBlock Text="All rights reserved" Foreground="White" Opacity="0.9"/>

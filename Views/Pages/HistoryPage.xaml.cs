@@ -5,7 +5,6 @@ using BlueBerryDictionary.Views.UserControls;
 using MyDictionary.Services;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-
 namespace BlueBerryDictionary.Pages
 {
     public partial class HistoryPage : WordListPageBase, INotifyPropertyChanged
@@ -22,7 +21,6 @@ namespace BlueBerryDictionary.Pages
     {
                 _historyItems = value;
                 OnPropertyChanged(nameof(HistoryItems));
-                LoadDefCards(); 
             }
         }
         public HistoryPage(Action<string> action) : base(action) 
@@ -30,11 +28,12 @@ namespace BlueBerryDictionary.Pages
             InitializeComponent();
             _wordCacheManager = WordCacheManager.Instance; 
         }
-        public void LoadData() 
+        public override void LoadData() 
         {
             var caches = _wordCacheManager.GetAllCacheEntries();
             Console.WriteLine("[history] Caches.size ==" + caches.Count); 
             HistoryItems = new ObservableCollection<CacheEntry>(caches) ;
+            LoadDefCards();
         }
         void LoadDefCards() 
         {
