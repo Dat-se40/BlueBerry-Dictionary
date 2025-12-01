@@ -66,6 +66,7 @@ namespace BlueBerryDictionary.ViewModels
                 if (!string.IsNullOrWhiteSpace(word))
                 {
                     _ = SearchAndNavigate(word); 
+                    
                 }
             });
 
