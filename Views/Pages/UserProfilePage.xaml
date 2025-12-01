@@ -4,816 +4,304 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       mc:Ignorable="d"
-      d:DesignHeight="800" d:DesignWidth="1400"
+      d:DesignHeight="700" d:DesignWidth="1200"
       Background="{DynamicResource MainBackground}">
+    <Border x:Name="ScrollViewerBorder" Background="{DynamicResource MainBackground}">
+        <Border.Style>
+            <Style TargetType="Border">
+                <Setter Property="Background" Value="{DynamicResource MainBackground}"/>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#FFECECEC"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </Border.Style>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                <Grid VerticalAlignment="Center" HorizontalAlignment="Center" MaxWidth="1050" Margin="30">
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <Grid VerticalAlignment="Center" HorizontalAlignment="Center" MaxWidth="800" Margin="30">
+                    <Border Background="{DynamicResource CardBackground}"
+                BorderBrush="{DynamicResource BorderColor}"
+                BorderThickness="1"
+                CornerRadius="24">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="40" ShadowDepth="10" Opacity="0.15" Color="#1A2D6D"/>
+                        </Border.Effect>
 
-            <!-- Profile Card -->
-            <Border Background="{DynamicResource CardBackground}"
-                    BorderBrush="{DynamicResource BorderColor}"
-                    BorderThickness="2"
-                    CornerRadius="24">
-                <Border.Effect>
-                    <DropShadowEffect BlurRadius="40" ShadowDepth="10" Opacity="0.15" Color="#1A2D6D"/>
-                </Border.Effect>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="320"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
 
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <!-- Header -->
-                        <RowDefinition Height="Auto"/>
-                        <!-- Form -->
-                        <RowDefinition Height="Auto"/>
-                        <!-- Action Buttons -->
-                    </Grid.RowDefinitions>
+                            <Border Grid.Column="0"
+                        CornerRadius="24,0,0,24">
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                        <GradientStop Color="#1A2D6D" Offset="0"/>
+                                        <GradientStop Color="#2D4ACC" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Border.Background>
 
-                    <!-- ================================= -->
-                    <!-- HEADER WITH AVATAR -->
-                    <!-- ================================= -->
+                                <StackPanel VerticalAlignment="Center" Margin="20">
+                                    <Grid Width="140" Height="140" Margin="0,0,0,25">
+                                        <Border Width="140" Height="140"
+                                    CornerRadius="70"
+                                    BorderThickness="4"
+                                    BorderBrush="White">
+                                            <Border.Effect>
+                                                <DropShadowEffect BlurRadius="15" ShadowDepth="4" Opacity="0.3" Color="#101830"/>
+                                            </Border.Effect>
 
-                    <Border Grid.Row="0"
-                            Padding="50,50,40,80"
-                            CornerRadius="24,24,0,0">
-                        <Border.Background>
-                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                                <GradientStop Color="#1A2D6D" Offset="0"/>
-                                <GradientStop Color="#2D4ACC" Offset="1"/>
-                            </LinearGradientBrush>
-                        </Border.Background>
-
-                        <StackPanel HorizontalAlignment="Center">
-
-                            <!-- Avatar Container -->
-                            <Grid Width="150" Height="150" Margin="0,0,0,20">
-
-                                <!-- Avatar Border -->
-                                <Border Width="150" Height="150"
-                                        CornerRadius="75"
-                                        BorderThickness="4"
-                                        BorderBrush="White">
-                                    <Border.Effect>
-                                        <DropShadowEffect BlurRadius="15" ShadowDepth="4" Opacity="0.3" Color="#2D4ACC"/>
-                                    </Border.Effect>
-
-                                    <Border CornerRadius="75">
-                                        <Border.Background>
-                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                                <GradientStop Color="#40FFFFFF" Offset="0"/>
-                                                <GradientStop Color="#20FFFFFF" Offset="1"/>
-                                            </LinearGradientBrush>
-                                        </Border.Background>
-
-                                        <!-- Avatar Image (nếu có) hoặc Placeholder -->
-                                        <Grid>
-                                            <!-- Placeholder (hiển thị mặc định) -->
-                                            <TextBlock x:Name="AvatarPlaceholder"
-           Text="👤"
-           FontSize="80"
-           Foreground="#CCFFFFFF"
-           HorizontalAlignment="Center"
-           VerticalAlignment="Center"
-           Visibility="Visible"/>
-
-                                            <!-- Avatar Image (ẩn mặc định, sẽ hiển thị khi có logic) -->
-                                            <Image x:Name="AvatarImage"
-       Stretch="UniformToFill"
-       Visibility="Collapsed">
-                                                <Image.Clip>
-                                                    <EllipseGeometry Center="75,75" RadiusX="75" RadiusY="75"/>
-                                                </Image.Clip>
-                                            </Image>
-
-                                        </Grid>
-                                    </Border>
-                                </Border>
-
-                                <!-- Upload Button -->
-                                <Button Width="45" Height="45"
-                                        HorizontalAlignment="Right"
-                                        VerticalAlignment="Bottom"
-                                        Cursor="Hand"
-                                        Command="{Binding UploadAvatarCommand}">
-                                    <Button.Style>
-                                        <Style TargetType="Button">
-                                            <Setter Property="Background">
-                                                <Setter.Value>
+                                            <Border CornerRadius="70">
+                                                <Border.Background>
                                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                                        <GradientStop Color="#2D4ACC" Offset="0"/>
-                                                        <GradientStop Color="#5B7FFF" Offset="1"/>
+                                                        <GradientStop Color="#40FFFFFF" Offset="0"/>
+                                                        <GradientStop Color="#20FFFFFF" Offset="1"/>
                                                     </LinearGradientBrush>
-                                                </Setter.Value>
-                                            </Setter>
-                                            <Setter Property="BorderThickness" Value="0"/>
-                                            <Setter Property="Template">
-                                                <Setter.Value>
-                                                    <ControlTemplate TargetType="Button">
-                                                        <Border Background="{TemplateBinding Background}"
-                                                                CornerRadius="22.5">
-                                                            <Border.Effect>
-                                                                <DropShadowEffect BlurRadius="10" ShadowDepth="4" Opacity="0.2" Color="Black"/>
-                                                            </Border.Effect>
-                                                            <TextBlock Text="📷"
-                                                                       FontSize="20"
-                                                                       HorizontalAlignment="Center"
-                                                                       VerticalAlignment="Center"/>
-                                                        </Border>
-                                                        <ControlTemplate.Triggers>
-                                                            <Trigger Property="IsMouseOver" Value="True">
-                                                                <Setter Property="Background">
-                                                                    <Setter.Value>
-                                                                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                                                            <GradientStop Color="#1A2D6D" Offset="0"/>
-                                                                            <GradientStop Color="#2D4ACC" Offset="1"/>
-                                                                        </LinearGradientBrush>
-                                                                    </Setter.Value>
-                                                                </Setter>
-                                                                <Trigger.EnterActions>
-                                                                    <BeginStoryboard>
-                                                                        <Storyboard>
-                                                                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
-                                                                                             To="1.1" Duration="0:0:0.2"/>
-                                                                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
-                                                                                             To="1.1" Duration="0:0:0.2"/>
-                                                                        </Storyboard>
-                                                                    </BeginStoryboard>
-                                                                </Trigger.EnterActions>
-                                                                <Trigger.ExitActions>
-                                                                    <BeginStoryboard>
-                                                                        <Storyboard>
-                                                                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
-                                                                                             To="1.0" Duration="0:0:0.2"/>
-                                                                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
-                                                                                             To="1.0" Duration="0:0:0.2"/>
-                                                                        </Storyboard>
-                                                                    </BeginStoryboard>
-                                                                </Trigger.ExitActions>
-                                                            </Trigger>
-                                                        </ControlTemplate.Triggers>
-                                                    </ControlTemplate>
-                                                </Setter.Value>
-                                            </Setter>
-                                            <Setter Property="RenderTransform">
-                                                <Setter.Value>
-                                                    <ScaleTransform CenterX="22.5" CenterY="22.5"/>
-                                                </Setter.Value>
-                                            </Setter>
-                                        </Style>
-                                    </Button.Style>
-                                </Button>
-                            </Grid>
+                                                </Border.Background>
 
-                            <!-- User Name & Email -->
-                            <TextBlock Text="{Binding DisplayName}"
-                                       FontSize="32"
-                                       FontWeight="Bold"
-                                       Foreground="White"
-                                       HorizontalAlignment="Center"
-                                       Margin="0,0,0,8"/>
+                                                <Grid>
+                                                    <TextBlock x:Name="AvatarPlaceholder"
+                                                   Text="👤"
+                                                   FontSize="70"
+                                                   Foreground="#CCFFFFFF"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   Visibility="Visible"/>
 
-                            <TextBlock Text="{Binding Email}"
-                                       FontSize="17"
-                                       FontWeight="Medium"
-                                       Foreground="White"
-                                       Opacity="0.9"
-                                       HorizontalAlignment="Center"/>
-                        </StackPanel>
-                    </Border>
+                                                    <Image x:Name="AvatarImage"
+                                               Stretch="UniformToFill"
+                                               Visibility="Collapsed">
+                                                        <Image.Clip>
+                                                            <EllipseGeometry Center="70,70" RadiusX="70" RadiusY="70"/>
+                                                        </Image.Clip>
+                                                    </Image>
+                                                </Grid>
+                                            </Border>
+                                        </Border>
 
-                    <!-- ================================= -->
-                    <!-- PROFILE FORM -->
-                    <!-- ================================= -->
+                                        <Button Width="40" Height="40"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Bottom"
+                                    Cursor="Hand"
+                                    Command="{Binding UploadAvatarCommand}">
+                                            <Button.Style>
+                                                <Style TargetType="Button">
+                                                    <Setter Property="Background">
+                                                        <Setter.Value>
+                                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                                                <GradientStop Color="#2D4ACC" Offset="0"/>
+                                                                <GradientStop Color="#5B7FFF" Offset="1"/>
+                                                            </LinearGradientBrush>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                    <Setter Property="BorderThickness" Value="0"/>
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="Button">
+                                                                <Border Background="{TemplateBinding Background}" CornerRadius="20">
+                                                                    <TextBlock Text="📷" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                                </Border>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Style>
+                                            </Button.Style>
+                                        </Button>
+                                    </Grid>
 
-                    <Border Grid.Row="1" Padding="40">
-                        <StackPanel>
+                                    <TextBlock Text="{Binding DisplayName}"
+                                   FontSize="28"
+                                   FontWeight="Bold"
+                                   Foreground="White"
+                                   TextWrapping="Wrap"
+                                   TextAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,0,0,5"/>
 
-                            <!-- User ID (Read-only) -->
-                        <StackPanel Margin="0,0,0,25">
-                            <TextBlock Text="User ID"
-                                       FontSize="15"
-                                       FontWeight="SemiBold"
-                                       Foreground="{DynamicResource TextColor}"
-                                       Margin="0,0,0,10"/>
-                            <TextBox Text="{Binding UserId, Mode=OneWay}"
-                                     IsReadOnly="True"
-                                     Background="{DynamicResource SearchBackground}"
-                                     Foreground="{DynamicResource TextColor}"
-                                     BorderBrush="{DynamicResource BorderColor}"
-                                     BorderThickness="2"
-                                     Padding="14,18"
-                                     FontSize="16"
-                                     Opacity="0.7">
-                                <TextBox.Style>
-                                    <Style TargetType="TextBox">
-                                        <Setter Property="Template">
-                                            <Setter.Value>
-                                                <ControlTemplate TargetType="TextBox">
-                                                    <Border Background="{TemplateBinding Background}"
-                                                            BorderBrush="{TemplateBinding BorderBrush}"
-                                                            BorderThickness="{TemplateBinding BorderThickness}"
-                                                            CornerRadius="12"
-                                                            Padding="{TemplateBinding Padding}">
-                                                        <ScrollViewer x:Name="PART_ContentHost" VerticalAlignment="Center"/>
-                                                    </Border>
-                                                </ControlTemplate>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Style>
-                                </TextBox.Style>
-                            </TextBox>
-                        </StackPanel>
+                                    <TextBlock Text="{Binding Email}"
+                                   FontSize="15"
+                                   FontWeight="Medium"
+                                   Foreground="White"
+                                   Opacity="0.8"
+                                   TextAlignment="Center"
+                                   HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Border>
 
-                        <!-- Display Name -->
-                        <StackPanel Margin="0,0,0,25">
-                            <TextBlock Text="Display Name"
-                                       FontSize="15"
-                                       FontWeight="SemiBold"
-                                       Foreground="{DynamicResource TextColor}"
-                                       Margin="0,0,0,10"/>
-                            <TextBox x:Name="DisplayNameInput"
-                                     Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}"
-                                     MaxLength="50"
-                                     Background="{DynamicResource SearchBackground}"
-                                     Foreground="{DynamicResource TextColor}"
-                                     BorderBrush="{DynamicResource BorderColor}"
-                                     BorderThickness="2"
-                                     Padding="14,18"
-                                     FontSize="16">
-                                <TextBox.Style>
-                                    <Style TargetType="TextBox">
-                                        <Setter Property="Template">
-                                            <Setter.Value>
-                                                <ControlTemplate TargetType="TextBox">
-                                                    <Border Background="{TemplateBinding Background}"
-                                                            BorderBrush="{TemplateBinding BorderBrush}"
-                                                            BorderThickness="{TemplateBinding BorderThickness}"
-                                                            CornerRadius="12"
-                                                            Padding="{TemplateBinding Padding}">
-                                                        <ScrollViewer x:Name="PART_ContentHost" VerticalAlignment="Center"/>
-                                                    </Border>
-                                                    <ControlTemplate.Triggers>
-                                                        <Trigger Property="IsFocused" Value="True">
-                                                            <Setter Property="BorderBrush" Value="{DynamicResource ButtonColor}"/>
-                                                            <Trigger.EnterActions>
-                                                                <BeginStoryboard>
-                                                                    <Storyboard>
-                                                                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
-                                                                                         To="-2" Duration="0:0:0.2"/>
-                                                                    </Storyboard>
-                                                                </BeginStoryboard>
-                                                            </Trigger.EnterActions>
-                                                            <Trigger.ExitActions>
-                                                                <BeginStoryboard>
-                                                                    <Storyboard>
-                                                                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
-                                                                                         To="0" Duration="0:0:0.2"/>
-                                                                    </Storyboard>
-                                                                </BeginStoryboard>
-                                                            </Trigger.ExitActions>
-                                                        </Trigger>
-                                                    </ControlTemplate.Triggers>
-                                                </ControlTemplate>
-                                            </Setter.Value>
-                                        </Setter>
-                                        <Setter Property="RenderTransform">
-                                            <Setter.Value>
-                                                <TranslateTransform/>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Style>
-                                </TextBox.Style>
-                            </TextBox>
-                            <TextBlock Text="{Binding DisplayNameCharCount}"
-                                       FontSize="13"
-                                       Foreground="{DynamicResource TextColor}"
-                                       Opacity="0.7"
-                                       Margin="0,5,0,0"/>
-                        </StackPanel>
+                            <Grid Grid.Column="1" Margin="40,30,40,30">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
 
-                        <!-- Nickname -->
-                        <StackPanel Margin="0,0,0,25">
-                            <TextBlock Text="Nickname"
-                                       FontSize="15"
-                                       FontWeight="SemiBold"
-                                       Foreground="{DynamicResource TextColor}"
-                                       Margin="0,0,0,10"/>
-                            <TextBox x:Name="NicknameInput"
-                                     Text="{Binding Nickname, UpdateSourceTrigger=PropertyChanged}"
-                                     MaxLength="30"
-                                     Background="{DynamicResource SearchBackground}"
-                                     Foreground="{DynamicResource TextColor}"
-                                     BorderBrush="{DynamicResource BorderColor}"
-                                     BorderThickness="2"
-                                     Padding="14,18"
-                                     FontSize="16">
-                                <TextBox.Style>
-                                    <Style TargetType="TextBox">
-                                        <Setter Property="Template">
-                                            <Setter.Value>
-                                                <ControlTemplate TargetType="TextBox">
-                                                    <Border Background="{TemplateBinding Background}"
-                                                            BorderBrush="{TemplateBinding BorderBrush}"
-                                                            BorderThickness="{TemplateBinding BorderThickness}"
-                                                            CornerRadius="12"
-                                                            Padding="{TemplateBinding Padding}">
-                                                        <ScrollViewer x:Name="PART_ContentHost" VerticalAlignment="Center"/>
-                                                    </Border>
-                                                    <ControlTemplate.Triggers>
-                                                        <Trigger Property="IsFocused" Value="True">
-                                                            <Setter Property="BorderBrush" Value="{DynamicResource ButtonColor}"/>
-                                                            <Trigger.EnterActions>
-                                                                <BeginStoryboard>
-                                                                    <Storyboard>
-                                                                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
-                                                                                         To="-2" Duration="0:0:0.2"/>
-                                                                    </Storyboard>
-                                                                </BeginStoryboard>
-                                                            </Trigger.EnterActions>
-                                                            <Trigger.ExitActions>
-                                                                <BeginStoryboard>
-                                                                    <Storyboard>
-                                                                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
-                                                                                         To="0" Duration="0:0:0.2"/>
-                                                                    </Storyboard>
-                                                                </BeginStoryboard>
-                                                            </Trigger.ExitActions>
-                                                        </Trigger>
-                                                    </ControlTemplate.Triggers>
-                                                </ControlTemplate>
-                                            </Setter.Value>
-                                        </Setter>
-                                        <Setter Property="RenderTransform">
-                                            <Setter.Value>
-                                                <TranslateTransform/>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Style>
-                                </TextBox.Style>
-                            </TextBox>
-                            <TextBlock Text="{Binding NicknameCharCount}"
-                                       FontSize="13"
-                                       Foreground="{DynamicResource TextColor}"
-                                       Opacity="0.7"
-                                       Margin="0,5,0,0"/>
-                        </StackPanel>
+                                <StackPanel Grid.Row="0">
+                                    <TextBlock Text="Thông tin cá nhân" FontSize="22" FontWeight="Bold" Foreground="{DynamicResource TextColor}" Margin="0,0,0,20"/>
 
-                        <!-- Email (Read-only) -->
-                        <StackPanel Margin="0,0,0,25">
-                            <TextBlock Text="Email"
-                                       FontSize="15"
-                                       FontWeight="SemiBold"
-                                       Foreground="{DynamicResource TextColor}"
-                                       Margin="0,0,0,10"/>
-                            <TextBox Text="{Binding Email, Mode=OneWay}"
-                                     IsReadOnly="True"
-                                     Background="{DynamicResource SearchBackground}"
-                                     Foreground="{DynamicResource TextColor}"
-                                     BorderBrush="{DynamicResource BorderColor}"
-                                     BorderThickness="2"
-                                     Padding="14,18"
-                                     FontSize="16"
-                                     Opacity="0.7">
-                                <TextBox.Style>
-                                    <Style TargetType="TextBox">
-                                        <Setter Property="Template">
-                                            <Setter.Value>
-                                                <ControlTemplate TargetType="TextBox">
-                                                    <Border Background="{TemplateBinding Background}"
-                                                            BorderBrush="{TemplateBinding BorderBrush}"
-                                                            BorderThickness="{TemplateBinding BorderThickness}"
-                                                            CornerRadius="12"
-                                                            Padding="{TemplateBinding Padding}">
-                                                        <ScrollViewer x:Name="PART_ContentHost" VerticalAlignment="Center"/>
-                                                    </Border>
-                                                </ControlTemplate>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Style>
-                                </TextBox.Style>
-                            </TextBox>
-                        </StackPanel>
+                                    <Grid Margin="0,0,0,20">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="100"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="User ID" VerticalAlignment="Center" FontWeight="SemiBold" Foreground="{DynamicResource TextColor}" Opacity="0.7"/>
+                                        <TextBox Grid.Column="1" Text="{Binding UserId, Mode=OneWay}" IsReadOnly="True"
+                                     Background="{DynamicResource SearchBackground}" Foreground="{DynamicResource TextColor}"
+                                     BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" Padding="12,10"
+                                     FontSize="15" Opacity="0.7">
+                                            <TextBox.Resources>
+                                                <Style TargetType="Border">
+                                                    <Setter Property="CornerRadius" Value="8"/>
+                                                </Style>
+                                            </TextBox.Resources>
+                                        </TextBox>
+                                    </Grid>
 
-                        <!-- ================================= -->
-                        <!-- SYNC SECTION -->
-                        <!-- ================================= -->
+                                    <Grid Margin="0,0,0,20">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="20"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
 
-                        <Border Padding="25"
-                                CornerRadius="16"
-                                BorderThickness="2"
-                                Margin="0,0,0,25">
-                            <Border.Style>
-                                <Style TargetType="Border">
-                                    <Setter Property="Background">
-                                        <Setter.Value>
-                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                                                <GradientStop Color="#E8F1FF" Offset="0"/>
-                                                <GradientStop Color="#F5E8FF" Offset="1"/>
-                                            </LinearGradientBrush>
-                                        </Setter.Value>
-                                    </Setter>
-                                    <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
-                                </Style>
-                            </Border.Style>
+                                        <StackPanel Grid.Column="0">
+                                            <TextBlock Text="Display Name" FontWeight="SemiBold" Foreground="{DynamicResource TextColor}" Margin="0,0,0,8"/>
+                                            <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" MaxLength="50"
+                                         Background="{DynamicResource SearchBackground}" Foreground="{DynamicResource TextColor}"
+                                         BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" Padding="12,10" FontSize="15">
+                                                <TextBox.Resources>
+                                                    <Style TargetType="Border">
+                                                        <Setter Property="CornerRadius" Value="8"/>
+                                                    </Style>
+                                                </TextBox.Resources>
+                                            </TextBox>
+                                            <TextBlock Text="{Binding DisplayNameCharCount}" FontSize="11" Foreground="{DynamicResource TextColor}" Opacity="0.5" HorizontalAlignment="Right" Margin="0,2,0,0"/>
+                                        </StackPanel>
 
-                            <StackPanel>
+                                        <StackPanel Grid.Column="2">
+                                            <TextBlock Text="Nickname" FontWeight="SemiBold" Foreground="{DynamicResource TextColor}" Margin="0,0,0,8"/>
+                                            <TextBox Text="{Binding Nickname, UpdateSourceTrigger=PropertyChanged}" MaxLength="30"
+                                         Background="{DynamicResource SearchBackground}" Foreground="{DynamicResource TextColor}"
+                                         BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" Padding="12,10" FontSize="15">
+                                                <TextBox.Resources>
+                                                    <Style TargetType="Border">
+                                                        <Setter Property="CornerRadius" Value="8"/>
+                                                    </Style>
+                                                </TextBox.Resources>
+                                            </TextBox>
+                                            <TextBlock Text="{Binding NicknameCharCount}" FontSize="11" Foreground="{DynamicResource TextColor}" Opacity="0.5" HorizontalAlignment="Right" Margin="0,2,0,0"/>
+                                        </StackPanel>
+                                    </Grid>
 
-                                <!-- Section Title -->
-                                <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
-                                    <TextBlock Text="☁️" FontSize="24" Margin="0,0,10,0"/>
-                                    <TextBlock Text="Google Drive Sync"
-                                               FontSize="21"
-                                               FontWeight="Bold"
-                                               Foreground="{DynamicResource TextColor}"
-                                               VerticalAlignment="Center"/>
+                                    <StackPanel Margin="0,0,0,20">
+                                        <TextBlock Text="Email Address" FontWeight="SemiBold" Foreground="{DynamicResource TextColor}" Margin="0,0,0,8"/>
+                                        <TextBox Text="{Binding Email, Mode=OneWay}" IsReadOnly="True"
+                                     Background="{DynamicResource SearchBackground}" Foreground="{DynamicResource TextColor}"
+                                     BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" Padding="12,10" FontSize="15" Opacity="0.7">
+                                            <TextBox.Resources>
+                                                <Style TargetType="Border">
+                                                    <Setter Property="CornerRadius" Value="8"/>
+                                                </Style>
+                                            </TextBox.Resources>
+                                        </TextBox>
+                                    </StackPanel>
                                 </StackPanel>
 
-                                <!-- Sync Status -->
-                                <Border Padding="12,16"
-                                        CornerRadius="10"
-                                        Margin="0,0,0,20">
-                                    <Border.Background>
-                                        <SolidColorBrush Color="{Binding Source={StaticResource ButtonColor}, Path=Color}" Opacity="0.1"/>
-                                    </Border.Background>
+                                <StackPanel Grid.Row="1">
 
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="📊" FontSize="18" Margin="0,0,10,0"/>
-                                        <TextBlock Text="{Binding SyncStatusText}"
-                                                   FontSize="15"
-                                                   Foreground="{DynamicResource ButtonColor}"
-                                                   VerticalAlignment="Center"/>
-                                    </StackPanel>
-                                </Border>
-
-                                <!-- Sync Buttons -->
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="15"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-
-                                    <!-- Download Button -->
-                                    <Button Grid.Column="0"
-                                            Height="50"
-                                            Cursor="Hand"
-                                            Command="{Binding DownloadFromDriveCommand}">
-                                        <Button.Style>
-                                            <Style TargetType="Button">
-                                                <Setter Property="Background">
-                                                    <Setter.Value>
-                                                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                                            <GradientStop Color="#10B981" Offset="0"/>
-                                                            <GradientStop Color="#34D399" Offset="1"/>
-                                                        </LinearGradientBrush>
-                                                    </Setter.Value>
-                                                </Setter>
-                                                <Setter Property="Foreground" Value="White"/>
-                                                <Setter Property="BorderThickness" Value="0"/>
-                                                <Setter Property="FontSize" Value="16"/>
-                                                <Setter Property="FontWeight" Value="SemiBold"/>
-                                                <Setter Property="Template">
-                                                    <Setter.Value>
-                                                        <ControlTemplate TargetType="Button">
-                                                            <Border Background="{TemplateBinding Background}"
-                                                                    CornerRadius="12">
-                                                                <Grid>
-                                                                    <!-- Button Content -->
-                                                                    <StackPanel Orientation="Horizontal"
-                                                                                HorizontalAlignment="Center"
-                                                                                VerticalAlignment="Center"
-                                                                                x:Name="DownloadContent">
-                                                                        <TextBlock Text="📥" FontSize="20" Margin="0,0,10,0"/>
-                                                                        <TextBlock Text="Download" VerticalAlignment="Center"/>
-                                                                    </StackPanel>
-
-                                                                    <!-- Loading Spinner -->
-                                                                    <Border x:Name="DownloadSpinner"
-                                                                            Width="18" Height="18"
-                                                                            Visibility="Collapsed">
-                                                                        <Border.RenderTransform>
-                                                                            <RotateTransform x:Name="DownloadSpinnerRotate" CenterX="9" CenterY="9"/>
-                                                                        </Border.RenderTransform>
-                                                                        <Ellipse Stroke="White" StrokeThickness="3" StrokeDashArray="15 5"/>
-                                                                    </Border>
-                                                                </Grid>
-                                                            </Border>
-                                                            <ControlTemplate.Triggers>
-                                                                <Trigger Property="IsMouseOver" Value="True">
-                                                                    <Setter Property="Background">
-                                                                        <Setter.Value>
-                                                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                                                                <GradientStop Color="#059669" Offset="0"/>
-                                                                                <GradientStop Color="#10B981" Offset="1"/>
-                                                                            </LinearGradientBrush>
-                                                                        </Setter.Value>
-                                                                    </Setter>
-                                                                    <Trigger.EnterActions>
-                                                                        <BeginStoryboard>
-                                                                            <Storyboard>
-                                                                                <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
-                                                                                                 To="-2" Duration="0:0:0.2"/>
-                                                                            </Storyboard>
-                                                                        </BeginStoryboard>
-                                                                    </Trigger.EnterActions>
-                                                                    <Trigger.ExitActions>
-                                                                        <BeginStoryboard>
-                                                                            <Storyboard>
-                                                                                <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
-                                                                                                 To="0" Duration="0:0:0.2"/>
-                                                                            </Storyboard>
-                                                                        </BeginStoryboard>
-                                                                    </Trigger.ExitActions>
-                                                                </Trigger>
-
-                                                                <DataTrigger Binding="{Binding IsDownloading}" Value="True">
-                                                                    <Setter TargetName="DownloadContent" Property="Visibility" Value="Collapsed"/>
-                                                                    <Setter TargetName="DownloadSpinner" Property="Visibility" Value="Visible"/>
-                                                                    <DataTrigger.EnterActions>
-                                                                        <BeginStoryboard>
-                                                                            <Storyboard RepeatBehavior="Forever">
-                                                                                <DoubleAnimation Storyboard.TargetName="DownloadSpinnerRotate"
-                                                                                                 Storyboard.TargetProperty="Angle"
-                                                                                                 From="0" To="360"
-                                                                                                 Duration="0:0:0.8"/>
-                                                                            </Storyboard>
-                                                                        </BeginStoryboard>
-                                                                    </DataTrigger.EnterActions>
-                                                                </DataTrigger>
-                                                            </ControlTemplate.Triggers>
-                                                        </ControlTemplate>
-                                                    </Setter.Value>
-                                                </Setter>
-                                                <Setter Property="RenderTransform">
-                                                    <Setter.Value>
-                                                        <TranslateTransform/>
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </Style>
-                                        </Button.Style>
-                                    </Button>
-
-                                    <!-- Upload Button -->
-                                    <Button Grid.Column="2"
-                                            Height="50"
-                                            Cursor="Hand"
-                                            Command="{Binding UploadToDriveCommand}">
-                                        <Button.Style>
-                                            <Style TargetType="Button">
-                                                <Setter Property="Background">
-                                                    <Setter.Value>
-                                                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                                            <GradientStop Color="#2D4ACC" Offset="0"/>
-                                                            <GradientStop Color="#5B7FFF" Offset="1"/>
-                                                        </LinearGradientBrush>
-                                                    </Setter.Value>
-                                                </Setter>
-                                                <Setter Property="Foreground" Value="White"/>
-                                                <Setter Property="BorderThickness" Value="0"/>
-                                                <Setter Property="FontSize" Value="16"/>
-                                                <Setter Property="FontWeight" Value="SemiBold"/>
-                                                <Setter Property="Template">
-                                                    <Setter.Value>
-                                                        <ControlTemplate TargetType="Button">
-                                                            <Border Background="{TemplateBinding Background}"
-                                                                    CornerRadius="12">
-                                                                <Grid>
-                                                                    <StackPanel Orientation="Horizontal"
-                                                                                HorizontalAlignment="Center"
-                                                                                VerticalAlignment="Center"
-                                                                                x:Name="UploadContent">
-                                                                        <TextBlock Text="📤" FontSize="20" Margin="0,0,10,0"/>
-                                                                        <TextBlock Text="Upload" VerticalAlignment="Center"/>
-                                                                    </StackPanel>
-
-                                                                    <Border x:Name="UploadSpinner"
-                                                                            Width="18" Height="18"
-                                                                            Visibility="Collapsed">
-                                                                        <Border.RenderTransform>
-                                                                            <RotateTransform x:Name="UploadSpinnerRotate" CenterX="9" CenterY="9"/>
-                                                                        </Border.RenderTransform>
-                                                                        <Ellipse Stroke="White" StrokeThickness="3" StrokeDashArray="15 5"/>
-                                                                    </Border>
-                                                                </Grid>
-                                                            </Border>
-                                                            <ControlTemplate.Triggers>
-                                                                <Trigger Property="IsMouseOver" Value="True">
-                                                                    <Setter Property="Background">
-                                                                        <Setter.Value>
-                                                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                                                                <GradientStop Color="#1A2D6D" Offset="0"/>
-                                                                                <GradientStop Color="#2D4ACC" Offset="1"/>
-                                                                            </LinearGradientBrush>
-                                                                        </Setter.Value>
-                                                                    </Setter>
-                                                                    <Trigger.EnterActions>
-                                                                        <BeginStoryboard>
-                                                                            <Storyboard>
-                                                                                <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
-                                                                                                 To="-2" Duration="0:0:0.2"/>
-                                                                            </Storyboard>
-                                                                        </BeginStoryboard>
-                                                                    </Trigger.EnterActions>
-                                                                    <Trigger.ExitActions>
-                                                                        <BeginStoryboard>
-                                                                            <Storyboard>
-                                                                                <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
-                                                                                                 To="0" Duration="0:0:0.2"/>
-                                                                            </Storyboard>
-                                                                        </BeginStoryboard>
-                                                                    </Trigger.ExitActions>
-                                                                </Trigger>
-
-                                                                <DataTrigger Binding="{Binding IsUploading}" Value="True">
-                                                                    <Setter TargetName="UploadContent" Property="Visibility" Value="Collapsed"/>
-                                                                    <Setter TargetName="UploadSpinner" Property="Visibility" Value="Visible"/>
-                                                                    <DataTrigger.EnterActions>
-                                                                        <BeginStoryboard>
-                                                                            <Storyboard RepeatBehavior="Forever">
-                                                                                <DoubleAnimation Storyboard.TargetName="UploadSpinnerRotate"
-                                                                                                 Storyboard.TargetProperty="Angle"
-                                                                                                 From="0" To="360"
-                                                                                                 Duration="0:0:0.8"/>
-                                                                            </Storyboard>
-                                                                        </BeginStoryboard>
-                                                                    </DataTrigger.EnterActions>
-                                                                </DataTrigger>
-                                                            </ControlTemplate.Triggers>
-                                                        </ControlTemplate>
-                                                    </Setter.Value>
-                                                </Setter>
-                                                <Setter Property="RenderTransform">
-                                                    <Setter.Value>
-                                                        <TranslateTransform/>
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </Style>
-                                        </Button.Style>
-                                    </Button>
-                                </Grid>
-
-                            </StackPanel>
-                        </Border>
-
-                    </StackPanel>
-                </Border>         
-
-                    <!-- ================================= -->
-                    <!-- ACTION BUTTONS -->
-                    <!-- ================================= -->
-
-                    <Grid Grid.Row="2">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="15"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-
-                        <!-- Save Button -->
-                        <Button Grid.Column="0"
-                                Height="55"
-                                Cursor="Hand"
-                                Command="{Binding SaveProfileCommand}">
-                            <Button.Style>
-                                <Style TargetType="Button">
-                                    <Setter Property="Background">
-                                        <Setter.Value>
-                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                                <GradientStop Color="#2D4ACC" Offset="0"/>
-                                                <GradientStop Color="#5B7FFF" Offset="1"/>
+                                    <Border Padding="20" CornerRadius="12" Margin="0,0,0,25" BorderThickness="1" BorderBrush="{DynamicResource BorderColor}" Width="383">
+                                        <Border.Background>
+                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                                <GradientStop Color="#F0F7FF" Offset="0"/>
+                                                <GradientStop Color="#F8F0FF" Offset="1"/>
                                             </LinearGradientBrush>
-                                        </Setter.Value>
-                                    </Setter>
-                                    <Setter Property="Foreground" Value="White"/>
-                                    <Setter Property="BorderThickness" Value="0"/>
-                                    <Setter Property="FontSize" Value="17"/>
-                                    <Setter Property="FontWeight" Value="SemiBold"/>
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="Button">
-                                                <Border Background="{TemplateBinding Background}"
-                                                        CornerRadius="12">
-                                                    <StackPanel Orientation="Horizontal"
-                                                                HorizontalAlignment="Center"
-                                                                VerticalAlignment="Center">
-                                                        <TextBlock Text="💾" FontSize="20" Margin="0,0,10,0"/>
-                                                        <TextBlock Text="Save Changes" VerticalAlignment="Center"/>
-                                                    </StackPanel>
-                                                </Border>
-                                                <ControlTemplate.Triggers>
-                                                    <Trigger Property="IsMouseOver" Value="True">
-                                                        <Setter Property="Background">
-                                                            <Setter.Value>
-                                                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                                                    <GradientStop Color="#1A2D6D" Offset="0"/>
-                                                                    <GradientStop Color="#2D4ACC" Offset="1"/>
-                                                                </LinearGradientBrush>
-                                                            </Setter.Value>
-                                                        </Setter>
-                                                        <Trigger.EnterActions>
-                                                            <BeginStoryboard>
-                                                                <Storyboard>
-                                                                    <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
-                                                                                     To="-2" Duration="0:0:0.2"/>
-                                                                </Storyboard>
-                                                            </BeginStoryboard>
-                                                        </Trigger.EnterActions>
-                                                        <Trigger.ExitActions>
-                                                            <BeginStoryboard>
-                                                                <Storyboard>
-                                                                    <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
-                                                                                     To="0" Duration="0:0:0.2"/>
-                                                                </Storyboard>
-                                                            </BeginStoryboard>
-                                                        </Trigger.ExitActions>
-                                                    </Trigger>
-                                                </ControlTemplate.Triggers>
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                    <Setter Property="RenderTransform">
-                                        <Setter.Value>
-                                            <TranslateTransform/>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Style>
-                            </Button.Style>
-                        </Button>
+                                        </Border.Background>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
 
-                        <!-- Logout Button -->
-                        <Button Grid.Column="2"
-                                Height="55"
-                                Cursor="Hand"
-                                Command="{Binding LogoutCommand}">
-                            <Button.Style>
-                                <Style TargetType="Button">
-                                    <Setter Property="Background">
-                                        <Setter.Value>
-                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                                <GradientStop Color="#EF4444" Offset="0"/>
-                                                <GradientStop Color="#F87171" Offset="1"/>
-                                            </LinearGradientBrush>
-                                        </Setter.Value>
-                                    </Setter>
-                                    <Setter Property="Foreground" Value="White"/>
-                                    <Setter Property="BorderThickness" Value="0"/>
-                                    <Setter Property="FontSize" Value="17"/>
-                                    <Setter Property="FontWeight" Value="SemiBold"/>
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="Button">
-                                                <Border Background="{TemplateBinding Background}"
-                                                        CornerRadius="12">
-                                                    <StackPanel Orientation="Horizontal"
-                                                                HorizontalAlignment="Center"
-                                                                VerticalAlignment="Center">
-                                                        <TextBlock Text="🚪" FontSize="20" Margin="0,0,10,0"/>
-                                                        <TextBlock Text="Logout" VerticalAlignment="Center"/>
-                                                    </StackPanel>
-                                                </Border>
-                                                <ControlTemplate.Triggers>
-                                                    <Trigger Property="IsMouseOver" Value="True">
-                                                        <Setter Property="Background">
-                                                            <Setter.Value>
-                                                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                                                    <GradientStop Color="#DC2626" Offset="0"/>
-                                                                    <GradientStop Color="#EF4444" Offset="1"/>
-                                                                </LinearGradientBrush>
-                                                            </Setter.Value>
-                                                        </Setter>
-                                                        <Trigger.EnterActions>
-                                                            <BeginStoryboard>
-                                                                <Storyboard>
-                                                                    <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
-                                                                                     To="-2" Duration="0:0:0.2"/>
-                                                                </Storyboard>
-                                                            </BeginStoryboard>
-                                                        </Trigger.EnterActions>
-                                                        <Trigger.ExitActions>
-                                                            <BeginStoryboard>
-                                                                <Storyboard>
-                                                                    <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
-                                                                                     To="0" Duration="0:0:0.2"/>
-                                                                </Storyboard>
-                                                            </BeginStoryboard>
-                                                        </Trigger.ExitActions>
-                                                    </Trigger>
-                                                </ControlTemplate.Triggers>
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                    <Setter Property="RenderTransform">
-                                        <Setter.Value>
-                                            <TranslateTransform/>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Style>
-                            </Button.Style>
-                        </Button>
-                    </Grid>
+                                            <StackPanel VerticalAlignment="Center">
+                                                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                                    <TextBlock Text="☁️" FontSize="18" Margin="0,0,8,0"/>
+                                                    <TextBlock Text="Google Drive" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource TextColor}" Width="151" Height="25"/>
+                                                </StackPanel>
+                                                <TextBlock Text="{Binding SyncStatusText}" FontSize="13" Foreground="{DynamicResource ButtonColor}"/>
+                                            </StackPanel>
 
+                                            <StackPanel Grid.Column="2" Orientation="Horizontal">
+                                                <Button Command="{Binding DownloadFromDriveCommand}" Width="40" Height="40" Margin="0,0,10,0" Cursor="Hand" ToolTip="Download Backup">
+                                                    <Button.Template>
+                                                        <ControlTemplate TargetType="Button">
+                                                            <Border Background="#10B981" CornerRadius="8">
+                                                                <TextBlock Text="📥" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+                                                            </Border>
+                                                        </ControlTemplate>
+                                                    </Button.Template>
+                                                </Button>
+                                                <Button Command="{Binding UploadToDriveCommand}" Width="40" Height="40" Cursor="Hand" ToolTip="Upload Backup">
+                                                    <Button.Template>
+                                                        <ControlTemplate TargetType="Button">
+                                                            <Border Background="#2D4ACC" CornerRadius="8">
+                                                                <TextBlock Text="📤" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+                                                            </Border>
+                                                        </ControlTemplate>
+                                                    </Button.Template>
+                                                </Button>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>
+
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="20"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Button Grid.Column="0" Height="50" Cursor="Hand" Command="{Binding SaveProfileCommand}">
+                                            <Button.Template>
+                                                <ControlTemplate TargetType="Button">
+                                                    <Border CornerRadius="12">
+                                                        <Border.Background>
+                                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                                                <GradientStop Color="#2D4ACC" Offset="0"/>
+                                                                <GradientStop Color="#5B7FFF" Offset="1"/>
+                                                            </LinearGradientBrush>
+                                                        </Border.Background>
+                                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                            <TextBlock Text="💾" FontSize="18" Margin="0,0,10,0"/>
+                                                            <TextBlock Text="Save Changes" FontWeight="SemiBold" Foreground="White" FontSize="16"/>
+                                                        </StackPanel>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Button.Template>
+                                        </Button>
+
+                                        <Button Grid.Column="2" Height="50" Cursor="Hand" Command="{Binding LogoutCommand}">
+                                            <Button.Template>
+                                                <ControlTemplate TargetType="Button">
+                                                    <Border CornerRadius="12" Background="#FFF1F2">
+                                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                            <TextBlock Text="🚪" FontSize="18" Margin="0,0,10,0"/>
+                                                            <TextBlock Text="Logout" FontWeight="SemiBold" Foreground="#EF4444" FontSize="16"/>
+                                                        </StackPanel>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Button.Template>
+                                        </Button>
+                                    </Grid>
+                                </StackPanel>
+                            </Grid>
+
+                        </Grid>
+                    </Border>
                 </Grid>
-            </Border>
-        </Grid>
-    </ScrollViewer>
+            </ScrollViewer>
+        </ScrollViewer>
+    </Border>
+
 </Page>

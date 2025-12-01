@@ -429,7 +429,7 @@ public List<WordShortened> GetFavoriteWords()
             }
         }
 
-        private void SaveTags()
+        public void SaveTags()
         {
             try
             {
@@ -443,7 +443,7 @@ public List<WordShortened> GetFavoriteWords()
             }
         }
 
-        private void SaveWords()
+        public void SaveWords()
         {
             try
             {

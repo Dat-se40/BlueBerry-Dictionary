@@ -1,4 +1,5 @@
 ﻿// NavigationService.cs - Complete implementation
+using BlueBerryDictionary.Views.Pages;
 using System.Collections.Generic;
 using System.Windows.Controls;
 
@@ -102,6 +103,7 @@ namespace BlueBerryDictionary.Services
                 "History" => new Pages.HistoryPage(_onWordClick),
                 "Favourite" => new Views.Pages.FavouriteWordsPage(_onWordClick),
                 "MyWords" => new Pages.MyWordsPage(_onWordClick),
+                "Account" => new UserProfilePage() ,
                 _ => new Views.Pages.HomePage(_onWordClick, _sidebarNavigate)
             };
 

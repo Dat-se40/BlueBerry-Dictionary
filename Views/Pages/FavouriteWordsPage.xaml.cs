@@ -1,7 +1,10 @@
 ﻿using BlueBerryDictionary.Models;
 using BlueBerryDictionary.Services;
 using BlueBerryDictionary.Views.UserControls;
+using CommunityToolkit.Mvvm.ComponentModel;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Media3D;
 
 namespace BlueBerryDictionary.Views.Pages
 {
@@ -10,21 +13,45 @@ namespace BlueBerryDictionary.Views.Pages
     /// </summary>
     public partial class FavouriteWordsPage : WordListPageBase
     {
+        private List<WordShortened> currentFilterWords;
+
+        public List<WordShortened> CurrentFilterWords
+        {
+            get { return currentFilterWords; }
+            set { 
+                currentFilterWords = value; 
+                LoadDefCards(); 
+            }
+        }
+
         public FavouriteWordsPage(Action<string> onClicked) : base(onClicked)
         {
             InitializeComponent();
-            LoadData();
         }
-        public override void LoadData() 
+        public override void LoadData()
         {
-            LoadDefCards(); 
+            // Đây cũng chính là reset, cập nhật lại!
+            CurrentFilterWords = TagService.Instance.GetAllWords().Where(ws => ws.isFavorited == true).ToList();
         }
-        public void LoadDefCards() 
-        {
-            var words = TagService.Instance.GetAllWords().Where(ws => ws.isFavorited == true);
-            base.LoadDefCards(mainContent, words); 
+        public void LoadDefCards()
+        { 
+            base.LoadDefCards(mainContent, CurrentFilterWords);
+        }
+        public void Reload(object sender, RoutedEventArgs e) => LoadData();
+        public void FilterByPartOfSpeed(object sender, RoutedEventArgs e) 
+        {   
+            if (CurrentFilterWords != null && sender is Button btn && btn.Tag != null)
+            {
+                CurrentFilterWords = CurrentFilterWords.Where(ws => ws.PartOfSpeech == btn.Tag.ToString()).ToList();
+            }else 
+            {
+                Console.WriteLine("[FavoritePage!]");
+            }
         }
 
-
+        private void btnDeleteAll_Click(object sender, RoutedEventArgs e)
+        {
+            CurrentFilterWords.Clear(); 
+        }
     }
 }

@@ -38,8 +38,12 @@ namespace BlueBerryDictionary
             // ✅ Navigate to Home using NavigationService
             _navigationService.NavigateTo("Home");
             UpdateNavigationButtons();
-        }
+            Dispatcher.ShutdownStarted += (s, e) => {
+                TagService.Instance.SaveTags();
+                TagService.Instance.SaveWords();
 
+            };
+        }
         #region SideBar
 
         /// <summary>
