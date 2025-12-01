@@ -54,39 +54,51 @@ namespace BlueBerryDictionary.ViewModels
 
             try
             {
-                // TODO: var result = await GoogleAuthService.Instance.LoginAsync();
-                // TODO: if (result.Success)
-                // TODO: {
-                // TODO:     await GoogleDriveSyncService.Instance.InitializeAsync(result.Credential);
-                // TODO:     UserDataManager.Instance.SetCurrentUser(result.UserEmail);
-                // TODO:
-                // TODO:     // ✅ Trigger event để LoginWindow close
-                // TODO:     LoginSuccessEvent?.Invoke(this, EventArgs.Empty);
-                // TODO: }
-                // TODO: else
-                // TODO: {
-                // TODO:     MessageBox.Show(result.ErrorMessage, "Login Failed", MessageBoxButton.OK, MessageBoxImage.Error);
-                // TODO: }
+                // ✅ gọi service thật
+                var result = await Services.GoogleAuthService.Instance.LoginAsync();
 
-                // Simulate loading (demo)
-                await Task.Delay(2000);
+                if (result.Success)
+                {
+                    System.Diagnostics.Debug.WriteLine($"✅ Gmail login success: {result.UserInfo?.Email}");
 
-                // ✅ Trigger event (demo)
-                LoginSuccessEvent?.Invoke(this, EventArgs.Empty);
+                    // Set current user
+                    Services.UserSessionManage.Instance.SetLoggedInUser(
+                        result.UserInfo?.Email,
+                        result.UserInfo?.Email,
+                        result.UserInfo?.Name,
+                        result.UserInfo?.Avatar
+                    );
 
-                System.Diagnostics.Debug.WriteLine("✅ Gmail Login success → Triggering LoginSuccessEvent");
+                    // Close LoginWindow
+                    LoginSuccessEvent?.Invoke(this, EventArgs.Empty);
+                }
+                else
+                {
+                    System.Diagnostics.Debug.WriteLine($"❌ Gmail login failed: {result.ErrorMessage}");
+                    System.Windows.MessageBox.Show(
+                        result.ErrorMessage ?? "Login failed.",
+                        "Google Login",
+                        System.Windows.MessageBoxButton.OK,
+                        System.Windows.MessageBoxImage.Error
+                    );
+                }
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"❌ Login error: {ex.Message}");
-                // TODO: Show error dialog
-                // MessageBox.Show($"Login failed: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                System.Diagnostics.Debug.WriteLine($"❌ Login exception: {ex.Message}");
+                System.Windows.MessageBox.Show(
+                    $"Login failed: {ex.Message}",
+                    "Error",
+                    System.Windows.MessageBoxButton.OK,
+                    System.Windows.MessageBoxImage.Error
+                );
             }
             finally
             {
                 IsGmailLoading = false;
             }
         }
+
 
         /// <summary>
         /// [STUB] Tiếp tục với Guest mode

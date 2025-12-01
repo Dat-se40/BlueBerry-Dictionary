@@ -11,4 +11,5 @@ namespace BlueBerryDictionary.Views.Pages
             DataContext = new UserProfileViewModel(); // Bind tới ViewModel
         }
     }
+
 }

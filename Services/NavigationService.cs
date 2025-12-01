@@ -1,4 +1,5 @@
 ﻿// NavigationService.cs - Complete implementation
+using BlueBerryDictionary.Views.Pages;
 using System.Collections.Generic;
 using System.Windows.Controls;
 
@@ -7,6 +8,7 @@ namespace BlueBerryDictionary.Services
     public interface INavigationService
     {
         void NavigateTo(string pageTag, Page customPage = null, string uniqueId = null);
+        void NavigateToPage(Page page, string pageName);
         void GoBack();
         void GoForward();
         bool CanGoBack { get; }
@@ -102,6 +104,8 @@ namespace BlueBerryDictionary.Services
                 "History" => new Pages.HistoryPage(_onWordClick),
                 "Favourite" => new Views.Pages.FavouriteWordsPage(_onWordClick),
                 "MyWords" => new Pages.MyWordsPage(_onWordClick),
+                "Account" => new UserProfilePage() ,
+                "UserProfile" => new UserProfilePage(),
                 _ => new Views.Pages.HomePage(_onWordClick, _sidebarNavigate)
             };
 
@@ -113,6 +117,33 @@ namespace BlueBerryDictionary.Services
             }
 
             return page;
+        }
+        /// <summary>
+        /// Navigate to specific page instance (dùng cho LoginPromptPage)
+        /// </summary>
+        public void NavigateToPage(Page page, string pageName)
+        {
+            if (page == null)
+            {
+                System.Diagnostics.Debug.WriteLine("❌ NavigateToPage: page is null");
+                return;
+            }
+
+            System.Diagnostics.Debug.WriteLine($"🔍 NavigateToPage called: {pageName}");
+
+            // Save current to back stack
+            if (!string.IsNullOrEmpty(_currentPage) && _currentPage != pageName)
+            {
+                _backStack.Push(_currentPage);
+                _forwardStack.Clear();
+            }
+
+            _currentPage = pageName;
+
+            // Navigate to provided page instance
+            _frame.Navigate(page);
+
+            System.Diagnostics.Debug.WriteLine($"📄 {pageName} | Back: {_backStack.Count} | Forward: {_forwardStack.Count}");
         }
     }
 }
