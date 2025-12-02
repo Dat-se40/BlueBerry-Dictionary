@@ -1,1 +1,25 @@
-[]
+[
+  {
+    "Id": "76912d4c-0bd5-4d09-aae9-60cba96b0eb9",
+    "Name": "test",
+    "Icon": "🏷️",
+    "Color": "#F59E0B",
+    "CreatedAt": "2025-12-02T10:33:26.6462915+07:00",
+    "RelatedWords": [
+      "history",
+      "commentary"
+    ],
+    "WordCount": 2
+  },
+  {
+    "Id": "b8de7bbc-a3c7-4492-a3fa-4ad9d4061160",
+    "Name": "test2",
+    "Icon": "🏷️",
+    "Color": "#EF4444",
+    "CreatedAt": "2025-12-02T10:33:47.6204838+07:00",
+    "RelatedWords": [
+      "commentary"
+    ],
+    "WordCount": 1
+  }
+]

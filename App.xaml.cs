@@ -8,33 +8,49 @@ namespace BlueBerryDictionary
         {
             base.OnStartup(e);
 
-            // ✅ Check if user is logged in
+            // ✅ CRITICAL: Set ShutdownMode để app không tắt khi LoginWindow close
+            this.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+
+            // Check if user is logged in
             bool isLoggedIn = CheckLoginState();
 
             if (!isLoggedIn)
             {
-                // ========== SHOW LOGIN WINDOW ==========
+                // Show LoginWindow (blocking call)
                 var loginWindow = new LoginWindow();
-                bool? loginResult = loginWindow.ShowDialog(); // Blocking call
+                bool? loginResult = loginWindow.ShowDialog();
 
+                // ✅ Show MainWindow AFTER LoginWindow closed
                 if (loginResult == true)
                 {
                     // User logged in successfully
-                    System.Diagnostics.Debug.WriteLine("✅ User logged in, showing MainWindow");
-                    ShowMainWindow();
+                    System.Diagnostics.Debug.WriteLine("✅ User logged in → Showing MainWindow");
+                }
+                else if (loginResult == false)
+                {
+                    // User chose Guest mode
+                    System.Diagnostics.Debug.WriteLine("✅ Guest mode → Showing MainWindow");
                 }
                 else
                 {
-                    // User chose Guest mode (or closed window)
-                    System.Diagnostics.Debug.WriteLine("✅ Guest mode, showing MainWindow");
-                    ShowMainWindow();
+                    // User closed window without choosing (X button)
+                    System.Diagnostics.Debug.WriteLine("⚠️ User cancelled login → Exit app");
+                    this.Shutdown();
+                    return;
                 }
+
+                // ✅ Show MainWindow (MUST be after LoginWindow closes)
+                ShowMainWindow();
+
+                // ✅ Restore normal shutdown mode
+                this.ShutdownMode = ShutdownMode.OnMainWindowClose;
             }
             else
             {
                 // User already logged in
-                System.Diagnostics.Debug.WriteLine("✅ Already logged in, showing MainWindow");
+                System.Diagnostics.Debug.WriteLine("✅ Already logged in → Showing MainWindow");
                 ShowMainWindow();
+                this.ShutdownMode = ShutdownMode.OnMainWindowClose;
             }
         }
 
@@ -55,6 +71,7 @@ namespace BlueBerryDictionary
         private void ShowMainWindow()
         {
             var mainWindow = new MainWindow();
+            this.MainWindow = mainWindow; // ✅ Set as MainWindow
             mainWindow.Show();
         }
     }

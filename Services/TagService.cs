@@ -429,13 +429,18 @@ public List<WordShortened> GetFavoriteWords()
             }
         }
 
-        public void SaveTags()
+        public void SaveTags(string path = null)
         {
+            if (path == null) 
+            {
+                path = _tagsPath;
+                Directory.CreateDirectory(Path.GetDirectoryName(path));
+            }
             try
             {
                 var json = JsonConvert.SerializeObject(_tags.Values.ToList(), Formatting.Indented);
-                Directory.CreateDirectory(Path.GetDirectoryName(_tagsPath));
-                File.WriteAllText(_tagsPath, json);
+                
+                File.WriteAllText(path, json);
             }
             catch (Exception ex)
             {
@@ -443,13 +448,18 @@ public List<WordShortened> GetFavoriteWords()
             }
         }
 
-        public void SaveWords()
+        public void SaveWords(string path = null)
         {
+            if (path == null) 
+            {
+                path= _wordsPath;
+                Directory.CreateDirectory(Path.GetDirectoryName(_wordsPath));
+            }
             try
             {
                 var json = JsonConvert.SerializeObject(_words.Values.ToList(), Formatting.Indented);
-                Directory.CreateDirectory(Path.GetDirectoryName(_wordsPath));
-                File.WriteAllText(_wordsPath, json);
+                
+                File.WriteAllText(path, json);
             }
             catch (Exception ex)
             {

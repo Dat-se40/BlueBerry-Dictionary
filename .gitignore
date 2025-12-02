@@ -417,3 +417,12 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+# ==================== USER DATA ====================
+Data/System/CurrentUser.json
+Data/System/LoginLog.json
+Data/PersistentStorage/Users/
+
+# ==================== CREDENTIALS ====================
+appsettings.json
+*.token
+credentials/
