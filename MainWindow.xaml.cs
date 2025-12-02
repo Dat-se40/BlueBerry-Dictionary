@@ -37,8 +37,12 @@ namespace BlueBerryDictionary
             // ✅ Navigate to Home using NavigationService
             _navigationService.NavigateTo("Home");
             UpdateNavigationButtons();
-        }
+            Dispatcher.ShutdownStarted += (s, e) => {
+                TagService.Instance.SaveTags();
+                TagService.Instance.SaveWords();
 
+            };
+        }
         #region SideBar
 
         /// <summary>
@@ -105,9 +109,38 @@ namespace BlueBerryDictionary
         {
             if (sender is Button button && button.Tag is string pageTag)
             {
-                // ✅ Use NavigationService.NavigateTo
-                _navigationService.NavigateTo(pageTag);
-                UpdateNavigationButtons(); // ✅ Update button states
+                if (pageTag == "Account")
+                {
+                    // Check if user is guest
+                    bool isGuest = UserDataManager.Instance.IsGuestMode;
+                    string email = UserDataManager.Instance.CurrentUserEmail;
+
+                    System.Diagnostics.Debug.WriteLine($"🔍 Account clicked: IsGuest={isGuest}, Email={email}");
+
+                    if (isGuest)
+                    {
+                        System.Diagnostics.Debug.WriteLine("✅ Guest mode → Show LoginPromptPage");
+
+                        // Create LoginPromptPage with NavigationService
+                        var loginPromptPage = new Views.Pages.LoginPromptPage(_navigationService);
+
+                        // Navigate using NavigateToPage (not NavigateTo)
+                        _navigationService.NavigateToPage(loginPromptPage, "LoginPrompt");
+                    }
+                    else
+                    {
+                        // Logged in → Navigate to UserProfilePage normally
+                        System.Diagnostics.Debug.WriteLine("✅ Logged in → Navigate to UserProfile");
+                        _navigationService.NavigateTo("UserProfile");
+                    }
+                }
+                else
+                {
+                    // Other pages → Navigate normally
+                    _navigationService.NavigateTo(pageTag);
+                }
+
+                UpdateNavigationButtons();
                 CloseSidebar();
             }
         }

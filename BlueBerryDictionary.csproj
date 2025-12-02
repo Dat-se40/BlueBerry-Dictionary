@@ -9,16 +9,29 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Image\logo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Data\PersistentStorage\StoredQuote\" />
     <Folder Include="Data\PersistentStorage\StoredWord\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+    <PackageReference Include="Google.Apis.Auth" Version="1.73.0" />
+    <PackageReference Include="Google.Apis.Drive.v3" Version="1.72.0.3970" />
+    <PackageReference Include="Google.Apis.Oauth2.v2" Version="1.68.0.1869" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="10.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="10.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="10.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Image\logo.png" />
   </ItemGroup>
 
 </Project>

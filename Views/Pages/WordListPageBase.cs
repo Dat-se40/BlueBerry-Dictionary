@@ -7,7 +7,7 @@ namespace BlueBerryDictionary.Views.Pages
     public class WordListPageBase : System.Windows.Controls.Page  
     {
         protected Action<string> _onWordClick;
-        public WordListPageBase(Action<string> onWordClick)
+        public WordListPageBase(Action<string> onWordClick = null)
         {
             _onWordClick = onWordClick;
         }
