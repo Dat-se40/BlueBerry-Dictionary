@@ -1,4 +1,4 @@
-﻿<Page x:Class="BlueBerryDictionary.Views.Pages.FavouriteWordsPage"
+﻿<local:WordListPageBase x:Class="BlueBerryDictionary.Views.Pages.FavouriteWordsPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -37,7 +37,9 @@
 
                         <Button Grid.Column="1"
                                 Style="{StaticResource ClearButtonStyle}"
-                                VerticalAlignment="Center">
+                                VerticalAlignment="Bottom"
+                                Name="btnDeleteAll" Margin="0,0,0,7"
+                             Click="btnDeleteAll_Click">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="🗑️" FontSize="16" Margin="0,0,8,0" />
                                 <TextBlock Text="Xóa tất cả" />
@@ -47,38 +49,36 @@
 
                     <!-- FILTERS -->
                     <WrapPanel Grid.Column="0" HorizontalAlignment="Left">
-                        <Button Style="{StaticResource FilterChipStyle}" Tag="Active">
+                        <Button Style="{StaticResource FilterChipStyle}" Tag="All" Click="Reload">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Tất cả (3)" />
+                                <TextBlock Text="Tất cả" />
                             </StackPanel>
                         </Button>
 
-                        <Button Style="{StaticResource FilterChipStyle}">
+                        <Button Style="{StaticResource FilterChipStyle}" Click="FilterByPartOfSpeed" Tag="noun">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="Danh từ" />
                             </StackPanel>
                         </Button>
 
-                        <Button Style="{StaticResource FilterChipStyle}">
+                        <Button Style="{StaticResource FilterChipStyle}" Click="FilterByPartOfSpeed" Tag="verb">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="Động từ" />
                             </StackPanel>
                         </Button>
 
-                        <Button Style="{StaticResource FilterChipStyle}">
+                        <Button Style="{StaticResource FilterChipStyle}" Click="FilterByPartOfSpeed" Tag="adjective">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="Tính từ" />
-                            </StackPanel>
-                        </Button>
-
-                        <Button Style="{StaticResource FilterChipStyle}">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Gần đây" />
                             </StackPanel>
                         </Button>
                     </WrapPanel>
                 </StackPanel>
             </Border>
+            <!-- Content-->
+            <UniformGrid Columns="3" Margin="0,10,0,10" Name="mainContent">
+
+            </UniformGrid>
         </StackPanel>
     </ScrollViewer>
-</Page>
+</local:WordListPageBase>

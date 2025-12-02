@@ -41,6 +41,8 @@ namespace MyDictionary.Services
                 _cacheManager.AddToCache(word, localWords);
                 return localWords;
             }
+            
+           
             // ========== TRY API 2: MERRIAM-WEBSTER ==========
             try
             {
@@ -65,6 +67,8 @@ namespace MyDictionary.Services
             {
                 Console.WriteLine($"❌ Merriam-Webster failed: {ex.Message}");
             }
+            // ========== NOT FOUND ==========
+            Console.WriteLine($"❌ Word '{word}' not found");
             // ========== TRY API 1: FREE DICTIONARY ==========
             try
             {
@@ -87,8 +91,6 @@ namespace MyDictionary.Services
             {
                 Console.WriteLine($"⚠️ Free Dictionary failed: {ex.Message}");
             }
-            // ========== NOT FOUND ==========
-            Console.WriteLine($"❌ Word '{word}' not found");
             return new List<Word>();
         }
 

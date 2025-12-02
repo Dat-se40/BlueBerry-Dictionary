@@ -1,18 +1,26 @@
 ﻿using BlueBerryDictionary.Models;
 using BlueBerryDictionary.Services;
+using BlueBerryDictionary.Views.Dialogs;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace BlueBerryDictionary.ViewModels
 {
     public partial class MyWordsViewModel : ObservableObject
     {
         private readonly TagService _tagService;
-
+        public Action acOnFilterWordsChanged;
+        public Action acOnTagChanged; 
         // ========== OBSERVABLE PROPERTIES ==========
+        [ObservableProperty]
+        private string currFilter = "All"; // "All" for default
+
+        [ObservableProperty]
+        private int wordsCount;  
 
         [ObservableProperty]
         private ObservableCollection<Tag> _tags;
@@ -53,7 +61,7 @@ namespace BlueBerryDictionary.ViewModels
             Tags = new ObservableCollection<Tag>();
             FilteredWords = new ObservableCollection<WordShortened>();
             AlphabetItems = new ObservableCollection<AlphabetItem>();
-
+            _tagService.OnWordsChanged += UpdateStatistics; 
             LoadData();
         }
 
@@ -77,7 +85,7 @@ namespace BlueBerryDictionary.ViewModels
             // Load all words initially
             ApplyFilters();
         }
-
+        
         private void LoadAlphabetDistribution()
         {
             AlphabetItems.Clear();
@@ -109,12 +117,13 @@ namespace BlueBerryDictionary.ViewModels
             }
         }
 
-        private void UpdateStatistics()
+        public  void UpdateStatistics()
         {
             TotalWords = _tagService.GetTotalWords();
             TotalTags = _tagService.GetTotalTags();
             WordsThisWeek = _tagService.GetWordsAddedThisWeek();
             WordsThisMonth = _tagService.GetWordsAddedThisMonth();
+            WordsCount =  FilteredWords.Count;
         }
 
         // ========== FILTERING ==========
@@ -127,18 +136,21 @@ namespace BlueBerryDictionary.ViewModels
             if (SelectedTag != null)
             {
                 words = _tagService.GetWordsByTag(SelectedTag.Id);
+                CurrFilter = SelectedTag.Name; 
             }
 
             // Filter by letter
             if (!string.IsNullOrEmpty(SelectedLetter) && SelectedLetter != "ALL")
             {
                 words = words.Where(w => w.Word.StartsWith(SelectedLetter, System.StringComparison.OrdinalIgnoreCase)).ToList();
+                CurrFilter = SelectedLetter.ToUpper(); 
             }
 
             // Filter by part of speech
             if (!string.IsNullOrEmpty(SelectedPartOfSpeech))
             {
                 words = words.Where(w => w.PartOfSpeech.Equals(SelectedPartOfSpeech, System.StringComparison.OrdinalIgnoreCase)).ToList();
+                CurrFilter = SelectedPartOfSpeech.ToUpper();    
             }
 
             // Update UI
@@ -147,8 +159,9 @@ namespace BlueBerryDictionary.ViewModels
             {
                 FilteredWords.Add(word);
             }
-        }
-
+            WordsCount = FilteredWords.Count;
+            acOnFilterWordsChanged?.Invoke(); 
+        }        
         // ========== RELAY COMMANDS ==========
 
         [RelayCommand]
@@ -188,17 +201,17 @@ namespace BlueBerryDictionary.ViewModels
 
             // Reset alphabet buttons
             FilterByLetter("ALL");
-
+            CurrFilter = "All"; 
             ApplyFilters();
         }
 
         [RelayCommand]
         private void CreateTag()
         {
-            // TODO: Show dialog to input tag name, icon, color
-            var tagName = "New Tag"; // Get from dialog
-            _tagService.CreateTag(tagName);
+            TagPickerDialog dialog = new TagPickerDialog();
+            dialog.ShowDialog();  
             LoadData();
+            acOnTagChanged?.Invoke();
         }
 
         [RelayCommand]
@@ -215,6 +228,7 @@ namespace BlueBerryDictionary.ViewModels
             {
                 _tagService.DeleteTag(tagId);
                 LoadData();
+                acOnTagChanged?.Invoke();
             }
         }
 
