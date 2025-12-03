@@ -1,1 +1,14 @@
-[]
+[
+  {
+    "Id": "af99e042-824b-4bb8-9674-798ad1ad217d",
+    "Name": "test",
+    "Icon": "📖",
+    "Color": "#EC4899",
+    "CreatedAt": "2025-12-02T10:09:27.6253398+07:00",
+    "RelatedWords": [
+      "bean",
+      "hello"
+    ],
+    "WordCount": 2
+  }
+]

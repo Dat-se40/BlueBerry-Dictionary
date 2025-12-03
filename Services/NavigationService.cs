@@ -106,6 +106,7 @@ namespace BlueBerryDictionary.Services
                 "MyWords" => new Pages.MyWordsPage(_onWordClick),
                 "Account" => new UserProfilePage() ,
                 "UserProfile" => new UserProfilePage(),
+                "Setting" => new SettingsPage() ,
                 _ => new Views.Pages.HomePage(_onWordClick, _sidebarNavigate)
             };
 
