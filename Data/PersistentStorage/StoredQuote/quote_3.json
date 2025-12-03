@@ -1,0 +1,26 @@
+﻿{
+  "id": 3,
+  "content": "One language sets you in a corridor for life.",
+  "author": "Frank Smith",
+  "imageUrl": "https://picsum.photos/400/200?random=3",
+  "relativeWords": [
+    {
+      "word": "corridor",
+      "phonetic": "/ˈkɔːrɪdɔːr/",
+      "meaning": "a long passage or hallway in a building",
+      "partOfSpeech": "noun"
+    },
+    {
+      "word": "set",
+      "phonetic": "/set/",
+      "meaning": "to put or place something in a particular position",
+      "partOfSpeech": "verb"
+    },
+    {
+      "word": "multilingual",
+      "phonetic": "/ˌmʌltiˈlɪŋɡwəl/",
+      "meaning": "able to speak many languages",
+      "partOfSpeech": "adjective"
+    }
+  ]
+}

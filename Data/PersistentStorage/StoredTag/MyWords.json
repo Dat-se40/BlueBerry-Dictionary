@@ -1,6 +1,6 @@
 [
   {
-    "isFavorited": true,
+    "isFavorited": false,
     "Word": "hi",
     "Phonetic": "ˈhī(-ē)",
     "PartOfSpeech": "interjection",
@@ -504,7 +504,7 @@
     "HasRelatedWords": true
   },
   {
-    "isFavorited": true,
+    "isFavorited": false,
     "Word": "inconsequential",
     "Phonetic": "(ˌ)in-ˌkän(t)-sə-ˈkwen(t)-shəl",
     "PartOfSpeech": "adjective",
@@ -585,7 +585,7 @@
     "HasRelatedWords": true
   },
   {
-    "isFavorited": true,
+    "isFavorited": false,
     "Word": "sorry",
     "Phonetic": "ˈsär-ē",
     "PartOfSpeech": "adjective",

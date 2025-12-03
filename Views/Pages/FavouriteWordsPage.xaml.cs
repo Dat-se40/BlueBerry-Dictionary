@@ -51,7 +51,9 @@ namespace BlueBerryDictionary.Views.Pages
 
         private void btnDeleteAll_Click(object sender, RoutedEventArgs e)
         {
-            CurrentFilterWords.Clear(); 
+            fullWords.ForEach(fw => fw.isFavorited = false);
+            CurrentFilterWords.Clear();
+            mainContent.Children.Clear(); 
         }
         private List<WordShortened> fullWords => TagService.Instance.GetAllWords().Where(ws => ws.isFavorited == true).ToList();
     }
