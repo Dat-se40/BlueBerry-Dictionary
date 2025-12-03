@@ -1,6 +1,7 @@
 ﻿using BlueBerryDictionary.Models;
 using BlueBerryDictionary.Services;
 using BlueBerryDictionary.ViewModels;
+using BlueBerryDictionary.Views.Dialogs;
 using BlueBerryDictionary.Views.Pages;
 using BlueBerryDictionary.Views.UserControls;
 using System.Windows;
@@ -19,11 +20,12 @@ namespace BlueBerryDictionary.Pages
         public MyWordsPage(Action<string> CardOnClicked) : base(CardOnClicked)
         {
             InitializeComponent();
-            myWordsViewModel = new MyWordsViewModel();  
+            myWordsViewModel = new MyWordsViewModel();
             this.DataContext = myWordsViewModel;
             myWordsViewModel.acOnFilterWordsChanged += this.LoadDefCards;
             myWordsViewModel.acOnTagChanged += this.LoadTags;
-            LoadData(); 
+            LoadData();
+            RemoveTagDialog.UpdateUI += LoadTags;
         }
         public override void LoadData() 
         {
@@ -78,6 +80,7 @@ namespace BlueBerryDictionary.Pages
                     {
                         myWordsViewModel.FilteredWords.Remove(wdc._mainWord);
                         myWordsViewModel.UpdateStatistics(); 
+                        LoadTags();
                     };
                 }
             }

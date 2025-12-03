@@ -357,23 +357,46 @@ namespace BlueBerryDictionary.Views.Pages
         private void Favorite_Click(object sender, RoutedEventArgs e)
         {
             _isFavorite = !_isFavorite;
-            if (_isFavorite == true)
+
+            var tagSvc = TagService.Instance;
+            var existing = tagSvc.GetWordShortened(_word.word);
+
+            if (_isFavorite)
             {
                 FavoriteBtn.Background = Brushes.LightPink;
                 FavoriteBtn.Foreground = Brushes.DeepPink;
-                var newWS = WordShortened.FromWord(_word);
-                newWS.isFavorited = true; 
-                TagService.Instance.AddNewWordShortened(newWS); 
+
+                if (existing == null)
+                {
+                    // 🔹 Tạo bản rút gọn từ _word (kiểu Word)
+                    var shortened = WordShortened.FromWord(_word);
+                    shortened.isFavorited = true;
+                    tagSvc.AddNewWordShortened(shortened);    
+                }
+                else
+                {
+                    existing.isFavorited = true;
+                    tagSvc.SaveWords(); // ✅ ghi lại trạng thái yêu thích
+                }
+
+                MessageBox.Show("Đã thêm vào yêu thích");
             }
             else
             {
                 FavoriteBtn.ClearValue(Button.BackgroundProperty);
                 FavoriteBtn.ClearValue(Button.ForegroundProperty);
                 FavoriteBtn.SetResourceReference(Button.StyleProperty, "ActionButtonStyle");
-                TagService.Instance.GetWordShortened(_word.word).isFavorited = false; 
+
+                if (existing != null)
+                {
+                    existing.isFavorited = false;
+                    tagSvc.SaveWords();
+                }
+
+                MessageBox.Show("Đã xóa khỏi yêu thích");
             }
-            MessageBox.Show(_isFavorite ? "Đã thêm vào yêu thích" : "Đã xóa khỏi yêu thích");
         }
+
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {

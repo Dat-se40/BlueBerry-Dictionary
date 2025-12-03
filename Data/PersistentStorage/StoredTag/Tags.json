@@ -1,22 +1,10 @@
 [
   {
-    "Id": "f6462168-07e1-406a-bd87-2f8f3adfa695",
-    "Name": "test12",
-    "Icon": "📚",
-    "Color": "#84CC16",
-    "CreatedAt": "2025-12-03T15:16:24.7153298+07:00",
-    "RelatedWords": [
-      "much",
-      "earthshaking"
-    ],
-    "WordCount": 2
-  },
-  {
-    "Id": "a8b24072-f144-4ea3-85c9-37ae5b316e8b",
-    "Name": "huhu",
-    "Icon": "🎪",
-    "Color": "#F59E0B",
-    "CreatedAt": "2025-12-03T15:20:56.5721856+07:00",
+    "Id": "b7ea435c-ceb8-4079-899b-f97f4ee61c8f",
+    "Name": "test",
+    "Icon": "🏷️",
+    "Color": "#EF4444",
+    "CreatedAt": "2025-12-03T18:11:50.0341902+07:00",
     "RelatedWords": [],
     "WordCount": 0
   }

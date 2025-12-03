@@ -2,26 +2,24 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace BlueBerryDictionary.Services
 {
-    /// <summary>4
-    /// Service quản lý Tags và WordShortened
-    /// Singleton pattern với thread-safe
+    /// <summary>
+    /// Dịch vụ quản lý Tag và WordShortened (singleton)
     /// </summary>
-    public class TagService 
+    public class TagService
     {
         private static TagService _instance;
         private static readonly object _lock = new object();
 
         private Dictionary<string, Tag> _tags; // tagId -> Tag
-        private Dictionary<string, WordShortened> _words; // word -> WordShortened, có luôn các từ đã được thích
-        public Action OnWordsChanged; 
-        
+        private Dictionary<string, WordShortened> _words; // word(lower) -> WordShortened
+
+        public Action OnWordsChanged;
+
         private readonly string _tagsPath;
         private readonly string _wordsPath;
 
@@ -29,17 +27,10 @@ namespace BlueBerryDictionary.Services
         {
             get
             {
-                if (_instance == null)
+                lock (_lock)
                 {
-                    lock (_lock)
-                    {
-                        if (_instance == null)
-                        {
-                            _instance = new TagService();
-                        }
-                    }
+                    return _instance ??= new TagService();
                 }
-                return _instance;
             }
         }
 
@@ -48,65 +39,53 @@ namespace BlueBerryDictionary.Services
             _tags = new Dictionary<string, Tag>();
             _words = new Dictionary<string, WordShortened>();
 
-            // Setup paths
             var baseDir = AppDomain.CurrentDomain.BaseDirectory;
             var dataDir = Path.Combine(baseDir, @"..\..\..\Data\PersistentStorage\StoredTag");
             _tagsPath = Path.Combine(dataDir, "Tags.json");
             _wordsPath = Path.Combine(dataDir, "MyWords.json");
 
-            // Load data
             LoadData();
         }
 
-        // ========================================
-        // TAG OPERATIONS
-        // ========================================
+        // ====================== UTILITIES ======================
 
-        /// <summary>
-        /// Tạo tag mới
-        /// </summary>
+        private string Normalize(string word)
+            => word?.Trim().ToLowerInvariant();
+
+        private WordShortened FindWordInsensitive(string word)
+        {
+            if (string.IsNullOrWhiteSpace(word)) return null;
+
+            var norm = Normalize(word);
+            if (_words.TryGetValue(norm, out var val))
+                return val;
+
+            return _words.Values.FirstOrDefault(w =>
+                w.Word.Equals(word, StringComparison.OrdinalIgnoreCase));
+        }
+
+        // ====================== TAG ======================
+
         public Tag CreateTag(string name, string icon = "🏷️", string color = "#2D4ACC")
         {
-            var tag = new Tag
-            {
-                Name = name,
-                Icon = icon,
-                Color = color
-            };
-
+            var tag = new Tag { Name = name, Icon = icon, Color = color };
             _tags[tag.Id] = tag;
             SaveTags();
             return tag;
         }
 
-        /// <summary>
-        /// Lấy tất cả tags
-        /// </summary>
-        public List<Tag> GetAllTags()
-        {
-            return _tags.Values.OrderBy(t => t.Name).ToList();
-        }
+        public List<Tag> GetAllTags() =>
+            _tags.Values.OrderBy(t => t.Name).ToList();
 
-        /// <summary>
-        /// Lấy tag theo ID
-        /// </summary>
-        public Tag GetTag(string tagId)
-        {
-            return _tags.TryGetValue(tagId, out var tag) ? tag : null;
-        }
+        public Tag GetTag(string tagId) =>
+            _tags.TryGetValue(tagId, out var tag) ? tag : null;
 
-        /// <summary>
-        /// Xóa tag
-        /// </summary>
         public bool DeleteTag(string tagId)
         {
             if (_tags.Remove(tagId))
             {
-                // Remove tag from all words
-                foreach (var word in _words.Values)
-                {
-                    word.Tags.Remove(tagId);
-                }
+                foreach (var w in _words.Values)
+                    w.Tags.Remove(tagId);
 
                 SaveTags();
                 SaveWords();
@@ -115,9 +94,6 @@ namespace BlueBerryDictionary.Services
             return false;
         }
 
-        /// <summary>
-        /// Update tag info
-        /// </summary>
         public bool UpdateTag(string tagId, string newName, string newIcon, string newColor)
         {
             if (_tags.TryGetValue(tagId, out var tag))
@@ -131,25 +107,21 @@ namespace BlueBerryDictionary.Services
             return false;
         }
 
-        // ========================================
-        // WORD OPERATIONS
-        // ========================================
+        // ====================== WORD ======================
 
-        /// <summary>
-        /// Thêm từ vào collection
-        /// </summary>
         public WordShortened AddWord(Word fullWord, List<string> tagIds = null)
         {
+            if (fullWord == null || string.IsNullOrWhiteSpace(fullWord.word))
+                return null;
+
+            var key = Normalize(fullWord.word);
+            if (_words.ContainsKey(key))
+                return _words[key];
+
             var shortened = WordShortened.FromWord(fullWord);
-            if (shortened == null) return null;
+            if (shortened == null)
+                return null;
 
-            // Check if word exists
-            if (_words.ContainsKey(shortened.Word))
-            {
-                return _words[shortened.Word];
-            }
-
-            // Add tags
             if (tagIds != null)
             {
                 foreach (var tagId in tagIds)
@@ -162,25 +134,38 @@ namespace BlueBerryDictionary.Services
                 }
             }
 
-            _words[shortened.Word] = shortened;
+            _words[key] = shortened;
             SaveWords();
             SaveTags();
 
             return shortened;
         }
 
-        /// <summary>
-        /// Xóa từ khỏi collection
-        /// </summary>
+        public WordShortened GetWordShortened(string word)
+        {
+            return FindWordInsensitive(word);
+        }
+
+        public void AddNewWordShortened(WordShortened newWord)
+        {
+            if (newWord == null || string.IsNullOrWhiteSpace(newWord.Word))
+                return;
+
+            var key = Normalize(newWord.Word);
+            if (!_words.ContainsKey(key))
+            {
+                _words[key] = newWord;
+                SaveWords(); // ✅ luôn ghi file
+            }
+        }
+
         public bool RemoveWord(string word)
         {
-            if (_words.Remove(word))
+            var norm = Normalize(word);
+            if (_words.Remove(norm))
             {
-                // Remove from all tags
                 foreach (var tag in _tags.Values)
-                {
-                    tag.RemoveWord(word);
-                }
+                    tag.RelatedWords.Remove(word);
 
                 SaveWords();
                 SaveTags();
@@ -189,72 +174,68 @@ namespace BlueBerryDictionary.Services
             return false;
         }
 
-        /// <summary>
-        /// Lấy tất cả từ
-        /// </summary>
-        public List<WordShortened> GetAllWords()
+        public void DeleteWordShortened(string word)
         {
-            return _words.Values.OrderByDescending(w => w.AddedAt).ToList();
+            var found = FindWordInsensitive(word);
+            if (found == null) return;
+
+            var key = Normalize(found.Word);
+            _words.Remove(key);
+
+            foreach (var tag in _tags.Values)
+                tag.RelatedWords.Remove(found.Word);
+
+            OnWordsChanged?.Invoke();
+            SaveWords();
+            SaveTags();
         }
 
-        public void AddNewWordShortened(WordShortened newWord) 
-        {
-            if(!_words.ContainsKey(newWord.Word)) _words.Add(newWord.Word, newWord);
-        }
-        /// <summary>
-        /// Lấy từ theo tag
-        /// </summary>
+        public List<WordShortened> GetAllWords() =>
+            _words.Values.OrderByDescending(w => w.AddedAt).ToList();
+
         public List<WordShortened> GetWordsByTag(string tagId)
         {
             var tag = GetTag(tagId);
-            if (tag == null) return new List<WordShortened>();
+            if (tag == null) return new();
 
             return tag.RelatedWords
-                .Where(w => _words.ContainsKey(w))
-                .Select(w => _words[w])
+                .Select(w => FindWordInsensitive(w))
+                .Where(w => w != null)
                 .ToList();
         }
 
-        /// <summary>
-        /// Lấy từ theo chữ cái đầu
-        /// </summary>
         public List<WordShortened> GetWordsByLetter(string letter)
         {
-            if (letter.ToUpper() == "ALL")
-                return GetAllWords();
+            if (letter.ToUpper() == "ALL") return GetAllWords();
 
             return _words.Values
-                .Where(w => w.Word.StartsWith(letter, StringComparison.OrdinalIgnoreCase))
+                .Where(w =>
+                    !string.IsNullOrEmpty(w.Word) &&
+                    w.Word.StartsWith(letter, StringComparison.OrdinalIgnoreCase))
                 .OrderBy(w => w.Word)
                 .ToList();
         }
 
-        /// <summary>
-        /// Lấy từ theo part of speech
-        /// </summary>
         public List<WordShortened> GetWordsByPartOfSpeech(string pos)
         {
             return _words.Values
-                .Where(w => w.PartOfSpeech.Equals(pos, StringComparison.OrdinalIgnoreCase))
+                .Where(w =>
+                    w.PartOfSpeech.Equals(pos, StringComparison.OrdinalIgnoreCase))
                 .ToList();
         }
 
-        /// <summary>
-        /// Thêm tag cho từ
-        /// </summary>
+        // ====================== ADD/REMOVE TAG from WORD ======================
+
         public bool AddTagToWord(string word, string tagId)
         {
-            if (!_words.ContainsKey(word) || !_tags.ContainsKey(tagId))
+            var wordObj = FindWordInsensitive(word);
+            if (wordObj == null || !_tags.ContainsKey(tagId))
                 return false;
-
-            var wordObj = _words[word];
-            var tagObj = _tags[tagId];
 
             if (!wordObj.Tags.Contains(tagId))
             {
                 wordObj.Tags.Add(tagId);
-                tagObj.AddWord(word);
-
+                _tags[tagId].AddWord(wordObj.Word);
                 SaveWords();
                 SaveTags();
                 return true;
@@ -263,107 +244,47 @@ namespace BlueBerryDictionary.Services
             return false;
         }
 
-        /// <summary>
-        /// Xóa tag khỏi từ
-        /// </summary>
         public bool RemoveTagFromWord(string word, string tagId)
         {
-            if (!_words.ContainsKey(word) || !_tags.ContainsKey(tagId))
+            var wordObj = FindWordInsensitive(word);
+            if (wordObj == null || !_tags.ContainsKey(tagId))
                 return false;
 
-            var wordObj = _words[word];
-            var tagObj = _tags[tagId];
-
             wordObj.Tags.Remove(tagId);
-            tagObj.RemoveWord(word);
+            _tags[tagId].RemoveWord(wordObj.Word);
 
             SaveWords();
             SaveTags();
             return true;
         }
-        /// <summary>
-        /// Xóa 1 từ!
-        /// </summary>
-        public void DeleteWordShortened(string word) 
+
+        // ====================== FAVORITE ======================
+
+        public bool ToggleFavorite(string word)
         {
-            var ws = GetWordShortened(word);
-            foreach (var item in _tags)
-            {
-                item.Value.RelatedWords.Remove(word); 
-            }
-            _words.Remove(word);
-            OnWordsChanged?.Invoke();
-            SaveTags();
-            SaveWords(); 
+            var wordObj = FindWordInsensitive(word);
+            if (wordObj == null)
+                return false;
+
+            wordObj.isFavorited = !wordObj.isFavorited;
+            SaveWords();
+            return wordObj.isFavorited;
         }
-        /// <summary>
-        /// Tăng view count
-        /// </summary>
-        public void IncrementViewCount(string word)
+
+        public bool IsFavorited(string word)
         {
-            if (_words.TryGetValue(word, out var wordObj))
-            {
-                wordObj.ViewCount++;
-                SaveWords();
-            }
+            return FindWordInsensitive(word)?.isFavorited == true;
         }
-        // ========================================
-// FAVORITE OPERATIONS
-// ========================================
 
-/// <summary>
-/// Toggle favorite cho word (auto save)
-/// </summary>
-public bool ToggleFavorite(string word)
-{
-    if (string.IsNullOrWhiteSpace(word))
-        return false;
+        public List<WordShortened> GetFavoriteWords()
+        {
+            return _words.Values
+                .Where(w => w.isFavorited)
+                .OrderByDescending(w => w.AddedAt)
+                .ToList();
+        }
 
-    // v1 giữ word gốc, fallback insensitive
-    var wordObj = _words.TryGetValue(word, out var val)
-        ? val
-        : _words.Values.FirstOrDefault(w =>
-            w.Word.Equals(word, StringComparison.OrdinalIgnoreCase));
-
-    if (wordObj == null)
-        return false;
-
-    wordObj.isFavorited = !wordObj.isFavorited;
-    SaveWords();
-
-    return wordObj.isFavorited;
-}
-
-/// <summary>
-/// Check word có được favorite không
-/// </summary>
-public bool IsFavorited(string word)
-{
-    if (string.IsNullOrWhiteSpace(word))
-        return false;
-
-    var wordObj = _words.TryGetValue(word, out var val)
-        ? val
-        : _words.Values.FirstOrDefault(w =>
-            w.Word.Equals(word, StringComparison.OrdinalIgnoreCase));
-
-    return wordObj?.isFavorited == true;
-}
-
-/// <summary>
-/// Lấy tất cả favorite words
-/// </summary>
-public List<WordShortened> GetFavoriteWords()
-{
-    return _words.Values
-        .Where(w => w.isFavorited)
-        .OrderByDescending(w => w.AddedAt)
-        .ToList();
-}
-
-        // ========================================
-        // STATISTICS
-        // ========================================
+        // ====================== STATISTICS ======================
 
         public int GetTotalWords() => _words.Count;
         public int GetTotalTags() => _tags.Count;
@@ -382,45 +303,40 @@ public List<WordShortened> GetFavoriteWords()
 
         public Dictionary<string, int> GetLetterDistribution()
         {
-            var distribution = new Dictionary<string, int>();
-            foreach (var word in _words.Values)
+            var dist = new Dictionary<string, int>();
+            foreach (var w in _words.Values)
             {
-                var letter = word.Word[0].ToString().ToUpper();
-                distribution[letter] = distribution.GetValueOrDefault(letter, 0) + 1;
+                if (string.IsNullOrEmpty(w.Word)) continue;
+                var letter = w.Word[0].ToString().ToUpperInvariant();
+                dist[letter] = dist.GetValueOrDefault(letter, 0) + 1;
             }
-            return distribution;
+            return dist;
         }
-        public WordShortened GetWordShortened(string word) 
-        {
-            return _words.TryGetValue(word, out WordShortened valure) ? valure : null; 
-        }
-        // ========================================
-        // PERSISTENCE
-        // ========================================
+
+        // ====================== IO ======================
 
         private void LoadData()
         {
             try
             {
-                // Load tags
                 if (File.Exists(_tagsPath))
                 {
                     var json = File.ReadAllText(_tagsPath);
                     var tagList = JsonConvert.DeserializeObject<List<Tag>>(json);
-                    _tags = tagList?.ToDictionary(t => t.Id, t => t) ?? new Dictionary<string, Tag>();
+                    _tags = tagList?.ToDictionary(t => t.Id, t => t) ?? new();
                 }
                 else
                 {
-                    // Create default tags
                     CreateDefaultTags();
                 }
 
-                // Load words
                 if (File.Exists(_wordsPath))
                 {
                     var json = File.ReadAllText(_wordsPath);
                     var wordList = JsonConvert.DeserializeObject<List<WordShortened>>(json);
-                    _words = wordList?.ToDictionary(w => w.Word, w => w) ?? new Dictionary<string, WordShortened>();
+                    _words = wordList?
+                        .ToDictionary(w => Normalize(w.Word), w => w)
+                        ?? new();
                 }
             }
             catch (Exception ex)
@@ -431,7 +347,7 @@ public List<WordShortened> GetFavoriteWords()
 
         public void SaveTags(string path = null)
         {
-            if (path == null) 
+            if (path == null)
             {
                 path = _tagsPath;
                 Directory.CreateDirectory(Path.GetDirectoryName(path));
@@ -439,7 +355,7 @@ public List<WordShortened> GetFavoriteWords()
             try
             {
                 var json = JsonConvert.SerializeObject(_tags.Values.ToList(), Formatting.Indented);
-                
+
                 File.WriteAllText(path, json);
             }
             catch (Exception ex)
@@ -450,15 +366,15 @@ public List<WordShortened> GetFavoriteWords()
 
         public void SaveWords(string path = null)
         {
-            if (path == null) 
+            if (path == null)
             {
-                path= _wordsPath;
+                path = _wordsPath;
                 Directory.CreateDirectory(Path.GetDirectoryName(_wordsPath));
             }
             try
             {
                 var json = JsonConvert.SerializeObject(_words.Values.ToList(), Formatting.Indented);
-                
+
                 File.WriteAllText(path, json);
             }
             catch (Exception ex)
@@ -466,10 +382,6 @@ public List<WordShortened> GetFavoriteWords()
                 Console.WriteLine($"❌ Save words error: {ex.Message}");
             }
         }
-
-        /// <summary>
-        /// Tạo tags mặc định
-        /// </summary>
         private void CreateDefaultTags()
         {
             CreateTag("IELTS", "🎯", "#2D4ACC");

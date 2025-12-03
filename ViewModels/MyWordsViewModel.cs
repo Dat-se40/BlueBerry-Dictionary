@@ -161,9 +161,27 @@ namespace BlueBerryDictionary.ViewModels
             }
             WordsCount = FilteredWords.Count;
             acOnFilterWordsChanged?.Invoke(); 
-        }        
+        }
         // ========== RELAY COMMANDS ==========
+        [RelayCommand]
+        private void OpenRemoveTagDialog()
+        {
+            var dialog = new RemoveTagDialog();
+            if (dialog.ShowDialog() == true)
+            {
+                // list tagId bị xóa nằm ở đây:
+                var deleted = dialog.RemovedTagIds;
 
+                if (deleted.Any())
+                {
+                    MessageBox.Show($"Đã xoá {deleted.Count} tag khỏi hệ thống!",
+                        "Xong", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    // reload lại UI của em
+                    LoadData();
+                }
+            }
+        }
         [RelayCommand]
         private void FilterByTag(Tag tag)
         {
