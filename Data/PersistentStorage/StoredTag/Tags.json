@@ -1,25 +1,23 @@
 [
   {
-    "Id": "76912d4c-0bd5-4d09-aae9-60cba96b0eb9",
-    "Name": "test",
-    "Icon": "🏷️",
-    "Color": "#F59E0B",
-    "CreatedAt": "2025-12-02T10:33:26.6462915+07:00",
+    "Id": "f6462168-07e1-406a-bd87-2f8f3adfa695",
+    "Name": "test12",
+    "Icon": "📚",
+    "Color": "#84CC16",
+    "CreatedAt": "2025-12-03T15:16:24.7153298+07:00",
     "RelatedWords": [
-      "history",
-      "commentary"
+      "much",
+      "earthshaking"
     ],
     "WordCount": 2
   },
   {
-    "Id": "b8de7bbc-a3c7-4492-a3fa-4ad9d4061160",
-    "Name": "test2",
-    "Icon": "🏷️",
-    "Color": "#EF4444",
-    "CreatedAt": "2025-12-02T10:33:47.6204838+07:00",
-    "RelatedWords": [
-      "commentary"
-    ],
-    "WordCount": 1
+    "Id": "a8b24072-f144-4ea3-85c9-37ae5b316e8b",
+    "Name": "huhu",
+    "Icon": "🎪",
+    "Color": "#F59E0B",
+    "CreatedAt": "2025-12-03T15:20:56.5721856+07:00",
+    "RelatedWords": [],
+    "WordCount": 0
   }
 ]
