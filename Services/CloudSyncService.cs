@@ -172,6 +172,7 @@ namespace BlueBerryDictionary.Services
                         stream,
                         "application/json"
                     );
+
                     createRequest.Fields = "id, name, modifiedTime";
                     await createRequest.UploadAsync();
 
