@@ -9,9 +9,9 @@ BlueBerry Dictionary là ứng dụng từ điển tiếng Anh được xây d�
 - **Giảng viên**: ThS. Mai Trọng Khang
 - **Học kỳ**: 1 - Năm 2024-2025
 - **Thành viên nhóm**:
-  - Nguyễn Tấn Đạt (MSSV: 24520280)
-  - Võ Nguyễn Thanh Hương (MSSV: 24520649)
-  - Phan Thế Phong (MSSV: 24521342)
+  - Nguyễn Tấn Đạt 
+  - Võ Nguyễn Thanh Hương 
+  - Phan Thế Phong 
 
 ### Công nghệ
 - **Framework**: WPF .NET
@@ -50,6 +50,7 @@ BlueBerry Dictionary là ứng dụng từ điển tiếng Anh được xây d�
 - **Animations**: Hiệu ứng chuyển trang, hover, click
 - **Navigation**: Sidebar + Toolbar đầy đủ
 
+### 5. Đăng nhập, đồng bộ thông tin tài khoản người dùng
 ---
 
 ## Cách sử dụng + User Flow
