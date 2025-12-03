@@ -52,7 +52,7 @@ namespace BlueBerryDictionary.Services
         private string Normalize(string word)
             => word?.Trim().ToLowerInvariant();
 
-        private WordShortened FindWordInsensitive(string word)
+        public WordShortened FindWordInsensitive(string word)
         {
             if (string.IsNullOrWhiteSpace(word)) return null;
 
@@ -109,20 +109,68 @@ namespace BlueBerryDictionary.Services
 
         // ====================== WORD ======================
 
+        /// <summary>
+        /// Thêm từ vào collection (hoặc cập nhật tags nếu đã tồn tại)
+        /// </summary>
         public WordShortened AddWord(Word fullWord, List<string> tagIds = null)
         {
-            if (fullWord == null || string.IsNullOrWhiteSpace(fullWord.word))
-                return null;
+            if (fullWord == null) return null;
 
-            var key = Normalize(fullWord.word);
-            if (_words.ContainsKey(key))
-                return _words[key];
+            var wordKey = fullWord.word;
 
+            // ========================================
+            // ✅ CASE 1: Từ ĐÃ TỒN TẠI → Cập nhật tags
+            // ========================================
+            if (_words.ContainsKey(wordKey))
+            {
+                Console.WriteLine($"📝 Word '{wordKey}' already exists, updating tags...");
+
+                var existingWord = _words[wordKey];
+
+                // ✅ Thêm tags mới (không trùng)
+                if (tagIds != null && tagIds.Count > 0)
+                {
+                    foreach (var tagId in tagIds)
+                    {
+                        if (_tags.ContainsKey(tagId))
+                        {
+                            // Thêm tag vào word (nếu chưa có)
+                            if (!existingWord.Tags.Contains(tagId))
+                            {
+                                existingWord.Tags.Add(tagId);
+                                Console.WriteLine($"   ✅ Added tag '{_tags[tagId].Name}' to '{wordKey}'");
+                            }
+
+                            // Thêm word vào tag (nếu chưa có)
+                            if (!_tags[tagId].RelatedWords.Contains(wordKey))
+                            {
+                                _tags[tagId].AddWord(wordKey);
+                                Console.WriteLine($"   ✅ Added '{wordKey}' to tag '{_tags[tagId].Name}'");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine($"   ❌ Tag not found: {tagId}");
+                        }
+                    }
+
+                    SaveWords();
+                    SaveTags();
+                }
+
+                return existingWord;
+            }
+
+            // ========================================
+            // ✅ CASE 2: Từ CHƯA TỒN TẠI → Tạo mới
+            // ========================================
             var shortened = WordShortened.FromWord(fullWord);
-            if (shortened == null)
-                return null;
+            if (shortened == null) return null;
 
-            if (tagIds != null)
+            Console.WriteLine($"📝 Adding new word '{wordKey}' with {tagIds?.Count ?? 0} tags");
+
+            // Add tags
+            if (tagIds != null && tagIds.Count > 0)
             {
                 foreach (var tagId in tagIds)
                 {
@@ -130,20 +178,30 @@ namespace BlueBerryDictionary.Services
                     {
                         shortened.Tags.Add(tagId);
                         _tags[tagId].AddWord(shortened.Word);
+                        Console.WriteLine($"   ✅ Added to tag '{_tags[tagId].Name}'");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"   ❌ Tag not found: {tagId}");
                     }
                 }
             }
 
-            _words[key] = shortened;
+            _words[wordKey] = shortened;
             SaveWords();
             SaveTags();
 
+            Console.WriteLine($"✅ Saved new word '{wordKey}' with {shortened.Tags.Count} tags");
             return shortened;
         }
 
-        public WordShortened GetWordShortened(string word)
+
+        /// <summary>
+        /// Xóa từ khỏi collection
+        /// </summary>
+        public bool RemoveWord(string word)
         {
-            return FindWordInsensitive(word);
+            return FindWordInsensitive(word) != null;
         }
 
         public void AddNewWordShortened(WordShortened newWord)
@@ -159,20 +217,7 @@ namespace BlueBerryDictionary.Services
             }
         }
 
-        public bool RemoveWord(string word)
-        {
-            var norm = Normalize(word);
-            if (_words.Remove(norm))
-            {
-                foreach (var tag in _tags.Values)
-                    tag.RelatedWords.Remove(word);
-
-                SaveWords();
-                SaveTags();
-                return true;
-            }
-            return false;
-        }
+        
 
         public void DeleteWordShortened(string word)
         {

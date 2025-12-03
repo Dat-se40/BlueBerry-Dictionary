@@ -32,11 +32,8 @@ namespace BlueBerryDictionary.Views.Dialogs
             {
                 MessageBox.Show("Hiện chưa có tag nào để xoá!", "Thông báo",
                     MessageBoxButton.OK, MessageBoxImage.Information);
-                Close();
-                DialogResult = false;
                 return;
             }
-
             TagsList.ItemsSource = allTags;
         }
 
