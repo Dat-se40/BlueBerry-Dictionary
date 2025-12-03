@@ -7,8 +7,18 @@
     "CreatedAt": "2025-12-02T10:09:27.6253398+07:00",
     "RelatedWords": [
       "bean",
-      "hello"
+      "hello",
+      "like"
     ],
-    "WordCount": 2
+    "WordCount": 3
+  },
+  {
+    "Id": "c900d574-2d85-4bab-8aae-60eabe707df9",
+    "Name": "l word",
+    "Icon": "📚",
+    "Color": "#8B5CF6",
+    "CreatedAt": "2025-12-03T18:05:02.5277842+07:00",
+    "RelatedWords": [],
+    "WordCount": 0
   }
 ]

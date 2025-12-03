@@ -65,24 +65,32 @@ namespace BlueBerryDictionary.Pages
                 }
             }
         }
-        public  void LoadDefCards() 
+        public void LoadDefCards()
         {
-            var upload = myWordsViewModel.FilteredWords.Where(ws => ws.Tags.Count != 0 || ws.isFavorited == true);
+            // ✅ FIX: Không filter thêm, tin tưởng vào ViewModel
+            var upload = myWordsViewModel.FilteredWords;
+
+            Console.WriteLine($"🔍 LoadDefCards: {upload.Count()} words");
+            foreach (var w in upload)
+            {
+                Console.WriteLine($"   - {w.Word}: Tags={w.Tags.Count}, Fav={w.isFavorited}");
+            }
 
             base.LoadDefCards(mainContent, upload);
+
             foreach (var child in mainContent.Children)
             {
                 if (child is WordDefinitionCard wdc)
                 {
-                    wdc.DeleteWord += () => 
+                    wdc.DeleteWord += () =>
                     {
                         myWordsViewModel.FilteredWords.Remove(wdc._mainWord);
-                        myWordsViewModel.UpdateStatistics(); 
+                        myWordsViewModel.UpdateStatistics();
                     };
                 }
             }
-
         }
+
         private void LoadTags() 
         {
             stpTags.Children.Clear(); 
