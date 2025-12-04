@@ -62,7 +62,8 @@
                         </Button>
 
                         <!-- Game -->
-                        <Button Style="{StaticResource ToolButtonStyle}" Tag="Game">
+                        <Button Style="{StaticResource ToolButtonStyle}" Tag="Game"
+                                Click="ButtnNavigate_Click">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="🎮" FontSize="18" Margin="0,0,8,0"/>
                                 <TextBlock Text="Game"/>
