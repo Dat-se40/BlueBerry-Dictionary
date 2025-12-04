@@ -1,0 +1,26 @@
+﻿{
+  "id": 2,
+  "content": "Language is the road map of a culture.",
+  "author": "Rita Mae Brown",
+  "imageUrl": "https://picsum.photos/400/200?random=2",
+  "relativeWords": [
+    {
+      "word": "road map",
+      "phonetic": "/ˈroʊd mæp/",
+      "meaning": "a plan showing how to achieve something or reach a destination",
+      "partOfSpeech": "noun"
+    },
+    {
+      "word": "culture",
+      "phonetic": "/ˈkʌltʃər/",
+      "meaning": "the ideas, customs, and social behavior of a particular group",
+      "partOfSpeech": "noun"
+    },
+    {
+      "word": "reflect",
+      "phonetic": "/rɪˈflekt/",
+      "meaning": "to show or be a sign of something",
+      "partOfSpeech": "verb"
+    }
+  ]
+}

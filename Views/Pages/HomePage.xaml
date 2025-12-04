@@ -107,18 +107,20 @@
                                 <Border Width="200" Height="200" CornerRadius="100"
                                         BorderBrush="{DynamicResource BorderColor}" BorderThickness="3" Margin="0,0,0,20">
                                     <Border.Background>
-                                        <ImageBrush ImageSource="https://picsum.photos/200/200?random=1" Stretch="UniformToFill"/>
+                                        <ImageBrush x:Name="QuoteImage" Stretch="UniformToFill"/>
                                     </Border.Background>
                                 </Border>
 
                                 <!-- Quote Text -->
                                 <TextBlock Text="&quot;The limits of my language mean the limits of my world.&quot;"
                                            FontSize="20" FontStyle="Italic" TextWrapping="Wrap" TextAlignment="Center"
-                                           Foreground="{DynamicResource TextColor}" LineHeight="28" Margin="0,0,0,15"/>
+                                           Foreground="{DynamicResource TextColor}" LineHeight="28" Margin="0,0,0,15"
+                                           Name="QuoteText"/>
 
                                 <!-- Quote Author -->
                                 <TextBlock Text="— Ludwig Wittgenstein" FontSize="15" FontWeight="SemiBold"
-                                           Foreground="{DynamicResource TextColor}" Opacity="0.8" TextAlignment="Center"/>
+                                           Foreground="{DynamicResource TextColor}" Opacity="0.8" TextAlignment="Center"
+                                           Name="QuoteAuthor"/>
                             </StackPanel>
                         </Border>
 
@@ -147,92 +149,9 @@
                                     <!-- Word List -->
                                     <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto"
                                                   Padding="15" MaxHeight="500">
-                                        <StackPanel>
-                                            <!-- Word Item 1 -->
-                                            <Border Style="{StaticResource WordItemStyle}">
-                                                <StackPanel>
-                                                    <TextBlock Text="Beautiful" FontSize="17" FontWeight="SemiBold"
-                                                               Foreground="{DynamicResource TextColor}"/>
-                                                    <TextBlock Text="/ˈbjuː.tɪ.fəl/" FontSize="14" Margin="0,5,0,0"
-                                                               Foreground="{DynamicResource TextColor}" Opacity="0.8"/>
-                                                    <TextBlock Text="adj. Đẹp, xinh đẹp, tuyệt đẹp" FontSize="15" Margin="0,8,0,0"
-                                                               Foreground="{DynamicResource TextColor}" Opacity="0.9" TextWrapping="Wrap"/>
-                                                </StackPanel>
-                                            </Border>
-
-                                            <!-- Word Item 2 -->
-                                            <Border Style="{StaticResource WordItemStyle}">
-                                                <StackPanel>
-                                                    <TextBlock Text="Dictionary" FontSize="17" FontWeight="SemiBold"
-                                                               Foreground="{DynamicResource TextColor}"/>
-                                                    <TextBlock Text="/ˈdɪk.ʃən.er.i/" FontSize="14" Margin="0,5,0,0"
-                                                               Foreground="{DynamicResource TextColor}" Opacity="0.8"/>
-                                                    <TextBlock Text="n. Từ điển" FontSize="15" Margin="0,8,0,0"
-                                                               Foreground="{DynamicResource TextColor}" Opacity="0.9" TextWrapping="Wrap"/>
-                                                </StackPanel>
-                                            </Border>
-
-                                            <!-- Word Item 3 -->
-                                            <Border Style="{StaticResource WordItemStyle}">
-                                                <StackPanel>
-                                                    <TextBlock Text="Knowledge" FontSize="17" FontWeight="SemiBold"
-                                                               Foreground="{DynamicResource TextColor}"/>
-                                                    <TextBlock Text="/ˈnɒl.ɪdʒ/" FontSize="14" Margin="0,5,0,0"
-                                                               Foreground="{DynamicResource TextColor}" Opacity="0.8"/>
-                                                    <TextBlock Text="n. Kiến thức, sự hiểu biết" FontSize="15" Margin="0,8,0,0"
-                                                               Foreground="{DynamicResource TextColor}" Opacity="0.9" TextWrapping="Wrap"/>
-                                                </StackPanel>
-                                            </Border>
-
-                                            <!-- Word Item 4 -->
-                                            <Border Style="{StaticResource WordItemStyle}">
-                                                <StackPanel>
-                                                    <TextBlock Text="Learn" FontSize="17" FontWeight="SemiBold"
-                                                               Foreground="{DynamicResource TextColor}"/>
-                                                    <TextBlock Text="/lɜːrn/" FontSize="14" Margin="0,5,0,0"
-                                                               Foreground="{DynamicResource TextColor}" Opacity="0.8"/>
-                                                    <TextBlock Text="v. Học, học hỏi" FontSize="15" Margin="0,8,0,0"
-                                                               Foreground="{DynamicResource TextColor}" Opacity="0.9" TextWrapping="Wrap"/>
-                                                </StackPanel>
-                                            </Border>
-
-                                            <!-- Word Item 5 -->
-                                            <Border Style="{StaticResource WordItemStyle}">
-                                                <StackPanel>
-                                                    <TextBlock Text="Language" FontSize="17" FontWeight="SemiBold"
-                                                               Foreground="{DynamicResource TextColor}"/>
-                                                    <TextBlock Text="/ˈlæŋ.ɡwɪdʒ/" FontSize="14" Margin="0,5,0,0"
-                                                               Foreground="{DynamicResource TextColor}" Opacity="0.8"/>
-                                                    <TextBlock Text="n. Ngôn ngữ" FontSize="15" Margin="0,8,0,0"
-                                                               Foreground="{DynamicResource TextColor}" Opacity="0.9" TextWrapping="Wrap"/>
-                                                </StackPanel>
-                                            </Border>
-
-                                            <!-- Word Item 6 -->
-                                            <Border Style="{StaticResource WordItemStyle}">
-                                                <StackPanel>
-                                                    <TextBlock Text="Practice" FontSize="17" FontWeight="SemiBold"
-                                                               Foreground="{DynamicResource TextColor}"/>
-                                                    <TextBlock Text="/ˈpræk.tɪs/" FontSize="14" Margin="0,5,0,0"
-                                                               Foreground="{DynamicResource TextColor}" Opacity="0.8"/>
-                                                    <TextBlock Text="v. Thực hành, luyện tập" FontSize="15" Margin="0,8,0,0"
-                                                               Foreground="{DynamicResource TextColor}" Opacity="0.9" TextWrapping="Wrap"/>
-                                                </StackPanel>
-                                            </Border>
-
-                                            <!-- Word Item 7 -->
-                                            <Border Style="{StaticResource WordItemStyle}">
-                                                <StackPanel>
-                                                    <TextBlock Text="Study" FontSize="17" FontWeight="SemiBold"
-                                                               Foreground="{DynamicResource TextColor}"/>
-                                                    <TextBlock Text="/ˈstʌd.i/" FontSize="14" Margin="0,5,0,0"
-                                                               Foreground="{DynamicResource TextColor}" Opacity="0.8"/>
-                                                    <TextBlock Text="v. Học tập, nghiên cứu" FontSize="15" Margin="0,8,0,0"
-                                                               Foreground="{DynamicResource TextColor}" Opacity="0.9" TextWrapping="Wrap"/>
-                                                </StackPanel>
-                                            </Border>
-                                        </StackPanel>
-                                    </ScrollViewer>
+                                    <StackPanel x:Name="stpWordItems" HorizontalAlignment="Stretch">
+                                    </StackPanel>
+                                </ScrollViewer>
                                 </Grid>
                             </Border>
                         </Border>

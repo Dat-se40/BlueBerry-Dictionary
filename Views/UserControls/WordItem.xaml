@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="BlueBerryDictionary.Views.UserControls.WordItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BlueBerryDictionary.Views.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Border Style="{DynamicResource WordItemStyle}"
+         Height="96"
+        BorderThickness="3,0,0,0"
+        CornerRadius="10"
+        Padding="20,15,20,15"
+        Cursor="Hand"   
+        Margin="0,0,0,8"
+        >
+        <StackPanel Margin="0,0,0,-3">
+            <TextBlock Name="tbMainWord" FontSize="16" 
+                    Text="Beautiful" FontWeight="SemiBold"
+                    Foreground="{DynamicResource TextColor}"/>
+            <TextBlock Name="tbPhonetic" FontSize="11" 
+                    Text="Beautiful" FontWeight="SemiBold"
+                    Foreground="{DynamicResource TextColor}"
+                    Opacity="0.8"
+                    Margin="0,5,0,0"/>
+            <TextBlock Name="tbMeaningText" FontSize="14" Text="Beautiful"
+                    FontWeight="SemiBold"
+                    Foreground="{DynamicResource TextColor}"
+                    TextWrapping="Wrap" Opacity="0.9" Margin="0,8,0,0"
+                    />
+        </StackPanel>
+    </Border>
+</UserControl>

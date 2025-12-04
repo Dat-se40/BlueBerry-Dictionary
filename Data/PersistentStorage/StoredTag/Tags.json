@@ -1,1 +1,20 @@
-[]
+[
+  {
+    "Id": "529ce30e-f723-4dfd-ac8f-e19947f010f1",
+    "Name": "test12",
+    "Icon": "📚",
+    "Color": "#84CC16",
+    "CreatedAt": "2025-12-03T20:35:05.030329+07:00",
+    "RelatedWords": [],
+    "WordCount": 0
+  },
+  {
+    "Id": "214976ac-b3d4-4811-b5f4-8394eef0b86c",
+    "Name": "huhu",
+    "Icon": "🎪",
+    "Color": "#F59E0B",
+    "CreatedAt": "2025-12-03T20:35:05.0321768+07:00",
+    "RelatedWords": [],
+    "WordCount": 0
+  }
+]

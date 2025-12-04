@@ -1,0 +1,117 @@
+﻿using BlueBerryDictionary.Models;
+using BlueBerryDictionary.Services;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
+
+namespace BlueBerryDictionary.Views.Dialogs
+{
+    public partial class RemoveTagDialog : Window
+    {
+        private readonly TagService _tagService;
+        public List<string> RemovedTagIds { get; private set; } = new();
+        static public Action UpdateUI;
+        public RemoveTagDialog()
+        {
+            InitializeComponent();
+            _tagService = TagService.Instance;
+            LoadTags();
+            Dispatcher.ShutdownStarted += (s, e) =>
+            {
+                UpdateUI?.Invoke(); 
+            };
+        }
+
+        private void LoadTags()
+        {
+            var allTags = _tagService.GetAllTags();
+            if (allTags == null || allTags.Count == 0)
+            {
+                MessageBox.Show("Hiện chưa có tag nào để xoá!", "Thông báo",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            TagsList.ItemsSource = allTags;
+        }
+
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var selectedIds = new List<string>();
+                foreach (var item in TagsList.Items)
+                {
+                    var container = TagsList.ItemContainerGenerator.ContainerFromItem(item) as FrameworkElement;
+                    if (container != null)
+                    {
+                        var check = FindDescendant<CheckBox>(container);
+                        if (check != null && check.IsChecked == true)
+                            selectedIds.Add(check.Tag.ToString());
+                    }
+                }
+
+                if (selectedIds.Count == 0)
+                {
+                    MessageBox.Show("Vui lòng chọn ít nhất một tag!", "Thông báo",
+                        MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                var confirm = MessageBox.Show(
+                    $"Bạn có chắc chắn muốn xoá {selectedIds.Count} tag không?",
+                    "Xác nhận",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question);
+
+                if (confirm == MessageBoxResult.Yes)
+                {
+                    foreach (string id in selectedIds)
+                    {
+                        _tagService.DeleteTag(id);
+                        RemovedTagIds.Add(id);
+                    }
+
+                    MessageBox.Show($"Đã xoá {selectedIds.Count} tag thành công.",
+                        "Thành công", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    DialogResult = true;
+                    Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"❌ Lỗi khi xoá tag: {ex.Message}", "Lỗi",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = false;
+            Close();
+        }
+
+        // Generic helper tìm control con
+        private T FindDescendant<T>(DependencyObject parent) where T : DependencyObject
+        {
+            if (parent == null) return null;
+
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
+            {
+                var child = VisualTreeHelper.GetChild(parent, i);
+
+                if (child is T t)
+                    return t;
+
+                var desc = FindDescendant<T>(child);
+                if (desc != null)
+                    return desc;
+            }
+
+            return null;
+        }
+    }
+}

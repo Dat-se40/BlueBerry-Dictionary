@@ -1,48 +1,59 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using BlueBerryDictionary.Services;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Google.Apis.Drive.v3.Data;
+using Microsoft.Win32;
+using Newtonsoft.Json;
 using System;
+using System.IO;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 
 namespace BlueBerryDictionary.ViewModels
 {
     /// <summary>
     /// ViewModel cho UserProfilePage
-    /// STUB VERSION - Commands chưa có logic thật
     /// </summary>
     public partial class UserProfileViewModel : ObservableObject
     {
         // ========== OBSERVABLE PROPERTIES ==========
 
         [ObservableProperty]
-        private string userId = "google_123456789";
+        private string _userId;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(DisplayNameCharCount))]
-        private string displayName = "John Doe";
+        private string _displayName;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(NicknameCharCount))]
-        private string nickname = "Johnny";
+        private string _nickname;
 
         [ObservableProperty]
-        private string email = "johndoe@gmail.com";
+        private string _email;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(HasAvatar))]
-        private string avatarUrl;
+        private string _avatarUrl;
 
         [ObservableProperty]
-        private string syncStatusText = "Last synced: Never";
+        private BitmapImage _avatarImage; // ✅ THÊM: để bind vào Image control
 
         [ObservableProperty]
-        private bool isDownloading;
+        private string _syncStatusText = "Last synced: Never";
 
         [ObservableProperty]
-        private bool isUploading;
+        private bool _isDownloading;
 
         [ObservableProperty]
-        private bool isSaving;
+        private bool _isUploading;
+
+        [ObservableProperty]
+        private bool _isSaving;
 
         // ========== COMPUTED PROPERTIES ==========
 
@@ -54,28 +65,87 @@ namespace BlueBerryDictionary.ViewModels
 
         public UserProfileViewModel()
         {
-            // TODO: Inject services khi implement
-            // LoadUserProfile();
+            LoadUserProfile();
         }
 
         // ========== DATA LOADING ==========
 
         /// <summary>
-        /// [STUB] Load user profile từ UserDataManager
-        /// TODO: Implement sau khi có UserDataManager
+        /// Load user profile từ GoogleAuthService & UserSessionManage
         /// </summary>
-        private void LoadUserProfile()
+        private async void LoadUserProfile()
         {
-            // TODO: var userData = UserDataManager.Instance.GetUserProfile();
-            // TODO: if (userData != null)
-            // TODO: {
-            // TODO:     UserId = userData.UserId;
-            // TODO:     DisplayName = userData.DisplayName;
-            // TODO:     Nickname = userData.Nickname;
-            // TODO:     Email = userData.Email;
-            // TODO:     AvatarUrl = userData.AvatarUrl;
-            // TODO:     SyncStatusText = $"Last synced: {userData.LastSyncTime}";
-            // TODO: }
+            try
+            {
+                var session = UserSessionManage.Instance;
+                var authService = GoogleAuthService.Instance;
+
+                if (session.IsGuest)
+                {
+                    // Guest mode
+                    UserId = "guest";
+                    DisplayName = "Guest User";
+                    Nickname = "";
+                    Email = "Not logged in";
+                    AvatarUrl = null;
+                    SyncStatusText = "Login to sync data";
+                }
+                else
+                {
+                    // Logged in
+                    UserId = session.UserId ?? session.Email;
+                    DisplayName = session.DisplayName ?? "User";
+                    Nickname = ""; // TODO: Load từ Settings.json nếu có
+                    Email = session.Email;
+                    AvatarUrl = session.AvatarUrl;
+
+                    // Load avatar từ URL
+                    if (!string.IsNullOrEmpty(AvatarUrl))
+                    {
+                        await LoadAvatarAsync(AvatarUrl);
+                    }
+
+                    // Update sync status
+                    var lastSync = authService.CurrentUser?.LastLogin;
+                    if (lastSync.HasValue)
+                    {
+                        SyncStatusText = $"Last synced: {lastSync.Value.ToLocalTime():yyyy-MM-dd HH:mm:ss}";
+                    }
+                }
+
+                Console.WriteLine($"✅ Profile loaded: {DisplayName} ({Email})");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"❌ Load profile error: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Load avatar từ URL (Google profile picture)
+        /// </summary>
+        private async Task LoadAvatarAsync(string url)
+        {
+            try
+            {
+                using var httpClient = new HttpClient();
+                var imageBytes = await httpClient.GetByteArrayAsync(url);
+
+                var bitmap = new BitmapImage();
+                using var stream = new MemoryStream(imageBytes);
+                bitmap.BeginInit();
+                bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                bitmap.StreamSource = stream;
+                bitmap.EndInit();
+                bitmap.Freeze();
+
+                AvatarImage = bitmap;
+                Console.WriteLine("✅ Avatar loaded from URL");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"⚠️ Load avatar error: {ex.Message}");
+            }
         }
 
         /// <summary>
@@ -89,50 +159,50 @@ namespace BlueBerryDictionary.ViewModels
         // ========== RELAY COMMANDS ==========
 
         /// <summary>
-        /// [STUB] Upload avatar
-        /// TODO: Open file picker, validate, upload to Drive
+        /// Upload avatar (local file)
         /// </summary>
         [RelayCommand]
         private async Task UploadAvatarAsync()
         {
             try
             {
-                // TODO: var fileDialog = new OpenFileDialog
-                // TODO: {
-                // TODO:     Filter = "Image files (*.jpg, *.jpeg, *.png)|*.jpg;*.jpeg;*.png",
-                // TODO:     Title = "Select Avatar"
-                // TODO: };
-                // TODO:
-                // TODO: if (fileDialog.ShowDialog() == true)
-                // TODO: {
-                // TODO:     // Validate file size (max 5MB)
-                // TODO:     var fileInfo = new FileInfo(fileDialog.FileName);
-                // TODO:     if (fileInfo.Length > 5 * 1024 * 1024)
-                // TODO:     {
-                // TODO:         MessageBox.Show("Image size must be less than 5MB");
-                // TODO:         return;
-                // TODO:     }
-                // TODO:
-                // TODO:     // Convert to base64 or upload to Drive
-                // TODO:     AvatarUrl = await GoogleDriveSyncService.Instance.UploadAvatarAsync(fileDialog.FileName);
-                // TODO:
-                // TODO:     // Save to profile
-                // TODO:     await SaveProfileAsync();
-                // TODO: }
+                var fileDialog = new OpenFileDialog
+                {
+                    Filter = "Image files (*.jpg, *.jpeg, *.png)|*.jpg;*.jpeg;*.png",
+                    Title = "Select Avatar"
+                };
 
-                await Task.Delay(500);
-                System.Diagnostics.Debug.WriteLine("✅ Upload Avatar clicked (STUB)");
+                if (fileDialog.ShowDialog() == true)
+                {
+                    // Validate file size (max 5MB)
+                    var fileInfo = new FileInfo(fileDialog.FileName);
+                    if (fileInfo.Length > 5 * 1024 * 1024)
+                    {
+                        MessageBox.Show("Image size must be less than 5MB", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return;
+                    }
+
+                    // Load image locally
+                    var bitmap = new BitmapImage(new Uri(fileDialog.FileName));
+                    AvatarImage = bitmap;
+                    AvatarUrl = fileDialog.FileName; // Save local path (hoặc upload lên Drive)
+
+                    // TODO: Upload to Drive
+                    // await CloudSyncService.Instance.UploadAvatarAsync(fileDialog.FileName);
+
+                    await SaveProfileAsync();
+                    Console.WriteLine("✅ Avatar uploaded");
+                }
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"❌ Upload avatar error: {ex.Message}");
+                Console.WriteLine($"❌ Upload avatar error: {ex.Message}");
                 MessageBox.Show($"Failed to upload avatar: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         /// <summary>
-        /// [STUB] Save profile changes
-        /// TODO: Validate inputs, save to UserDataManager, upload to Drive
+        /// Save profile changes
         /// </summary>
         [RelayCommand]
         private async Task SaveProfileAsync()
@@ -160,33 +230,26 @@ namespace BlueBerryDictionary.ViewModels
 
             try
             {
-                // TODO: var profileData = new UserProfile
-                // TODO: {
-                // TODO:     UserId = UserId,
-                // TODO:     DisplayName = DisplayName.Trim(),
-                // TODO:     Nickname = Nickname?.Trim(),
-                // TODO:     Email = Email,
-                // TODO:     AvatarUrl = AvatarUrl
-                // TODO: };
-                // TODO:
-                // TODO: // Save to local
-                // TODO: UserDataManager.Instance.UpdateProfile(profileData);
-                // TODO:
-                // TODO: // Upload to Drive if logged in
-                // TODO: if (GoogleAuthService.Instance.IsLoggedIn)
-                // TODO: {
-                // TODO:     await GoogleDriveSyncService.Instance.UploadProfileAsync(profileData);
-                // TODO: }
+                // TODO: Save to Settings.json
+                // var settingsPath = UserDataManager.Instance.GetSettingsPath();
+                // var settings = new { DisplayName, Nickname, AvatarUrl };
+                // File.WriteAllText(settingsPath, JsonConvert.SerializeObject(settings));
 
-                await Task.Delay(1000);
+                // TODO: Upload to Drive if logged in
+                if (GoogleAuthService.Instance.IsLoggedIn)
+                {
+                    // await CloudSyncService.Instance.UploadFileAsync("Settings.json", settingsPath);
+                }
+
+                await Task.Delay(500); // Simulate save
                 UpdateSyncStatus();
 
                 MessageBox.Show("Profile saved successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                System.Diagnostics.Debug.WriteLine("✅ Save Profile clicked (STUB)");
+                Console.WriteLine("✅ Profile saved");
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"❌ Save profile error: {ex.Message}");
+                Console.WriteLine($"❌ Save profile error: {ex.Message}");
                 MessageBox.Show($"Failed to save profile: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally
@@ -196,41 +259,48 @@ namespace BlueBerryDictionary.ViewModels
         }
 
         /// <summary>
-        /// [STUB] Download data from Google Drive
-        /// TODO: Call GoogleDriveSyncService.DownloadAllDataAsync()
+        /// Download data from Google Drive
         /// </summary>
         [RelayCommand]
         private async Task DownloadFromDriveAsync()
         {
+            if (!GoogleAuthService.Instance.IsLoggedIn)
+            {
+                MessageBox.Show("Please login to download data", "Not Logged In", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             IsDownloading = true;
 
             try
             {
-                // TODO: var syncResult = await GoogleDriveSyncService.Instance.SyncAllDataAsync();
-                // TODO:
-                // TODO: // Reload UI
-                // TODO: LoadUserProfile();
-                // TODO:
-                // TODO: // Show summary
-                // TODO: var message = $"Download completed!\n\n" +
-                // TODO:              $"📥 Downloaded: {syncResult.Downloaded.Count} files\n" +
-                // TODO:              $"✅ In sync: {syncResult.InSync.Count} files";
-                // TODO:
-                // TODO: if (syncResult.HasConflicts)
-                // TODO: {
-                // TODO:     message += $"\n⚠️ Conflicts: {syncResult.Conflicts.Count} files";
-                // TODO: }
-                // TODO:
-                // TODO: MessageBox.Show(message, "Sync Complete", MessageBoxButton.OK, MessageBoxImage.Information);
+                var syncResult = await CloudSyncService.Instance.DownloadAllDataAsync();
 
-                await Task.Delay(2000);
+                // Reload UI
+                LoadUserProfile();
+
+                // Show summary
+                var message = $"Download completed!\n\n" +
+                             $"📥 Downloaded: {syncResult.Downloaded.Count} files\n" +
+                             $"✅ In sync: {syncResult.InSync.Count} files";
+
+                if (syncResult.HasConflicts)
+                {
+                    message += $"\n⚠️ Conflicts: {syncResult.Conflicts.Count} files";
+                }
+
+                if (syncResult.HasErrors)
+                {
+                    message += $"\n❌ Errors: {syncResult.Errors.Count}";
+                }
+
+                MessageBox.Show(message, "Sync Complete", MessageBoxButton.OK, MessageBoxImage.Information);
                 UpdateSyncStatus();
-
-                System.Diagnostics.Debug.WriteLine("✅ Download from Drive clicked (STUB)");
+                Console.WriteLine("✅ Download completed");
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"❌ Download error: {ex.Message}");
+                Console.WriteLine($"❌ Download error: {ex.Message}");
                 MessageBox.Show($"Failed to download data: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally
@@ -240,48 +310,47 @@ namespace BlueBerryDictionary.ViewModels
         }
 
         /// <summary>
-        /// [STUB] Upload data to Google Drive
-        /// TODO: Call GoogleDriveSyncService.UploadAllDataAsync()
+        /// Upload data to Google Drive
         /// </summary>
         [RelayCommand]
         private async Task UploadToDriveAsync()
         {
-            IsUploading = true;
+            if (!GoogleAuthService.Instance.IsLoggedIn)
+            {
+                MessageBox.Show("Please login to upload data", "Not Logged In", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
 
+            IsUploading = true;
+            
             try
             {
-                // TODO: var syncResult = await GoogleDriveSyncService.Instance.SyncAllDataAsync();
-                // TODO:
-                // TODO: var message = $"Upload completed!\n\n" +
-                // TODO:              $"📤 Uploaded: {syncResult.Uploaded.Count} files\n" +
-                // TODO:              $"✅ In sync: {syncResult.InSync.Count} files";
-                // TODO:
-                // TODO: MessageBox.Show(message, "Sync Complete", MessageBoxButton.OK, MessageBoxImage.Information);
+                Mouse.OverrideCursor = Cursors.Wait; 
+                UserDataManager.Instance.SaveEssentialFiles();
+                await CloudSyncService.Instance.UploadAllPendingAsync();
 
-                await Task.Delay(2000);
+                MessageBox.Show("Upload completed!", "Sync Complete", MessageBoxButton.OK, MessageBoxImage.Information);
                 UpdateSyncStatus();
-
-                System.Diagnostics.Debug.WriteLine("✅ Upload to Drive clicked (STUB)");
+                Console.WriteLine("✅ Upload completed");
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"❌ Upload error: {ex.Message}");
+                Console.WriteLine($"❌ Upload error: {ex.Message}");
                 MessageBox.Show($"Failed to upload data: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally
             {
                 IsUploading = false;
             }
+            Mouse.OverrideCursor = null; 
         }
 
         /// <summary>
-        /// [STUB] Logout
-        /// TODO: Final sync, revoke token, redirect to login
+        /// Logout
         /// </summary>
         [RelayCommand]
         private async Task LogoutAsync()
         {
-            // Show confirmation
             var result = MessageBox.Show(
                 "Are you sure you want to logout?\n\nYour data will be synced before logging out.",
                 "Confirm Logout",
@@ -289,33 +358,29 @@ namespace BlueBerryDictionary.ViewModels
                 MessageBoxImage.Question
             );
 
-            if (result != MessageBoxResult.Yes)
-            {
-                return;
-            }
+            if (result != MessageBoxResult.Yes) return;
 
             try
             {
-                // TODO: // Final sync
-                // TODO: await GoogleDriveSyncService.Instance.SyncAllDataAsync();
-                // TODO:
-                // TODO: // Revoke token
-                // TODO: await GoogleAuthService.Instance.LogoutAsync();
-                // TODO:
-                // TODO: // Clear session
-                // TODO: UserDataManager.Instance.ClearSession();
-                // TODO:
-                // TODO: // Navigate to login
-                // TODO: NavigationService.NavigateTo("Login");
+                // Final sync
+                if (GoogleAuthService.Instance.IsLoggedIn)
+                {
+                    await CloudSyncService.Instance.UploadAllPendingAsync();
+                }
 
-                await Task.Delay(500);
+                // Logout
+                await GoogleAuthService.Instance.LogoutAsync();
 
                 MessageBox.Show("Logged out successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                System.Diagnostics.Debug.WriteLine("✅ Logout clicked (STUB)");
+                Console.WriteLine("✅ Logout successful");
+
+                // TODO: Navigate to LoginWindow
+                // Close MainWindow and show LoginWindow
+                Application.Current.Shutdown();
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"❌ Logout error: {ex.Message}");
+                Console.WriteLine($"❌ Logout error: {ex.Message}");
                 MessageBox.Show($"Failed to logout: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }

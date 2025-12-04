@@ -130,43 +130,95 @@ namespace BlueBerryDictionary.ViewModels
 
         private void ApplyFilters()
         {
-            var words = _tagService.GetAllWords();
+            Console.WriteLine($"🔍 ApplyFilters START");
+            Console.WriteLine($"   SelectedTag: {SelectedTag?.Name ?? "null"}");
+            Console.WriteLine($"   SelectedLetter: {SelectedLetter}");
+            Console.WriteLine($"   SelectedPartOfSpeech: {SelectedPartOfSpeech}");
 
-            // Filter by tag
+            // ✅ Bắt đầu từ TẤT CẢ từ (bao gồm cả favorite và có tag)
+            var words = _tagService.GetAllWords();
+            Console.WriteLine($"   Initial words: {words.Count}");
+
+            var filterParts = new List<string>(); // Để build CurrFilter
+
+            // ========================================
+            // ✅ FILTER 1: TAG (nếu có)
+            // ========================================
             if (SelectedTag != null)
             {
-                words = _tagService.GetWordsByTag(SelectedTag.Id);
-                CurrFilter = SelectedTag.Name; 
+                // Lấy words thuộc tag này
+                var tagWords = _tagService.GetWordsByTag(SelectedTag.Id);
+                Console.WriteLine($"   Tag filter: {tagWords.Count} words in tag '{SelectedTag.Name}'");
+
+                // INTERSECT: chỉ giữ từ có trong cả 2 lists
+                words = words.Where(w => tagWords.Any(tw => tw.Word.Equals(w.Word, StringComparison.OrdinalIgnoreCase))).ToList();
+                filterParts.Add(SelectedTag.Name);
+                Console.WriteLine($"   After tag filter: {words.Count}");
             }
 
-            // Filter by letter
+            // ========================================
+            // ✅ FILTER 2: LETTER (nếu có)
+            // ========================================
             if (!string.IsNullOrEmpty(SelectedLetter) && SelectedLetter != "ALL")
             {
-                words = words.Where(w => w.Word.StartsWith(SelectedLetter, System.StringComparison.OrdinalIgnoreCase)).ToList();
-                CurrFilter = SelectedLetter.ToUpper(); 
+                words = words.Where(w => w.Word.StartsWith(SelectedLetter, StringComparison.OrdinalIgnoreCase)).ToList();
+                filterParts.Add(SelectedLetter.ToUpper());
+                Console.WriteLine($"   After letter filter '{SelectedLetter}': {words.Count}");
             }
 
-            // Filter by part of speech
+            // ========================================
+            // ✅ FILTER 3: PART OF SPEECH (nếu có)
+            // ========================================
             if (!string.IsNullOrEmpty(SelectedPartOfSpeech))
             {
-                words = words.Where(w => w.PartOfSpeech.Equals(SelectedPartOfSpeech, System.StringComparison.OrdinalIgnoreCase)).ToList();
-                CurrFilter = SelectedPartOfSpeech.ToUpper();    
+                words = words.Where(w => w.PartOfSpeech.Equals(SelectedPartOfSpeech, StringComparison.OrdinalIgnoreCase)).ToList();
+                filterParts.Add(SelectedPartOfSpeech.ToUpper());
+                Console.WriteLine($"   After POS filter '{SelectedPartOfSpeech}': {words.Count}");
             }
 
-            // Update UI
+            // ========================================
+            // ✅ BUILD CURRFILTER TEXT
+            // ========================================
+            CurrFilter = filterParts.Count > 0 ? string.Join(" + ", filterParts) : "All";
+
+            // ========================================
+            // ✅ UPDATE UI
+            // ========================================
             FilteredWords.Clear();
             foreach (var word in words)
             {
                 FilteredWords.Add(word);
             }
-            WordsCount = FilteredWords.Count;
-            acOnFilterWordsChanged?.Invoke(); 
-        }        
-        // ========== RELAY COMMANDS ==========
 
+            WordsCount = FilteredWords.Count;
+            Console.WriteLine($"🔍 ApplyFilters END: {WordsCount} words, CurrFilter='{CurrFilter}'");
+
+            acOnFilterWordsChanged?.Invoke();
+        }
+
+        // ========== RELAY COMMANDS ==========
+        [RelayCommand]
+        private void OpenRemoveTagDialog()
+        {
+            var dialog = new RemoveTagDialog();
+            if (dialog.ShowDialog() == true)
+            {
+                // list tagId bị xóa nằm ở đây:
+                var deleted = dialog.RemovedTagIds;
+
+                if (deleted.Any())
+                {
+                    MessageBox.Show($"Đã xoá {deleted.Count} tag khỏi hệ thống!",
+                        "Xong", MessageBoxButton.OK, MessageBoxImage.Information);
+                    acOnFilterWordsChanged?.Invoke(); 
+                }
+            }
+        }
         [RelayCommand]
         private void FilterByTag(Tag tag)
         {
+            Console.WriteLine($"🏷️ FilterByTag: {tag.Name} (ID: {tag.Id})");
+
             SelectedTag = tag;
             ApplyFilters();
         }
@@ -195,15 +247,22 @@ namespace BlueBerryDictionary.ViewModels
         [RelayCommand]
         private void ClearFilters()
         {
+            Console.WriteLine($"🔄 ClearFilters");
+
             SelectedTag = null;
             SelectedLetter = "ALL";
             SelectedPartOfSpeech = null;
 
             // Reset alphabet buttons
-            FilterByLetter("ALL");
-            CurrFilter = "All"; 
+            foreach (var item in AlphabetItems)
+            {
+                item.IsActive = item.Letter == "ALL";
+            }
+
+            CurrFilter = "All";
             ApplyFilters();
         }
+
 
         [RelayCommand]
         private void CreateTag()

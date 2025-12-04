@@ -1,6 +1,7 @@
 ﻿using BlueBerryDictionary.Models;
 using BlueBerryDictionary.Services;
 using BlueBerryDictionary.ViewModels;
+using BlueBerryDictionary.Views.Dialogs;
 using BlueBerryDictionary.Views.Pages;
 using BlueBerryDictionary.Views.UserControls;
 using System.Windows;
@@ -19,11 +20,11 @@ namespace BlueBerryDictionary.Pages
         public MyWordsPage(Action<string> CardOnClicked) : base(CardOnClicked)
         {
             InitializeComponent();
-            myWordsViewModel = new MyWordsViewModel();  
+            myWordsViewModel = new MyWordsViewModel();
             this.DataContext = myWordsViewModel;
             myWordsViewModel.acOnFilterWordsChanged += this.LoadDefCards;
-            myWordsViewModel.acOnTagChanged += this.LoadTags;
-            LoadData(); 
+            myWordsViewModel.acOnTagChanged += LoadData; 
+            LoadData();
         }
         public override void LoadData() 
         {
@@ -65,24 +66,33 @@ namespace BlueBerryDictionary.Pages
                 }
             }
         }
-        public  void LoadDefCards() 
+        public void LoadDefCards()
         {
-            var upload = myWordsViewModel.FilteredWords.Where(ws => ws.Tags.Count != 0 || ws.isFavorited == true);
+            // ✅ FIX: Không filter thêm, tin tưởng vào ViewModel
+            var upload = myWordsViewModel.FilteredWords;
+
+            Console.WriteLine($"🔍 LoadDefCards: {upload.Count()} words");
+            foreach (var w in upload)
+            {
+                Console.WriteLine($"   - {w.Word}: Tags={w.Tags.Count}, Fav={w.isFavorited}");
+            }
 
             base.LoadDefCards(mainContent, upload);
+
             foreach (var child in mainContent.Children)
             {
                 if (child is WordDefinitionCard wdc)
                 {
-                    wdc.DeleteWord += () => 
+                    wdc.DeleteWord += () =>
                     {
                         myWordsViewModel.FilteredWords.Remove(wdc._mainWord);
-                        myWordsViewModel.UpdateStatistics(); 
+                        myWordsViewModel.UpdateStatistics();
+                        LoadTags(); 
                     };
                 }
             }
-
         }
+
         private void LoadTags() 
         {
             stpTags.Children.Clear(); 
