@@ -32,6 +32,7 @@ BlueBerry Dictionary là ứng dụng từ điển tiếng Anh được xây d�
 - **Cache thông minh**: Lưu cache 100 từ gần nhất, tối ưu tốc độ tra cứu
 
 ### 2. Quản lý từ vựng cá nhân
+- ***HomePage**: Hiện thị các câu quote random, tránh gây nhàm chán cho người dùng
 - **My Words**: Lưu trữ từ vựng với khả năng:
   - Chọn nghĩa cụ thể khi lưu từ
   - Gắn nhãn (tags) tùy chỉnh với icon và màu sắc
@@ -49,6 +50,10 @@ BlueBerry Dictionary là ứng dụng từ điển tiếng Anh được xây d�
 - **Responsive Design**: Tự động điều chỉnh kích thước
 - **Animations**: Hiệu ứng chuyển trang, hover, click
 - **Navigation**: Sidebar + Toolbar đầy đủ
+- **SettingPage** điều chỉnh phù hợp cá nhân hóa
+### 5. Hỗ trợ đăng nhập
+- Có thể sử dụng từ nhiều các thiết bị khác nhau
+- Nhiều người dùng khác nhau có thể sài chung một thiết bị
 
 ---
 
@@ -180,6 +185,7 @@ BlueBerryDictionary/
 │   │   ├── MeaningSelectorDialog.xaml
 │   │   └── TagPickerDialog.xaml
 │   └── UserControls/
+|       └── WordItem.xaml # Hiện quote random
 │       └── WordDefinitionCard.xaml
 │
 ├── Resources/              # Styles & Resources
