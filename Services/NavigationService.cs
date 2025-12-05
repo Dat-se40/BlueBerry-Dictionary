@@ -107,6 +107,7 @@ namespace BlueBerryDictionary.Services
                 "Game" => new Pages.GamePage(_onWordClick),
                 "Account" => new UserProfilePage() ,
                 "UserProfile" => new UserProfilePage(),
+                "Setting" => new SettingsPage() ,
                 _ => new Views.Pages.HomePage(_onWordClick, _sidebarNavigate)
             };
 

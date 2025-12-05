@@ -357,23 +357,49 @@ namespace BlueBerryDictionary.Views.Pages
         private void Favorite_Click(object sender, RoutedEventArgs e)
         {
             _isFavorite = !_isFavorite;
+
             if (_isFavorite == true)
             {
                 FavoriteBtn.Background = Brushes.LightPink;
                 FavoriteBtn.Foreground = Brushes.DeepPink;
-                var newWS = WordShortened.FromWord(_word);
-                newWS.isFavorited = true; 
-                TagService.Instance.AddNewWordShortened(newWS); 
+
+                // ✅ Check xem từ đã tồn tại chưa
+                var existingWord = TagService.Instance.FindWordInsensitive(_word.word);
+
+                if (existingWord != null)
+                {
+                    // ✅ Từ đã tồn tại → Chỉ update isFavorited
+                    existingWord.isFavorited = true;
+                    TagService.Instance.SaveWords(); // ← Lưu lại
+                    Console.WriteLine($"✅ Updated favorite status for existing word '{_word.word}'");
+                }
+                else
+                {
+                    // ✅ Từ chưa tồn tại → Tạo mới
+                    var newWS = WordShortened.FromWord(_word);
+                    newWS.isFavorited = true;
+                    TagService.Instance.AddNewWordShortened(newWS);
+                    Console.WriteLine($"✅ Added new favorite word '{_word.word}'");
+                }
             }
             else
             {
                 FavoriteBtn.ClearValue(Button.BackgroundProperty);
                 FavoriteBtn.ClearValue(Button.ForegroundProperty);
                 FavoriteBtn.SetResourceReference(Button.StyleProperty, "ActionButtonStyle");
-                TagService.Instance.GetWordShortened(_word.word).isFavorited = false; 
+
+                var existingWord = TagService.Instance.FindWordInsensitive(_word.word);
+                if (existingWord != null)
+                {
+                    existingWord.isFavorited = false;
+                    TagService.Instance.SaveWords();
+                    Console.WriteLine($"✅ Removed favorite status from '{_word.word}'");
+                }
             }
+
             MessageBox.Show(_isFavorite ? "Đã thêm vào yêu thích" : "Đã xóa khỏi yêu thích");
         }
+
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
@@ -383,7 +409,7 @@ namespace BlueBerryDictionary.Views.Pages
             {
                 var tagService = TagService.Instance;
 
-                // Show dialog
+                // ✅ Show dialog để chọn meaning và tags
                 var dialog = new MeaningSelectorDialog(_word)
                 {
                     Owner = Window.GetWindow(this)
@@ -394,31 +420,24 @@ namespace BlueBerryDictionary.Views.Pages
                     int meaningIndex = dialog.SelectedMeaningIndex;
                     List<string> selectedTags = dialog.SelectedTagIds;
 
-                    // Create WordShortened with selected meaning
-                    var shortened = WordShortened.FromWord(_word, meaningIndex);
+                    Console.WriteLine($"💾 Save_Click: word='{_word.word}', meaningIndex={meaningIndex}, tags={selectedTags.Count}");
 
-                    if (shortened == null)
-                    {
-                        MessageBox.Show("Lỗi khi xử lý từ", "Lỗi",
-                            MessageBoxButton.OK, MessageBoxImage.Error);
-                        return;
-                    }
+                    // ✅ AddWord() sẽ tự xử lý:
+                    //    - Nếu từ chưa tồn tại → Tạo mới với tags
+                    //    - Nếu từ đã tồn tại → Cập nhật tags
+                    var savedWord = tagService.AddWord(_word, selectedTags);
 
-                    // Add tags to the shortened word
-                    shortened.Tags = selectedTags;
-
-                    // Save to TagService (which will also add to tags)
-                    var added = tagService.AddWord(_word, selectedTags);
-
-                    if (added != null)
+                    if (savedWord != null)
                     {
                         var selectedMeaning = _word.meanings[meaningIndex];
                         string tagInfo = selectedTags.Count > 0
                             ? $" với {selectedTags.Count} nhãn"
                             : "";
 
+                        Console.WriteLine($"✅ Saved '{_word.word}' with {savedWord.Tags.Count} tags");
+
                         MessageBox.Show(
-                            $"✅ Đã lưu '{_word.word}' ({selectedMeaning.partOfSpeech}) -> {tagInfo} vào My Words",
+                            $"✅ Đã lưu '{_word.word}' ({selectedMeaning.partOfSpeech}){tagInfo} vào My Words",
                             "Thành công",
                             MessageBoxButton.OK,
                             MessageBoxImage.Information
@@ -426,6 +445,7 @@ namespace BlueBerryDictionary.Views.Pages
                     }
                     else
                     {
+                        // ⚠️ Trường hợp này KHÔNG BAO GIỜ XẢY RA với AddWord() mới
                         MessageBox.Show("Từ này đã có trong My Words",
                             "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
@@ -437,6 +457,7 @@ namespace BlueBerryDictionary.Views.Pages
                     "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
 
         private void Share_Click(object sender, RoutedEventArgs e)
         {

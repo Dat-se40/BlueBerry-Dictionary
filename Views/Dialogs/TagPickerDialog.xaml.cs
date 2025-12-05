@@ -17,7 +17,7 @@ namespace BlueBerryDictionary.Views.Dialogs
 
         private string _selectedIcon = "🏷️";
         private string _selectedColor = "#2D4ACC";
-
+        
         private readonly string[] _availableIcons = new[]
         {
             "🏷️", "📚", "🎯", "💼", "💬", "🎓", "🌟", "💡",
@@ -37,6 +37,7 @@ namespace BlueBerryDictionary.Views.Dialogs
             _tagService = TagService.Instance;
             LoadIcons();
             LoadColors();
+            
         }
 
         private void LoadIcons()

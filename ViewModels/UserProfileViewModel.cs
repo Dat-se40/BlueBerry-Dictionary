@@ -9,6 +9,7 @@ using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
@@ -324,6 +325,7 @@ namespace BlueBerryDictionary.ViewModels
             
             try
             {
+                Mouse.OverrideCursor = Cursors.Wait; 
                 UserDataManager.Instance.SaveEssentialFiles();
                 await CloudSyncService.Instance.UploadAllPendingAsync();
 
@@ -340,6 +342,7 @@ namespace BlueBerryDictionary.ViewModels
             {
                 IsUploading = false;
             }
+            Mouse.OverrideCursor = null; 
         }
 
         /// <summary>

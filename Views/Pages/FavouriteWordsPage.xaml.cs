@@ -18,7 +18,7 @@ namespace BlueBerryDictionary.Views.Pages
         public List<WordShortened> CurrentFilterWords
         {
             get { return currentFilterWords; }
-            set { 
+            set {
                 currentFilterWords = value; 
                 LoadDefCards(); 
             }
@@ -31,7 +31,7 @@ namespace BlueBerryDictionary.Views.Pages
         public override void LoadData()
         {
             // Đây cũng chính là reset, cập nhật lại!
-            CurrentFilterWords = TagService.Instance.GetAllWords().Where(ws => ws.isFavorited == true).ToList();
+            CurrentFilterWords = fullWords;
         }
         public void LoadDefCards()
         { 
@@ -42,7 +42,7 @@ namespace BlueBerryDictionary.Views.Pages
         {   
             if (CurrentFilterWords != null && sender is Button btn && btn.Tag != null)
             {
-                CurrentFilterWords = CurrentFilterWords.Where(ws => ws.PartOfSpeech == btn.Tag.ToString()).ToList();
+                CurrentFilterWords = fullWords.Where(ws => ws.PartOfSpeech == btn.Tag.ToString()).ToList();
             }else 
             {
                 Console.WriteLine("[FavoritePage!]");
@@ -51,7 +51,10 @@ namespace BlueBerryDictionary.Views.Pages
 
         private void btnDeleteAll_Click(object sender, RoutedEventArgs e)
         {
-            CurrentFilterWords.Clear(); 
+            fullWords.ForEach(fw => fw.isFavorited = false);
+            CurrentFilterWords.Clear();
+            mainContent.Children.Clear(); 
         }
+        private List<WordShortened> fullWords => TagService.Instance.GetAllWords().Where(ws => ws.isFavorited == true).ToList();
     }
 }

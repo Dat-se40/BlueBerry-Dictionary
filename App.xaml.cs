@@ -1,4 +1,7 @@
-﻿using System.Windows;
+﻿using BlueBerryDictionary.Services;
+using System.IO;
+using System.Threading.Tasks;
+using System.Windows;
 
 namespace BlueBerryDictionary
 {
@@ -24,7 +27,9 @@ namespace BlueBerryDictionary
                 if (loginResult == true)
                 {
                     // User logged in successfully
+                    AsyncData();
                     System.Diagnostics.Debug.WriteLine("✅ User logged in → Showing MainWindow");
+                     
                 }
                 else if (loginResult == false)
                 {
@@ -64,7 +69,35 @@ namespace BlueBerryDictionary
             // Tạm thời return false để luôn hiện LoginWindow (demo)
             return false;
         }
+        private async void AsyncData()
+        {
+            var instance = CloudSyncService.Instance;
 
+            try
+            {
+                // ✅ ĐỌC FILE RA JSON STRING
+                string mywordsPath = instance.GetLocalFilePath(CloudSyncService.essentialFile[0]);
+                string tagsPath = instance.GetLocalFilePath(CloudSyncService.essentialFile[1]);
+
+                string mywordsJson = await File.ReadAllTextAsync(mywordsPath);
+                string tagsJson = await File.ReadAllTextAsync(tagsPath);
+
+                // ✅ TRUYỀN JSON STRING VÀO MERGE
+                await Task.WhenAll(
+                    instance.MergeMyWordsAsync(mywordsJson),
+                    instance.MergeTagsAsync(tagsJson)
+                );
+
+                Console.WriteLine("✅ Async data merge completed!");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"❌ Async data failed: {ex.Message}");
+                MessageBox.Show($"Lỗi đồng bộ dữ liệu:\n{ex.Message}", "Lỗi",
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        } 
+        
         /// <summary>
         /// Show MainWindow
         /// </summary>

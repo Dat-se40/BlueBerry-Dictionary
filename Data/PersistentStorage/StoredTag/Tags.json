@@ -1,25 +1,20 @@
 [
   {
-    "Id": "76912d4c-0bd5-4d09-aae9-60cba96b0eb9",
-    "Name": "test",
-    "Icon": "🏷️",
-    "Color": "#F59E0B",
-    "CreatedAt": "2025-12-02T10:33:26.6462915+07:00",
-    "RelatedWords": [
-      "history",
-      "commentary"
-    ],
-    "WordCount": 2
+    "Id": "529ce30e-f723-4dfd-ac8f-e19947f010f1",
+    "Name": "test12",
+    "Icon": "📚",
+    "Color": "#84CC16",
+    "CreatedAt": "2025-12-03T20:35:05.030329+07:00",
+    "RelatedWords": [],
+    "WordCount": 0
   },
   {
-    "Id": "b8de7bbc-a3c7-4492-a3fa-4ad9d4061160",
-    "Name": "test2",
-    "Icon": "🏷️",
-    "Color": "#EF4444",
-    "CreatedAt": "2025-12-02T10:33:47.6204838+07:00",
-    "RelatedWords": [
-      "commentary"
-    ],
-    "WordCount": 1
+    "Id": "214976ac-b3d4-4811-b5f4-8394eef0b86c",
+    "Name": "huhu",
+    "Icon": "🎪",
+    "Color": "#F59E0B",
+    "CreatedAt": "2025-12-03T20:35:05.0321768+07:00",
+    "RelatedWords": [],
+    "WordCount": 0
   }
 ]

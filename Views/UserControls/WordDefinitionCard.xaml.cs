@@ -153,7 +153,7 @@ namespace BlueBerryDictionary.Views.UserControls
         {
             e.Handled = true; // Prevent card click event
             IsFavorite = !IsFavorite ;
-            if (TagService.Instance.GetWordShortened(this.Word) is WordShortened ws) 
+            if (TagService.Instance.FindWordInsensitive(this.Word) is WordShortened ws) 
             {
                 ws.isFavorited = IsFavorite ;
             }else 
