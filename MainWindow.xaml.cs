@@ -1,5 +1,4 @@
-﻿
-using BlueBerryDictionary.Services;
+﻿using BlueBerryDictionary.Services;
 using BlueBerryDictionary.ViewModels;
 using BlueBerryDictionary.Views.Pages;
 

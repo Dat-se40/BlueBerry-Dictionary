@@ -7,116 +7,116 @@
 
     <!-- Nền chính -->
     <LinearGradientBrush x:Key="LightMainBackground" StartPoint="0,0" EndPoint="1,1">
-        <GradientStop Color="#E8F1FF" Offset="0"/>
-        <GradientStop Color="#F0E8FF" Offset="0.5"/>
-        <GradientStop Color="#F5E8FF" Offset="1"/>
+        <GradientStop Color="#E8F1FF" Offset="0" />
+        <GradientStop Color="#F0E8FF" Offset="0.5" />
+        <GradientStop Color="#F5E8FF" Offset="1" />
     </LinearGradientBrush>
 
     <!-- Navbar -->
     <LinearGradientBrush x:Key="LightNavbarBackground" StartPoint="0,0" EndPoint="1,0">
-        <GradientStop Color="#1A2D6D" Offset="0"/>
-        <GradientStop Color="#2D4ACC" Offset="1"/>
+        <GradientStop Color="#1A2D6D" Offset="0" />
+        <GradientStop Color="#2D4ACC" Offset="1" />
     </LinearGradientBrush>
 
     <!-- Toolbar -->
     <LinearGradientBrush x:Key="LightToolbarBackground" StartPoint="0,0" EndPoint="1,0">
-        <GradientStop Color="#E8F1FF" Offset="0"/>
-        <GradientStop Color="#F5E8FF" Offset="1"/>
+        <GradientStop Color="#E8F1FF" Offset="0" />
+        <GradientStop Color="#F5E8FF" Offset="1" />
     </LinearGradientBrush>
 
     <!-- Sidebar -->
     <LinearGradientBrush x:Key="LightSidebarBackground" StartPoint="0,0" EndPoint="0,1">
-        <GradientStop Color="#FFFFFF" Offset="0"/>
-        <GradientStop Color="#E8F1FF" Offset="1"/>
+        <GradientStop Color="#FFFFFF" Offset="0" />
+        <GradientStop Color="#E8F1FF" Offset="1" />
     </LinearGradientBrush>
 
     <!-- Card -->
     <LinearGradientBrush x:Key="LightCardBackground" StartPoint="0,0" EndPoint="1,1">
-        <GradientStop Color="#FFFFFF" Offset="0"/>
-        <GradientStop Color="#E8F1FF" Offset="1"/>
+        <GradientStop Color="#FFFFFF" Offset="0" />
+        <GradientStop Color="#E8F1FF" Offset="1" />
     </LinearGradientBrush>
 
     <!-- Word Item -->
     <LinearGradientBrush x:Key="LightWordItemBackground" StartPoint="0,0" EndPoint="1,0">
-        <GradientStop Color="#E8F1FF" Offset="0"/>
-        <GradientStop Color="#F5E8FF" Offset="1"/>
+        <GradientStop Color="#E8F1FF" Offset="0" />
+        <GradientStop Color="#F5E8FF" Offset="1" />
     </LinearGradientBrush>
 
     <LinearGradientBrush x:Key="LightWordItemHover" StartPoint="0,0" EndPoint="1,0">
-        <GradientStop Color="#D0E4FF" Offset="0"/>
-        <GradientStop Color="#E8D4FF" Offset="1"/>
+        <GradientStop Color="#D0E4FF" Offset="0" />
+        <GradientStop Color="#E8D4FF" Offset="1" />
     </LinearGradientBrush>
-    
+
     <!-- Meaning Section -->
-    <SolidColorBrush x:Key="LightMeaningBackground" Color="#FFFFFF"/>
-    <SolidColorBrush x:Key="LightMeaningBorder" Color="#E8F1FF"/>
-    <SolidColorBrush x:Key="LightMeaningBorderLeft" Color="#2D4ACC"/>
+    <SolidColorBrush x:Key="LightMeaningBackground" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="LightMeaningBorder" Color="#E8F1FF" />
+    <SolidColorBrush x:Key="LightMeaningBorderLeft" Color="#2D4ACC" />
 
 
     <!-- Example (inside meaning) -->
     <LinearGradientBrush x:Key="LightExampleBackground" StartPoint="0,0" EndPoint="1,0">
-        <GradientStop Color="#F8FAFF" Offset="0"/>
-        <GradientStop Color="#F0F4FF" Offset="1"/>
+        <GradientStop Color="#F8FAFF" Offset="0" />
+        <GradientStop Color="#F0F4FF" Offset="1" />
     </LinearGradientBrush>
-    <SolidColorBrush x:Key="LightExampleBorder" Color="#5B7FFF"/>
+    <SolidColorBrush x:Key="LightExampleBorder" Color="#5B7FFF" />
 
     <!-- Related Section (synonyms/antonyms) -->
-    <SolidColorBrush x:Key="LightRelatedBackground" Color="#F8FAFF"/>
-    <SolidColorBrush x:Key="LightRelatedBorder" Color="#E8F1FF"/>
+    <SolidColorBrush x:Key="LightRelatedBackground" Color="#F8FAFF" />
+    <SolidColorBrush x:Key="LightRelatedBorder" Color="#E8F1FF" />
 
     <!-- Màu chữ và button -->
-    <SolidColorBrush x:Key="LightTextColor" Color="#1A2D6D"/>
-    <SolidColorBrush x:Key="LightBorderColor" Color="#5B7FFF"/>
-    <SolidColorBrush x:Key="LightButtonColor" Color="#2D4ACC"/>
-    <SolidColorBrush x:Key="LightWordBorder" Color="#2D4ACC"/>
+    <SolidColorBrush x:Key="LightTextColor" Color="#1A2D6D" />
+    <SolidColorBrush x:Key="LightBorderColor" Color="#5B7FFF" />
+    <SolidColorBrush x:Key="LightButtonColor" Color="#2D4ACC" />
+    <SolidColorBrush x:Key="LightWordBorder" Color="#2D4ACC" />
 
     <!-- Search Container -->
-    <SolidColorBrush x:Key="LightSearchBackground" Color="#FFFFFF"/>
-    <SolidColorBrush x:Key="LightSearchBorder" Color="#5B7FFF"/>
-    <SolidColorBrush x:Key="LightSearchIcon" Color="#2D4ACC"/>
-    <SolidColorBrush x:Key="LightSearchText" Color="Black"/>
-    <SolidColorBrush x:Key="LightSearchPlaceholder" Color="#94A3B8"/>
+    <SolidColorBrush x:Key="LightSearchBackground" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="LightSearchBorder" Color="#5B7FFF" />
+    <SolidColorBrush x:Key="LightSearchIcon" Color="#2D4ACC" />
+    <SolidColorBrush x:Key="LightSearchText" Color="Black" />
+    <SolidColorBrush x:Key="LightSearchPlaceholder" Color="#94A3B8" />
 
     <!-- Search Button -->
     <LinearGradientBrush x:Key="LightSearchButton" StartPoint="0,0" EndPoint="1,0">
-        <GradientStop Color="#2D4ACC" Offset="0"/>
-        <GradientStop Color="#5B7FFF" Offset="1"/>
+        <GradientStop Color="#2D4ACC" Offset="0" />
+        <GradientStop Color="#5B7FFF" Offset="1" />
     </LinearGradientBrush>
 
     <LinearGradientBrush x:Key="LightSearchButtonHover" StartPoint="0,0" EndPoint="1,0">
-        <GradientStop Color="#1A2D6D" Offset="0"/>
-        <GradientStop Color="#2D4ACC" Offset="1"/>
+        <GradientStop Color="#1A2D6D" Offset="0" />
+        <GradientStop Color="#2D4ACC" Offset="1" />
     </LinearGradientBrush>
 
     <!-- Tool Button -->
     <LinearGradientBrush x:Key="LightToolButtonActive" StartPoint="0,0" EndPoint="1,0">
-        <GradientStop Color="#2D4ACC" Offset="0"/>
-        <GradientStop Color="#5B7FFF" Offset="1"/>
+        <GradientStop Color="#2D4ACC" Offset="0" />
+        <GradientStop Color="#5B7FFF" Offset="1" />
     </LinearGradientBrush>
 
     <!-- Nav Button -->
-    <SolidColorBrush x:Key="LightNavButtonColor" Color="#FFFFFF"/>
-    <SolidColorBrush x:Key="LightNavButtonHover" Color="#40FFFFFF"/>
+    <SolidColorBrush x:Key="LightNavButtonColor" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="LightNavButtonHover" Color="#40FFFFFF" />
 
     <!-- Hamburger Button -->
-    <SolidColorBrush x:Key="LightHamburgerBackground" Color="#26FFFFFF"/>
-    <SolidColorBrush x:Key="LightHamburgerHover" Color="#40FFFFFF"/>
-    <SolidColorBrush x:Key="LightHamburgerIcon" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="LightHamburgerBackground" Color="#26FFFFFF" />
+    <SolidColorBrush x:Key="LightHamburgerHover" Color="#40FFFFFF" />
+    <SolidColorBrush x:Key="LightHamburgerIcon" Color="#FFFFFF" />
 
     <!-- Theme Toggle -->
-    <SolidColorBrush x:Key="LightThemeToggleBackground" Color="#FFFFFF"/>
-    <SolidColorBrush x:Key="LightThemeSliderBackground" Color="#5B7FFF"/>
-    <SolidColorBrush x:Key="LightThemeIconColor" Color="#2D4ACC"/>
+    <SolidColorBrush x:Key="LightThemeToggleBackground" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="LightThemeSliderBackground" Color="#5B7FFF" />
+    <SolidColorBrush x:Key="LightThemeIconColor" Color="#2D4ACC" />
 
     <!-- Toolbar Border với opacity -->
-    <SolidColorBrush x:Key="LightToolbarBorder" Color="#4D5B7FFF" Opacity="0.3"/>
+    <SolidColorBrush x:Key="LightToolbarBorder" Color="#4D5B7FFF" Opacity="0.3" />
 
     <!-- Sidebar Hover -->
     <LinearGradientBrush x:Key="LightSidebarHover" StartPoint="0,0" EndPoint="1,0">
-        <GradientStop Color="#E8F1FF" Offset="0"/>
-        <GradientStop Color="#F5E8FF" Offset="1"/>
+        <GradientStop Color="#E8F1FF" Offset="0" />
+        <GradientStop Color="#F5E8FF" Offset="1" />
     </LinearGradientBrush>
-    <SolidColorBrush x:Key="LightSidebarHoverText" Color="#1A2D6D"/>
+    <SolidColorBrush x:Key="LightSidebarHoverText" Color="#1A2D6D" />
 
 
     <!-- ================================= -->
@@ -125,102 +125,255 @@
 
     <!-- Nền chính -->
     <LinearGradientBrush x:Key="DarkMainBackground" StartPoint="0,0" EndPoint="1,1">
-        <GradientStop Color="#0D1B2A" Offset="0"/>
-        <GradientStop Color="#1B263B" Offset="1"/>
+        <GradientStop Color="#0D1B2A" Offset="0" />
+        <GradientStop Color="#1B263B" Offset="1" />
     </LinearGradientBrush>
 
     <!-- Navbar -->
     <LinearGradientBrush x:Key="DarkNavbarBackground" StartPoint="0,0" EndPoint="1,0">
-        <GradientStop Color="#1E3A5F" Offset="0"/>
-        <GradientStop Color="#2C5282" Offset="1"/>
+        <GradientStop Color="#1E3A5F" Offset="0" />
+        <GradientStop Color="#2C5282" Offset="1" />
     </LinearGradientBrush>
 
     <!-- Toolbar -->
     <LinearGradientBrush x:Key="DarkToolbarBackground" StartPoint="0,0" EndPoint="1,0">
-        <GradientStop Color="#1E293B" Offset="0"/>
-        <GradientStop Color="#334155" Offset="1"/>
+        <GradientStop Color="#1E293B" Offset="0" />
+        <GradientStop Color="#334155" Offset="1" />
     </LinearGradientBrush>
 
     <!-- Sidebar -->
     <LinearGradientBrush x:Key="DarkSidebarBackground" StartPoint="0,0" EndPoint="0,1">
-        <GradientStop Color="#1E293B" Offset="0"/>
-        <GradientStop Color="#0F172A" Offset="1"/>
+        <GradientStop Color="#1E293B" Offset="0" />
+        <GradientStop Color="#0F172A" Offset="1" />
     </LinearGradientBrush>
 
     <!-- Card -->
     <LinearGradientBrush x:Key="DarkCardBackground" StartPoint="0,0" EndPoint="1,1">
-        <GradientStop Color="#1E293B" Offset="0"/>
-        <GradientStop Color="#334155" Offset="1"/>
+        <GradientStop Color="#1E293B" Offset="0" />
+        <GradientStop Color="#334155" Offset="1" />
     </LinearGradientBrush>
 
     <!-- Word Item -->
-    <SolidColorBrush x:Key="DarkWordItemBackground" Color="#2D3748"/>
-    <SolidColorBrush x:Key="DarkWordItemHover" Color="#374151"/>
+    <SolidColorBrush x:Key="DarkWordItemBackground" Color="#2D3748" />
+    <SolidColorBrush x:Key="DarkWordItemHover" Color="#374151" />
 
     <!-- Meaning Section -->
-    <SolidColorBrush x:Key="DarkMeaningBackground" Color="#1E293B"/>
-    <SolidColorBrush x:Key="DarkMeaningBorder" Color="#334155"/>
-    <SolidColorBrush x:Key="DarkMeaningBorderLeft" Color="#3B82F6"/>
+    <SolidColorBrush x:Key="DarkMeaningBackground" Color="#1E293B" />
+    <SolidColorBrush x:Key="DarkMeaningBorder" Color="#334155" />
+    <SolidColorBrush x:Key="DarkMeaningBorderLeft" Color="#3B82F6" />
 
     <!-- Example (inside meaning) -->
-    <SolidColorBrush x:Key="DarkExampleBackground" Color="#2D3748"/>
-    <SolidColorBrush x:Key="DarkExampleBorder" Color="#60A5FA"/>
+    <SolidColorBrush x:Key="DarkExampleBackground" Color="#2D3748" />
+    <SolidColorBrush x:Key="DarkExampleBorder" Color="#60A5FA" />
 
     <!-- Related Section (synonyms/antonyms) -->
-    <SolidColorBrush x:Key="DarkRelatedBackground" Color="#2D3748"/>
-    <SolidColorBrush x:Key="DarkRelatedBorder" Color="#374151"/>
+    <SolidColorBrush x:Key="DarkRelatedBackground" Color="#2D3748" />
+    <SolidColorBrush x:Key="DarkRelatedBorder" Color="#374151" />
 
 
     <!-- Màu chữ và button -->
-    <SolidColorBrush x:Key="DarkTextColor" Color="#93C5FD"/>
-    <SolidColorBrush x:Key="DarkBorderColor" Color="#3B82F6"/>
-    <SolidColorBrush x:Key="DarkButtonColor" Color="#60A5FA"/>
-    <SolidColorBrush x:Key="DarkWordBorder" Color="#60A5FA"/>
+    <SolidColorBrush x:Key="DarkTextColor" Color="#93C5FD" />
+    <SolidColorBrush x:Key="DarkBorderColor" Color="#3B82F6" />
+    <SolidColorBrush x:Key="DarkButtonColor" Color="#60A5FA" />
+    <SolidColorBrush x:Key="DarkWordBorder" Color="#60A5FA" />
 
     <!-- Search Container -->
-    <SolidColorBrush x:Key="DarkSearchBackground" Color="#2D3748"/>
-    <SolidColorBrush x:Key="DarkSearchBorder" Color="#4A5568"/>
-    <SolidColorBrush x:Key="DarkSearchIcon" Color="#60A5FA"/>
-    <SolidColorBrush x:Key="DarkSearchText" Color="White"/>
-    <SolidColorBrush x:Key="DarkSearchPlaceholder" Color="#64748B"/>
+    <SolidColorBrush x:Key="DarkSearchBackground" Color="#2D3748" />
+    <SolidColorBrush x:Key="DarkSearchBorder" Color="#4A5568" />
+    <SolidColorBrush x:Key="DarkSearchIcon" Color="#60A5FA" />
+    <SolidColorBrush x:Key="DarkSearchText" Color="White" />
+    <SolidColorBrush x:Key="DarkSearchPlaceholder" Color="#64748B" />
 
     <!-- Search Button -->
     <LinearGradientBrush x:Key="DarkSearchButton" StartPoint="0,0" EndPoint="1,0">
-        <GradientStop Color="#3B82F6" Offset="0"/>
-        <GradientStop Color="#60A5FA" Offset="1"/>
+        <GradientStop Color="#3B82F6" Offset="0" />
+        <GradientStop Color="#60A5FA" Offset="1" />
     </LinearGradientBrush>
 
     <LinearGradientBrush x:Key="DarkSearchButtonHover" StartPoint="0,0" EndPoint="1,0">
-        <GradientStop Color="#2563EB" Offset="0"/>
-        <GradientStop Color="#3B82F6" Offset="1"/>
+        <GradientStop Color="#2563EB" Offset="0" />
+        <GradientStop Color="#3B82F6" Offset="1" />
     </LinearGradientBrush>
 
     <!-- Tool Button -->
     <LinearGradientBrush x:Key="DarkToolButtonActive" StartPoint="0,0" EndPoint="1,0">
-        <GradientStop Color="#3B82F6" Offset="0"/>
-        <GradientStop Color="#60A5FA" Offset="1"/>
+        <GradientStop Color="#3B82F6" Offset="0" />
+        <GradientStop Color="#60A5FA" Offset="1" />
     </LinearGradientBrush>
 
     <!-- Nav Button -->
-    <SolidColorBrush x:Key="DarkNavButtonColor" Color="#93C5FD"/>
-    <SolidColorBrush x:Key="DarkNavButtonHover" Color="#2693C5FD"/>
+    <SolidColorBrush x:Key="DarkNavButtonColor" Color="#93C5FD" />
+    <SolidColorBrush x:Key="DarkNavButtonHover" Color="#2693C5FD" />
 
     <!-- Hamburger Button -->
-    <SolidColorBrush x:Key="DarkHamburgerBackground" Color="#1AFFFFFF"/>
-    <SolidColorBrush x:Key="DarkHamburgerHover" Color="#33FFFFFF"/>
-    <SolidColorBrush x:Key="DarkHamburgerIcon" Color="#93C5FD"/>
+    <SolidColorBrush x:Key="DarkHamburgerBackground" Color="#1AFFFFFF" />
+    <SolidColorBrush x:Key="DarkHamburgerHover" Color="#33FFFFFF" />
+    <SolidColorBrush x:Key="DarkHamburgerIcon" Color="#93C5FD" />
 
     <!-- Theme Toggle -->
-    <SolidColorBrush x:Key="DarkThemeToggleBackground" Color="#2D3748"/>
-    <SolidColorBrush x:Key="DarkThemeSliderBackground" Color="#3B82F6"/>
-    <SolidColorBrush x:Key="DarkThemeIconColor" Color="#60A5FA"/>
+    <SolidColorBrush x:Key="DarkThemeToggleBackground" Color="#2D3748" />
+    <SolidColorBrush x:Key="DarkThemeSliderBackground" Color="#3B82F6" />
+    <SolidColorBrush x:Key="DarkThemeIconColor" Color="#60A5FA" />
 
     <!-- Toolbar Border với opacity -->
-    <SolidColorBrush x:Key="DarkToolbarBorder" Color="#4D3B82F6" Opacity="0.3"/>
+    <SolidColorBrush x:Key="DarkToolbarBorder" Color="#4D3B82F6" Opacity="0.3" />
 
     <!-- Sidebar Hover -->
-    <SolidColorBrush x:Key="DarkSidebarHover" Color="#334155"/>
-    <SolidColorBrush x:Key="DarkSidebarHoverText" Color="#93C5FD"/>
+    <SolidColorBrush x:Key="DarkSidebarHover" Color="#334155" />
+    <SolidColorBrush x:Key="DarkSidebarHoverText" Color="#93C5FD" />
+
+    <!-- ~1~ ================================= @1@ -->
+    <!-- ~1~ DARK MODE COLORS - OPTION -->
+    <!-- ~1~ ================================= @1@ -->
+    <!-- -->
+    <!-- ~1~ Nền chính - ĐEN HẲNG @1@ -->
+    <!-- <SolidColorBrush x:Key="DarkMainBackground" Color="#000000" /> -->
+    <!-- -->
+    <!-- ~1~ Navbar - Đen với gradient nhẹ @1@ -->
+    <!-- <LinearGradientBrush x:Key="DarkNavbarBackground" StartPoint="0,0" EndPoint="1,0"> -->
+    <!--     <GradientStop Color="#0A0A0A" Offset="0" /> -->
+    <!--     <GradientStop Color="#1A1A1A" Offset="1" /> -->
+    <!-- </LinearGradientBrush> -->
+    <!-- -->
+    <!-- ~1~ Toolbar - Đen xám nhẹ @1@ -->
+    <!-- <LinearGradientBrush x:Key="DarkToolbarBackground" StartPoint="0,0" EndPoint="1,0"> -->
+    <!--     <GradientStop Color="#0A0A0A" Offset="0" /> -->
+    <!--     <GradientStop Color="#1A1A1A" Offset="1" /> -->
+    <!-- </LinearGradientBrush> -->
+    <!-- -->
+    <!-- ~1~ Sidebar - Đen gradient @1@ -->
+    <!-- <LinearGradientBrush x:Key="DarkSidebarBackground" StartPoint="0,0" EndPoint="0,1"> -->
+    <!--     <GradientStop Color="#0A0A0A" Offset="0" /> -->
+    <!--     <GradientStop Color="#000000" Offset="1" /> -->
+    <!-- </LinearGradientBrush> -->
+    <!-- -->
+    <!-- ~1~ Card - Xám đen nhẹ @1@ -->
+    <!-- <SolidColorBrush x:Key="DarkCardBackground" Color="#111827" /> -->
+    <!-- -->
+    <!-- ~1~ Word Item @1@ -->
+    <!-- <SolidColorBrush x:Key="DarkWordItemBackground" Color="#111827" /> -->
+    <!-- <SolidColorBrush x:Key="DarkWordItemHover" Color="#1F2937" /> -->
+    <!-- -->
+    <!-- ~1~ Meaning Section @1@ -->
+    <!-- <SolidColorBrush x:Key="DarkMeaningBackground" Color="#111827" /> -->
+    <!-- <SolidColorBrush x:Key="DarkMeaningBorder" Color="#1F2937" /> -->
+    <!-- -->
+    <!-- ~1~ Border Left dùng gradient pastel @1@ -->
+    <!-- <LinearGradientBrush x:Key="DarkMeaningBorderLeft" StartPoint="0,0" EndPoint="0,1"> -->
+    <!--     <GradientStop Color="#E8F1FF" Offset="0" /> -->
+    <!--     <GradientStop Color="#F0E8FF" Offset="0.5" /> -->
+    <!--     <GradientStop Color="#F5E8FF" Offset="1" /> -->
+    <!-- </LinearGradientBrush> -->
+    <!-- -->
+    <!-- ~1~ Example (inside meaning) @1@ -->
+    <!-- <SolidColorBrush x:Key="DarkExampleBackground" Color="#0A0A0A" /> -->
+    <!-- -->
+    <!-- ~1~ Border dùng gradient pastel nhạt @1@ -->
+    <!-- <LinearGradientBrush x:Key="DarkExampleBorder" StartPoint="0,0" EndPoint="1,0"> -->
+    <!--     <GradientStop Color="#E8F1FF" Offset="0" /> -->
+    <!--     <GradientStop Color="#F0E8FF" Offset="0.5" /> -->
+    <!--     <GradientStop Color="#F5E8FF" Offset="1" /> -->
+    <!-- </LinearGradientBrush> -->
+    <!-- -->
+    <!-- ~1~ Related Section @1@ -->
+    <!-- <SolidColorBrush x:Key="DarkRelatedBackground" Color="#0A0A0A" /> -->
+    <!-- <SolidColorBrush x:Key="DarkRelatedBorder" Color="#1F2937" /> -->
+    <!-- -->
+    <!-- ~1~ TEXT COLORS - Dùng gradient pastel @1@ -->
+    <!-- ~1~ Cho heading/important text @1@ -->
+    <!-- <LinearGradientBrush x:Key="DarkTextColor" StartPoint="0,0" EndPoint="1,0"> -->
+    <!--     <GradientStop Color="#E8F1FF" Offset="0" /> -->
+    <!--     <GradientStop Color="#F0E8FF" Offset="0.5" /> -->
+    <!--     <GradientStop Color="#F5E8FF" Offset="1" /> -->
+    <!-- </LinearGradientBrush> -->
+    <!-- -->
+    <!-- ~1~ Border Color - gradient @1@ -->
+    <!-- <LinearGradientBrush x:Key="DarkBorderColor" StartPoint="0,0" EndPoint="1,0"> -->
+    <!--     <GradientStop Color="#E8F1FF" Offset="0" /> -->
+    <!--     <GradientStop Color="#F0E8FF" Offset="0.5" /> -->
+    <!--     <GradientStop Color="#F5E8FF" Offset="1" /> -->
+    <!-- </LinearGradientBrush> -->
+    <!-- -->
+    <!-- ~1~ Button Color - gradient @1@ -->
+    <!-- <LinearGradientBrush x:Key="DarkButtonColor" StartPoint="0,0" EndPoint="1,0"> -->
+    <!--     <GradientStop Color="#E8F1FF" Offset="0" /> -->
+    <!--     <GradientStop Color="#F0E8FF" Offset="0.5" /> -->
+    <!--     <GradientStop Color="#F5E8FF" Offset="1" /> -->
+    <!-- </LinearGradientBrush> -->
+    <!-- -->
+    <!-- ~1~ Word Border - gradient @1@ -->
+    <!-- <LinearGradientBrush x:Key="DarkWordBorder" StartPoint="0,0" EndPoint="1,0"> -->
+    <!--     <GradientStop Color="#E8F1FF" Offset="0" /> -->
+    <!--     <GradientStop Color="#F0E8FF" Offset="0.5" /> -->
+    <!--     <GradientStop Color="#F5E8FF" Offset="1" /> -->
+    <!-- </LinearGradientBrush> -->
+    <!-- -->
+    <!-- ~1~ Search Container @1@ -->
+    <!-- <SolidColorBrush x:Key="DarkSearchBackground" Color="#111827" /> -->
+    <!-- <SolidColorBrush x:Key="DarkSearchBorder" Color="#1F2937" /> -->
+    <!-- -->
+    <!-- ~1~ Search Icon - gradient @1@ -->
+    <!-- <LinearGradientBrush x:Key="DarkSearchIcon" StartPoint="0,0" EndPoint="1,0"> -->
+    <!--     <GradientStop Color="#E8F1FF" Offset="0" /> -->
+    <!--     <GradientStop Color="#F0E8FF" Offset="0.5" /> -->
+    <!--     <GradientStop Color="#F5E8FF" Offset="1" /> -->
+    <!-- </LinearGradientBrush> -->
+    <!-- -->
+    <!-- <SolidColorBrush x:Key="DarkSearchText" Color="White" /> -->
+    <!-- <SolidColorBrush x:Key="DarkSearchPlaceholder" Color="#6B7280" /> -->
+    <!-- -->
+    <!-- ~1~ Search Button - gradient pastel @1@ -->
+    <!-- <LinearGradientBrush x:Key="DarkSearchButton" StartPoint="0,0" EndPoint="1,0"> -->
+    <!--     <GradientStop Color="#E8F1FF" Offset="0" /> -->
+    <!--     <GradientStop Color="#F0E8FF" Offset="0.5" /> -->
+    <!--     <GradientStop Color="#F5E8FF" Offset="1" /> -->
+    <!-- </LinearGradientBrush> -->
+    <!-- -->
+    <!-- <LinearGradientBrush x:Key="DarkSearchButtonHover" StartPoint="0,0" EndPoint="1,0"> -->
+    <!--     <GradientStop Color="#D0E4FF" Offset="0" /> -->
+    <!--     <GradientStop Color="#E0D4FF" Offset="0.5" /> -->
+    <!--     <GradientStop Color="#E8D4FF" Offset="1" /> -->
+    <!-- </LinearGradientBrush> -->
+    <!-- -->
+    <!-- ~1~ Tool Button Active - gradient pastel @1@ -->
+    <!-- <LinearGradientBrush x:Key="DarkToolButtonActive" StartPoint="0,0" EndPoint="1,0"> -->
+    <!--     <GradientStop Color="#E8F1FF" Offset="0" /> -->
+    <!--     <GradientStop Color="#F0E8FF" Offset="0.5" /> -->
+    <!--     <GradientStop Color="#F5E8FF" Offset="1" /> -->
+    <!-- </LinearGradientBrush> -->
+    <!-- -->
+    <!-- ~1~ Nav Button - màu pastel nhạt @1@ -->
+    <!-- <SolidColorBrush x:Key="DarkNavButtonColor" Color="#E8F1FF" /> -->
+    <!-- <SolidColorBrush x:Key="DarkNavButtonHover" Color="#40E8F1FF" /> -->
+    <!-- -->
+    <!-- ~1~ Hamburger Button @1@ -->
+    <!-- <SolidColorBrush x:Key="DarkHamburgerBackground" Color="#1A111827" /> -->
+    <!-- <SolidColorBrush x:Key="DarkHamburgerHover" Color="#33111827" /> -->
+    <!-- <SolidColorBrush x:Key="DarkHamburgerIcon" Color="#E8F1FF" /> -->
+    <!-- -->
+    <!-- ~1~ Theme Toggle @1@ -->
+    <!-- <SolidColorBrush x:Key="DarkThemeToggleBackground" Color="#111827" /> -->
+    <!-- -->
+    <!-- ~1~ Slider dùng gradient @1@ -->
+    <!-- <LinearGradientBrush x:Key="DarkThemeSliderBackground" StartPoint="0,0" EndPoint="1,0"> -->
+    <!--     <GradientStop Color="#E8F1FF" Offset="0" /> -->
+    <!--     <GradientStop Color="#F0E8FF" Offset="0.5" /> -->
+    <!--     <GradientStop Color="#F5E8FF" Offset="1" /> -->
+    <!-- </LinearGradientBrush> -->
+    <!-- -->
+    <!-- ~1~ Icon dùng gradient @1@ -->
+    <!-- <LinearGradientBrush x:Key="DarkThemeIconColor" StartPoint="0,0" EndPoint="1,0"> -->
+    <!--     <GradientStop Color="#E8F1FF" Offset="0" /> -->
+    <!--     <GradientStop Color="#F0E8FF" Offset="0.5" /> -->
+    <!--     <GradientStop Color="#F5E8FF" Offset="1" /> -->
+    <!-- </LinearGradientBrush> -->
+    <!-- -->
+    <!-- ~1~ Toolbar Border với opacity @1@ -->
+    <!-- <SolidColorBrush x:Key="DarkToolbarBorder" Color="#4DE8F1FF" Opacity="0.2" /> -->
+    <!-- -->
+    <!-- ~1~ Sidebar Hover @1@ -->
+    <!-- <SolidColorBrush x:Key="DarkSidebarHover" Color="#1F2937" /> -->
+    <!-- <SolidColorBrush x:Key="DarkSidebarHoverText" Color="#E8F1FF" /> -->
 
 
     <!-- ================================= -->
@@ -228,100 +381,100 @@
     <!-- ================================= -->
 
     <LinearGradientBrush x:Key="MainBackground" StartPoint="0,0" EndPoint="1,1">
-        <GradientStop Color="#E8F1FF" Offset="0"/>
-        <GradientStop Color="#F0E8FF" Offset="0.5"/>
-        <GradientStop Color="#F5E8FF" Offset="1"/>
+        <GradientStop Color="#E8F1FF" Offset="0" />
+        <GradientStop Color="#F0E8FF" Offset="0.5" />
+        <GradientStop Color="#F5E8FF" Offset="1" />
     </LinearGradientBrush>
 
     <LinearGradientBrush x:Key="NavbarBackground" StartPoint="0,0" EndPoint="1,0">
-        <GradientStop Color="#1A2D6D" Offset="0"/>
-        <GradientStop Color="#2D4ACC" Offset="1"/>
+        <GradientStop Color="#1A2D6D" Offset="0" />
+        <GradientStop Color="#2D4ACC" Offset="1" />
     </LinearGradientBrush>
 
     <LinearGradientBrush x:Key="ToolbarBackground" StartPoint="0,0" EndPoint="1,0">
-        <GradientStop Color="#E8F1FF" Offset="0"/>
-        <GradientStop Color="#F5E8FF" Offset="1"/>
+        <GradientStop Color="#E8F1FF" Offset="0" />
+        <GradientStop Color="#F5E8FF" Offset="1" />
     </LinearGradientBrush>
 
     <LinearGradientBrush x:Key="SidebarBackground" StartPoint="0,0" EndPoint="0,1">
-        <GradientStop Color="#FFFFFF" Offset="0"/>
-        <GradientStop Color="#E8F1FF" Offset="1"/>
+        <GradientStop Color="#FFFFFF" Offset="0" />
+        <GradientStop Color="#E8F1FF" Offset="1" />
     </LinearGradientBrush>
 
     <LinearGradientBrush x:Key="CardBackground" StartPoint="0,0" EndPoint="1,1">
-        <GradientStop Color="#FFFFFF" Offset="0"/>
-        <GradientStop Color="#E8F1FF" Offset="1"/>
+        <GradientStop Color="#FFFFFF" Offset="0" />
+        <GradientStop Color="#E8F1FF" Offset="1" />
     </LinearGradientBrush>
 
     <LinearGradientBrush x:Key="WordItemBackground" StartPoint="0,0" EndPoint="1,0">
-        <GradientStop Color="#E8F1FF" Offset="0"/>
-        <GradientStop Color="#F5E8FF" Offset="1"/>
+        <GradientStop Color="#E8F1FF" Offset="0" />
+        <GradientStop Color="#F5E8FF" Offset="1" />
     </LinearGradientBrush>
 
     <LinearGradientBrush x:Key="WordItemHover" StartPoint="0,0" EndPoint="1,0">
-        <GradientStop Color="#D0E4FF" Offset="0"/>
-        <GradientStop Color="#E8D4FF" Offset="1"/>
+        <GradientStop Color="#D0E4FF" Offset="0" />
+        <GradientStop Color="#E8D4FF" Offset="1" />
     </LinearGradientBrush>
-    
+
     <!-- Meaning Section -->
-    <SolidColorBrush x:Key="MeaningBackground" Color="#FFFFFF"/>
-    <SolidColorBrush x:Key="MeaningBorder" Color="#E8F1FF"/>
-    <SolidColorBrush x:Key="MeaningBorderLeft" Color="#2D4ACC"/>
+    <SolidColorBrush x:Key="MeaningBackground" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="MeaningBorder" Color="#E8F1FF" />
+    <SolidColorBrush x:Key="MeaningBorderLeft" Color="#2D4ACC" />
     <!-- Example (inside meaning) -->
     <LinearGradientBrush x:Key="ExampleBackground" StartPoint="0,0" EndPoint="1,0">
-        <GradientStop Color="#F8FAFF" Offset="0"/>
-        <GradientStop Color="#F0F4FF" Offset="1"/>
+        <GradientStop Color="#F8FAFF" Offset="0" />
+        <GradientStop Color="#F0F4FF" Offset="1" />
     </LinearGradientBrush>
-    <SolidColorBrush x:Key="ExampleBorder" Color="#5B7FFF"/>
+    <SolidColorBrush x:Key="ExampleBorder" Color="#5B7FFF" />
 
     <!-- Related Section (synonyms/antonyms) -->
-    <SolidColorBrush x:Key="RelatedBackground" Color="#F8FAFF"/>
-    <SolidColorBrush x:Key="RelatedBorder" Color="#E8F1FF"/>
+    <SolidColorBrush x:Key="RelatedBackground" Color="#F8FAFF" />
+    <SolidColorBrush x:Key="RelatedBorder" Color="#E8F1FF" />
 
 
-    <SolidColorBrush x:Key="TextColor" Color="#1A2D6D"/>
-    <SolidColorBrush x:Key="BorderColor" Color="#5B7FFF"/>
-    <SolidColorBrush x:Key="ButtonColor" Color="#2D4ACC"/>
-    <SolidColorBrush x:Key="WordBorder" Color="#2D4ACC"/>
-    <SolidColorBrush x:Key="SearchBackground" Color="#FFFFFF"/>
-    <SolidColorBrush x:Key="SearchBorder" Color="#5B7FFF"/>
-    <SolidColorBrush x:Key="SearchIcon" Color="#2D4ACC"/>
-    <SolidColorBrush x:Key="SearchText" Color="Black"/>
-    <SolidColorBrush x:Key="SearchPlaceholder" Color="#94A3B8"/>
+    <SolidColorBrush x:Key="TextColor" Color="#1A2D6D" />
+    <SolidColorBrush x:Key="BorderColor" Color="#5B7FFF" />
+    <SolidColorBrush x:Key="ButtonColor" Color="#2D4ACC" />
+    <SolidColorBrush x:Key="WordBorder" Color="#2D4ACC" />
+    <SolidColorBrush x:Key="SearchBackground" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="SearchBorder" Color="#5B7FFF" />
+    <SolidColorBrush x:Key="SearchIcon" Color="#2D4ACC" />
+    <SolidColorBrush x:Key="SearchText" Color="Black" />
+    <SolidColorBrush x:Key="SearchPlaceholder" Color="#94A3B8" />
 
     <LinearGradientBrush x:Key="SearchButton" StartPoint="0,0" EndPoint="1,0">
-        <GradientStop Color="#2D4ACC" Offset="0"/>
-        <GradientStop Color="#5B7FFF" Offset="1"/>
+        <GradientStop Color="#2D4ACC" Offset="0" />
+        <GradientStop Color="#5B7FFF" Offset="1" />
     </LinearGradientBrush>
 
     <LinearGradientBrush x:Key="SearchButtonHover" StartPoint="0,0" EndPoint="1,0">
-        <GradientStop Color="#1A2D6D" Offset="0"/>
-        <GradientStop Color="#2D4ACC" Offset="1"/>
+        <GradientStop Color="#1A2D6D" Offset="0" />
+        <GradientStop Color="#2D4ACC" Offset="1" />
     </LinearGradientBrush>
 
     <LinearGradientBrush x:Key="ToolButtonActive" StartPoint="0,0" EndPoint="1,0">
-        <GradientStop Color="#2D4ACC" Offset="0"/>
-        <GradientStop Color="#5B7FFF" Offset="1"/>
+        <GradientStop Color="#2D4ACC" Offset="0" />
+        <GradientStop Color="#5B7FFF" Offset="1" />
     </LinearGradientBrush>
 
-    <SolidColorBrush x:Key="NavButtonColor" Color="#FFFFFF"/>
-    <SolidColorBrush x:Key="NavButtonHover" Color="#40FFFFFF"/>
-    <SolidColorBrush x:Key="HamburgerBackground" Color="#26FFFFFF"/>
-    <SolidColorBrush x:Key="HamburgerHover" Color="#40FFFFFF"/>
-    <SolidColorBrush x:Key="HamburgerIcon" Color="#FFFFFF"/>
-    <SolidColorBrush x:Key="ThemeToggleBackground" Color="#FFFFFF"/>
-    <SolidColorBrush x:Key="ThemeSliderBackground" Color="#5B7FFF"/>
-    <SolidColorBrush x:Key="ThemeIconColor" Color="#2D4ACC"/>
+    <SolidColorBrush x:Key="NavButtonColor" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="NavButtonHover" Color="#40FFFFFF" />
+    <SolidColorBrush x:Key="HamburgerBackground" Color="#26FFFFFF" />
+    <SolidColorBrush x:Key="HamburgerHover" Color="#40FFFFFF" />
+    <SolidColorBrush x:Key="HamburgerIcon" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="ThemeToggleBackground" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="ThemeSliderBackground" Color="#5B7FFF" />
+    <SolidColorBrush x:Key="ThemeIconColor" Color="#2D4ACC" />
 
     <!-- Toolbar Border -->
-    <SolidColorBrush x:Key="ToolbarBorder" Color="#4D5B7FFF" Opacity="0.3"/>
+    <SolidColorBrush x:Key="ToolbarBorder" Color="#4D5B7FFF" Opacity="0.3" />
 
     <!-- Sidebar Hover -->
     <LinearGradientBrush x:Key="SidebarHover" StartPoint="0,0" EndPoint="1,0">
-        <GradientStop Color="#E8F1FF" Offset="0"/>
-        <GradientStop Color="#F5E8FF" Offset="1"/>
+        <GradientStop Color="#E8F1FF" Offset="0" />
+        <GradientStop Color="#F5E8FF" Offset="1" />
     </LinearGradientBrush>
-    <SolidColorBrush x:Key="SidebarHoverText" Color="#1A2D6D"/>
+    <SolidColorBrush x:Key="SidebarHoverText" Color="#1A2D6D" />
 
 
     <!-- ================================= -->
@@ -331,12 +484,12 @@
                       BlurRadius="10"
                       ShadowDepth="2"
                       Opacity="0.2"
-                      Color="Black"/>
+                      Color="Black" />
 
     <DropShadowEffect x:Key="SidebarShadow"
                       BlurRadius="10"
                       ShadowDepth="2"
                       Opacity="0.3"
-                      Color="Black"/>
+                      Color="Black" />
 
 </ResourceDictionary>

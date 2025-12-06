@@ -1,4 +1,4 @@
-﻿using BlueBerryDictionary.Data;
+using BlueBerryDictionary.Data;
 using BlueBerryDictionary.Models;
 using BlueBerryDictionary.Services;
 using System.IO;
