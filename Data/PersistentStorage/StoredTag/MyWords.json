@@ -1,6 +1,7 @@
 [
   {
     "isFavorited": true,
+    "note": "fgafdgsdgsf",
     "Word": "hi",
     "Phonetic": "ˈhī(-ē)",
     "PartOfSpeech": "interjection",
@@ -16,6 +17,7 @@
   },
   {
     "isFavorited": false,
+    "note": null,
     "Word": "much",
     "Phonetic": "ˈməch",
     "PartOfSpeech": "adjective",
@@ -459,6 +461,7 @@
   },
   {
     "isFavorited": false,
+    "note": null,
     "Word": "earthshaking",
     "Phonetic": "ˈərth-ˌshā-kiŋ",
     "PartOfSpeech": "adjective",
@@ -505,6 +508,7 @@
   },
   {
     "isFavorited": true,
+    "note": null,
     "Word": "inconsequential",
     "Phonetic": "(ˌ)in-ˌkän(t)-sə-ˈkwen(t)-shəl",
     "PartOfSpeech": "adjective",
@@ -586,6 +590,7 @@
   },
   {
     "isFavorited": true,
+    "note": "Love love love",
     "Word": "sorry",
     "Phonetic": "ˈsär-ē",
     "PartOfSpeech": "adjective",
@@ -720,7 +725,10 @@
       "sunny",
       "upbeat"
     ],
-    "Tags": [],
+    "Tags": [
+      "ef39ecb0-7b7d-491d-b1ea-1e3b34183c1f",
+      "d161081e-3474-4b9d-9063-f03c78875591"
+    ],
     "AddedAt": "2025-12-03T15:29:35.4197598+07:00",
     "ViewCount": 0,
     "MeaningIndex": 0,

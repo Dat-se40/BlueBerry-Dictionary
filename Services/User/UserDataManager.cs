@@ -1,4 +1,5 @@
 ﻿using BlueBerryDictionary.Models;
+using BlueBerryDictionary.Services.Network;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Linq;
 using System.Windows.Shapes;
 using Path = System.IO.Path;
 
-namespace BlueBerryDictionary.Services
+namespace BlueBerryDictionary.Services.User
 {
     /// <summary>
     /// Quản lý paths và data theo từng user (Singleton)
@@ -31,7 +32,7 @@ namespace BlueBerryDictionary.Services
         private UserDataManager()
         {
             var baseDir = AppDomain.CurrentDomain.BaseDirectory;
-            _baseDataPath = System.IO.Path.GetFullPath(
+            _baseDataPath = Path.GetFullPath(
                  Path.Combine(baseDir, @"..\..\..\Data\PersistentStorage\Users")
             );
 

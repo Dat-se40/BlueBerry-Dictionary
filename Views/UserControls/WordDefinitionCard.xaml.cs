@@ -126,6 +126,7 @@ namespace BlueBerryDictionary.Views.UserControls
                 this.Definition = mainWord.meanings[0].definitions[0].definition;
                 this._mainWord = WordShortened.FromWord(mainWord);  
             }
+            HandleExampleAndNote();
         }
         public WordDefinitionCard(WordShortened mainWord) 
         {
@@ -144,6 +145,7 @@ namespace BlueBerryDictionary.Views.UserControls
                 this.IsFavorite = mainWord.isFavorited; 
                 this._mainWord = mainWord;
             }
+            HandleExampleAndNote(); 
         }
         public WordDefinitionCard() 
         {
@@ -195,6 +197,7 @@ namespace BlueBerryDictionary.Views.UserControls
                 btnFav.ClearValue(Button.ForegroundProperty);
                 btnFav.SetResourceReference(Button.StyleProperty, "CardActionButton");
             }
+
         }
 
         private async void btnSave_Click(object sender, RoutedEventArgs e)
@@ -218,6 +221,12 @@ namespace BlueBerryDictionary.Views.UserControls
 
             }
         }
-
+        private void HandleExampleAndNote() 
+        {
+            if(Example1 == null && Example1 == string.Empty )
+            {
+                Example1 = _mainWord.note; 
+            }
+        }
     }
 }

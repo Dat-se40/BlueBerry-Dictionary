@@ -1,5 +1,5 @@
 ﻿using BlueBerryDictionary.ApiClient.Configuration;
-using BlueBerryDictionary.Models;
+using BlueBerryDictionary.Services.User;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Auth.OAuth2.Flows;
 using Google.Apis.Auth.OAuth2.Responses;
@@ -10,7 +10,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace BlueBerryDictionary.Services
+namespace BlueBerryDictionary.Services.Network
 {
     /// <summary>
     /// Google OAuth Authentication Service (Singleton)

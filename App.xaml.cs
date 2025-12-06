@@ -1,4 +1,4 @@
-﻿using BlueBerryDictionary.Services;
+﻿using BlueBerryDictionary.Services.Network;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
