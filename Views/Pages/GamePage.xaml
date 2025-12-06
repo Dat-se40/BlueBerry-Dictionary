@@ -121,14 +121,48 @@
             </Style.Triggers>
         </Style>
 
-        <!-- Flip Animation -->
-        <Storyboard x:Key="FlipToBackAnimation">
-            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
-                             From="1" To="0" Duration="0:0:0.3" />
+        <!-- Flip to Back - Phase 1: Scale down to 0 -->
+        <Storyboard x:Key="FlipToBackPhase1" Completed="FlipToBackPhase1_Completed">
+            <DoubleAnimation Storyboard.TargetName="FlipTransform"
+                             Storyboard.TargetProperty="ScaleX"
+                             From="1" To="0" Duration="0:0:0.2"
+                             AccelerationRatio="0.5" />
+            <DoubleAnimation Storyboard.TargetName="CardFront"
+                             Storyboard.TargetProperty="Opacity"
+                             From="1" To="0" Duration="0:0:0.2" />
         </Storyboard>
-        <Storyboard x:Key="FlipToFrontAnimation">
-            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
-                             From="0" To="1" Duration="0:0:0.3" />
+
+        <!-- Flip to Back - Phase 2: Scale up from 0 -->
+        <Storyboard x:Key="FlipToBackPhase2" Completed="AnimationCompleted">
+            <DoubleAnimation Storyboard.TargetName="FlipTransform"
+                             Storyboard.TargetProperty="ScaleX"
+                             From="0" To="1" Duration="0:0:0.2"
+                             DecelerationRatio="0.5" />
+            <DoubleAnimation Storyboard.TargetName="CardBack"
+                             Storyboard.TargetProperty="Opacity"
+                             From="0" To="1" Duration="0:0:0.2" />
+        </Storyboard>
+
+        <!-- Flip to Front - Phase 1: Scale down to 0 -->
+        <Storyboard x:Key="FlipToFrontPhase1" Completed="FlipToFrontPhase1_Completed">
+            <DoubleAnimation Storyboard.TargetName="FlipTransform"
+                             Storyboard.TargetProperty="ScaleX"
+                             From="1" To="0" Duration="0:0:0.2"
+                             AccelerationRatio="0.5" />
+            <DoubleAnimation Storyboard.TargetName="CardBack"
+                             Storyboard.TargetProperty="Opacity"
+                             From="1" To="0" Duration="0:0:0.2" />
+        </Storyboard>
+
+        <!-- Flip to Front - Phase 2: Scale up from 0 -->
+        <Storyboard x:Key="FlipToFrontPhase2" Completed="AnimationCompleted">
+            <DoubleAnimation Storyboard.TargetName="FlipTransform"
+                             Storyboard.TargetProperty="ScaleX"
+                             From="0" To="1" Duration="0:0:0.2"
+                             DecelerationRatio="0.5" />
+            <DoubleAnimation Storyboard.TargetName="CardFront"
+                             Storyboard.TargetProperty="Opacity"
+                             From="0" To="1" Duration="0:0:0.2" />
         </Storyboard>
 
         <Style x:Key="PopupItemStyle" TargetType="Button">
@@ -416,14 +450,19 @@
                             <DropShadowEffect BlurRadius="20" ShadowDepth="5" Opacity="0.3" />
                         </Border.Effect>
                         <Border.RenderTransform>
-                            <ScaleTransform x:Name="FlipTransform" ScaleX="1" ScaleY="1" />
+                            <TransformGroup>
+                                <ScaleTransform x:Name="FlipTransform" ScaleX="1" ScaleY="1" CenterX="350"
+                                                CenterY="225" />
+                            </TransformGroup>
                         </Border.RenderTransform>
+
                         <Grid>
                             <!-- Front Side -->
                             <StackPanel x:Name="CardFront"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
-                                        Margin="50">
+                                        Margin="50"
+                                        Opacity="1">
                                 <TextBlock x:Name="TxtWord"
                                            Text="Achievement"
                                            FontSize="48"
@@ -460,6 +499,7 @@
                             <!-- Back Side -->
                             <StackPanel x:Name="CardBack"
                                         Visibility="Collapsed"
+                                        Opacity="0"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
                                         Margin="50">
@@ -557,131 +597,131 @@
             <!-- Completion Container -->
             <Grid Grid.Row="1" x:Name="CompletionContainer" Visibility="Collapsed">
                 <ScrollViewer>
-                <Border Background="{DynamicResource CardBackground}"
-                        BorderBrush="{DynamicResource ToolButtonActive}"
-                        BorderThickness="2"
-                        CornerRadius="25"
-                        Padding="30"
-                        MaxWidth="1000"
-                        VerticalAlignment="Center"
-                        HorizontalAlignment="Stretch"
-                        Margin="10">
-                    <StackPanel>
-                        <TextBlock Text="🎉 Completed!"
-                                   FontSize="36"
-                                   FontWeight="Bold"
-                                   Foreground="{DynamicResource TextColor}"
-                                   HorizontalAlignment="Center"
-                                   Margin="0,-10,0,20" />
-                    
-                        <!-- Percentage Circle -->
-                        <Border Width="150" Height="150"
-                                BorderBrush="{DynamicResource ToolButtonActive}"
-                                BorderThickness="8"
-                                CornerRadius="100"
-                                Margin="0,0,0,30">
-                            <StackPanel VerticalAlignment="Center">
-                                <TextBlock x:Name="TxtPercentage"
-                                           Text="85%"
-                                           FontSize="48"
-                                           FontWeight="Bold"
-                                           Foreground="{DynamicResource TextColor}"
-                                           HorizontalAlignment="Center" />
-                                <TextBlock Text="Known"
-                                           FontSize="16"
-                                           Foreground="{DynamicResource TextColor}"
-                                           Opacity="0.7"
-                                           HorizontalAlignment="Center" />
-                            </StackPanel>
-                        </Border>
-                    
-                        <!-- Summary Stats -->
-                        <Border Background="{DynamicResource SearchBackground}"
-                                BorderBrush="{DynamicResource BorderColor}"
-                                BorderThickness="2"
-                                CornerRadius="15"
-                                Padding="25"
-                                Margin="0,0,0,30">
-                            <StackPanel>
-                                <TextBlock Text="📊 Study Summary"
-                                           FontSize="18"
-                                           FontWeight="Bold"
-                                           Foreground="{DynamicResource TextColor}"
-                                           Margin="0,0,0,20" />
-                    
-                                <Grid Margin="0,0,0,12">
-                                    <TextBlock Text="✅ Known"
-                                               Foreground="{DynamicResource TextColor}"
-                                               Opacity="0.7" />
-                                    <TextBlock x:Name="TxtKnownCount"
-                                               Text="85 cards (85%)"
-                                               FontWeight="Bold"
-                                               Foreground="#10b981"
-                                               HorizontalAlignment="Right" />
-                                </Grid>
-                    
-                                <Grid Margin="0,0,0,12">
-                                    <TextBlock Text="❌ Unknown"
-                                               Foreground="{DynamicResource TextColor}"
-                                               Opacity="0.7" />
-                                    <TextBlock x:Name="TxtUnknownCount"
-                                               Text="15 cards (15%)"
-                                               FontWeight="Bold"
-                                               Foreground="#dc2626"
-                                               HorizontalAlignment="Right" />
-                                </Grid>
-                    
-                                <Grid>
-                                    <TextBlock Text="📝 Total"
-                                               Foreground="{DynamicResource TextColor}"
-                                               Opacity="0.7" />
-                                    <TextBlock x:Name="TxtTotalCount"
-                                               Text="100 cards"
+                    <Border Background="{DynamicResource CardBackground}"
+                            BorderBrush="{DynamicResource ToolButtonActive}"
+                            BorderThickness="2"
+                            CornerRadius="25"
+                            Padding="30"
+                            MaxWidth="1000"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Stretch"
+                            Margin="10">
+                        <StackPanel>
+                            <TextBlock Text="🎉 Completed!"
+                                       FontSize="36"
+                                       FontWeight="Bold"
+                                       Foreground="{DynamicResource TextColor}"
+                                       HorizontalAlignment="Center"
+                                       Margin="0,-10,0,20" />
+
+                            <!-- Percentage Circle -->
+                            <Border Width="150" Height="150"
+                                    BorderBrush="{DynamicResource ToolButtonActive}"
+                                    BorderThickness="8"
+                                    CornerRadius="100"
+                                    Margin="0,0,0,30">
+                                <StackPanel VerticalAlignment="Center">
+                                    <TextBlock x:Name="TxtPercentage"
+                                               Text="85%"
+                                               FontSize="48"
                                                FontWeight="Bold"
                                                Foreground="{DynamicResource TextColor}"
-                                               HorizontalAlignment="Right" />
-                                </Grid>
-                    
-                                <!-- Skipped List -->
-                                <Border x:Name="SkippedListCompletion"
-                                        Background="#fff3cd"
-                                        BorderBrush="#ffc107"
-                                        BorderThickness="1"
-                                        CornerRadius="10"
-                                        Padding="15"
-                                        Margin="0,15,0,0"
-                                        Visibility="Collapsed">
-                                    <StackPanel>
-                                        <TextBlock Text="🚩 Skipped cards (click to review):"
-                                                   FontWeight="SemiBold"
-                                                   Foreground="#856404"
-                                                   Margin="0,0,0,10" />
-                                        <WrapPanel x:Name="SkippedNumbersCompletion" />
-                                    </StackPanel>
-                                </Border>
-                            </StackPanel>
-                        </Border>
-                    
-                        <!-- Actions -->
-                        <UniformGrid Columns="3" Rows="1">
-                            <Button Content="🏠 Home"
-                                    Style="{StaticResource SecondaryButtonStyle}"
-                                    Margin="0,0,7,0"
-                                    Click="ExitGame_Click" />
-                            <Button Content="🔄 Restart"
-                                    Style="{StaticResource PrimaryButtonStyle}"
-                                    Margin="7,0,7,0"
-                                    Click="RestartGame_Click" />
-                            <Button x:Name="BtnReviewSkippedCompletion"
-                                    Content="👁️ Review Skipped"
-                                    Style="{StaticResource SuccessButtonStyle}"
-                                    Margin="7,0,0,0"
-                                    Visibility="Collapsed"
-                                    Click="ReviewSkippedOnly_Click" />
-                        </UniformGrid>
-                    </StackPanel>
-                </Border>
-            </ScrollViewer>
+                                               HorizontalAlignment="Center" />
+                                    <TextBlock Text="Known"
+                                               FontSize="16"
+                                               Foreground="{DynamicResource TextColor}"
+                                               Opacity="0.7"
+                                               HorizontalAlignment="Center" />
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Summary Stats -->
+                            <Border Background="{DynamicResource SearchBackground}"
+                                    BorderBrush="{DynamicResource BorderColor}"
+                                    BorderThickness="2"
+                                    CornerRadius="15"
+                                    Padding="25"
+                                    Margin="0,0,0,30">
+                                <StackPanel>
+                                    <TextBlock Text="📊 Study Summary"
+                                               FontSize="18"
+                                               FontWeight="Bold"
+                                               Foreground="{DynamicResource TextColor}"
+                                               Margin="0,0,0,20" />
+
+                                    <Grid Margin="0,0,0,12">
+                                        <TextBlock Text="✅ Known"
+                                                   Foreground="{DynamicResource TextColor}"
+                                                   Opacity="0.7" />
+                                        <TextBlock x:Name="TxtKnownCount"
+                                                   Text="85 cards (85%)"
+                                                   FontWeight="Bold"
+                                                   Foreground="#10b981"
+                                                   HorizontalAlignment="Right" />
+                                    </Grid>
+
+                                    <Grid Margin="0,0,0,12">
+                                        <TextBlock Text="❌ Unknown"
+                                                   Foreground="{DynamicResource TextColor}"
+                                                   Opacity="0.7" />
+                                        <TextBlock x:Name="TxtUnknownCount"
+                                                   Text="15 cards (15%)"
+                                                   FontWeight="Bold"
+                                                   Foreground="#dc2626"
+                                                   HorizontalAlignment="Right" />
+                                    </Grid>
+
+                                    <Grid>
+                                        <TextBlock Text="📝 Total"
+                                                   Foreground="{DynamicResource TextColor}"
+                                                   Opacity="0.7" />
+                                        <TextBlock x:Name="TxtTotalCount"
+                                                   Text="100 cards"
+                                                   FontWeight="Bold"
+                                                   Foreground="{DynamicResource TextColor}"
+                                                   HorizontalAlignment="Right" />
+                                    </Grid>
+
+                                    <!-- Skipped List -->
+                                    <Border x:Name="SkippedListCompletion"
+                                            Background="#fff3cd"
+                                            BorderBrush="#ffc107"
+                                            BorderThickness="1"
+                                            CornerRadius="10"
+                                            Padding="15"
+                                            Margin="0,15,0,0"
+                                            Visibility="Collapsed">
+                                        <StackPanel>
+                                            <TextBlock Text="🚩 Skipped cards (click to review):"
+                                                       FontWeight="SemiBold"
+                                                       Foreground="#856404"
+                                                       Margin="0,0,0,10" />
+                                            <WrapPanel x:Name="SkippedNumbersCompletion" />
+                                        </StackPanel>
+                                    </Border>
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Actions -->
+                            <UniformGrid Columns="3" Rows="1">
+                                <Button Content="🏠 Home"
+                                        Style="{StaticResource SecondaryButtonStyle}"
+                                        Margin="0,0,7,0"
+                                        Click="ExitGame_Click" />
+                                <Button Content="🔄 Restart"
+                                        Style="{StaticResource PrimaryButtonStyle}"
+                                        Margin="7,0,7,0"
+                                        Click="RestartGame_Click" />
+                                <Button x:Name="BtnReviewSkippedCompletion"
+                                        Content="👁️ Review Skipped"
+                                        Style="{StaticResource SuccessButtonStyle}"
+                                        Margin="7,0,0,0"
+                                        Visibility="Collapsed"
+                                        Click="ReviewSkippedOnly_Click" />
+                            </UniformGrid>
+                        </StackPanel>
+                    </Border>
+                </ScrollViewer>
             </Grid>
         </Grid>
     </Grid>
