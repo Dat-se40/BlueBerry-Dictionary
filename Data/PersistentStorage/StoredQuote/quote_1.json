@@ -1,0 +1,26 @@
+﻿{
+  "content": "The limits of my language mean the limits of my world.",
+  "author": "Ludwig Wittgenstein",
+  "imageUrl": "https://picsum.photos/400/200?random=1",
+  "relativeWords": [
+    {
+      "word": "limit",
+      "phonetic": "/ˈlɪmɪt/",
+      "meaning": "a point or level beyond which something does not or may not extend or pass",
+      "partOfSpeech": "noun"
+    },
+    {
+      "word": "language",
+      "phonetic": "/ˈlæŋɡwɪdʒ/",
+      "meaning": "the system of communication used by a particular community or country",
+      "partOfSpeech": "noun"
+    },
+    {
+      "word": "world",
+      "phonetic": "/wɜːld/",
+      "meaning": "the earth, together with all of its countries and peoples",
+      "partOfSpeech": "noun"
+    }
+  ]
+}
+

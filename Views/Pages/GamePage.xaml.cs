@@ -224,43 +224,47 @@ namespace BlueBerryDictionary.Pages
             if (isAnimating) return;
     
             isAnimating = true;
-            var flipToBack = (Storyboard)FindResource("FlipToBackAnimation");
-            var flipToFront = (Storyboard)FindResource("FlipToFrontAnimation");
-
+    
             if (!isFlipped)
             {
                 // Flip to back
-                EventHandler handler = null;
-                handler = (s, args) =>
-                {
-                    CardFront.Visibility = Visibility.Collapsed;
-                    CardBack.Visibility = Visibility.Visible;
-                    FlipTransform.ScaleX = 0; // Đảm bảo scale = 0 trước khi flip về
-                    flipToFront.Completed += (s2, args2) => { isAnimating = false; };
-                    flipToFront.Begin(FlashcardBorder);
-                    flipToBack.Completed -= handler;
-                };
-                flipToBack.Completed += handler;
-                flipToBack.Begin(FlashcardBorder);
-                isFlipped = true;
+                var storyboard = (Storyboard)FindResource("FlipToBackPhase1");
+                storyboard.Begin(this);
             }
             else
             {
                 // Flip to front
-                EventHandler handler = null;
-                handler = (s, args) =>
-                {
-                    CardBack.Visibility = Visibility.Collapsed;
-                    CardFront.Visibility = Visibility.Visible;
-                    FlipTransform.ScaleX = 0; // Đảm bảo scale = 0 trước khi flip về
-                    flipToFront.Completed += (s2, args2) => { isAnimating = false; };
-                    flipToFront.Begin(FlashcardBorder);
-                    flipToBack.Completed -= handler;
-                };
-                flipToBack.Completed += handler;
-                flipToBack.Begin(FlashcardBorder);
-                isFlipped = false;
+                var storyboard = (Storyboard)FindResource("FlipToFrontPhase1");
+                storyboard.Begin(this);
             }
+        }
+
+        private void FlipToBackPhase1_Completed(object sender, EventArgs e)
+        {
+            // Khi scale về 0, đổi nội dung
+            CardFront.Visibility = Visibility.Collapsed;
+            CardBack.Visibility = Visibility.Visible;
+    
+            // Bắt đầu phase 2
+            var storyboard = (Storyboard)FindResource("FlipToBackPhase2");
+            storyboard.Begin(this);
+        }
+         
+        private void FlipToFrontPhase1_Completed(object sender, EventArgs e)
+        {
+            // Khi scale về 0, đổi nội dung
+            CardBack.Visibility = Visibility.Collapsed;
+            CardFront.Visibility = Visibility.Visible;
+    
+            // Bắt đầu phase 2
+            var storyboard = (Storyboard)FindResource("FlipToFrontPhase2");
+            storyboard.Begin(this);
+        }
+
+        private void AnimationCompleted(object sender, EventArgs e)
+        {
+            isAnimating = false;
+            isFlipped = !isFlipped;
         }
 
         private void PreviousCard_Click(object sender, RoutedEventArgs e)
