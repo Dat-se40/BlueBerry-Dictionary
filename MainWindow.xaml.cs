@@ -1,5 +1,4 @@
-﻿
-using BlueBerryDictionary.Services;
+﻿using BlueBerryDictionary.Services;
 using BlueBerryDictionary.ViewModels;
 using BlueBerryDictionary.Views.Pages;
 
@@ -9,6 +8,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Diagnostics;
+using BlueBerryDictionary.Services.User;
 
 namespace BlueBerryDictionary
 {

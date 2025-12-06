@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BlueBerryDictionary.Models
+namespace BlueBerryDictionary.Services.User
 {
     /// <summary>
     /// Thông tin user hiện tại (lưu trong CurrentUserInfo.json)

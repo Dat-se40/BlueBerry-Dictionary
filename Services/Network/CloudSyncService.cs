@@ -1,5 +1,6 @@
 ﻿using BlueBerryDictionary.ApiClient.Configuration;
 using BlueBerryDictionary.Models;
+using BlueBerryDictionary.Services.User;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Drive.v3;
 using Google.Apis.Services;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using DriveFile = Google.Apis.Drive.v3.Data.File; // ✅ Alias
 
-namespace BlueBerryDictionary.Services
+namespace BlueBerryDictionary.Services.Network
 {
     /// <summary>
     /// Service đồng bộ dữ liệu với Google Drive

@@ -9,119 +9,6 @@
       d:DesignHeight="600" d:DesignWidth="1200"
       Background="{DynamicResource MainBackground}">
 
-    <local:WordListPageBase.Resources>
-        <!-- History Card Style -->
-        <Style x:Key="HistoryCardStyle" TargetType="Border">
-            <Setter Property="Background" Value="{DynamicResource CardBackground}"/>
-            <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
-            <Setter Property="BorderThickness" Value="2"/>
-            <Setter Property="CornerRadius" Value="16"/>
-            <Setter Property="Padding" Value="25"/>
-            <Setter Property="Margin" Value="10"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Effect">
-                        <Setter.Value>
-                            <DropShadowEffect BlurRadius="24" ShadowDepth="8" Opacity="0.2" Color="#2D4ACC"/>
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-    
-        <!-- Filter Button Style -->
-        <Style x:Key="FilterButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="{DynamicResource SearchBackground}"/>
-            <Setter Property="Foreground" Value="{DynamicResource ButtonColor}"/>
-            <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
-            <Setter Property="BorderThickness" Value="2"/>
-            <Setter Property="Padding" Value="20,10"/>
-            <Setter Property="Margin" Value="6"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="25"
-                                Padding="{TemplateBinding Padding}">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="{DynamicResource ToolButtonActive}"/>
-                    <Setter Property="Foreground" Value="White"/>
-                </Trigger>
-                <Trigger Property="Tag" Value="Active">
-                    <Setter Property="Background" Value="{DynamicResource ToolButtonActive}"/>
-                    <Setter Property="Foreground" Value="White"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-    
-        <!-- Action Icon Button Style -->
-        <Style x:Key="ActionIconButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Width" Value="36"/>
-            <Setter Property="Height" Value="36"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}"
-                                CornerRadius="8">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="{DynamicResource WordItemHover}"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-    
-        <!-- Clear Button Style -->
-        <Style x:Key="ClearButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="{DynamicResource SearchBackground}"/>
-            <Setter Property="Foreground" Value="#DC2626"/>
-            <Setter Property="BorderBrush" Value="#DC2626"/>
-            <Setter Property="BorderThickness" Value="2"/>
-            <Setter Property="Padding" Value="24,12"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="12"
-                                Padding="{TemplateBinding Padding}">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#DC2626"/>
-                    <Setter Property="Foreground" Value="White"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-    </local:WordListPageBase.Resources>
-
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
         <Grid Margin="30">
             <Grid.RowDefinitions>
@@ -156,13 +43,14 @@
                             <TextBlock Text="🕐"
                                        FontSize="48"
                                        VerticalAlignment="Center"
-                                       Margin="0,0,15,0"/>
+                                       Foreground="{DynamicResource TextColor}"
+                                       Margin="0,-8,15,0"/>
                             <TextBlock Text="History"
                                        FontSize="40"
                                        FontWeight="Bold"
                                        Foreground="{DynamicResource TextColor}"
-                                       VerticalAlignment="Center"/>
-                                       <!-- Margin="0,0,0,0"/> -->
+                                       VerticalAlignment="Center"
+                                       Margin="0,-3,0,0" />
                         </StackPanel>
 
                         <!-- Clear All Button -->
@@ -170,13 +58,11 @@
                                 Style="{StaticResource ClearButtonStyle}"
                                 VerticalAlignment="Center">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="🗑️" FontSize="16" Margin="0,0,8,0"/>
-                                <TextBlock Text="Xóa tất cả"/>
+                                <TextBlock Text="🗑️" FontSize="16" Margin="0,0,8,0" />
+                                <TextBlock Text="Xóa tất cả" />
                             </StackPanel>
                         </Button>
                     </Grid>
-
-                   
                 </StackPanel>
             </Border>
 
@@ -184,8 +70,6 @@
             <!-- HISTORY CONTENT -->
             <!-- ================================= -->
             <StackPanel Grid.Row="1">
-            
-                <!-- History Cards Grid - Today -->
                 <UniformGrid Columns="3" Margin="0,0,0,30" Name ="mainContent">
 
                 </UniformGrid>

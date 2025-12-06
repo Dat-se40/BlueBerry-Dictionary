@@ -1,4 +1,4 @@
-﻿using BlueBerryDictionary.Models;
+using BlueBerryDictionary.Models;
 using BlueBerryDictionary.Services;
 using BlueBerryDictionary.Views.Pages;
 using BlueBerryDictionary.Views.UserControls;

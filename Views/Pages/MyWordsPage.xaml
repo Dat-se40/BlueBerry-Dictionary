@@ -185,6 +185,7 @@
                             <TextBlock Text="📚"
                                        FontSize="48"
                                        VerticalAlignment="Center"
+                                       Foreground="{DynamicResource TextColor}"
                                        Margin="0,0,15,0" />
                             <TextBlock Text="My Words"
                                        FontSize="40"
@@ -303,7 +304,6 @@
                                     Click="PartOfSpeechBtn_Click"
                                     Tag="noun">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="📝" FontSize="14" Margin="0,0,8,0" />
                                     <TextBlock Text="Danh từ" />
                                 </StackPanel>
                             </Button>
@@ -312,7 +312,6 @@
                                     Click="PartOfSpeechBtn_Click"
                                     Tag="verb">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="⚡" FontSize="14" Margin="0,0,8,0" />
                                     <TextBlock Text="Động từ" />
                                 </StackPanel>
                             </Button>
@@ -321,7 +320,6 @@
                                     Click="PartOfSpeechBtn_Click"
                                     Tag="adjective">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="💎" FontSize="14" Margin="0,0,8,0" />
                                     <TextBlock Text="Tính từ" />
                                 </StackPanel>
                             </Button>
@@ -345,7 +343,7 @@
                                        Placement="Bottom"
                                        StaysOpen="False"
                                        AllowsTransparency="True">
-                                    <Border Background="{DynamicResource SearchBackground}"
+                                    <Border Background="{DynamicResource CardBackground}"
                                             BorderBrush="{DynamicResource BorderColor}"
                                             BorderThickness="2"
                                             CornerRadius="15"
@@ -428,7 +426,7 @@
                             <!-- Tags Dropdown -->
                             <Grid>
                                 <ToggleButton x:Name="TagsDropdownToggle"
-                                              Style="{StaticResource TagDropdownButtonStyle}" >
+                                              Style="{StaticResource TagDropdownButtonStyle}">
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="🏷️" FontSize="14" Margin="0,0,8,0" />
                                         <TextBlock Text="Lọc theo nhãn" Margin="0,0,8,0" />
@@ -441,7 +439,7 @@
                                        Placement="Bottom"
                                        StaysOpen="False"
                                        AllowsTransparency="True">
-                                    <Border Background="{DynamicResource SearchBackground}"
+                                    <Border Background="{DynamicResource CardBackground}"
                                             BorderBrush="{DynamicResource BorderColor}"
                                             BorderThickness="2"
                                             CornerRadius="15"

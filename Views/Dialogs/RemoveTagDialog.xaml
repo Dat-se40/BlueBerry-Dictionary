@@ -63,42 +63,16 @@
                         Padding="20,10"
                         FontSize="14"
                         Margin="0,0,10,0"
-                        Click="Cancel_Click">
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Background" Value="{DynamicResource SearchBackground}"/>
-                            <Setter Property="Foreground" Value="#DC2626"/>
-                            <Setter Property="BorderBrush" Value="#DC2626"/>
-                            <Setter Property="BorderThickness" Value="2"/>
-                            <Setter Property="Cursor" Value="Hand"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#DC2626"/>
-                                    <Setter Property="Foreground" Value="White"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
+                        Click="Cancel_Click"
+                        Style="{StaticResource SecondaryButtonStyle}">
                 </Button>
 
                 <Button x:Name="DeleteButton"
                         Content="🗑️ Xoá Tag Đã Chọn"
                         Padding="20,10"
                         FontSize="14"
-                        Click="Delete_Click">
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Background" Value="{DynamicResource ToolButtonActive}"/>
-                            <Setter Property="Foreground" Value="White"/>
-                            <Setter Property="BorderThickness" Value="0"/>
-                            <Setter Property="Cursor" Value="Hand"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Opacity" Value="0.9"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
+                        Click="Delete_Click"
+                        Style="{StaticResource DangerButtonStyle}">
                 </Button>
             </StackPanel>
 

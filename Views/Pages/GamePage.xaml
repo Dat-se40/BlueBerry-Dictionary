@@ -1,0 +1,728 @@
+﻿<local:WordListPageBase x:Class="BlueBerryDictionary.Pages.GamePage"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:local="clr-namespace:BlueBerryDictionary.Views.Pages"
+                        mc:Ignorable="d"
+                        d:DesignHeight="600" d:DesignWidth="1000"
+                        Background="{DynamicResource MainBackground}">
+
+    <local:WordListPageBase.Resources>
+        <!-- Button Styles -->
+        <Style x:Key="PrimaryButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="{DynamicResource ToolButtonActive}" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="20,12" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="12"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource ToolButtonActive}" />
+                    <Setter Property="Opacity" Value="0.9" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="SecondaryButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="{DynamicResource SearchBackground}" />
+            <Setter Property="Foreground" Value="{DynamicResource ButtonColor}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="Padding" Value="20,12" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="12"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource WordItemHover}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="DangerButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="#dc2626" />
+            <Setter Property="BorderBrush" Value="#dc2626" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="Padding" Value="20,12" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="12"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#fee" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="SuccessButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#10b981" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="20,12" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="12"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#059669" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Flip to Back - Phase 1: Scale down to 0 -->
+        <Storyboard x:Key="FlipToBackPhase1" Completed="FlipToBackPhase1_Completed">
+            <DoubleAnimation Storyboard.TargetName="FlipTransform"
+                             Storyboard.TargetProperty="ScaleX"
+                             From="1" To="0" Duration="0:0:0.2"
+                             AccelerationRatio="0.5" />
+            <DoubleAnimation Storyboard.TargetName="CardFront"
+                             Storyboard.TargetProperty="Opacity"
+                             From="1" To="0" Duration="0:0:0.2" />
+        </Storyboard>
+
+        <!-- Flip to Back - Phase 2: Scale up from 0 -->
+        <Storyboard x:Key="FlipToBackPhase2" Completed="AnimationCompleted">
+            <DoubleAnimation Storyboard.TargetName="FlipTransform"
+                             Storyboard.TargetProperty="ScaleX"
+                             From="0" To="1" Duration="0:0:0.2"
+                             DecelerationRatio="0.5" />
+            <DoubleAnimation Storyboard.TargetName="CardBack"
+                             Storyboard.TargetProperty="Opacity"
+                             From="0" To="1" Duration="0:0:0.2" />
+        </Storyboard>
+
+        <!-- Flip to Front - Phase 1: Scale down to 0 -->
+        <Storyboard x:Key="FlipToFrontPhase1" Completed="FlipToFrontPhase1_Completed">
+            <DoubleAnimation Storyboard.TargetName="FlipTransform"
+                             Storyboard.TargetProperty="ScaleX"
+                             From="1" To="0" Duration="0:0:0.2"
+                             AccelerationRatio="0.5" />
+            <DoubleAnimation Storyboard.TargetName="CardBack"
+                             Storyboard.TargetProperty="Opacity"
+                             From="1" To="0" Duration="0:0:0.2" />
+        </Storyboard>
+
+        <!-- Flip to Front - Phase 2: Scale up from 0 -->
+        <Storyboard x:Key="FlipToFrontPhase2" Completed="AnimationCompleted">
+            <DoubleAnimation Storyboard.TargetName="FlipTransform"
+                             Storyboard.TargetProperty="ScaleX"
+                             From="0" To="1" Duration="0:0:0.2"
+                             DecelerationRatio="0.5" />
+            <DoubleAnimation Storyboard.TargetName="CardFront"
+                             Storyboard.TargetProperty="Opacity"
+                             From="0" To="1" Duration="0:0:0.2" />
+        </Storyboard>
+
+        <Style x:Key="PopupItemStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="{DynamicResource TextColor}" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="15,10" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource BorderColor}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </local:WordListPageBase.Resources>
+
+    <Grid>
+        <!-- Game Selection Screen -->
+        <ScrollViewer x:Name="GameSelectionPanel" VerticalScrollBarVisibility="Auto">
+            <StackPanel MaxWidth="1200" Margin="30">
+                <!-- Header -->
+                <TextBlock Text="🎮 Game Mode"
+                           FontSize="36"
+                           FontWeight="Bold"
+                           Foreground="{DynamicResource TextColor}"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,10" />
+                <TextBlock Text="Học từ vựng qua trò chơi thú vị"
+                           FontSize="16"
+                           Foreground="{DynamicResource TextColor}"
+                           Opacity="0.7"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,40" />
+
+                <!-- Game Card -->
+                <Border Background="{DynamicResource CardBackground}"
+                        BorderBrush="{DynamicResource BorderColor}"
+                        BorderThickness="2"
+                        CornerRadius="20"
+                        Padding="30"
+                        Cursor="Hand"
+                        MouseDown="GameCard_Click">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="10" ShadowDepth="2" Opacity="0.2" />
+                    </Border.Effect>
+
+                    <StackPanel>
+                        <DockPanel Margin="0,0,0,20">
+                            <!-- Icon -->
+                            <Border Width="80" Height="80"
+                                    Background="{DynamicResource ToolButtonActive}"
+                                    CornerRadius="20"
+                                    DockPanel.Dock="Left"
+                                    Margin="0,0,20,0">
+                                <TextBlock Text="📇" FontSize="40"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center" />
+                            </Border>
+
+                            <!-- Info -->
+                            <StackPanel VerticalAlignment="Center">
+                                <TextBlock Text="Flashcard"
+                                           FontSize="28"
+                                           FontWeight="Bold"
+                                           Foreground="{DynamicResource TextColor}" />
+                                <TextBlock Text="Lật thẻ từ vựng để học nghĩa và cách dùng"
+                                           FontSize="14"
+                                           Foreground="{DynamicResource TextColor}"
+                                           Opacity="0.7"
+                                           Margin="0,5,0,0" />
+                            </StackPanel>
+                        </DockPanel>
+
+                        <!-- Stats -->
+                        <Border BorderBrush="{DynamicResource BorderColor}"
+                                BorderThickness="0,2,0,0"
+                                Padding="0,20,0,0">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0" HorizontalAlignment="Center">
+                                    <TextBlock Text="245"
+                                               FontSize="24"
+                                               FontWeight="Bold"
+                                               Foreground="{DynamicResource ButtonColor}"
+                                               HorizontalAlignment="Center" />
+                                    <TextBlock Text="Đã học"
+                                               FontSize="12"
+                                               Foreground="{DynamicResource TextColor}"
+                                               Opacity="0.7"
+                                               HorizontalAlignment="Center" />
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="1" HorizontalAlignment="Center">
+                                    <TextBlock Text="15 phút"
+                                               FontSize="24"
+                                               FontWeight="Bold"
+                                               Foreground="{DynamicResource ButtonColor}"
+                                               HorizontalAlignment="Center" />
+                                    <TextBlock Text="Thời gian"
+                                               FontSize="12"
+                                               Foreground="{DynamicResource TextColor}"
+                                               Opacity="0.7"
+                                               HorizontalAlignment="Center" />
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="2" HorizontalAlignment="Center">
+                                    <TextBlock Text="⭐ 4.8"
+                                               FontSize="24"
+                                               FontWeight="Bold"
+                                               Foreground="{DynamicResource ButtonColor}"
+                                               HorizontalAlignment="Center" />
+                                    <TextBlock Text="Đánh giá"
+                                               FontSize="12"
+                                               Foreground="{DynamicResource TextColor}"
+                                               Opacity="0.7"
+                                               HorizontalAlignment="Center" />
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Settings Panel -->
+        <ScrollViewer x:Name="SettingsPanel" Visibility="Collapsed" VerticalScrollBarVisibility="Auto">
+            <StackPanel MaxWidth="800" Margin="30">
+                <TextBlock Text="⚙️ Cài đặt trò chơi"
+                           FontSize="32"
+                           FontWeight="Bold"
+                           Foreground="{DynamicResource TextColor}"
+                           Margin="0,0,0,10" />
+                <TextBlock Text="Tùy chỉnh trải nghiệm học tập của bạn"
+                           FontSize="14"
+                           Foreground="{DynamicResource TextColor}"
+                           Opacity="0.7"
+                           Margin="0,0,0,30" />
+
+                <Border Background="{DynamicResource CardBackground}"
+                        BorderBrush="{DynamicResource BorderColor}"
+                        BorderThickness="2"
+                        CornerRadius="20"
+                        Padding="35">
+                    <StackPanel>
+                        <!-- Number of Cards -->
+                        <TextBlock Text="Số thẻ" FontSize="16" FontWeight="SemiBold"
+                                   Foreground="{DynamicResource TextColor}" Margin="0,0,0,15" />
+                        <Grid x:Name="CardCountSelector" Margin="0,0,0,25">
+                            <Button x:Name="BtnCardCount"
+                                    Click="BtnCardCount_Click"
+                                    Background="{DynamicResource SearchBackground}"
+                                    Foreground="{DynamicResource TextColor}"
+                                    BorderBrush="{DynamicResource BorderColor}"
+                                    BorderThickness="2"
+                                    Padding="15,10"
+                                    FontSize="14"
+                                    HorizontalContentAlignment="Left"
+                                    Cursor="Hand">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock x:Name="TxtSelectedCount" Text="10 thẻ" Grid.Column="0" />
+                                    <Path Grid.Column="1"
+                                          Data="M 0 0 L 4 4 L 8 0"
+                                          Stroke="{DynamicResource TextColor}"
+                                          StrokeThickness="1.5"
+                                          Margin="10,0,0,0"
+                                          VerticalAlignment="Center" />
+                                </Grid>
+                            </Button>
+
+                            <Popup x:Name="PopupCardCount"
+                                   PlacementTarget="{Binding ElementName=BtnCardCount}"
+                                   Placement="Bottom"
+                                   StaysOpen="False"
+                                   AllowsTransparency="True">
+                                <Border Background="{DynamicResource SearchBackground}"
+                                        BorderBrush="{DynamicResource BorderColor}"
+                                        BorderThickness="2"
+                                        CornerRadius="0, 0, 15 , 15"
+                                        Margin="0,2,0,0">
+                                    <StackPanel>
+                                        <Button Content="5 thẻ" Click="CardCountOption_Click" Tag="5"
+                                                Style="{StaticResource PopupItemStyle}" />
+                                        <Button Content="10 thẻ" Click="CardCountOption_Click" Tag="10"
+                                                Style="{StaticResource PopupItemStyle}" />
+                                        <Button Content="15 thẻ" Click="CardCountOption_Click" Tag="15"
+                                                Style="{StaticResource PopupItemStyle}" />
+                                        <Button Content="20 thẻ" Click="CardCountOption_Click" Tag="20"
+                                                Style="{StaticResource PopupItemStyle}" />
+                                        <Button Content="30 thẻ" Click="CardCountOption_Click" Tag="30"
+                                                Style="{StaticResource PopupItemStyle}" />
+                                    </StackPanel>
+                                </Border>
+                            </Popup>
+                        </Grid>
+
+                        <!-- Actions -->
+                        <UniformGrid Columns="2" Rows="1">
+                            <Button Content="◀ Quay lại" Style="{StaticResource SecondaryButtonStyle}"
+                                    Margin="0,0,7,0" Click="BackToSelection_Click" />
+                            <Button Content="▶ Bắt đầu chơi" Style="{StaticResource PrimaryButtonStyle}"
+                                    Margin="7,0,0,0" Click="StartGame_Click" />
+                        </UniformGrid>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Game Play Area -->
+        <Grid x:Name="GamePlayPanel" Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!-- Game Header -->
+            <Border Grid.Row="0"
+                    Background="{DynamicResource CardBackground}"
+                    BorderBrush="{DynamicResource BorderColor}"
+                    BorderThickness="0,0,0,2"
+                    Padding="20,15">
+                <DockPanel>
+                    <Button Content="✕ Thoát"
+                            Style="{StaticResource DangerButtonStyle}"
+                            DockPanel.Dock="Left"
+                            Click="ExitGame_Click"
+                            Padding="15,8" />
+
+                    <Border Background="{DynamicResource SearchBackground}"
+                            BorderBrush="{DynamicResource BorderColor}"
+                            BorderThickness="2"
+                            CornerRadius="10"
+                            Padding="15,8"
+                            DockPanel.Dock="Right"
+                            HorizontalAlignment="Right">
+                        <TextBlock x:Name="TxtProgress"
+                                   Text="1/10"
+                                   FontWeight="SemiBold"
+                                   FontSize="14"
+                                   Foreground="{DynamicResource TextColor}" />
+                    </Border>
+                </DockPanel>
+            </Border>
+
+            <!-- Flashcard Container -->
+            <Grid Grid.Row="1" x:Name="FlashcardContainer">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <!-- Flashcard -->
+                <Viewbox Grid.Row="0" Margin="30,20,30,0" MaxHeight="450" MaxWidth="700">
+                    <Border x:Name="FlashcardBorder"
+                            Background="{DynamicResource CardBackground}"
+                            BorderBrush="{DynamicResource ToolButtonActive}"
+                            BorderThickness="2"
+                            CornerRadius="25"
+                            Width="700"
+                            Height="450"
+                            Cursor="Hand"
+                            MouseDown="FlipCard_Click">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="20" ShadowDepth="5" Opacity="0.3" />
+                        </Border.Effect>
+                        <Border.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform x:Name="FlipTransform" ScaleX="1" ScaleY="1" CenterX="350"
+                                                CenterY="225" />
+                            </TransformGroup>
+                        </Border.RenderTransform>
+
+                        <Grid>
+                            <!-- Front Side -->
+                            <StackPanel x:Name="CardFront"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        Margin="50"
+                                        Opacity="1">
+                                <TextBlock x:Name="TxtWord"
+                                           Text="Achievement"
+                                           FontSize="48"
+                                           FontWeight="Bold"
+                                           Foreground="{DynamicResource TextColor}"
+                                           HorizontalAlignment="Center"
+                                           Margin="0,0,0,15" />
+                                <TextBlock x:Name="TxtPhonetic"
+                                           Text="/əˈtʃiːvmənt/"
+                                           FontSize="20"
+                                           FontFamily="Consolas"
+                                           Foreground="{DynamicResource TextColor}"
+                                           Opacity="0.7"
+                                           HorizontalAlignment="Center"
+                                           Margin="0,0,0,10" />
+                                <Border Background="{DynamicResource ToolButtonActive}"
+                                        CornerRadius="15"
+                                        Padding="12,6"
+                                        HorizontalAlignment="Center"
+                                        Margin="0,0,0,30">
+                                    <TextBlock x:Name="TxtPOS"
+                                               Text="NOUN"
+                                               FontSize="14"
+                                               FontWeight="Bold"
+                                               Foreground="White" />
+                                </Border>
+                                <TextBlock Text="👆 Click to flip"
+                                           FontSize="14"
+                                           Foreground="{DynamicResource TextColor}"
+                                           HorizontalAlignment="Center"
+                                           Opacity="0.6" />
+                            </StackPanel>
+
+                            <!-- Back Side -->
+                            <StackPanel x:Name="CardBack"
+                                        Visibility="Collapsed"
+                                        Opacity="0"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        Margin="50">
+                                <TextBlock x:Name="TxtMeaning"
+                                           Text="Thành tích, thành tựu"
+                                           FontSize="24"
+                                           FontWeight="SemiBold"
+                                           Foreground="{DynamicResource TextColor}"
+                                           HorizontalAlignment="Center"
+                                           TextWrapping="Wrap"
+                                           TextAlignment="Center"
+                                           Margin="0,0,0,20" />
+                                <TextBlock x:Name="TxtExample"
+                                           Text="&quot;Her academic achievements were impressive.&quot;"
+                                           FontSize="16"
+                                           FontStyle="Italic"
+                                           Foreground="{DynamicResource TextColor}"
+                                           Opacity="0.7"
+                                           HorizontalAlignment="Center"
+                                           TextWrapping="Wrap"
+                                           TextAlignment="Center"
+                                           Margin="0,0,0,20" />
+                                <TextBlock Text="👆 Click to flip back"
+                                           FontSize="14"
+                                           Foreground="{DynamicResource TextColor}"
+                                           HorizontalAlignment="Center"
+                                           Opacity="0.6" />
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </Viewbox>
+
+                <!-- Skip Tracker -->
+                <Border Grid.Row="1"
+                        x:Name="SkipTracker"
+                        Background="#fff3cd"
+                        BorderBrush="#ffc107"
+                        BorderThickness="2"
+                        CornerRadius="10"
+                        Padding="12,8"
+                        Margin="30,20,30,0"
+                        MaxWidth="700">
+                    <DockPanel>
+                        <TextBlock Text="🚩 Skipped:"
+                                   FontWeight="SemiBold"
+                                   Foreground="#856404"
+                                   DockPanel.Dock="Left"
+                                   VerticalAlignment="Center"
+                                   Margin="0,0,10,0" />
+                        <Button x:Name="BtnReviewSkipped"
+                                Content="👁️ Review"
+                                Visibility="Collapsed"
+                                Background="#ffc107"
+                                Foreground="#856404"
+                                BorderThickness="0"
+                                Padding="10,4"
+                                FontWeight="SemiBold"
+                                Cursor="Hand"
+                                DockPanel.Dock="Right"
+                                Click="ReviewSkipped_Click">
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="16" />
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+                        <WrapPanel x:Name="SkipNumbersPanel"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Left" />
+                    </DockPanel>
+                </Border>
+
+                <!-- Action Buttons -->
+                <UniformGrid Grid.Row="2" Columns="3" Rows="1"
+                             Margin="30,20,30,30"
+                             MaxWidth="700">
+                    <Button Content="❌ Skip (Unknown)"
+                            Style="{StaticResource DangerButtonStyle}"
+                            Margin="0,0,7,0"
+                            Click="SkipCard_Click" />
+                    <Button x:Name="BtnPrevious"
+                            Content="◀ Previous"
+                            Style="{StaticResource SecondaryButtonStyle}"
+                            Margin="7,0,7,0"
+                            Click="PreviousCard_Click"
+                            IsEnabled="False" />
+                    <Button x:Name="BtnNext"
+                            Content="Next (Known) ▶"
+                            Style="{StaticResource SuccessButtonStyle}"
+                            Margin="7,0,0,0"
+                            Click="NextCard_Click" />
+                </UniformGrid>
+            </Grid>
+
+            <!-- Completion Container -->
+            <Grid Grid.Row="1" x:Name="CompletionContainer" Visibility="Collapsed">
+                <ScrollViewer>
+                    <Border Background="{DynamicResource CardBackground}"
+                            BorderBrush="{DynamicResource ToolButtonActive}"
+                            BorderThickness="2"
+                            CornerRadius="25"
+                            Padding="30"
+                            MaxWidth="1000"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Stretch"
+                            Margin="10">
+                        <StackPanel>
+                            <TextBlock Text="🎉 Completed!"
+                                       FontSize="36"
+                                       FontWeight="Bold"
+                                       Foreground="{DynamicResource TextColor}"
+                                       HorizontalAlignment="Center"
+                                       Margin="0,-10,0,20" />
+
+                            <!-- Percentage Circle -->
+                            <Border Width="150" Height="150"
+                                    BorderBrush="{DynamicResource ToolButtonActive}"
+                                    BorderThickness="8"
+                                    CornerRadius="100"
+                                    Margin="0,0,0,30">
+                                <StackPanel VerticalAlignment="Center">
+                                    <TextBlock x:Name="TxtPercentage"
+                                               Text="85%"
+                                               FontSize="48"
+                                               FontWeight="Bold"
+                                               Foreground="{DynamicResource TextColor}"
+                                               HorizontalAlignment="Center" />
+                                    <TextBlock Text="Known"
+                                               FontSize="16"
+                                               Foreground="{DynamicResource TextColor}"
+                                               Opacity="0.7"
+                                               HorizontalAlignment="Center" />
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Summary Stats -->
+                            <Border Background="{DynamicResource SearchBackground}"
+                                    BorderBrush="{DynamicResource BorderColor}"
+                                    BorderThickness="2"
+                                    CornerRadius="15"
+                                    Padding="25"
+                                    Margin="0,0,0,30">
+                                <StackPanel>
+                                    <TextBlock Text="📊 Study Summary"
+                                               FontSize="18"
+                                               FontWeight="Bold"
+                                               Foreground="{DynamicResource TextColor}"
+                                               Margin="0,0,0,20" />
+
+                                    <Grid Margin="0,0,0,12">
+                                        <TextBlock Text="✅ Known"
+                                                   Foreground="{DynamicResource TextColor}"
+                                                   Opacity="0.7" />
+                                        <TextBlock x:Name="TxtKnownCount"
+                                                   Text="85 cards (85%)"
+                                                   FontWeight="Bold"
+                                                   Foreground="#10b981"
+                                                   HorizontalAlignment="Right" />
+                                    </Grid>
+
+                                    <Grid Margin="0,0,0,12">
+                                        <TextBlock Text="❌ Unknown"
+                                                   Foreground="{DynamicResource TextColor}"
+                                                   Opacity="0.7" />
+                                        <TextBlock x:Name="TxtUnknownCount"
+                                                   Text="15 cards (15%)"
+                                                   FontWeight="Bold"
+                                                   Foreground="#dc2626"
+                                                   HorizontalAlignment="Right" />
+                                    </Grid>
+
+                                    <Grid>
+                                        <TextBlock Text="📝 Total"
+                                                   Foreground="{DynamicResource TextColor}"
+                                                   Opacity="0.7" />
+                                        <TextBlock x:Name="TxtTotalCount"
+                                                   Text="100 cards"
+                                                   FontWeight="Bold"
+                                                   Foreground="{DynamicResource TextColor}"
+                                                   HorizontalAlignment="Right" />
+                                    </Grid>
+
+                                    <!-- Skipped List -->
+                                    <Border x:Name="SkippedListCompletion"
+                                            Background="#fff3cd"
+                                            BorderBrush="#ffc107"
+                                            BorderThickness="1"
+                                            CornerRadius="10"
+                                            Padding="15"
+                                            Margin="0,15,0,0"
+                                            Visibility="Collapsed">
+                                        <StackPanel>
+                                            <TextBlock Text="🚩 Skipped cards (click to review):"
+                                                       FontWeight="SemiBold"
+                                                       Foreground="#856404"
+                                                       Margin="0,0,0,10" />
+                                            <WrapPanel x:Name="SkippedNumbersCompletion" />
+                                        </StackPanel>
+                                    </Border>
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Actions -->
+                            <UniformGrid Columns="3" Rows="1">
+                                <Button Content="🏠 Home"
+                                        Style="{StaticResource SecondaryButtonStyle}"
+                                        Margin="0,0,7,0"
+                                        Click="ExitGame_Click" />
+                                <Button Content="🔄 Restart"
+                                        Style="{StaticResource PrimaryButtonStyle}"
+                                        Margin="7,0,7,0"
+                                        Click="RestartGame_Click" />
+                                <Button x:Name="BtnReviewSkippedCompletion"
+                                        Content="👁️ Review Skipped"
+                                        Style="{StaticResource SuccessButtonStyle}"
+                                        Margin="7,0,0,0"
+                                        Visibility="Collapsed"
+                                        Click="ReviewSkippedOnly_Click" />
+                            </UniformGrid>
+                        </StackPanel>
+                    </Border>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+    </Grid>
+</local:WordListPageBase>

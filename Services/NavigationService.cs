@@ -104,6 +104,7 @@ namespace BlueBerryDictionary.Services
                 "History" => new Pages.HistoryPage(_onWordClick),
                 "Favourite" => new Views.Pages.FavouriteWordsPage(_onWordClick),
                 "MyWords" => new Pages.MyWordsPage(_onWordClick),
+                "Game" => new Pages.GamePage(_onWordClick),
                 "Account" => new UserProfilePage() ,
                 "UserProfile" => new UserProfilePage(),
                 "Setting" => new SettingsPage() ,
