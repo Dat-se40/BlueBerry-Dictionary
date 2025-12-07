@@ -7,9 +7,10 @@
     "CreatedAt": "2025-12-05T09:46:30.2683009+07:00",
     "RelatedWords": [
       "sorry",
-      "dick"
+      "dick",
+      "treasure"
     ],
-    "WordCount": 2
+    "WordCount": 3
   },
   {
     "Id": "ef39ecb0-7b7d-491d-b1ea-1e3b34183c1f",
@@ -18,8 +19,9 @@
     "Color": "#F59E0B",
     "CreatedAt": "2025-12-05T09:46:30.2696332+07:00",
     "RelatedWords": [
-      "sorry"
+      "sorry",
+      "treasure"
     ],
-    "WordCount": 1
+    "WordCount": 2
   }
 ]
