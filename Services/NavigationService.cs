@@ -72,6 +72,11 @@ namespace BlueBerryDictionary.Services
             _currentPage = _backStack.Pop();
 
             var page = CreatePage(_currentPage);
+            while (_frame.CanGoBack)
+            {
+                _frame.RemoveBackEntry();
+            }
+
             _frame.Navigate(page);
 
             System.Console.WriteLine($"⬅️ {_currentPage} | Back: {_backStack.Count} | Forward: {_forwardStack.Count}");
@@ -85,6 +90,11 @@ namespace BlueBerryDictionary.Services
             _currentPage = _forwardStack.Pop();
 
             var page = CreatePage(_currentPage);
+            while (_frame.CanGoBack)
+            {
+                _frame.RemoveBackEntry();
+            }
+
             _frame.Navigate(page);
 
             System.Console.WriteLine($"➡️ {_currentPage} | Back: {_backStack.Count} | Forward: {_forwardStack.Count}");
@@ -141,6 +151,11 @@ namespace BlueBerryDictionary.Services
             }
 
             _currentPage = pageName;
+            // ép frame không giữ cache, luôn tạo fresh page
+            while (_frame.CanGoBack)
+            {
+                _frame.RemoveBackEntry();
+            }
 
             // Navigate to provided page instance
             _frame.Navigate(page);
