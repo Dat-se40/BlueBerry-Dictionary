@@ -8,8 +8,7 @@ using JsonIgnoreAttribute = Newtonsoft.Json.JsonIgnoreAttribute;
 namespace BlueBerryDictionary.Models
 {
     /// <summary>
-    /// Package chứa các topics (mỗi topic = 1 collection từ vựng)
-    /// VD: IELTS Vocabulary, Business English, Daily Conversation
+    /// Lớp cơ sở cho các package
     /// </summary>
     public abstract class PackageBase<T>
     {
