@@ -1,24 +1,12 @@
 [
   {
-    "Id": "d161081e-3474-4b9d-9063-f03c78875591",
-    "Name": "test12",
-    "Icon": "📚",
-    "Color": "#84CC16",
-    "CreatedAt": "2025-12-05T09:46:30.2683009+07:00",
+    "Id": "f3373afc-d49d-44c0-910e-c5db18e0cdaa",
+    "Name": "test",
+    "Icon": "🏷️",
+    "Color": "#2D4ACC",
+    "CreatedAt": "2025-12-07T21:32:04.6130204+07:00",
     "RelatedWords": [
-      "sorry",
-      "dick"
-    ],
-    "WordCount": 2
-  },
-  {
-    "Id": "ef39ecb0-7b7d-491d-b1ea-1e3b34183c1f",
-    "Name": "huhu",
-    "Icon": "🎪",
-    "Color": "#F59E0B",
-    "CreatedAt": "2025-12-05T09:46:30.2696332+07:00",
-    "RelatedWords": [
-      "sorry"
+      "hi"
     ],
     "WordCount": 1
   }

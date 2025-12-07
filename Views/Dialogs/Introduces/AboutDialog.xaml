@@ -1,0 +1,300 @@
+﻿<Window x:Class="BlueBerryDictionary.Views.Dialogs.Introduces.AboutDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Giới Thiệu Ứng Dụng"
+        Width="600" Height="650"
+        WindowStartupLocation="CenterScreen"
+        Background="{DynamicResource MainBackground}"
+        ResizeMode="NoResize">
+
+    <Window.Resources>
+        <!-- Header Style -->
+        <Style x:Key="HeaderStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextColor}"/>
+            <Setter Property="Margin" Value="0,15,0,10"/>
+        </Style>
+
+        <!-- Body Style -->
+        <Style x:Key="BodyStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextColor}"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="LineHeight" Value="22"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+            <Setter Property="Opacity" Value="0.9"/>
+        </Style>
+
+        <!-- Link Style -->
+        <Style x:Key="LinkStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="{DynamicResource ButtonColor}"/>
+            <Setter Property="TextDecorations" Value="Underline"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Margin" Value="0,5,0,5"/>
+        </Style>
+
+        <!-- Close Button Style -->
+        <Style x:Key="CloseButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="{DynamicResource ButtonColor}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="25,10"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                Padding="{TemplateBinding Padding}"
+                                CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Opacity" Value="0.9"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0"
+                Background="{DynamicResource ButtonColor}"
+                Padding="30,20">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="📖"
+                           FontSize="48"
+                           VerticalAlignment="Center"
+                           Margin="0,0,20,0"/>
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock Text="BLUEBERRY DICTIONARY"
+                               FontSize="24"
+                               FontWeight="Bold"
+                               Foreground="White"/>
+                    <TextBlock Text="Từ điển thông minh cho mọi người"
+                               FontSize="14"
+                               Foreground="White"
+                               Opacity="0.9"
+                               Margin="0,5,0,0"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <!-- Content -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="30,20">
+            <StackPanel>
+                <!-- Version Info -->
+                <Border Background="{DynamicResource CardBackground}"
+                        BorderBrush="{DynamicResource BorderColor}"
+                        BorderThickness="1"
+                        CornerRadius="8"
+                        Padding="20"
+                        Margin="0,0,0,15">
+                    <StackPanel>
+                        <TextBlock Text="ℹ️ Thông Tin Phiên Bản"
+                                   Style="{StaticResource HeaderStyle}"
+                                   Margin="0,0,0,15"/>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0"
+                                       Text="Version:"
+                                       FontWeight="SemiBold"
+                                       Foreground="{DynamicResource TextColor}"
+                                       Margin="0,5,15,5"/>
+                            <TextBlock Grid.Row="0" Grid.Column="1"
+                                       Text="1.0.0"
+                                       Foreground="{DynamicResource TextColor}"
+                                       Margin="0,5,0,5"/>
+
+                            <TextBlock Grid.Row="1" Grid.Column="0"
+                                       Text="Build:"
+                                       FontWeight="SemiBold"
+                                       Foreground="{DynamicResource TextColor}"
+                                       Margin="0,5,15,5"/>
+                            <TextBlock Grid.Row="1" Grid.Column="1"
+                                       Text="2025.01.15"
+                                       Foreground="{DynamicResource TextColor}"
+                                       Margin="0,5,0,5"/>
+
+                            <TextBlock Grid.Row="2" Grid.Column="0"
+                                       Text="Platform:"
+                                       FontWeight="SemiBold"
+                                       Foreground="{DynamicResource TextColor}"
+                                       Margin="0,5,15,5"/>
+                            <TextBlock Grid.Row="2" Grid.Column="1"
+                                       Text="Windows 10/11 - WPF .NET 9.0"
+                                       Foreground="{DynamicResource TextColor}"
+                                       Margin="0,5,0,5"/>
+
+                            <TextBlock Grid.Row="3" Grid.Column="0"
+                                       Text="License:"
+                                       FontWeight="SemiBold"
+                                       Foreground="{DynamicResource TextColor}"
+                                       Margin="0,5,15,5"/>
+                            <TextBlock Grid.Row="3" Grid.Column="1"
+                                       Text="MIT License - Open Source"
+                                       Foreground="{DynamicResource TextColor}"
+                                       Margin="0,5,0,5"/>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!-- Team Info -->
+                <Border Background="{DynamicResource CardBackground}"
+                        BorderBrush="{DynamicResource BorderColor}"
+                        BorderThickness="1"
+                        CornerRadius="8"
+                        Padding="20"
+                        Margin="0,0,0,15">
+                    <StackPanel>
+                        <TextBlock Text="👥 Đội Ngũ Phát Triển"
+                                   Style="{StaticResource HeaderStyle}"
+                                   Margin="0,0,0,15"/>
+
+                        <TextBlock Style="{StaticResource BodyStyle}">
+                            <Run Text="Môn học:" FontWeight="SemiBold"/>
+                            <Run Text="Lập trình trực quan"/>
+                        </TextBlock>
+
+                        <TextBlock Style="{StaticResource BodyStyle}">
+                            <Run Text="Giảng viên:" FontWeight="SemiBold"/>
+                            <Run Text="ThS. Mai Trọng Khang"/>
+                        </TextBlock>
+
+                        <TextBlock Style="{StaticResource BodyStyle}">
+                            <Run Text="Học kỳ:" FontWeight="SemiBold"/>
+                            <Run Text="1 - Năm 2024-2025"/>
+                        </TextBlock>
+
+                        <TextBlock Text="Thành viên:"
+                                   FontWeight="SemiBold"
+                                   Foreground="{DynamicResource TextColor}"
+                                   Margin="0,15,0,8"/>
+
+                        <StackPanel Margin="15,0,0,0">
+                            <TextBlock Style="{StaticResource BodyStyle}">
+                                • Nguyễn Tấn Đạt
+                            </TextBlock>
+                            <TextBlock Style="{StaticResource BodyStyle}">
+                                • Võ Nguyễn Thanh Hương
+                            </TextBlock>
+                            <TextBlock Style="{StaticResource BodyStyle}">
+                                • Phan Thế Phong
+                            </TextBlock>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <!-- Description -->
+                <Border Background="{DynamicResource CardBackground}"
+                        BorderBrush="{DynamicResource BorderColor}"
+                        BorderThickness="1"
+                        CornerRadius="8"
+                        Padding="20"
+                        Margin="0,0,0,15">
+                    <StackPanel>
+                        <TextBlock Text="📝 Mô Tả"
+                                   Style="{StaticResource HeaderStyle}"
+                                   Margin="0,0,0,15"/>
+
+                        <TextBlock Style="{StaticResource BodyStyle}">
+                            BlueBerry Dictionary là ứng dụng từ điển tiếng Anh thông minh, được thiết kế để mang đến trải nghiệm tra cứu và học từ vựng hiệu quả nhất. Ứng dụng không chỉ là công cụ tra từ mà còn là người bạn đồng hành giúp bạn xây dựng kho từ vựng cá nhân một cách khoa học.
+                        </TextBlock>
+
+                        <TextBlock Text="Tính năng nổi bật:"
+                                   FontWeight="SemiBold"
+                                   Foreground="{DynamicResource TextColor}"
+                                   Margin="0,10,0,8"/>
+
+                        <StackPanel Margin="15,0,0,0">
+                            <TextBlock Style="{StaticResource BodyStyle}">
+                                ✅ Tra cứu từ với nhiều nguồn dữ liệu uy tín
+                            </TextBlock>
+                            <TextBlock Style="{StaticResource BodyStyle}">
+                                ✅ Phát âm chuẩn US 🇺🇸 và UK 🇬🇧
+                            </TextBlock>
+                            <TextBlock Style="{StaticResource BodyStyle}">
+                                ✅ Quản lý từ vựng với hệ thống Tags
+                            </TextBlock>
+                            <TextBlock Style="{StaticResource BodyStyle}">
+                                ✅ Đồng bộ dữ liệu qua Google Drive
+                            </TextBlock>
+                            <TextBlock Style="{StaticResource BodyStyle}">
+                                ✅ 23 themes + custom màu sắc
+                            </TextBlock>
+                            <TextBlock Style="{StaticResource BodyStyle}">
+                                ✅ Hỗ trợ offline mode
+                            </TextBlock>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <!-- Links -->
+                <Border Background="{DynamicResource CardBackground}"
+                        BorderBrush="{DynamicResource BorderColor}"
+                        BorderThickness="1"
+                        CornerRadius="8"
+                        Padding="20">
+                    <StackPanel>
+                        <TextBlock Text="🔗 Liên Kết"
+                                   Style="{StaticResource HeaderStyle}"
+                                   Margin="0,0,0,15"/>
+
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource LinkStyle}"
+                                       Text="🐙 GitHub Repository"
+                                       MouseDown="GitHubLink_Click"/>
+
+                            <TextBlock Style="{StaticResource LinkStyle}"
+                                       Text="📧 Email: 24520280@gm.uit.edu.vn"
+                                       MouseDown="EmailLink_Click"
+                                       Margin="0,10,0,5"/>
+
+                            <TextBlock Style="{StaticResource LinkStyle}"
+                                       Text="📖 Documentation and Wiki"
+                                       MouseDown="WikiLink_Click"
+                                       Margin="0,10,0,5"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Buttons -->
+        <Border Grid.Row="2"
+                Background="{DynamicResource CardBackground}"
+                BorderBrush="{DynamicResource BorderColor}"
+                BorderThickness="0,1,0,0"
+                Padding="20">
+            <Button Content="Đóng"
+                    Width="120"
+                    Style="{StaticResource CloseButtonStyle}"
+                    HorizontalAlignment="Right"
+                    Click="Close_Click"/>
+        </Border>
+    </Grid>
+</Window>
