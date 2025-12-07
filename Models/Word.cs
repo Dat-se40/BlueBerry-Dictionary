@@ -230,5 +230,22 @@ namespace BlueBerryDictionary.Models
             LastModified = DateTime.Now;
         }
     }
+    /// <summary>
+    /// 1 Topic Collection = 1 nhóm từ vựng có chủ đề
+    /// VD: "Everyday Conversation", "Business Meeting", "Travel English"
+    /// Class helper cho TopicPackage
+    /// </summary>
+    public class TopicCollection
+    {
+        public string Id { get; set; } = Guid.NewGuid().ToString();
+        public string Name { get; set; } // Tên topic
+        public string Description { get; set; }
+        public string Icon { get; set; } = "📚";
+        public string Color { get; set; } = "#2D4ACC";
+
+        public List<Word> Words { get; set; } = new List<Word>();
+
+        public int WordCount => Words?.Count ?? 0;
+    }
 }
 #endregion
