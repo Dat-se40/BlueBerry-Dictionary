@@ -195,7 +195,17 @@ namespace BlueBerryDictionary.Services
         {
             return _availablePackages.FirstOrDefault(p => p.Id == id);
         }
+        public async Task<TopicPackage> LoadPackagePreviewAsync(TopicPackage meta)
+        {
+            using var client = new HttpClient();
+            var json = await client.GetStringAsync(meta.DownloadUrl);
 
+            // Đọc thành TopicPackage đầy đủ (có Container)
+            var full = JsonConvert.DeserializeObject<TopicPackage>(json);
+
+            // Không đụng tới IsDownloaded / LocalPath ở đây
+            return full;
+        }
         public async Task DownloadPackageAsync(string packageId, IProgress<double> progress = null)
         {
             var package = GetPackageById(packageId);

@@ -64,15 +64,10 @@ namespace BlueBerryDictionary.Views.UserControls
         public string Level => _package.Level;
         public bool IsDownloaded => _package.IsDownloaded;
 
-        public string SizeText
-        {
-            get
-            {
-                return _package.SizeInBytes >= 1_000_000
-                    ? $"{_package.SizeInBytes / 1_000_000.0:F1} MB"
-                    : $"{_package.SizeInBytes / 1_000.0:F0} KB";
-            }
-        }
+        public string SizeText =>
+            _package.SizeInBytes >= 1_000_000
+                ? $"{_package.SizeInBytes / 1_000_000.0:F1} MB"
+                : $"{_package.SizeInBytes / 1_000.0:F0} KB";
 
         public string DownloadDate => IsDownloaded
             ? System.DateTime.Now.ToString("dd/MM/yyyy")
@@ -80,34 +75,45 @@ namespace BlueBerryDictionary.Views.UserControls
 
         public string BadgeText => _package.Category;
 
-        public Brush BadgeColor
-        {
-            get
-            {
-                return _package.Level == "Advanced"
-                    ? new SolidColorBrush(Color.FromRgb(245, 158, 11))
-                    : new SolidColorBrush(Color.FromRgb(16, 185, 129));
-            }
-        }
+        public Brush BadgeColor =>
+            _package.Level == "Advanced"
+                ? new SolidColorBrush(Color.FromRgb(245, 158, 11))
+                : new SolidColorBrush(Color.FromRgb(16, 185, 129));
+
+        // Text các nút theo trạng thái
+        public string DownloadButtonText =>
+            IsDownloaded ? "🔁 Tải lại / Cập nhật" : "💾 Tải thông tin";
+
+        public string OpenButtonText =>
+            IsDownloaded ? "🔍 Mở gói" : "👁️ Xem trước";
+
+        public string DeleteButtonText => "🗑️ Xóa";
 
         // Commands
         public ICommand OpenPackageCommand { get; }
         public ICommand DownloadPackageCommand { get; }
         public ICommand DeletePackageCommand { get; }
 
-        private void OpenPackage()
+        private async void OpenPackage()
         {
-            _parentVM.OpenPackage(_package);
+            if (IsDownloaded)
+            {
+                _parentVM.OpenPackage(_package);
+            }
+            else
+            {
+                await _parentVM.PreviewPackageAsync(_package);
+            }
         }
-        
+
         private async void DownloadPackage()
         {
-           await _parentVM.DownloadPackageAsync(_package);  
+            await _parentVM.DownloadPackageAsync(_package);
         }
 
         private async void DeletePackage()
         {
-            await _parentVM.DeletePackageAsync(_package);   
+            await _parentVM.DeletePackageAsync(_package);
         }
     }
 }

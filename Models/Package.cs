@@ -90,8 +90,8 @@ namespace BlueBerryDictionary.Models
                 // Lưu file
                 await File.WriteAllTextAsync(LocalPath, jsonData);
 
-                // Deserialize vào Container
-                DeserializeContainer(jsonData);
+                var full = JsonConvert.DeserializeObject<TopicPackage>(jsonData);
+                Container = full?.Container ?? new List<TopicCollection>(); 
 
                 IsDownloaded = true;
                 Console.WriteLine($"✅ Downloaded package: {Name} ({Container.Count} topics)");

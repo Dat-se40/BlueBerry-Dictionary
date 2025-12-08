@@ -8,9 +8,6 @@ using System.Windows;
 
 namespace BlueBerryDictionary.Views.Dialogs
 {
-    /// <summary>
-    /// Interaction logic for PackageDetailsDialog.xaml
-    /// </summary>
     public partial class PackageDetailsDialog : Window
     {
         public PackageDetailsDialog(TopicPackage package)
@@ -25,6 +22,7 @@ namespace BlueBerryDictionary.Views.Dialogs
             Close();
         }
     }
+
     public partial class PackageDetailsViewModel : ObservableObject
     {
         private readonly TopicPackage _package;
@@ -40,14 +38,27 @@ namespace BlueBerryDictionary.Views.Dialogs
         [ObservableProperty]
         private bool _selectAll;
 
+        // Mode: true = đã tải (quản lý offline), false = chưa tải (preview)
+        public bool IsDownloadedMode => _package.IsDownloaded;
+
+        // Hiện/ẩn checkbox + panel chọn
+        public bool ShowSelectionControls => IsDownloadedMode;
+
         public string PackageName => _package.Name;
         public string PackageDescription => _package.Description;
         public int TotalWordsCount => _package.Container.Sum(t => t.Words.Count);
+
+        // Text nút tải full theo mode
+        public string FullDownloadButtonText =>
+            IsDownloadedMode ? "💾 Cập nhật / Đồng bộ" : "💾 Tải xuống đã chọn";
 
         public string SelectionSummary
         {
             get
             {
+                if (!ShowSelectionControls)
+                    return string.Empty;
+
                 var selected = FilteredWords?.Count(w => w.IsSelected) ?? 0;
                 return $"Đã chọn: {selected}/{FilteredWords?.Count ?? 0} từ";
             }
@@ -57,6 +68,9 @@ namespace BlueBerryDictionary.Views.Dialogs
         {
             get
             {
+                if (!ShowSelectionControls)
+                    return string.Empty;
+
                 var selected = FilteredWords?.Count(w => w.IsSelected) ?? 0;
                 var avgSize = 10_000; // ~10KB per word
                 var totalBytes = selected * avgSize;
@@ -79,7 +93,7 @@ namespace BlueBerryDictionary.Views.Dialogs
         {
             var allWords = _package.Container
                 .SelectMany(topic => topic.Words)
-                .Select(w => new WordItemViewModel(w))
+                .Select(w => new WordItemViewModel(w, IsDownloadedMode))
                 .ToList();
 
             FilteredWords = new ObservableCollection<WordItemViewModel>(allWords);
@@ -96,7 +110,7 @@ namespace BlueBerryDictionary.Views.Dialogs
                 var filtered = _package.Container
                     .SelectMany(topic => topic.Words)
                     .Where(w => w.word.Contains(value, StringComparison.OrdinalIgnoreCase))
-                    .Select(w => new WordItemViewModel(w))
+                    .Select(w => new WordItemViewModel(w, IsDownloadedMode))
                     .ToList();
 
                 FilteredWords = new ObservableCollection<WordItemViewModel>(filtered);
@@ -108,7 +122,10 @@ namespace BlueBerryDictionary.Views.Dialogs
 
         partial void OnSelectAllChanged(bool value)
         {
-            foreach (var word in FilteredWords)
+            if (!ShowSelectionControls || FilteredWords == null)
+                return;
+
+            foreach (var word in FilteredWords.Where(w => w.IsSelectable))
             {
                 word.IsSelected = value;
             }
@@ -119,7 +136,14 @@ namespace BlueBerryDictionary.Views.Dialogs
         [RelayCommand]
         private async Task DownloadSelectedAsync()
         {
-            var selectedWords = FilteredWords.Where(w => w.IsSelected).ToList();
+            if (!ShowSelectionControls)
+            {
+                // Mode preview: sau này bạn có thể xử lý kiểu "Tải metadata" ở đây nếu muốn
+                MessageBox.Show("Đây là chế độ xem thử, chưa hỗ trợ tải.", "Thông báo");
+                return;
+            }
+
+            var selectedWords = FilteredWords.Where(w => w.IsSelected && w.IsSelectable).ToList();
 
             if (selectedWords.Count == 0)
             {
@@ -140,18 +164,9 @@ namespace BlueBerryDictionary.Views.Dialogs
             {
                 foreach (var wordVM in selectedWords)
                 {
-                    // Lưu full Word vào offline storage
                     Data.FileStorage.LoadWordAsync(new List<Word> { wordVM.Word });
-                    // Sẽ thêm phương thức tạo tag
-                    //// Thêm WordShortened vào TagService
-                    //var shortened = WordShortened.FromWord(wordVM.Word);
-                    //if (shortened != null)
-                    //{
-                    //    TagService.Instance.AddNewWordShortened(shortened);
-                    //}
+                    // chỗ này bạn có thể sync với TagService nếu muốn
                 }
-
-               // TagService.Instance.SaveWords();
 
                 MessageBox.Show(
                     $"✅ Đã tải xuống {selectedWords.Count} từ thành công!",
@@ -172,7 +187,7 @@ namespace BlueBerryDictionary.Views.Dialogs
         [RelayCommand]
         private void Search()
         {
-            // Search logic already handled in OnSearchTextChanged
+            // Đã xử lý trong OnSearchTextChanged
         }
     }
 
@@ -180,14 +195,32 @@ namespace BlueBerryDictionary.Views.Dialogs
     {
         public Word Word { get; }
 
+        // true nếu user có thể tick (tức là trong mode đã tải, và từ này chưa có local chẳng hạn)
         [ObservableProperty]
         private bool _isSelected;
 
-        public WordItemViewModel(Word word)
+        [ObservableProperty]
+        private bool _isSelectable;
+
+        public WordItemViewModel(Word word, bool isDownloadedMode)
         {
             Word = word;
+
+            // nếu chưa tải: không cho tick
+            if (!isDownloadedMode)
+            {
+                IsSelectable = false;
+            }
+            else
+            {
+                // TODO: sau này bạn check trong local xem từ này đã tồn tại chưa:
+                // IsSelectable = !LocalHasWord(word);
+                IsSelectable = true;
+            }
         }
 
+        public string word => Word.word;
+        public string phonetic => Word.phonetic;
         public string ShortDefinition
         {
             get

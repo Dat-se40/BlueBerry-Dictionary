@@ -164,26 +164,37 @@
 
             <!-- FOOTER -->
             <Border Grid.Row="2" 
-                    BorderBrush="{DynamicResource BorderColor}"
-                    BorderThickness="0,2,0,0"
-                    Padding="15">
-                <StackPanel >
-                    <!-- Action Buttons -->
-                    <Grid x:Name="ActionButtons" >
-                        <!-- Downloaded Package Buttons -->
-                        <StackPanel Orientation="Horizontal" 
-                                     HorizontalAlignment="Right" Margin="0,0,16,0"
-                    Visibility="{Binding IsDownloaded, Converter={StaticResource BoolToVisibilityConverter}}">
-                            <Button Content="🔍 Tải bản full" Margin="0,0,20,0"
-Style="{StaticResource SecondaryButtonStyle}"
-Command="{Binding DownloadPackageCommand}"/>
-                            <Button Content="🔍 Mở gói" Margin="0,0,20,0"
-                    Style="{StaticResource SecondaryButtonStyle}"
-                    Command="{Binding OpenPackageCommand}"/>
-                            <Button Content="🗑️ Xóa"
-                    Style="{StaticResource DangerButtonStyle}"
-                    BorderThickness="2"
-                    Command="{Binding DeletePackageCommand}"/>
+        BorderBrush="{DynamicResource BorderColor}"
+        BorderThickness="0,2,0,0"
+        Padding="15">
+                <StackPanel>
+                    <Grid x:Name="ActionButtons">
+                        <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        Margin="0,0,16,0">
+
+                            <!-- Nút tải full / tải info -->
+                            <Button x:Name="DownloadFullButton"
+                        Content="{Binding DownloadButtonText}"
+                        Margin="0,0,20,0"
+                        Style="{StaticResource SecondaryButtonStyle}"
+                        Command="{Binding DownloadPackageCommand}"/>
+
+                            <!-- Nút mở gói / xem trước -->
+                            <Button x:Name="OpenPackageButton"
+                        Content="{Binding OpenButtonText}"
+                        Margin="0,0,20,0"
+                        Style="{StaticResource SecondaryButtonStyle}"
+                        Command="{Binding OpenPackageCommand}"/>
+
+                            <!-- Nút xóa (chỉ khi đã tải) -->
+                            <Button x:Name="DeletePackageButton"
+                        Content="{Binding DeleteButtonText}"
+                        Style="{StaticResource DangerButtonStyle}"
+                        BorderThickness="2"
+                        Command="{Binding DeletePackageCommand}"
+                        Visibility="{Binding IsDownloaded,
+                                             Converter={StaticResource BoolToVisibilityConverter}}"/>
                         </StackPanel>
                     </Grid>
                 </StackPanel>

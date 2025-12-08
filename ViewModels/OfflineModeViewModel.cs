@@ -1,12 +1,13 @@
-﻿using System;
+﻿using BlueBerryDictionary.Models;
+using BlueBerryDictionary.Services;
+using BlueBerryDictionary.Views.Dialogs;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using BlueBerryDictionary.Models;
-using BlueBerryDictionary.Services;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 
 namespace BlueBerryDictionary.ViewModels
 {
@@ -187,7 +188,27 @@ namespace BlueBerryDictionary.ViewModels
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+        /// <summary>
+        /// Tải bản xem trước
+        /// </summary>
+        public async Task PreviewPackageAsync(TopicPackage meta)
+        {
+            try
+            {
+                var full = await _packageManager.LoadPackagePreviewAsync(meta);
 
+                var dialog = new PackageDetailsDialog(full)
+                {
+                    Owner = Application.Current.MainWindow
+                };
+                dialog.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
         /// <summary>
         /// Open package details
         /// </summary>
