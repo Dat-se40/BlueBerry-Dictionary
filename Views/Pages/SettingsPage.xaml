@@ -13,16 +13,17 @@
             <!-- ============ PAGE HEADER ============ -->
             <Border Style="{StaticResource CardStyle}" Margin="0,0,0,30">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="⚙️" FontSize="48" Margin="0,0,15,0"/>
+                    <TextBlock Text="⚙️" FontSize="48" Margin="0,0,15,0"
+                               Foreground="{DynamicResource TextColor}" />
                     <StackPanel>
                         <TextBlock Text="Settings"
                                    FontSize="32"
                                    FontWeight="Bold"
-                                   Foreground="{DynamicResource TextColor}"/>
+                                   Foreground="{DynamicResource TextColor}" />
                         <TextBlock Text="Cài đặt và tùy chỉnh ứng dụng"
                                    FontSize="15"
                                    Foreground="{DynamicResource TextColor}"
-                                   Opacity="0.8"/>
+                                   Opacity="0.8" />
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -32,43 +33,44 @@
                 <StackPanel>
                     <!-- Header -->
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
-                        <TextBlock Text="☀️" FontSize="24" Margin="0,0,12,0"/>
+                        <TextBlock Text="☀️" FontSize="24" Margin="0,0,12,0"
+                                   Foreground="{DynamicResource TextColor}" />
                         <TextBlock Text="Giao diện &amp; Hiển thị"
-                       FontSize="18"
-                       FontWeight="Bold"
-                       Foreground="{DynamicResource TextColor}"/>
+                                   FontSize="18"
+                                   FontWeight="Bold"
+                                   Foreground="{DynamicResource TextColor}" />
                     </StackPanel>
 
                     <!-- Theme Mode -->
                     <Border BorderBrush="{DynamicResource BorderColor}"
-                        BorderThickness="0,0,0,1"
-                        Padding="0,15">
+                            BorderThickness="0,0,0,1"
+                            Padding="0,15">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
                             <StackPanel>
                                 <TextBlock Text="Chế độ giao diện"
-                               FontSize="15"
-                               FontWeight="SemiBold"
-                               Foreground="{DynamicResource TextColor}"/>
+                                           FontSize="15"
+                                           FontWeight="SemiBold"
+                                           Foreground="{DynamicResource TextColor}" />
                                 <TextBlock Text="Chọn chủ đề sáng, tối hoặc theo hệ thống"
-                               FontSize="13"
-                               Foreground="{DynamicResource TextColor}"
-                               Opacity="0.7"
-                               Margin="0,5,0,0"/>
+                                           FontSize="13"
+                                           Foreground="{DynamicResource TextColor}"
+                                           Opacity="0.7"
+                                           Margin="0,5,0,0" />
                             </StackPanel>
                             <ComboBox Grid.Column="1"
-                             x:Name="ThemeModeComboBox"
-                             SelectedIndex="0"
-                             MinWidth="150"
-                             Style="{StaticResource SettingsComboBoxStyle}"
-                             SelectionChanged="ThemeModeComboBox_SelectionChanged">
-                                <ComboBoxItem Content="Sáng"/>
-                                <ComboBoxItem Content="Tối"/>
-                                <ComboBoxItem Content="Tự động"/>
+                                      x:Name="ThemeModeComboBox"
+                                      SelectedIndex="0"
+                                      MinWidth="150"
+                                      Style="{StaticResource SettingsComboBoxStyle}"
+                                      SelectionChanged="ThemeModeComboBox_SelectionChanged">
+                                <ComboBoxItem Content="Sáng" Style="{StaticResource ComboBoxItemFirstStyle}"/>
+                                <ComboBoxItem Content="Tối" Style="{StaticResource ComboBoxItemStyle}"/>
+                                <ComboBoxItem Content="Tự động" Style="{StaticResource ComboBoxItemLastStyle}"/> 
                             </ComboBox>
 
                         </Grid>
@@ -76,37 +78,37 @@
 
                     <!-- ✅ MỚI: Color Theme -->
                     <Border BorderBrush="{DynamicResource BorderColor}"
-                BorderThickness="0,0,0,1"
-                Padding="0,15">
+                            BorderThickness="0,0,0,1"
+                            Padding="0,15">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
                             <StackPanel>
                                 <TextBlock Text="Chủ đề màu sắc"
-                               FontSize="15"
-                               FontWeight="SemiBold"
-                               Foreground="{DynamicResource TextColor}"/>
+                                           FontSize="15"
+                                           FontWeight="SemiBold"
+                                           Foreground="{DynamicResource TextColor}" />
                                 <TextBlock Text="Chọn bộ màu cho ứng dụng"
-                               FontSize="13"
-                               Foreground="{DynamicResource TextColor}"
-                               Opacity="0.7"
-                               Margin="0,5,0,0"/>
+                                           FontSize="13"
+                                           Foreground="{DynamicResource TextColor}"
+                                           Opacity="0.7"
+                                           Margin="0,5,0,0" />
                             </StackPanel>
 
                             <ComboBox Grid.Column="1"
-                              x:Name="ColorThemeComboBox"
-                              SelectedIndex="0"
-                              MinWidth="200"
-                              Style="{StaticResource SettingsComboBoxStyle}"
-                              SelectionChanged="ColorThemeComboBox_SelectionChanged">
-                                <ComboBoxItem Content="Mặc định" Tag="default"/>
-                                <ComboBoxItem Content="✓ Theme có sẵn" Tag="preset_active" Visibility="Collapsed"/>
-                                <ComboBoxItem Content="✓ Màu tùy chỉnh" Tag="custom_active" Visibility="Collapsed"/>
-                                <ComboBoxItem Content="Chọn theme có sẵn..." Tag="preset_picker"/>
-                                <ComboBoxItem Content="Chọn màu tùy chỉnh..." Tag="custom_picker"/>
+                                      x:Name="ColorThemeComboBox"
+                                      SelectedIndex="0"
+                                      MinWidth="200"
+                                      Style="{StaticResource SettingsComboBoxStyle}"
+                                      SelectionChanged="ColorThemeComboBox_SelectionChanged">
+                                <ComboBoxItem Content="Mặc định" Tag="default" Style="{StaticResource ComboBoxItemFirstStyle}"/>
+                                <ComboBoxItem Content="✓ Theme có sẵn" Tag="preset_active" Visibility="Collapsed" Style="{StaticResource ComboBoxItemStyle}"/>
+                                <ComboBoxItem Content="✓ Màu tùy chỉnh" Tag="custom_active" Visibility="Collapsed" Style="{StaticResource ComboBoxItemStyle}"/>
+                                <ComboBoxItem Content="Chọn theme có sẵn..." Tag="preset_picker" Style="{StaticResource ComboBoxItemStyle}"/>
+                                <ComboBoxItem Content="Chọn màu tùy chỉnh..." Tag="custom_picker" Style="{StaticResource ComboBoxItemLastStyle}"/>
                             </ComboBox>
 
                         </Grid>
@@ -114,24 +116,24 @@
 
                     <!-- Font Family -->
                     <Border BorderBrush="{DynamicResource BorderColor}"
-                BorderThickness="0,0,0,1"
-                Padding="0,15">
+                            BorderThickness="0,0,0,1"
+                            Padding="0,15">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
                             <StackPanel>
                                 <TextBlock Text="Kiểu chữ"
-                               FontSize="15"
-                               FontWeight="SemiBold"
-                               Foreground="{DynamicResource TextColor}"/>
+                                           FontSize="15"
+                                           FontWeight="SemiBold"
+                                           Foreground="{DynamicResource TextColor}" />
                                 <TextBlock Text="Chọn font chữ hiển thị"
-                               FontSize="13"
-                               Foreground="{DynamicResource TextColor}"
-                               Opacity="0.7"
-                               Margin="0,5,0,0"/>
+                                           FontSize="13"
+                                           Foreground="{DynamicResource TextColor}"
+                                           Opacity="0.7"
+                                           Margin="0,5,0,0" />
                             </StackPanel>
 
                             <ComboBox Grid.Column="1"
@@ -140,9 +142,9 @@
                                       MinWidth="180"
                                       Style="{StaticResource SettingsComboBoxStyle}"
                                       SelectionChanged="FontFamilyComboBox_SelectionChanged">
-                                <ComboBoxItem Content="Mặc định" Tag="default"/>
-                                <ComboBoxItem Content="✓ Tùy chỉnh" Tag="custom_active" Visibility="Collapsed"/>
-                                <ComboBoxItem Content="Chọn font..." Tag="custom_picker"/>
+                                <ComboBoxItem Content="Mặc định" Tag="default" Style="{StaticResource ComboBoxItemFirstStyle}"/>
+                                <ComboBoxItem Content="✓ Tùy chỉnh" Tag="custom_active" Visibility="Collapsed" Style="{StaticResource ComboBoxItemStyle}"/>
+                                <ComboBoxItem Content="Chọn font..." Tag="custom_picker" Style="{StaticResource ComboBoxItemLastStyle}"/>
                             </ComboBox>
 
                         </Grid>
@@ -155,11 +157,12 @@
                 <StackPanel>
                     <!-- Header -->
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
-                        <TextBlock Text="💾" FontSize="24" Margin="0,0,12,0"/>
+                        <TextBlock Text="💾" FontSize="24" Margin="0,0,12,0"
+                                   Foreground="{DynamicResource TextColor}" />
                         <TextBlock Text="Dữ liệu &amp; Lưu trữ"
                                    FontSize="18"
                                    FontWeight="Bold"
-                                   Foreground="{DynamicResource TextColor}"/>
+                                   Foreground="{DynamicResource TextColor}" />
                     </StackPanel>
 
                     <!-- Auto Save History -->
@@ -168,40 +171,40 @@
                             Padding="0,15">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
                             <StackPanel>
                                 <TextBlock Text="Tự động lưu lịch sử"
                                            FontSize="15"
                                            FontWeight="SemiBold"
-                                           Foreground="{DynamicResource TextColor}"/>
+                                           Foreground="{DynamicResource TextColor}" />
                                 <TextBlock Text="Lưu lịch sử tra cứu tự động"
                                            FontSize="13"
                                            Foreground="{DynamicResource TextColor}"
                                            Opacity="0.7"
-                                           Margin="0,5,0,0"/>
+                                           Margin="0,5,0,0" />
                             </StackPanel>
 
                             <!-- Toggle (Active) -->
                             <Border Grid.Column="1"
-        Width="52"
-        Height="28"
-        CornerRadius="14"
-        Cursor="Hand"
-        MouseDown="ToggleAutoSave_Click">
+                                    Width="52"
+                                    Height="28"
+                                    CornerRadius="14"
+                                    Cursor="Hand"
+                                    MouseDown="ToggleAutoSave_Click">
                                 <Border.Background>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                                        <GradientStop Color="#2D4ACC" Offset="0"/>
-                                        <GradientStop Color="#5B7FFF" Offset="1"/>
+                                        <GradientStop Color="#2D4ACC" Offset="0" />
+                                        <GradientStop Color="#5B7FFF" Offset="1" />
                                     </LinearGradientBrush>
                                 </Border.Background>
                                 <Ellipse Width="22"
-             Height="22"
-             Fill="White"
-             HorizontalAlignment="Right"
-             Margin="0,0,3,0"/>
+                                         Height="22"
+                                         Fill="White"
+                                         HorizontalAlignment="Right"
+                                         Margin="0,0,3,0" />
                             </Border>
 
                         </Grid>
@@ -213,32 +216,32 @@
                             Padding="0,15">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
                             <StackPanel>
                                 <TextBlock Text="Giới hạn từ yêu thích"
                                            FontSize="15"
                                            FontWeight="SemiBold"
-                                           Foreground="{DynamicResource TextColor}"/>
+                                           Foreground="{DynamicResource TextColor}" />
                                 <TextBlock Text="Số lượng từ yêu thích tối đa"
                                            FontSize="13"
                                            Foreground="{DynamicResource TextColor}"
                                            Opacity="0.7"
-                                           Margin="0,5,0,0"/>
+                                           Margin="0,5,0,0" />
                             </StackPanel>
 
                             <ComboBox Grid.Column="1"
-          x:Name="FavouriteLimitComboBox"
-          SelectedIndex="0"
-          MinWidth="150"
-          Style="{StaticResource SettingsComboBoxStyle}"
-          SelectionChanged="FavouriteLimitComboBox_SelectionChanged">
-                                <ComboBoxItem Content="500 từ"/>
-                                <ComboBoxItem Content="1,000 từ"/>
-                                <ComboBoxItem Content="5,000 từ"/>
-                                <ComboBoxItem Content="Không giới hạn"/>
+                                      x:Name="FavouriteLimitComboBox"
+                                      SelectedIndex="0"
+                                      MinWidth="150"
+                                      Style="{StaticResource SettingsComboBoxStyle}"
+                                      SelectionChanged="FavouriteLimitComboBox_SelectionChanged">
+                                <ComboBoxItem Content="500 từ" Style="{StaticResource ComboBoxItemFirstStyle}"/>
+                                <ComboBoxItem Content="1,000 từ" Style="{StaticResource ComboBoxItemStyle}"/>
+                                <ComboBoxItem Content="5,000 từ" Style="{StaticResource ComboBoxItemStyle}"/>
+                                <ComboBoxItem Content="Không giới hạn" Style="{StaticResource ComboBoxItemLastStyle}"/>
                             </ComboBox>
 
                         </Grid>
@@ -248,28 +251,28 @@
                     <Border Padding="0,15,0,5">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
                             <StackPanel>
                                 <TextBlock Text="Khôi phục dữ liệu"
                                            FontSize="15"
                                            FontWeight="SemiBold"
-                                           Foreground="{DynamicResource TextColor}"/>
+                                           Foreground="{DynamicResource TextColor}" />
                                 <TextBlock Text="Import dữ liệu từ file sao lưu"
                                            FontSize="13"
                                            Foreground="{DynamicResource TextColor}"
                                            Opacity="0.7"
-                                           Margin="0,5,0,0"/>
+                                           Margin="0,5,0,0" />
                             </StackPanel>
 
                             <Button Grid.Column="1"
-        Style="{StaticResource SecondaryButtonStyle}"
-        Command="{Binding RestoreDataCommand}">
+                                    Style="{StaticResource SecondaryButtonStyle}"
+                                    Command="{Binding RestoreDataCommand}">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="📤" FontSize="16" Margin="0,0,8,0"/>
-                                    <TextBlock Text="Khôi phục"/>
+                                    <TextBlock Text="📤" FontSize="16" Margin="0,0,8,0" />
+                                    <TextBlock Text="Khôi phục" />
                                 </StackPanel>
                             </Button>
 
@@ -282,16 +285,16 @@
                                 Margin="0,0,0,12"
                                 Command="{Binding ClearCacheCommand}">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="🔄" FontSize="16" Margin="0,0,8,0"/>
-                                <TextBlock Text="Xóa cache (Dọn dẹp bộ nhớ tạm)"/>
+                                <TextBlock Text="🔄" FontSize="16" Margin="0,0,8,0" />
+                                <TextBlock Text="Xóa cache (Dọn dẹp bộ nhớ tạm)" />
                             </StackPanel>
                         </Button>
 
                         <Button Style="{StaticResource DangerButtonStyle}"
                                 Command="{Binding ResetAppCommand}">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="🗑️" FontSize="16" Margin="0,0,8,0"/>
-                                <TextBlock Text="Xóa toàn bộ dữ liệu (Reset app)"/>
+                                <TextBlock Text="🗑️" FontSize="16" Margin="0,0,8,0" />
+                                <TextBlock Text="Xóa toàn bộ dữ liệu (Reset app)" />
                             </StackPanel>
                         </Button>
                     </StackPanel>
@@ -303,11 +306,12 @@
                 <StackPanel>
                     <!-- Header -->
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
-                        <TextBlock Text="❓" FontSize="24" Margin="0,0,12,0"/>
+                        <TextBlock Text="❓" FontSize="24" Margin="0,0,12,0"
+                                   Foreground="{DynamicResource TextColor}" />
                         <TextBlock Text="Hỗ trợ &amp; Thông tin"
                                    FontSize="18"
                                    FontWeight="Bold"
-                                   Foreground="{DynamicResource TextColor}"/>
+                                   Foreground="{DynamicResource TextColor}" />
                     </StackPanel>
 
                     <!-- User Guide -->
@@ -316,28 +320,28 @@
                             Padding="0,15">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
                             <StackPanel>
                                 <TextBlock Text="Hướng dẫn sử dụng"
                                            FontSize="15"
                                            FontWeight="SemiBold"
-                                           Foreground="{DynamicResource TextColor}"/>
+                                           Foreground="{DynamicResource TextColor}" />
                                 <TextBlock Text="Xem hướng dẫn chi tiết"
                                            FontSize="13"
                                            Foreground="{DynamicResource TextColor}"
                                            Opacity="0.7"
-                                           Margin="0,5,0,0"/>
+                                           Margin="0,5,0,0" />
                             </StackPanel>
 
                             <Button Grid.Column="1"
                                     Style="{StaticResource SecondaryButtonStyle}"
                                     Command="{Binding OpenUserGuideCommand}">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="📖" FontSize="16" Margin="0,0,8,0"/>
-                                    <TextBlock Text="Xem"/>
+                                    <TextBlock Text="📖" FontSize="16" Margin="0,0,8,0" />
+                                    <TextBlock Text="Xem" />
                                 </StackPanel>
                             </Button>
                         </Grid>
@@ -349,28 +353,28 @@
                             Padding="0,15">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
                             <StackPanel>
                                 <TextBlock Text="Câu hỏi thường gặp"
                                            FontSize="15"
                                            FontWeight="SemiBold"
-                                           Foreground="{DynamicResource TextColor}"/>
+                                           Foreground="{DynamicResource TextColor}" />
                                 <TextBlock Text="FAQ &amp; Troubleshooting"
                                            FontSize="13"
                                            Foreground="{DynamicResource TextColor}"
                                            Opacity="0.7"
-                                           Margin="0,5,0,0"/>
+                                           Margin="0,5,0,0" />
                             </StackPanel>
 
                             <Button Grid.Column="1"
                                     Style="{StaticResource SecondaryButtonStyle}"
                                     Command="{Binding OpenFAQCommand}">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="❓" FontSize="16" Margin="0,0,8,0"/>
-                                    <TextBlock Text="Xem"/>
+                                    <TextBlock Text="❓" FontSize="16" Margin="0,0,8,0" />
+                                    <TextBlock Text="Xem" />
                                 </StackPanel>
                             </Button>
                         </Grid>
@@ -382,28 +386,28 @@
                             Padding="0,15">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
                             <StackPanel>
                                 <TextBlock Text="Liên hệ hỗ trợ"
                                            FontSize="15"
                                            FontWeight="SemiBold"
-                                           Foreground="{DynamicResource TextColor}"/>
+                                           Foreground="{DynamicResource TextColor}" />
                                 <TextBlock Text="Gửi yêu cầu hỗ trợ"
                                            FontSize="13"
                                            Foreground="{DynamicResource TextColor}"
                                            Opacity="0.7"
-                                           Margin="0,5,0,0"/>
+                                           Margin="0,5,0,0" />
                             </StackPanel>
 
                             <Button Grid.Column="1"
                                     Style="{StaticResource SecondaryButtonStyle}"
                                     Command="{Binding OpenFAQCommand}">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="📧" FontSize="16" Margin="0,0,8,0"/>
-                                    <TextBlock Text="Liên hệ"/>
+                                    <TextBlock Text="📧" FontSize="16" Margin="0,0,8,0" />
+                                    <TextBlock Text="Liên hệ" />
                                 </StackPanel>
                             </Button>
                         </Grid>
@@ -415,28 +419,28 @@
                             Padding="0,15">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
                             <StackPanel>
                                 <TextBlock Text="Báo lỗi"
                                            FontSize="15"
                                            FontWeight="SemiBold"
-                                           Foreground="{DynamicResource TextColor}"/>
+                                           Foreground="{DynamicResource TextColor}" />
                                 <TextBlock Text="Report a bug or issue"
                                            FontSize="13"
                                            Foreground="{DynamicResource TextColor}"
                                            Opacity="0.7"
-                                           Margin="0,5,0,0"/>
+                                           Margin="0,5,0,0" />
                             </StackPanel>
 
                             <Button Grid.Column="1"
                                     Style="{StaticResource SecondaryButtonStyle}"
                                     Command="{Binding OpenFAQCommand}">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="🐛" FontSize="16" Margin="0,0,8,0"/>
-                                    <TextBlock Text="Báo lỗi"/>
+                                    <TextBlock Text="🐛" FontSize="16" Margin="0,0,8,0" />
+                                    <TextBlock Text="Báo lỗi" />
                                 </StackPanel>
                             </Button>
                         </Grid>
@@ -448,28 +452,28 @@
                             Padding="0,15">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
                             <StackPanel>
                                 <TextBlock Text="Đánh giá ứng dụng"
                                            FontSize="15"
                                            FontWeight="SemiBold"
-                                           Foreground="{DynamicResource TextColor}"/>
+                                           Foreground="{DynamicResource TextColor}" />
                                 <TextBlock Text="Rate on App Store / Play Store"
                                            FontSize="13"
                                            Foreground="{DynamicResource TextColor}"
                                            Opacity="0.7"
-                                           Margin="0,5,0,0"/>
+                                           Margin="0,5,0,0" />
                             </StackPanel>
 
                             <Button Grid.Column="1"
                                     Style="{StaticResource SecondaryButtonStyle}"
                                     Command="{Binding OpenFAQCommand}">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="⭐" FontSize="16" Margin="0,0,8,0"/>
-                                    <TextBlock Text="Đánh giá"/>
+                                    <TextBlock Text="⭐" FontSize="16" Margin="0,0,8,0" />
+                                    <TextBlock Text="Đánh giá" />
                                 </StackPanel>
                             </Button>
                         </Grid>
@@ -481,27 +485,27 @@
                             Padding="0,15">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
                             <StackPanel>
                                 <TextBlock Text="Giới thiệu về app"
                                            FontSize="15"
                                            FontWeight="SemiBold"
-                                           Foreground="{DynamicResource TextColor}"/>
+                                           Foreground="{DynamicResource TextColor}" />
                                 <TextBlock Text="Version 1.0.0 • Build 2025.01"
                                            FontSize="13"
                                            Foreground="{DynamicResource TextColor}"
                                            Opacity="0.7"
-                                           Margin="0,5,0,0"/>
+                                           Margin="0,5,0,0" />
                             </StackPanel>
                             <Button Grid.Column="1"
                                     Style="{StaticResource SecondaryButtonStyle}"
                                     Command="{Binding OpenFAQCommand}">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="ℹ️" FontSize="16" Margin="0,0,8,0"/>
-                                    <TextBlock Text="Xem"/>
+                                    <TextBlock Text="ℹ️" FontSize="16" Margin="0,0,8,0" />
+                                    <TextBlock Text="Xem" />
                                 </StackPanel>
                             </Button>
                         </Grid>
@@ -513,28 +517,28 @@
                             Padding="0,15">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
                             <StackPanel>
                                 <TextBlock Text="Điều khoản dịch vụ"
                                            FontSize="15"
                                            FontWeight="SemiBold"
-                                           Foreground="{DynamicResource TextColor}"/>
+                                           Foreground="{DynamicResource TextColor}" />
                                 <TextBlock Text="Terms &amp; Privacy Policy"
                                            FontSize="13"
                                            Foreground="{DynamicResource TextColor}"
                                            Opacity="0.7"
-                                           Margin="0,5,0,0"/>
+                                           Margin="0,5,0,0" />
                             </StackPanel>
 
                             <Button Grid.Column="1"
                                     Style="{StaticResource SecondaryButtonStyle}"
                                     Command="{Binding OpenFAQCommand}">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="📄" FontSize="16" Margin="0,0,8,0"/>
-                                    <TextBlock Text="Xem"/>
+                                    <TextBlock Text="📄" FontSize="16" Margin="0,0,8,0" />
+                                    <TextBlock Text="Xem" />
                                 </StackPanel>
                             </Button>
                         </Grid>
@@ -544,37 +548,36 @@
                     <Border Padding="0,15,0,0">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
                             <StackPanel>
                                 <TextBlock Text="Giấy phép mã nguồn"
                                            FontSize="15"
                                            FontWeight="SemiBold"
-                                           Foreground="{DynamicResource TextColor}"/>
+                                           Foreground="{DynamicResource TextColor}" />
                                 <TextBlock Text="Open source licenses"
                                            FontSize="13"
                                            Foreground="{DynamicResource TextColor}"
                                            Opacity="0.7"
-                                           Margin="0,5,0,0"/>
+                                           Margin="0,5,0,0" />
                             </StackPanel>
 
                             <Button Grid.Column="1"
                                     Style="{StaticResource SecondaryButtonStyle}"
                                     Command="{Binding OpenFAQCommand}">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="⚖️" FontSize="16" Margin="0,0,8,0"/>
-                                    <TextBlock Text="Xem"/>
+                                    <TextBlock Text="⚖️" FontSize="16" Margin="0,0,8,0" />
+                                    <TextBlock Text="Xem" />
                                 </StackPanel>
                             </Button>
                         </Grid>
                     </Border>
                 </StackPanel>
             </Border>
-            
+
         </StackPanel>
     </ScrollViewer>
-    
-</Page>
 
+</Page>
