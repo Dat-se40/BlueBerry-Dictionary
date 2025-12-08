@@ -21,8 +21,8 @@ namespace BlueBerryDictionary.Services
                                         AppDomain.CurrentDomain.BaseDirectory,
                                             @"..\..\..\Data\PackageStorage");
         public static readonly string AvailablePackagePath = Path.Combine(
-                                      DownloadedPackagesFolder, @"..\PersistentStorage\AvailblePackages.json");
-        private readonly string _availablePackageUrl; // sẽ cập nhật link gg drive sau
+                                      DownloadedPackagesFolder, @"..\PersistentStorage\AvailablePackages.json");
+        private readonly string _availablePackageUrl = "https://raw.githubusercontent.com/Dat-se40/BlueBerry-Dictionary/OfflineMode/Data/AvailablePackages.json"; // sẽ cập nhật link gg drive sau
         private PackageManager() { }
 
         // ==================== INITIALIZE ====================
@@ -73,7 +73,6 @@ namespace BlueBerryDictionary.Services
 
                 using var client = new HttpClient { Timeout = TimeSpan.FromSeconds(10) };
                 string json = await client.GetStringAsync(_availablePackageUrl);
-
                 // ✅ Validate JSON trước khi save
                 var packages = JsonConvert.DeserializeObject<List<TopicPackage>>(json);
                 if (packages == null || packages.Count == 0)
@@ -107,7 +106,7 @@ namespace BlueBerryDictionary.Services
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"❌ Fetch error: {ex.Message}");
+                Console.WriteLine($"❌ Fetch error: {ex.Message} in {_availablePackageUrl}");
                 return false;
             }
         }

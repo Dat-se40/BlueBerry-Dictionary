@@ -62,7 +62,7 @@ namespace BlueBerryDictionary.Models
         public string ThumbnailUrl { get; set; } // Icon cho UI
 
         /// <summary>
-        /// Download package từ Google Drive về local
+        /// Download package từ Github raw về local
         /// </summary>
         public override async Task DownloadAsync()
         {
@@ -76,7 +76,7 @@ namespace BlueBerryDictionary.Models
                 // Tạo folder lưu packages
                 var packagesFolder = Path.Combine(
                     AppDomain.CurrentDomain.BaseDirectory,
-                    @"..\..\..\Data\PackageStorages"
+                    @"..\..\..\Data\PackageStorage"
                 );
                 Directory.CreateDirectory(packagesFolder);
 

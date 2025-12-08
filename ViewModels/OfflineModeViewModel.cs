@@ -1,11 +1,12 @@
-﻿using BlueBerryDictionary.Models;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows;
+using BlueBerryDictionary.Models;
 using BlueBerryDictionary.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Runtime.CompilerServices;
-using System.Windows;
 
 namespace BlueBerryDictionary.ViewModels
 {
@@ -13,17 +14,31 @@ namespace BlueBerryDictionary.ViewModels
     {
         private readonly PackageManager _packageManager;
 
+        // Events
+        public event Action OnPackagesChanged;
+
+        // Observable Collections
         [ObservableProperty]
         private ObservableCollection<TopicPackage> _availablePackages;
 
         [ObservableProperty]
         private ObservableCollection<TopicPackage> _downloadedPackages;
 
+        // Stats Properties
         [ObservableProperty]
-        private bool _isLoading;
+        private int _downloadedCount;
 
         [ObservableProperty]
-        private bool _isRefreshing;
+        private string _totalWords;
+
+        [ObservableProperty]
+        private string _totalSize;
+
+        [ObservableProperty]
+        private int _availableCount;
+
+        [ObservableProperty]
+        private bool _isLoading;
 
         [ObservableProperty]
         private string _statusMessage;
@@ -45,10 +60,10 @@ namespace BlueBerryDictionary.ViewModels
 
             try
             {
-                // ✅ Lazy initialize
+                // Lazy initialize PackageManager
                 await _packageManager.InitializeAsync();
 
-                // ✅ Load vào UI
+                // Refresh UI
                 RefreshPackagesList();
 
                 StatusMessage = $"Đã tải {AvailablePackages.Count} packages";
@@ -65,28 +80,71 @@ namespace BlueBerryDictionary.ViewModels
         }
 
         /// <summary>
-        /// ✅ Refresh danh sách packages từ server
-        /// GỌI KHI: User ấn nút "Refresh" hoặc "Check for updates"
+        /// Refresh danh sách packages và stats
+        /// </summary>
+        private void RefreshPackagesList()
+        {
+            // Load all packages
+            AvailablePackages.Clear();
+            foreach (var pkg in _packageManager.GetAllPackages())
+            {
+                AvailablePackages.Add(pkg);
+            }
+
+            // Load downloaded packages
+            DownloadedPackages.Clear();
+            foreach (var pkg in _packageManager.GetDownloadedPackages())
+            {
+                DownloadedPackages.Add(pkg);
+            }
+
+            // Update stats
+            UpdateStats();
+
+            // Notify UI
+            OnPackagesChanged?.Invoke();
+
+            Console.WriteLine($"[OfflineModeViewModel] Available: {AvailablePackages.Count}, Downloaded: {DownloadedPackages.Count}");
+        }
+
+        /// <summary>
+        /// Cập nhật thống kê
+        /// </summary>
+        private void UpdateStats()
+        {
+            DownloadedCount = DownloadedPackages.Count;
+            AvailableCount = AvailablePackages.Count;
+
+            // Tính tổng số từ
+            var totalWordsCount = DownloadedPackages.Sum(p => p.TotalItems);
+            TotalWords = totalWordsCount >= 1000
+                ? $"{totalWordsCount / 1000.0:F1}K"
+                : totalWordsCount.ToString();
+
+            // Tính tổng dung lượng
+            var totalBytes = DownloadedPackages.Sum(p => p.SizeInBytes);
+            TotalSize = totalBytes >= 1_000_000
+                ? $"{totalBytes / 1_000_000.0:F0} MB"
+                : $"{totalBytes / 1_000.0:F0} KB";
+        }
+
+        /// <summary>
+        /// Refresh packages từ server
         /// </summary>
         [RelayCommand]
         private async Task RefreshFromServerAsync()
         {
-            IsRefreshing = true;
-            StatusMessage = "Đang kiểm tra cập nhật từ server...";
+            StatusMessage = "Đang kiểm tra cập nhật...";
 
             try
             {
-                // ✅ Fetch catalog mới từ server
                 bool success = await _packageManager.FetchFromServerAsync();
 
                 if (success)
                 {
-                    // ✅ Reload packages từ file mới
+                    // Reload packages
                     await _packageManager.InitializeAsync();
-
                     RefreshPackagesList();
-
-                    StatusMessage = $"✅ Đã cập nhật! Tìm thấy {AvailablePackages.Count} packages";
 
                     MessageBox.Show(
                         "Danh sách packages đã được cập nhật!",
@@ -97,10 +155,8 @@ namespace BlueBerryDictionary.ViewModels
                 }
                 else
                 {
-                    StatusMessage = "⚠️ Không thể kết nối server, hiển thị catalog cũ";
-
                     MessageBox.Show(
-                        "Không thể kết nối đến server.\nSử dụng danh sách packages đã lưu.",
+                        "Không thể kết nối server.\nSử dụng danh sách đã lưu.",
                         "Cảnh báo",
                         MessageBoxButton.OK,
                         MessageBoxImage.Warning
@@ -109,68 +165,33 @@ namespace BlueBerryDictionary.ViewModels
             }
             catch (Exception ex)
             {
-                StatusMessage = $"❌ Lỗi: {ex.Message}";
-                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            finally
-            {
-                IsRefreshing = false;
+                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", 
+                    MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         /// <summary>
-        /// Refresh ObservableCollections từ PackageManager
+        /// Download package
         /// </summary>
-        private void RefreshPackagesList()
+        public async Task DownloadPackageAsync(TopicPackage package)
         {
-            // ✅ All packages
-            AvailablePackages.Clear();
-            foreach (var pkg in _packageManager.GetAllPackages())
-            {
-                AvailablePackages.Add(pkg);
-            }
-
-            // ✅ Downloaded packages
-            DownloadedPackages.Clear();
-            foreach (var pkg in _packageManager.GetDownloadedPackages())
-            {
-                DownloadedPackages.Add(pkg);
-            }
-
-            Console.WriteLine($"[OfflineModeViewModel] Available: {AvailablePackages.Count}, Downloaded: {DownloadedPackages.Count}");
-        }
-
-        // ==================== PACKAGE OPERATIONS ====================
-
-        [RelayCommand]
-        private async Task DownloadPackageAsync(TopicPackage package)
-        {
-            if (package.IsDownloaded)
-            {
-                MessageBox.Show("Package đã được tải rồi!", "Thông báo");
-                return;
-            }
-
-            StatusMessage = $"Đang tải package: {package.Name}...";
-
             try
             {
                 await _packageManager.DownloadPackageAsync(package.Id);
-
                 RefreshPackagesList();
-
-                StatusMessage = $"✅ Đã tải: {package.Name}";
                 MessageBox.Show($"✅ Đã tải package: {package.Name}", "Thành công");
             }
             catch (Exception ex)
             {
-                StatusMessage = $"❌ Lỗi tải package";
-                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", 
+                    MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
-        [RelayCommand]
-        private async Task ImportPackageAsync(TopicPackage package)
+        /// <summary>
+        /// Open package details
+        /// </summary>
+        public void OpenPackage(TopicPackage package)
         {
             if (!package.IsDownloaded)
             {
@@ -178,38 +199,22 @@ namespace BlueBerryDictionary.ViewModels
                 return;
             }
 
-            var result = MessageBox.Show(
-                $"Import {package.TotalItems} từ vào My Words?\n\nPackage: {package.Name}",
-                "Xác nhận",
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Question
-            );
-
-            if (result != MessageBoxResult.Yes) return;
-
-            StatusMessage = $"Đang import: {package.Name}...";
-
-            try
+            var dialog = new Views.Dialogs.PackageDetailsDialog(package)
             {
-                await _packageManager.ImportPackageAsync(package.Id);
+                Owner = Application.Current.MainWindow
+            };
 
-                StatusMessage = $"✅ Đã import {package.TotalItems} từ";
-                MessageBox.Show(
-                    $"✅ Đã import {package.TotalItems} từ vào My Words!",
-                    "Thành công",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Information
-                );
-            }
-            catch (Exception ex)
+            if (dialog.ShowDialog() == true)
             {
-                StatusMessage = $"❌ Lỗi import";
-                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                // Refresh after importing words
+                RefreshPackagesList();
             }
         }
 
-        [RelayCommand]
-        private async Task DeletePackageAsync(TopicPackage package)
+        /// <summary>
+        /// Delete package
+        /// </summary>
+        public async Task DeletePackageAsync(TopicPackage package)
         {
             var result = MessageBox.Show(
                 $"Xóa package '{package.Name}'?\n\n(Các từ đã import vào My Words sẽ KHÔNG bị xóa)",
@@ -223,15 +228,13 @@ namespace BlueBerryDictionary.ViewModels
             try
             {
                 await _packageManager.DeletePackageAsync(package.Id);
-
                 RefreshPackagesList();
-
-                StatusMessage = $"✅ Đã xóa: {package.Name}";
                 MessageBox.Show($"Đã xóa package: {package.Name}", "Thành công");
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", 
+                    MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }
