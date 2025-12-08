@@ -530,5 +530,11 @@ namespace BlueBerryDictionary.Views.Pages
         {
             Dispose(false);
         }
+
+        private void btnNote_Click(object sender, RoutedEventArgs e)
+        {
+            NoteWriterDialog noteWriter = new NoteWriterDialog(_word); 
+            noteWriter.ShowDialog();
+        }
     }
 }

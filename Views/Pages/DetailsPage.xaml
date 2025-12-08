@@ -247,11 +247,12 @@
                                     </Viewbox>
                                 </Button>
 
-                                <!-- Share -->
+                                <!-- Note -->
                                 <Button Style="{StaticResource ActionButtonStyle}"
-                                       Click="Share_Click"
-                                       ToolTip="Chia sẻ"
-                                       Margin="0,0,8,0">
+                                       Name="btnNote"
+                                       ToolTip="Note"
+                                       Margin="0,0,8,0"
+                                        Click="btnNote_Click">
                                     <Viewbox Width="18" Height="18">
                                         <Canvas Width="24" Height="24">
                                             <Ellipse Width="6" Height="6"
@@ -276,7 +277,6 @@
                                         </Canvas>
                                     </Viewbox>
                                 </Button>
-
                                 <!-- Download -->
                                 <Button Style="{StaticResource ActionButtonStyle}"
                                        Command="{Binding ExecuteDownloadCommand}"

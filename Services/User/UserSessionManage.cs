@@ -1,4 +1,4 @@
-﻿using BlueBerryDictionary.Models;
+﻿using BlueBerryDictionary.Services.Network;
 using Google.Apis.Oauth2.v2.Data;
 using Newtonsoft.Json;
 using System;
@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace BlueBerryDictionary.Services
+namespace BlueBerryDictionary.Services.User
 {
     public class UserSessionManage
     {

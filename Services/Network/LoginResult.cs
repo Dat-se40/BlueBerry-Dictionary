@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using BlueBerryDictionary.Services.User;
+using System.Collections.Generic;
 
-namespace BlueBerryDictionary.Models
+namespace BlueBerryDictionary.Services.Network
 {
     /// <summary>
     /// Kết quả login

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace BlueBerryDictionary.Models
+namespace BlueBerryDictionary.Services.Network
 {
     /// <summary>
     /// Kết quả đồng bộ dữ liệu

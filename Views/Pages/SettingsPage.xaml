@@ -28,7 +28,7 @@
             </Border>
 
             <!-- ============ APPEARANCE SECTION ============ -->
-            <Border Style="{StaticResource CardStyle}" Margin="0,0,0,25">
+            <Border Style="{StaticResource CardStyle}" Margin="0,0,0,25" Height="329">
                 <StackPanel>
                     <!-- Header -->
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
@@ -41,8 +41,8 @@
 
                     <!-- Theme Mode -->
                     <Border BorderBrush="{DynamicResource BorderColor}"
-                BorderThickness="0,0,0,1"
-                Padding="0,15">
+                        BorderThickness="0,0,0,1"
+                        Padding="0,15">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
@@ -60,15 +60,17 @@
                                Opacity="0.7"
                                Margin="0,5,0,0"/>
                             </StackPanel>
-
                             <ComboBox Grid.Column="1"
-                          SelectedIndex="0"
-                          MinWidth="150"
-                          Style="{StaticResource SettingsComboBoxStyle}">
+                             x:Name="ThemeModeComboBox"
+                             SelectedIndex="0"
+                             MinWidth="150"
+                             Style="{StaticResource SettingsComboBoxStyle}"
+                             SelectionChanged="ThemeModeComboBox_SelectionChanged">
                                 <ComboBoxItem Content="Sáng"/>
                                 <ComboBoxItem Content="Tối"/>
                                 <ComboBoxItem Content="Tự động"/>
                             </ComboBox>
+
                         </Grid>
                     </Border>
 
@@ -95,15 +97,18 @@
                             </StackPanel>
 
                             <ComboBox Grid.Column="1"
-                          x:Name="ColorThemeComboBox"
-                          SelectedIndex="0"
-                          MinWidth="150"
-                          Style="{StaticResource SettingsComboBoxStyle}"
-                          SelectionChanged="ColorThemeComboBox_SelectionChanged">
+                              x:Name="ColorThemeComboBox"
+                              SelectedIndex="0"
+                              MinWidth="200"
+                              Style="{StaticResource SettingsComboBoxStyle}"
+                              SelectionChanged="ColorThemeComboBox_SelectionChanged">
                                 <ComboBoxItem Content="Mặc định" Tag="default"/>
-                                <ComboBoxItem Content="Có sẵn" Tag="preset"/>
-                                <ComboBoxItem Content="Tùy chỉnh" Tag="custom"/>
+                                <ComboBoxItem Content="✓ Theme có sẵn" Tag="preset_active" Visibility="Collapsed"/>
+                                <ComboBoxItem Content="✓ Màu tùy chỉnh" Tag="custom_active" Visibility="Collapsed"/>
+                                <ComboBoxItem Content="Chọn theme có sẵn..." Tag="preset_picker"/>
+                                <ComboBoxItem Content="Chọn màu tùy chỉnh..." Tag="custom_picker"/>
                             </ComboBox>
+
                         </Grid>
                     </Border>
 
@@ -130,83 +135,18 @@
                             </StackPanel>
 
                             <ComboBox Grid.Column="1"
-                          SelectedIndex="0"
-                          MinWidth="150"
-                          Style="{StaticResource SettingsComboBoxStyle}">
-                                <ComboBoxItem Content="Sans-serif"/>
-                                <ComboBoxItem Content="Serif"/>
-                                <ComboBoxItem Content="Monospace"/>
-                            </ComboBox>
-                        </Grid>
-                    </Border>
-
-                    <!-- Font Size -->
-                    <Border BorderBrush="{DynamicResource BorderColor}"
-                BorderThickness="0,0,0,1"
-                Padding="0,15">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-
-                            <StackPanel>
-                                <TextBlock Text="Cỡ chữ"
-                               FontSize="15"
-                               FontWeight="SemiBold"
-                               Foreground="{DynamicResource TextColor}"/>
-                                <TextBlock Text="Điều chỉnh kích thước văn bản"
-                               FontSize="13"
-                               Foreground="{DynamicResource TextColor}"
-                               Opacity="0.7"
-                               Margin="0,5,0,0"/>
-                            </StackPanel>
-
-                            <ComboBox Grid.Column="1"
-                          SelectedIndex="1"
-                          MinWidth="150"
-                          Style="{StaticResource SettingsComboBoxStyle}">
-                                <ComboBoxItem Content="Nhỏ"/>
-                                <ComboBoxItem Content="Trung bình"/>
-                                <ComboBoxItem Content="Lớn"/>
-                                <ComboBoxItem Content="Rất lớn"/>
-                            </ComboBox>
-                        </Grid>
-                    </Border>
-
-                    <!-- ✅ MỚI: Background Mode -->
-                    <Border Padding="0,15,0,0">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-
-                            <StackPanel>
-                                <TextBlock Text="Chế độ nền"
-                               FontSize="15"
-                               FontWeight="SemiBold"
-                               Foreground="{DynamicResource TextColor}"/>
-                                <TextBlock Text="Mặc định hoặc upload ảnh tùy chỉnh"
-                               FontSize="13"
-                               Foreground="{DynamicResource TextColor}"
-                               Opacity="0.7"
-                               Margin="0,5,0,0"/>
-                            </StackPanel>
-
-                            <ComboBox Grid.Column="1"
-                          x:Name="BackgroundModeComboBox"
-                          SelectedIndex="0"
-                          MinWidth="150"
-                          Style="{StaticResource SettingsComboBoxStyle}"
-                          SelectionChanged="BackgroundModeComboBox_SelectionChanged">
+                                      x:Name="FontFamilyComboBox"
+                                      SelectedIndex="0"
+                                      MinWidth="180"
+                                      Style="{StaticResource SettingsComboBoxStyle}"
+                                      SelectionChanged="FontFamilyComboBox_SelectionChanged">
                                 <ComboBoxItem Content="Mặc định" Tag="default"/>
-                                <ComboBoxItem Content="Upload ảnh" Tag="upload"/>
+                                <ComboBoxItem Content="✓ Tùy chỉnh" Tag="custom_active" Visibility="Collapsed"/>
+                                <ComboBoxItem Content="Chọn font..." Tag="custom_picker"/>
                             </ComboBox>
+
                         </Grid>
                     </Border>
-
-                    <!-- ❌ XÓA phần "Hiệu ứng chuyển động" -->
                 </StackPanel>
             </Border>
 
@@ -246,10 +186,11 @@
 
                             <!-- Toggle (Active) -->
                             <Border Grid.Column="1"
-                                    Width="52"
-                                    Height="28"
-                                    CornerRadius="14"
-                                    Cursor="Hand">
+        Width="52"
+        Height="28"
+        CornerRadius="14"
+        Cursor="Hand"
+        MouseDown="ToggleAutoSave_Click">
                                 <Border.Background>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
                                         <GradientStop Color="#2D4ACC" Offset="0"/>
@@ -257,11 +198,12 @@
                                     </LinearGradientBrush>
                                 </Border.Background>
                                 <Ellipse Width="22"
-                                         Height="22"
-                                         Fill="White"
-                                         HorizontalAlignment="Right"
-                                         Margin="0,0,3,0"/>
+             Height="22"
+             Fill="White"
+             HorizontalAlignment="Right"
+             Margin="0,0,3,0"/>
                             </Border>
+
                         </Grid>
                     </Border>
 
@@ -288,14 +230,17 @@
                             </StackPanel>
 
                             <ComboBox Grid.Column="1"
-                                      SelectedIndex="0"
-                                      MinWidth="150"
-                                      Style="{StaticResource SettingsComboBoxStyle}">
+          x:Name="FavouriteLimitComboBox"
+          SelectedIndex="0"
+          MinWidth="150"
+          Style="{StaticResource SettingsComboBoxStyle}"
+          SelectionChanged="FavouriteLimitComboBox_SelectionChanged">
                                 <ComboBoxItem Content="500 từ"/>
                                 <ComboBoxItem Content="1,000 từ"/>
                                 <ComboBoxItem Content="5,000 từ"/>
                                 <ComboBoxItem Content="Không giới hạn"/>
                             </ComboBox>
+
                         </Grid>
                     </Border>
 
@@ -320,26 +265,30 @@
                             </StackPanel>
 
                             <Button Grid.Column="1"
-                                    Style="{StaticResource SecondaryButtonStyle}">
+        Style="{StaticResource SecondaryButtonStyle}"
+        Command="{Binding RestoreDataCommand}">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="📤" FontSize="16" Margin="0,0,8,0"/>
                                     <TextBlock Text="Khôi phục"/>
                                 </StackPanel>
                             </Button>
+
                         </Grid>
                     </Border>
 
                     <!-- Action Buttons -->
                     <StackPanel Margin="0,15,0,0">
                         <Button Style="{StaticResource SecondaryButtonStyle}"
-                                Margin="0,0,0,12">
+                                Margin="0,0,0,12"
+                                Command="{Binding ClearCacheCommand}">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="🔄" FontSize="16" Margin="0,0,8,0"/>
                                 <TextBlock Text="Xóa cache (Dọn dẹp bộ nhớ tạm)"/>
                             </StackPanel>
                         </Button>
 
-                        <Button Style="{StaticResource DangerButtonStyle}">
+                        <Button Style="{StaticResource DangerButtonStyle}"
+                                Command="{Binding ResetAppCommand}">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="🗑️" FontSize="16" Margin="0,0,8,0"/>
                                 <TextBlock Text="Xóa toàn bộ dữ liệu (Reset app)"/>
@@ -384,7 +333,8 @@
                             </StackPanel>
 
                             <Button Grid.Column="1"
-                                    Style="{StaticResource SecondaryButtonStyle}">
+                                    Style="{StaticResource SecondaryButtonStyle}"
+                                    Command="{Binding OpenUserGuideCommand}">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="📖" FontSize="16" Margin="0,0,8,0"/>
                                     <TextBlock Text="Xem"/>
@@ -416,7 +366,8 @@
                             </StackPanel>
 
                             <Button Grid.Column="1"
-                                    Style="{StaticResource SecondaryButtonStyle}">
+                                    Style="{StaticResource SecondaryButtonStyle}"
+                                    Command="{Binding OpenFAQCommand}">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="❓" FontSize="16" Margin="0,0,8,0"/>
                                     <TextBlock Text="Xem"/>
@@ -448,7 +399,8 @@
                             </StackPanel>
 
                             <Button Grid.Column="1"
-                                    Style="{StaticResource SecondaryButtonStyle}">
+                                    Style="{StaticResource SecondaryButtonStyle}"
+                                    Command="{Binding OpenFAQCommand}">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="📧" FontSize="16" Margin="0,0,8,0"/>
                                     <TextBlock Text="Liên hệ"/>
@@ -480,7 +432,8 @@
                             </StackPanel>
 
                             <Button Grid.Column="1"
-                                    Style="{StaticResource SecondaryButtonStyle}">
+                                    Style="{StaticResource SecondaryButtonStyle}"
+                                    Command="{Binding OpenFAQCommand}">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="🐛" FontSize="16" Margin="0,0,8,0"/>
                                     <TextBlock Text="Báo lỗi"/>
@@ -512,7 +465,8 @@
                             </StackPanel>
 
                             <Button Grid.Column="1"
-                                    Style="{StaticResource SecondaryButtonStyle}">
+                                    Style="{StaticResource SecondaryButtonStyle}"
+                                    Command="{Binding OpenFAQCommand}">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="⭐" FontSize="16" Margin="0,0,8,0"/>
                                     <TextBlock Text="Đánh giá"/>
@@ -543,7 +497,8 @@
                                            Margin="0,5,0,0"/>
                             </StackPanel>
                             <Button Grid.Column="1"
-                                    Style="{StaticResource SecondaryButtonStyle}">
+                                    Style="{StaticResource SecondaryButtonStyle}"
+                                    Command="{Binding OpenFAQCommand}">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="ℹ️" FontSize="16" Margin="0,0,8,0"/>
                                     <TextBlock Text="Xem"/>
@@ -575,7 +530,8 @@
                             </StackPanel>
 
                             <Button Grid.Column="1"
-                                    Style="{StaticResource SecondaryButtonStyle}">
+                                    Style="{StaticResource SecondaryButtonStyle}"
+                                    Command="{Binding OpenFAQCommand}">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="📄" FontSize="16" Margin="0,0,8,0"/>
                                     <TextBlock Text="Xem"/>
@@ -605,7 +561,8 @@
                             </StackPanel>
 
                             <Button Grid.Column="1"
-                                    Style="{StaticResource SecondaryButtonStyle}">
+                                    Style="{StaticResource SecondaryButtonStyle}"
+                                    Command="{Binding OpenFAQCommand}">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="⚖️" FontSize="16" Margin="0,0,8,0"/>
                                     <TextBlock Text="Xem"/>

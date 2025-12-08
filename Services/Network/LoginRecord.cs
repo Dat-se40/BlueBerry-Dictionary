@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace BlueBerryDictionary.Models
+namespace BlueBerryDictionary.Services.Network
 {
     /// <summary>
     /// Log đăng nhập (thêm vào LoginLog.json)

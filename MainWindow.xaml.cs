@@ -8,6 +8,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Diagnostics;
+using BlueBerryDictionary.Services.User;
 
 namespace BlueBerryDictionary
 {
@@ -37,12 +38,51 @@ namespace BlueBerryDictionary
             // ✅ Navigate to Home using NavigationService
             _navigationService.NavigateTo("Home");
             UpdateNavigationButtons();
+
+            // ✅ THÊM: Subscribe to theme change event
+            ThemeManager.Instance.ThemeChanged += OnThemeChanged;
+
+            // ✅ THÊM: Sync toggle với theme hiện tại
+            SyncThemeToggle();
+
             Dispatcher.ShutdownStarted += (s, e) => {
                 TagService.Instance.SaveTags();
                 TagService.Instance.SaveWords();
+                ThemeManager.Instance.ThemeChanged -= OnThemeChanged;
 
             };
         }
+
+        // ✅ THÊM: Sync toggle button với theme hiện tại
+        private void SyncThemeToggle()
+        {
+            bool isDark = ThemeManager.Instance.CurrentTheme == Services.ThemeMode.Dark;
+
+            var transform = ThemeSlider.RenderTransform as TranslateTransform;
+            if (transform == null)
+            {
+                transform = new TranslateTransform();
+                ThemeSlider.RenderTransform = transform;
+            }
+
+            if (isDark)
+            {
+                transform.X = 36;
+                ThemeIcon.Text = "☀️";
+            }
+            else
+            {
+                transform.X = 0;
+                ThemeIcon.Text = "🌙";
+            }
+        }
+
+        // ✅ THÊM: Handler khi theme thay đổi (từ Settings)
+        private void OnThemeChanged(Services.ThemeMode newTheme)
+        {
+            Dispatcher.Invoke(() => SyncThemeToggle());
+        }
+
         #region SideBar
 
         /// <summary>
@@ -223,14 +263,15 @@ namespace BlueBerryDictionary
         /// </summary>
         private void ThemeToggle_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            _isDarkMode = !_isDarkMode;
+            // Toggle theme qua ThemeManager
+            var currentTheme = ThemeManager.Instance.CurrentTheme;
+            var newTheme = currentTheme == Services.ThemeMode.Light
+                ? Services.ThemeMode.Dark
+                : Services.ThemeMode.Light;
 
-            DoubleAnimation sliderAnimation = new DoubleAnimation
-            {
-                Duration = TimeSpan.FromMilliseconds(300),
-                EasingFunction = new QuadraticEase { EasingMode = EasingMode.EaseInOut }
-            };
+            ThemeManager.Instance.SetThemeMode(newTheme);
 
+            // Animate slider
             var transform = ThemeSlider.RenderTransform as TranslateTransform;
             if (transform == null)
             {
@@ -238,124 +279,24 @@ namespace BlueBerryDictionary
                 ThemeSlider.RenderTransform = transform;
             }
 
-            if (_isDarkMode)
+            DoubleAnimation sliderAnimation = new DoubleAnimation
+            {
+                Duration = TimeSpan.FromMilliseconds(300),
+                EasingFunction = new QuadraticEase { EasingMode = EasingMode.EaseInOut }
+            };
+
+            if (newTheme == Services.ThemeMode.Dark)
             {
                 sliderAnimation.To = 36;
                 ThemeIcon.Text = "☀️";
-                ApplyDarkMode();
             }
             else
             {
                 sliderAnimation.To = 0;
                 ThemeIcon.Text = "🌙";
-                ApplyLightMode();
             }
 
             transform.BeginAnimation(TranslateTransform.XProperty, sliderAnimation);
-        }
-
-        private void ApplyLightMode()
-        {
-            var app = Application.Current;
-
-            app.Resources["MainBackground"] = app.Resources["LightMainBackground"];
-            app.Resources["NavbarBackground"] = app.Resources["LightNavbarBackground"];
-            app.Resources["ToolbarBackground"] = app.Resources["LightToolbarBackground"];
-            app.Resources["SidebarBackground"] = app.Resources["LightSidebarBackground"];
-            app.Resources["CardBackground"] = app.Resources["LightCardBackground"];
-            app.Resources["WordItemBackground"] = app.Resources["LightWordItemBackground"];
-            app.Resources["WordItemHover"] = app.Resources["LightWordItemHover"];
-            app.Resources["TextColor"] = app.Resources["LightTextColor"];
-            app.Resources["BorderColor"] = app.Resources["LightBorderColor"];
-            app.Resources["ButtonColor"] = app.Resources["LightButtonColor"];
-            app.Resources["WordBorder"] = app.Resources["LightWordBorder"];
-            app.Resources["ToolbarBorder"] = app.Resources["LightToolbarBorder"];
-            app.Resources["SearchBackground"] = app.Resources["LightSearchBackground"];
-            app.Resources["SearchBorder"] = app.Resources["LightSearchBorder"];
-            app.Resources["SearchIcon"] = app.Resources["LightSearchIcon"];
-            app.Resources["SearchText"] = app.Resources["LightSearchText"];
-            app.Resources["SearchPlaceholder"] = app.Resources["LightSearchPlaceholder"];
-            app.Resources["SearchButton"] = app.Resources["LightSearchButton"];
-            app.Resources["SearchButtonHover"] = app.Resources["LightSearchButtonHover"];
-            app.Resources["ToolButtonActive"] = app.Resources["LightToolButtonActive"];
-            app.Resources["NavButtonColor"] = app.Resources["LightNavButtonColor"];
-            app.Resources["NavButtonHover"] = app.Resources["LightNavButtonHover"];
-            app.Resources["HamburgerBackground"] = app.Resources["LightHamburgerBackground"];
-            app.Resources["HamburgerHover"] = app.Resources["LightHamburgerHover"];
-            app.Resources["HamburgerIcon"] = app.Resources["LightHamburgerIcon"];
-            app.Resources["SidebarHover"] = app.Resources["LightSidebarHover"];
-            app.Resources["SidebarHoverText"] = app.Resources["LightSidebarHoverText"];
-            app.Resources["ThemeToggleBackground"] = app.Resources["LightThemeToggleBackground"];
-            app.Resources["ThemeSliderBackground"] = app.Resources["LightThemeSliderBackground"];
-            app.Resources["ThemeIconColor"] = app.Resources["LightThemeIconColor"];
-            app.Resources["MeaningBackground"] = app.Resources["LightMeaningBackground"];
-            app.Resources["MeaningBorder"] = app.Resources["LightMeaningBorder"];
-            app.Resources["MeaningBorderLeft"] = app.Resources["LightMeaningBorderLeft"];
-            app.Resources["ExampleBackground"] = app.Resources["LightExampleBackground"];
-            app.Resources["ExampleBorder"] = app.Resources["LightExampleBorder"];
-            app.Resources["RelatedBackground"] = app.Resources["LightRelatedBackground"];
-            app.Resources["RelatedBorder"] = app.Resources["LightRelatedBorder"];
-
-            if (SearchInput.Text == "Nhập từ cần tra...")
-            {
-                SearchInput.Foreground = (SolidColorBrush)app.Resources["SearchPlaceholder"];
-            }
-            else if (!string.IsNullOrEmpty(SearchInput.Text))
-            {
-                SearchInput.Foreground = (SolidColorBrush)app.Resources["SearchText"];
-            }
-        }
-
-        private void ApplyDarkMode()
-        {
-            var app = Application.Current;
-
-            app.Resources["MainBackground"] = app.Resources["DarkMainBackground"];
-            app.Resources["NavbarBackground"] = app.Resources["DarkNavbarBackground"];
-            app.Resources["ToolbarBackground"] = app.Resources["DarkToolbarBackground"];
-            app.Resources["SidebarBackground"] = app.Resources["DarkSidebarBackground"];
-            app.Resources["CardBackground"] = app.Resources["DarkCardBackground"];
-            app.Resources["WordItemBackground"] = app.Resources["DarkWordItemBackground"];
-            app.Resources["WordItemHover"] = app.Resources["DarkWordItemHover"];
-            app.Resources["TextColor"] = app.Resources["DarkTextColor"];
-            app.Resources["BorderColor"] = app.Resources["DarkBorderColor"];
-            app.Resources["ButtonColor"] = app.Resources["DarkButtonColor"];
-            app.Resources["WordBorder"] = app.Resources["DarkWordBorder"];
-            app.Resources["ToolbarBorder"] = app.Resources["DarkToolbarBorder"];
-            app.Resources["SearchBackground"] = app.Resources["DarkSearchBackground"];
-            app.Resources["SearchBorder"] = app.Resources["DarkSearchBorder"];
-            app.Resources["SearchIcon"] = app.Resources["DarkSearchIcon"];
-            app.Resources["SearchText"] = app.Resources["DarkSearchText"];
-            app.Resources["SearchPlaceholder"] = app.Resources["DarkSearchPlaceholder"];
-            app.Resources["SearchButton"] = app.Resources["DarkSearchButton"];
-            app.Resources["SearchButtonHover"] = app.Resources["DarkSearchButtonHover"];
-            app.Resources["ToolButtonActive"] = app.Resources["DarkToolButtonActive"];
-            app.Resources["NavButtonColor"] = app.Resources["DarkNavButtonColor"];
-            app.Resources["NavButtonHover"] = app.Resources["DarkNavButtonHover"];
-            app.Resources["HamburgerBackground"] = app.Resources["DarkHamburgerBackground"];
-            app.Resources["HamburgerHover"] = app.Resources["DarkHamburgerHover"];
-            app.Resources["HamburgerIcon"] = app.Resources["DarkHamburgerIcon"];
-            app.Resources["SidebarHover"] = app.Resources["DarkSidebarHover"];
-            app.Resources["SidebarHoverText"] = app.Resources["DarkSidebarHoverText"];
-            app.Resources["ThemeToggleBackground"] = app.Resources["DarkThemeToggleBackground"];
-            app.Resources["ThemeSliderBackground"] = app.Resources["DarkThemeSliderBackground"];
-            app.Resources["ThemeIconColor"] = app.Resources["DarkThemeIconColor"];
-            app.Resources["MeaningBackground"] = app.Resources["DarkMeaningBackground"];
-            app.Resources["MeaningBorder"] = app.Resources["DarkMeaningBorder"];
-            app.Resources["MeaningBorderLeft"] = app.Resources["DarkMeaningBorderLeft"];
-            app.Resources["ExampleBackground"] = app.Resources["DarkExampleBackground"];
-            app.Resources["ExampleBorder"] = app.Resources["DarkExampleBorder"];
-            app.Resources["RelatedBackground"] = app.Resources["DarkRelatedBackground"];
-            app.Resources["RelatedBorder"] = app.Resources["DarkRelatedBorder"];
-
-            if (SearchInput.Text == "Nhập từ cần tra...")
-            {
-                SearchInput.Foreground = (SolidColorBrush)app.Resources["SearchPlaceholder"];
-            }
-            else if (!string.IsNullOrEmpty(SearchInput.Text))
-            {
-                SearchInput.Foreground = (SolidColorBrush)app.Resources["SearchText"];
-            }
         }
 
         #endregion

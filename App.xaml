@@ -16,6 +16,17 @@
 
             <!-- ✅ Custom Inverse Converter -->
             <helpers:InverseBoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter"/>
+
+            <!-- ✅ THÊM: Global Font Settings -->
+            <FontFamily x:Key="AppFontFamily">Segoe UI</FontFamily>
+            <System:Double x:Key="AppFontSize" xmlns:System="clr-namespace:System;assembly=mscorlib">14</System:Double>
+
+            <!-- Global Background Image -->
+            <ImageBrush x:Key="AppBackgroundImage" Stretch="UniformToFill" Opacity="0.15">
+                <ImageBrush.ImageSource>
+                    <x:Null/>
+                </ImageBrush.ImageSource>
+            </ImageBrush>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

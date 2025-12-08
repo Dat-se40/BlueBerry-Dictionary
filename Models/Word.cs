@@ -66,7 +66,9 @@ namespace BlueBerryDictionary.Models
         public int ViewCount { get; set; }
         public int MeaningIndex { get; set; } // Lưu index của meaning được chọn (để reference sau)
 
-        public bool isFavorited = false; 
+        public bool isFavorited = false;
+
+        public string note;
         public WordShortened()
         {
             Tags = new List<string>();

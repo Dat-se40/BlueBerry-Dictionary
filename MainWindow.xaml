@@ -9,6 +9,8 @@
         Title="English Dictionary"
         Height="800" Width="1400"
         WindowStartupLocation="CenterScreen"
+        FontFamily="{DynamicResource AppFontFamily}"
+        FontSize="{DynamicResource AppFontSize}"
         Background="{DynamicResource MainBackground}">
     <Grid>
         <!-- Overlay cho Sidebar -->

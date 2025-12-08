@@ -1,4 +1,6 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using BlueBerryDictionary.Services.Network;
+using BlueBerryDictionary.Services.User;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Threading.Tasks;
@@ -55,14 +57,14 @@ namespace BlueBerryDictionary.ViewModels
             try
             {
                 // ✅ gọi service thật
-                var result = await Services.GoogleAuthService.Instance.LoginAsync();
+                var result = await GoogleAuthService.Instance.LoginAsync();
 
                 if (result.Success)
                 {
                     System.Diagnostics.Debug.WriteLine($"✅ Gmail login success: {result.UserInfo?.Email}");
 
                     // Set current user
-                    Services.UserSessionManage.Instance.SetLoggedInUser(
+                    UserSessionManage.Instance.SetLoggedInUser(
                         result.UserInfo?.Email,
                         result.UserInfo?.Email,
                         result.UserInfo?.Name,

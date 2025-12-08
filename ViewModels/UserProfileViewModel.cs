@@ -1,4 +1,5 @@
-﻿using BlueBerryDictionary.Services;
+﻿using BlueBerryDictionary.Services.Network;
+using BlueBerryDictionary.Services.User;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Google.Apis.Drive.v3.Data;
