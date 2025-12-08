@@ -7,11 +7,19 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using BlueBerryDictionary.Views.Pages;
+using BlueBerryDictionary.Services;
+using BlueBerryDictionary.Models;
 
 namespace BlueBerryDictionary.Pages
 {
     public partial class GamePage : WordListPageBase
     {
+        private readonly GameLogService _gameLogService;
+        private GameSession _currentSession;
+        private DateTime _sessionStartTime;
+
+        private readonly TagService _tagService;
+
         // Game State
         private int currentCardIndex = 0;
         private int totalCards = 0;
@@ -19,120 +27,178 @@ namespace BlueBerryDictionary.Pages
         private List<int> knownCards = new List<int>();
         private bool isFlipped = false;
         private bool isAnimating = false;
-        private int selectedCardCount = 10; // Default value
+        private int selectedCardCount = 10;
 
-        // Sample flashcard data
-        private List<Flashcard> flashcards = new List<Flashcard>
-        {
-            new Flashcard
-            {
-                Word = "Achievement",
-                Phonetic = "/əˈtʃiːvmənt/",
-                POS = "Noun",
-                Meaning = "Thành tích, thành tựu",
-                Example = "Her academic achievements were impressive.",
-                ExampleVi = "Thành tích học tập của cô ấy rất ấn tượng."
-            },
-            new Flashcard
-            {
-                Word = "Abundant",
-                Phonetic = "/əˈbʌndənt/",
-                POS = "Adjective",
-                Meaning = "Dồi dào, phong phú",
-                Example = "The region has abundant natural resources.",
-                ExampleVi = "Khu vực này có tài nguyên thiên nhiên dồi dào."
-            },
-            new Flashcard
-            {
-                Word = "Analyze",
-                Phonetic = "/ˈæn.əl.aɪz/",
-                POS = "Verb",
-                Meaning = "Phân tích",
-                Example = "We need to analyze the data carefully.",
-                ExampleVi = "Chúng ta cần phân tích dữ liệu một cách cẩn thận."
-            },
-            new Flashcard
-            {
-                Word = "Benefit",
-                Phonetic = "/ˈben.ɪ.fɪt/",
-                POS = "Noun",
-                Meaning = "Lợi ích, quyền lợi",
-                Example = "The benefits of exercise are well known.",
-                ExampleVi = "Lợi ích của việc tập thể dục đã được biết đến rộng rãi."
-            },
-            new Flashcard
-            {
-                Word = "Challenge",
-                Phonetic = "/ˈtʃæl.ɪndʒ/",
-                POS = "Noun",
-                Meaning = "Thách thức, thử thách",
-                Example = "This project presents many challenges.",
-                ExampleVi = "Dự án này đặt ra nhiều thử thách."
-            },
-            new Flashcard
-            {
-                Word = "Develop",
-                Phonetic = "/dɪˈvel.əp/",
-                POS = "Verb",
-                Meaning = "Phát triển, mở rộng",
-                Example = "We need to develop new strategies.",
-                ExampleVi = "Chúng ta cần phát triển các chiến lược mới."
-            },
-            new Flashcard
-            {
-                Word = "Environment",
-                Phonetic = "/ɪnˈvaɪ.rən.mənt/",
-                POS = "Noun",
-                Meaning = "Môi trường",
-                Example = "We must protect our environment.",
-                ExampleVi = "Chúng ta phải bảo vệ môi trường của mình."
-            },
-            new Flashcard
-            {
-                Word = "Flexible",
-                Phonetic = "/ˈflek.sə.bəl/",
-                POS = "Adjective",
-                Meaning = "Linh hoạt, mềm dẻo",
-                Example = "The schedule is flexible and can be changed.",
-                ExampleVi = "Lịch trình linh hoạt và có thể thay đổi."
-            },
-            new Flashcard
-            {
-                Word = "Generate",
-                Phonetic = "/ˈdʒen.ə.reɪt/",
-                POS = "Verb",
-                Meaning = "Tạo ra, sinh ra",
-                Example = "Solar panels generate electricity from sunlight.",
-                ExampleVi = "Tấm pin mặt trời tạo ra điện từ ánh sáng mặt trời."
-            },
-            new Flashcard
-            {
-                Word = "Hypothesis",
-                Phonetic = "/haɪˈpɒθ.ə.sɪs/",
-                POS = "Noun",
-                Meaning = "Giả thuyết",
-                Example = "Scientists test their hypothesis through experiments.",
-                ExampleVi = "Các nhà khoa học kiểm tra giả thuyết của họ thông qua thí nghiệm."
-            }
-        };
+        // Data sources
+        private List<WordShortened> flashcards = new List<WordShortened>();
+        private string selectedDataSource = "All"; // "All", "Favorites", "TagId"
+        private Tag selectedTag = null;
 
         public GamePage(Action<string> CardOnClicked) : base(CardOnClicked)
         {
             InitializeComponent();
-            totalCards = flashcards.Count;
+            _tagService = TagService.Instance;
+            _gameLogService = GameLogService.Instance;
+
+            // Load tags into combo box
+            LoadDataSourceOptions();
         }
-        
+
         public override void LoadData()
         {
-            // Implement if base class requires
-            // Can be left empty if not needed
+            // Can be used to refresh data if needed
+        }
+
+        // ============ DATA SOURCE SELECTION ============
+
+        private void LoadDataSourceOptions()
+        {
+            DataSourceOptions.Children.Clear();
+    
+            // ✅ Khai báo List để lưu tất cả buttons
+            var allButtons = new List<Button>();
+    
+            // Add "All Words" option
+            var btnAll = new Button
+            {
+                Content = "📚 All Words",
+                Tag = "All",
+                Style = (Style)FindResource("PopupItemStyle"),
+                Margin = new Thickness(0)
+            };
+            btnAll.Click += DataSourceOption_Click;
+            allButtons.Add(btnAll);  // ✅ Thêm vào list
+    
+            // Add "Favorites" option
+            var btnFav = new Button
+            {
+                Content = "⭐ Favorites",
+                Tag = "Favorites",
+                Style = (Style)FindResource("PopupItemStyle"),
+                Margin = new Thickness(0)
+            };
+            btnFav.Click += DataSourceOption_Click;
+            allButtons.Add(btnFav);  // ✅ Thêm vào list
+    
+            // Add tags
+            var tags = _tagService.GetAllTags();
+            foreach (var tag in tags)
+            {
+                var btnTag = new Button
+                {
+                    Content = $"{tag.Icon} {tag.Name} ({tag.WordCount})",
+                    Tag = tag.Id,
+                    Style = (Style)FindResource("PopupItemStyle"),
+                    Margin = new Thickness(0)
+                };
+                btnTag.Click += DataSourceOption_Click;
+                allButtons.Add(btnTag);  // ✅ Thêm vào list
+            }
+    
+            // ✅ Add buttons vào UI
+            for (int i = 0; i < allButtons.Count; i++)
+            {
+                if (i == 0)
+                {
+                    allButtons[i].Style = (Style)FindResource("PopupItemFirstStyle");
+                }
+                
+                // Add separator sau 2 items đầu
+                if (i == 2)
+                {
+                    var separator = new Separator { Margin = new Thickness(0) };
+                    DataSourceOptions.Children.Add(separator);
+                }
+        
+                // Item cuối cùng dùng LastStyle
+                if (i == allButtons.Count - 1)
+                {
+                    allButtons[i].Style = (Style)FindResource("PopupItemLastStyle");
+                }
+        
+                DataSourceOptions.Children.Add(allButtons[i]);
+            }
+    
+            // Set default
+            selectedDataSource = "All";
+            TxtSelectedSource.Text = "📚 All Words";
+            UpdateAvailableCardsInfo();
+        }
+
+        private void BtnDataSource_Click(object sender, RoutedEventArgs e)
+        {
+            PopupDataSource.IsOpen = !PopupDataSource.IsOpen;
+
+            if (PopupDataSource.IsOpen)
+            {
+                PopupDataSource.Width = BtnDataSource.ActualWidth;
+            }
+        }
+
+        private void DataSourceOption_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button btn)
+            {
+                TxtSelectedSource.Text = btn.Content.ToString();
+                selectedDataSource = btn.Tag.ToString();
+                PopupDataSource.IsOpen = false;
+                UpdateAvailableCardsInfo();
+            }
+        }
+
+        private void UpdateAvailableCardsInfo()
+        {
+            var words = GetWordsFromSource();
+            int availableCount = words.Count;
+
+            TxtAvailableCards.Text = $"{availableCount} từ khả dụng";
+
+            // Update card count options based on available cards
+            UpdateCardCountOptions(availableCount);
+        }
+
+        private void UpdateCardCountOptions(int maxCards)
+        {
+            // Limit card count selector to available cards
+            var options = new[] { 5, 10, 15, 20, 30 };
+            var validOptions = options.Where(x => x <= maxCards).ToList();
+
+            if (maxCards < 5)
+            {
+                validOptions.Add(maxCards);
+            }
+
+            // Update selected count if it exceeds max
+            if (selectedCardCount > maxCards)
+            {
+                selectedCardCount = Math.Max(1, maxCards);
+                TxtSelectedCount.Text = $"{selectedCardCount} thẻ";
+            }
+        }
+
+        private List<WordShortened> GetWordsFromSource()
+        {
+            switch (selectedDataSource)
+            {
+                case "All":
+                    return _tagService.GetAllWords();
+
+                case "Favorites":
+                    return _tagService.GetFavoriteWords();
+
+                default:
+                    // It's a tag ID
+                    return _tagService.GetWordsByTag(selectedDataSource);
+            }
         }
 
         // ============ GAME SELECTION ===========
+
         private void GameCard_Click(object sender, MouseButtonEventArgs e)
         {
             GameSelectionPanel.Visibility = Visibility.Collapsed;
             SettingsPanel.Visibility = Visibility.Visible;
+            UpdateAvailableCardsInfo();
         }
 
         // ============ SETTINGS ============
@@ -145,38 +211,58 @@ namespace BlueBerryDictionary.Pages
 
         private void StartGame_Click(object sender, RoutedEventArgs e)
         {
-            // Get number of cards from popup selection
-            int requestedCards = selectedCardCount;
+            var sourceWords = GetWordsFromSource();
 
-            // Limit to available cards
-            totalCards = Math.Min(requestedCards, flashcards.Count);
+            if (sourceWords.Count == 0)
+            {
+                MessageBox.Show(
+                    "Không có từ nào để học! Vui lòng chọn nguồn dữ liệu khác.",
+                    "Thông báo",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information
+                );
+                return;
+            }
 
-            // Reset game state
+            var random = new Random();
+            flashcards = sourceWords
+                .OrderBy(x => random.Next())
+                .Take(Math.Min(selectedCardCount, sourceWords.Count))
+                .ToList();
+
+            totalCards = flashcards.Count;
             currentCardIndex = 0;
             skippedCards.Clear();
             knownCards.Clear();
             isFlipped = false;
 
-            // Show game play area
+            // ✅ Bắt đầu session mới
+            _sessionStartTime = DateTime.Now;
+            _currentSession = new GameSession
+            {
+                StartTime = _sessionStartTime,
+                DataSource = selectedDataSource,
+                DataSourceName = TxtSelectedSource.Text, // Lấy từ TextBlock
+                TotalCards = totalCards
+            };
+
             SettingsPanel.Visibility = Visibility.Collapsed;
             GamePlayPanel.Visibility = Visibility.Visible;
             FlashcardContainer.Visibility = Visibility.Visible;
             CompletionContainer.Visibility = Visibility.Collapsed;
 
-            // Load first card
             LoadFlashcard(0);
             UpdateProgress();
             UpdateSkipTracker();
             UpdateNavigationButtons();
         }
-        
+
         // ============ CARD COUNT POPUP ============
 
         private void BtnCardCount_Click(object sender, RoutedEventArgs e)
         {
             PopupCardCount.IsOpen = !PopupCardCount.IsOpen;
-    
-            // Set popup width bằng với button
+
             if (PopupCardCount.IsOpen)
             {
                 PopupCardCount.Width = BtnCardCount.ActualWidth;
@@ -194,6 +280,7 @@ namespace BlueBerryDictionary.Pages
         }
 
         // ============ FLASHCARD FUNCTIONS ============
+
         private void LoadFlashcard(int index)
         {
             if (index < 0 || index >= totalCards) return;
@@ -203,7 +290,7 @@ namespace BlueBerryDictionary.Pages
 
             // Reset flip state
             isFlipped = false;
-            isAnimating = false; 
+            isAnimating = false;
             CardFront.Visibility = Visibility.Visible;
             CardBack.Visibility = Visibility.Collapsed;
             FlipTransform.ScaleX = 1;
@@ -211,9 +298,19 @@ namespace BlueBerryDictionary.Pages
             // Update card content
             TxtWord.Text = card.Word;
             TxtPhonetic.Text = card.Phonetic;
-            TxtPOS.Text = card.POS.ToUpper();
-            TxtMeaning.Text = card.Meaning;
-            TxtExample.Text = $"\"{card.Example}\"";
+            TxtPOS.Text = card.PartOfSpeech.ToUpper();
+            TxtMeaning.Text = card.Definition;
+
+            // Handle example
+            if (!string.IsNullOrEmpty(card.Example))
+            {
+                TxtExample.Text = $"\"{card.Example}\"";
+                TxtExample.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                TxtExample.Visibility = Visibility.Collapsed;
+            }
 
             UpdateProgress();
             UpdateNavigationButtons();
@@ -222,18 +319,16 @@ namespace BlueBerryDictionary.Pages
         private void FlipCard_Click(object sender, MouseButtonEventArgs e)
         {
             if (isAnimating) return;
-    
+
             isAnimating = true;
-    
+
             if (!isFlipped)
             {
-                // Flip to back
                 var storyboard = (Storyboard)FindResource("FlipToBackPhase1");
                 storyboard.Begin(this);
             }
             else
             {
-                // Flip to front
                 var storyboard = (Storyboard)FindResource("FlipToFrontPhase1");
                 storyboard.Begin(this);
             }
@@ -241,22 +336,18 @@ namespace BlueBerryDictionary.Pages
 
         private void FlipToBackPhase1_Completed(object sender, EventArgs e)
         {
-            // Khi scale về 0, đổi nội dung
             CardFront.Visibility = Visibility.Collapsed;
             CardBack.Visibility = Visibility.Visible;
-    
-            // Bắt đầu phase 2
+
             var storyboard = (Storyboard)FindResource("FlipToBackPhase2");
             storyboard.Begin(this);
         }
-         
+
         private void FlipToFrontPhase1_Completed(object sender, EventArgs e)
         {
-            // Khi scale về 0, đổi nội dung
             CardBack.Visibility = Visibility.Collapsed;
             CardFront.Visibility = Visibility.Visible;
-    
-            // Bắt đầu phase 2
+
             var storyboard = (Storyboard)FindResource("FlipToFrontPhase2");
             storyboard.Begin(this);
         }
@@ -328,6 +419,7 @@ namespace BlueBerryDictionary.Pages
         }
 
         // ============ UI UPDATE FUNCTIONS ============
+
         private void UpdateProgress()
         {
             TxtProgress.Text = $"{currentCardIndex + 1}/{totalCards}";
@@ -355,7 +447,7 @@ namespace BlueBerryDictionary.Pages
             {
                 SkipTracker.Background = new SolidColorBrush(Color.FromRgb(209, 231, 221));
                 SkipTracker.BorderBrush = new SolidColorBrush(Color.FromRgb(16, 185, 129));
-                
+
                 var dockPanel = SkipTracker.Child as DockPanel;
                 if (dockPanel != null && dockPanel.Children.Count > 0)
                 {
@@ -366,13 +458,14 @@ namespace BlueBerryDictionary.Pages
                         textBlock.Foreground = new SolidColorBrush(Color.FromRgb(15, 81, 50));
                     }
                 }
+
                 BtnReviewSkipped.Visibility = Visibility.Collapsed;
             }
             else
             {
                 SkipTracker.Background = new SolidColorBrush(Color.FromRgb(255, 243, 205));
                 SkipTracker.BorderBrush = new SolidColorBrush(Color.FromRgb(255, 193, 7));
-                
+
                 var dockPanel = SkipTracker.Child as DockPanel;
                 if (dockPanel != null && dockPanel.Children.Count > 0)
                 {
@@ -383,6 +476,7 @@ namespace BlueBerryDictionary.Pages
                         textBlock.Foreground = new SolidColorBrush(Color.FromRgb(133, 100, 4));
                     }
                 }
+
                 BtnReviewSkipped.Visibility = Visibility.Visible;
 
                 var sortedSkipped = skippedCards.OrderBy(x => x).ToList();
@@ -401,6 +495,10 @@ namespace BlueBerryDictionary.Pages
                         Cursor = Cursors.Hand,
                         Tag = index
                     };
+                    
+                    Style borderStyle = new Style(typeof(Border));
+                    borderStyle.Setters.Add(new Setter(Border.CornerRadiusProperty, new CornerRadius(5)));
+                    button.Resources.Add(typeof(Border), borderStyle);
 
                     button.Click += (s, e) =>
                     {
@@ -421,7 +519,8 @@ namespace BlueBerryDictionary.Pages
         {
             if (skippedCards.Count == 0)
             {
-                MessageBox.Show("✅ No skipped cards to review!", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("✅ No skipped cards to review!", "Info", MessageBoxButton.OK,
+                    MessageBoxImage.Information);
                 return;
             }
 
@@ -430,6 +529,7 @@ namespace BlueBerryDictionary.Pages
         }
 
         // ============ COMPLETION SCREEN ============
+
         private void ShowCompletion()
         {
             FlashcardContainer.Visibility = Visibility.Collapsed;
@@ -438,27 +538,40 @@ namespace BlueBerryDictionary.Pages
             int knownCount = knownCards.Count;
             int unknownCount = skippedCards.Count;
             int reviewedCount = totalCards - (knownCount + unknownCount);
-            
-            // Cards that were reviewed but not explicitly marked
+
             knownCount += reviewedCount;
 
             int percentage = totalCards > 0 ? (int)Math.Round((double)knownCount / totalCards * 100) : 0;
 
-            // Update percentage
             TxtPercentage.Text = percentage + "%";
-
-            // Update stats
             TxtKnownCount.Text = $"{knownCount} cards ({percentage}%)";
             TxtUnknownCount.Text = $"{unknownCount} cards ({100 - percentage}%)";
             TxtTotalCount.Text = $"{totalCards} cards";
 
-            // Update skipped list
+            // ✅ Lưu session vào log
+            _currentSession.EndTime = DateTime.Now;
+            _currentSession.Duration = _currentSession.EndTime - _currentSession.StartTime;
+            _currentSession.KnownCards = knownCount;
+            _currentSession.UnknownCards = unknownCount;
+            _currentSession.AccuracyPercentage = percentage;
+            _currentSession.SkippedCardIndices = new List<int>(skippedCards);
+
+            // Lưu tên các từ bị skip
+            _currentSession.SkippedWords = skippedCards
+                .Select(idx => flashcards[idx].Word)
+                .ToList();
+
+            _gameLogService.AddSession(_currentSession);
+
+            Console.WriteLine($"✅ Session saved: {percentage}% accuracy, {_currentSession.Duration.TotalSeconds}s");
+
             SkippedNumbersCompletion.Children.Clear();
 
             if (skippedCards.Count > 0)
             {
+                Actions2Buttons.Visibility = Visibility.Collapsed;
+                Actions3Buttons.Visibility = Visibility.Visible;
                 SkippedListCompletion.Visibility = Visibility.Visible;
-                BtnReviewSkippedCompletion.Visibility = Visibility.Visible;
 
                 var sortedSkipped = skippedCards.OrderBy(x => x).ToList();
                 foreach (var index in sortedSkipped)
@@ -476,6 +589,10 @@ namespace BlueBerryDictionary.Pages
                         Cursor = Cursors.Hand,
                         Tag = index
                     };
+                    
+                    Style borderStyle = new Style(typeof(Border));
+                    borderStyle.Setters.Add(new Setter(Border.CornerRadiusProperty, new CornerRadius(5)));
+                    button.Resources.Add(typeof(Border), borderStyle);
 
                     button.Click += (s, e) =>
                     {
@@ -494,8 +611,9 @@ namespace BlueBerryDictionary.Pages
             }
             else
             {
+                Actions3Buttons.Visibility = Visibility.Collapsed;
+                Actions2Buttons.Visibility = Visibility.Visible;
                 SkippedListCompletion.Visibility = Visibility.Collapsed;
-                BtnReviewSkippedCompletion.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -518,19 +636,20 @@ namespace BlueBerryDictionary.Pages
         {
             if (skippedCards.Count == 0)
             {
-                MessageBox.Show("✅ No skipped cards to review!", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("✅ No skipped cards to review!", "Info", MessageBoxButton.OK,
+                    MessageBoxImage.Information);
                 return;
             }
 
             CompletionContainer.Visibility = Visibility.Collapsed;
             FlashcardContainer.Visibility = Visibility.Visible;
 
-            // Start from first skipped card
             var firstSkipped = skippedCards.OrderBy(x => x).First();
             LoadFlashcard(firstSkipped);
         }
 
         // ============ EXIT GAME ============
+
         private void ExitGame_Click(object sender, RoutedEventArgs e)
         {
             var result = MessageBox.Show(
@@ -548,18 +667,59 @@ namespace BlueBerryDictionary.Pages
                 FlashcardContainer.Visibility = Visibility.Collapsed;
             }
         }
-    }
-    
-    
 
-    // ============ FLASHCARD MODEL ============
-    public class Flashcard
-    {
-        public string Word { get; set; }
-        public string Phonetic { get; set; }
-        public string POS { get; set; }
-        public string Meaning { get; set; }
-        public string Example { get; set; }
-        public string ExampleVi { get; set; }
+        // ============ HISTORY ============
+
+        private void ViewHistory_Click(object sender, RoutedEventArgs e)
+        {
+            LoadHistoryData();
+            HistoryOverlay.Visibility = Visibility.Visible;
+        }
+
+        private void CloseHistory_Click(object sender, RoutedEventArgs e)
+        {
+            HistoryOverlay.Visibility = Visibility.Collapsed;
+        }
+
+        private void LoadHistoryData()
+        {
+            // Update statistics
+            TxtHistoryTotalGames.Text = _gameLogService.GetTotalGamesPlayed().ToString();
+            TxtHistoryTotalCards.Text = _gameLogService.GetTotalCardsStudied().ToString();
+            TxtHistoryAvgAccuracy.Text = $"{_gameLogService.GetAverageAccuracy():F1}%";
+            TxtHistoryTotalTime.Text = FormatTimeSpan(_gameLogService.GetTotalStudyTime());
+    
+            var sessions = _gameLogService.GetRecentSessions(20);
+            
+            HistoryList.ItemsSource = sessions;
+        }
+
+        private string FormatTimeSpan(TimeSpan ts)
+        {
+            if (ts.TotalHours >= 1)
+                return $"{(int)ts.TotalHours}h {ts.Minutes}m";
+            else if (ts.TotalMinutes >= 1)
+                return $"{ts.Minutes}m {ts.Seconds}s";
+            else
+                return $"{ts.Seconds}s";
+        }
+
+        private void ClearHistory_Click(object sender, RoutedEventArgs e)
+        {
+            var result = MessageBox.Show(
+                "Bạn có chắc muốn xóa toàn bộ lịch sử?\nHành động này không thể hoàn tác.",
+                "Xác nhận xóa",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Warning
+            );
+
+            if (result == MessageBoxResult.Yes)
+            {
+                _gameLogService.ClearAllSessions();
+                LoadHistoryData();
+                MessageBox.Show("✅ Đã xóa toàn bộ lịch sử!", "Thành công", MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+            }
+        }
     }
 }
