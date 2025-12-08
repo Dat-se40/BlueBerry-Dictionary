@@ -22,7 +22,8 @@
             <!-- Header -->
             <Grid Margin="0,0,0,20">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="🎨" FontSize="28" Margin="0,0,12,0"/>
+                    <TextBlock Text="🎨" FontSize="28" Margin="0,0,12,0"
+                               Foreground="{DynamicResource TextColor}"/>
                     <TextBlock Text="Chọn chủ đề có sẵn (18 themes)"
                                FontSize="22"
                                FontWeight="Bold"
