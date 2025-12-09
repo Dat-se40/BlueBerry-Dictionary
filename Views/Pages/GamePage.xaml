@@ -121,7 +121,7 @@
             </Style.Triggers>
         </Style>
 
-        <!-- Flip to Back - Phase 1: Scale down to 0 -->
+        <!-- Flip Animations -->
         <Storyboard x:Key="FlipToBackPhase1" Completed="FlipToBackPhase1_Completed">
             <DoubleAnimation Storyboard.TargetName="FlipTransform"
                              Storyboard.TargetProperty="ScaleX"
@@ -132,7 +132,6 @@
                              From="1" To="0" Duration="0:0:0.2" />
         </Storyboard>
 
-        <!-- Flip to Back - Phase 2: Scale up from 0 -->
         <Storyboard x:Key="FlipToBackPhase2" Completed="AnimationCompleted">
             <DoubleAnimation Storyboard.TargetName="FlipTransform"
                              Storyboard.TargetProperty="ScaleX"
@@ -143,7 +142,6 @@
                              From="0" To="1" Duration="0:0:0.2" />
         </Storyboard>
 
-        <!-- Flip to Front - Phase 1: Scale down to 0 -->
         <Storyboard x:Key="FlipToFrontPhase1" Completed="FlipToFrontPhase1_Completed">
             <DoubleAnimation Storyboard.TargetName="FlipTransform"
                              Storyboard.TargetProperty="ScaleX"
@@ -154,7 +152,6 @@
                              From="1" To="0" Duration="0:0:0.2" />
         </Storyboard>
 
-        <!-- Flip to Front - Phase 2: Scale up from 0 -->
         <Storyboard x:Key="FlipToFrontPhase2" Completed="AnimationCompleted">
             <DoubleAnimation Storyboard.TargetName="FlipTransform"
                              Storyboard.TargetProperty="ScaleX"
@@ -170,6 +167,7 @@
             <Setter Property="Foreground" Value="{DynamicResource TextColor}" />
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="Padding" Value="15,10" />
+            <Setter Property="Margin" Value="0" />
             <Setter Property="FontSize" Value="14" />
             <Setter Property="HorizontalContentAlignment" Value="Left" />
             <Setter Property="Cursor" Value="Hand" />
@@ -177,7 +175,8 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}"
-                                Padding="{TemplateBinding Padding}">
+                                Padding="{TemplateBinding Padding}"
+                                Margin="0">
                             <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" />
                         </Border>
                     </ControlTemplate>
@@ -185,10 +184,182 @@
             </Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="{DynamicResource BorderColor}" />
+                    <Setter Property="Background" Value="{DynamicResource WordItemHover}" />
                 </Trigger>
             </Style.Triggers>
         </Style>
+
+        <!-- Dropdown Button Style -->
+        <Style x:Key="DropdownButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="{DynamicResource SearchBackground}" />
+            <Setter Property="Foreground" Value="{DynamicResource TextColor}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="Padding" Value="15,10" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="12"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource WordItemHover}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="PopupItemFirstStyle" TargetType="Button" BasedOn="{StaticResource PopupItemStyle}">
+            <Setter Property="Margin" Value="0" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="12,12,0,0"
+                                Padding="{TemplateBinding Padding}"
+                                Margin="0">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource WordItemHover}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="PopupItemLastStyle" TargetType="Button" BasedOn="{StaticResource PopupItemStyle}">
+            <Setter Property="Margin" Value="0" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="0,0,10,10"
+                                Padding="{TemplateBinding Padding}"
+                                Margin="0">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource WordItemHover}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- History Item Template -->
+        <DataTemplate x:Key="HistoryItemTemplate">
+            <Border Background="{DynamicResource SearchBackground}"
+                    BorderBrush="{DynamicResource BorderColor}"
+                    BorderThickness="2"
+                    CornerRadius="12"
+                    Padding="25,20"
+                    Margin="0,0,0,15"
+                    HorizontalAlignment="Stretch">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="150" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Left Side -->
+                    <StackPanel Grid.Column="0">
+                        <!-- Date & Time -->
+                        <TextBlock Text="{Binding StartTime, StringFormat='dd/MM/yyyy HH:mm'}"
+                                   FontSize="15"
+                                   FontWeight="SemiBold"
+                                   Foreground="{DynamicResource TextColor}"
+                                   Margin="0,0,0,8" />
+
+                        <!-- Data Source -->
+                        <TextBlock Text="{Binding DataSourceName}"
+                                   FontSize="14"
+                                   Foreground="{DynamicResource TextColor}"
+                                   Opacity="0.8"
+                                   Margin="0,0,0,10" />
+
+                        <!-- Stats Badges -->
+                        <WrapPanel Margin="0,5,0,0">
+                            <!-- Known Badge -->
+                            <Border Background="{DynamicResource CardBackground}"
+                                    BorderBrush="{DynamicResource BorderColor}"
+                                    BorderThickness="1"
+                                    CornerRadius="8"
+                                    Padding="10,5"
+                                    Margin="0,0,10,0">
+                                <TextBlock FontSize="13"
+                                           FontWeight="SemiBold"
+                                           Foreground="#10b981">
+                                    <Run Text="✅ " />
+                                    <Run Text="{Binding KnownCards}" />
+                                </TextBlock>
+                            </Border>
+
+                            <!-- Unknown Badge -->
+                            <Border Background="{DynamicResource CardBackground}"
+                                    BorderBrush="{DynamicResource BorderColor}"
+                                    BorderThickness="1"
+                                    CornerRadius="8"
+                                    Padding="10,5"
+                                    Margin="0,0,10,0">
+                                <TextBlock FontSize="13"
+                                           FontWeight="SemiBold"
+                                           Foreground="#dc2626">
+                                    <Run Text="❌ " />
+                                    <Run Text="{Binding UnknownCards}" />
+                                </TextBlock>
+                            </Border>
+
+                            <!-- Duration Badge -->
+                            <Border Background="{DynamicResource CardBackground}"
+                                    BorderBrush="{DynamicResource BorderColor}"
+                                    BorderThickness="1"
+                                    CornerRadius="8"
+                                    Padding="10,5">
+                                <TextBlock FontSize="13"
+                                           FontWeight="SemiBold"
+                                           Foreground="{DynamicResource TextColor}">
+                                    <Run Text="⏱️ " />
+                                    <Run Text="{Binding DurationText, Mode=OneWay}" />
+                                </TextBlock>
+                            </Border>
+                        </WrapPanel>
+                    </StackPanel>
+
+                    <!-- Right Side - Percentage -->
+                    <StackPanel Grid.Column="1"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Right"
+                                Width="120">
+                        <TextBlock Text="{Binding AccuracyPercentage, StringFormat='{}{0:F0}%'}"
+                                   FontSize="36"
+                                   FontWeight="Bold"
+                                   Foreground="{DynamicResource ButtonColor}"
+                                   HorizontalAlignment="Center" />
+                        <TextBlock Text="Accuracy"
+                                   FontSize="12"
+                                   Foreground="{DynamicResource TextColor}"
+                                   Opacity="0.7"
+                                   HorizontalAlignment="Center" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </DataTemplate>
     </local:WordListPageBase.Resources>
 
     <Grid>
@@ -260,12 +431,11 @@
                                 </Grid.ColumnDefinitions>
 
                                 <StackPanel Grid.Column="0" HorizontalAlignment="Center">
-                                    <TextBlock Text="245"
+                                    <TextBlock Text="📚"
                                                FontSize="24"
-                                               FontWeight="Bold"
-                                               Foreground="{DynamicResource ButtonColor}"
+                                               Foreground="{DynamicResource TextColor}"
                                                HorizontalAlignment="Center" />
-                                    <TextBlock Text="Đã học"
+                                    <TextBlock Text="Ôn tập"
                                                FontSize="12"
                                                Foreground="{DynamicResource TextColor}"
                                                Opacity="0.7"
@@ -273,12 +443,11 @@
                                 </StackPanel>
 
                                 <StackPanel Grid.Column="1" HorizontalAlignment="Center">
-                                    <TextBlock Text="15 phút"
+                                    <TextBlock Text="⏱️"
                                                FontSize="24"
-                                               FontWeight="Bold"
-                                               Foreground="{DynamicResource ButtonColor}"
+                                               Foreground="{DynamicResource TextColor}"
                                                HorizontalAlignment="Center" />
-                                    <TextBlock Text="Thời gian"
+                                    <TextBlock Text="Linh hoạt"
                                                FontSize="12"
                                                Foreground="{DynamicResource TextColor}"
                                                Opacity="0.7"
@@ -286,12 +455,11 @@
                                 </StackPanel>
 
                                 <StackPanel Grid.Column="2" HorizontalAlignment="Center">
-                                    <TextBlock Text="⭐ 4.8"
+                                    <TextBlock Text="🎯"
                                                FontSize="24"
-                                               FontWeight="Bold"
-                                               Foreground="{DynamicResource ButtonColor}"
+                                               Foreground="{DynamicResource TextColor}"
                                                HorizontalAlignment="Center" />
-                                    <TextBlock Text="Đánh giá"
+                                    <TextBlock Text="Hiệu quả"
                                                FontSize="12"
                                                Foreground="{DynamicResource TextColor}"
                                                Opacity="0.7"
@@ -301,6 +469,11 @@
                         </Border>
                     </StackPanel>
                 </Border>
+                <Button Content="📊 Xem lịch sử luyện tập"
+                        Style="{StaticResource SecondaryButtonStyle}"
+                        HorizontalAlignment="Center"
+                        Margin="0,20,0,0"
+                        Click="ViewHistory_Click" />
             </StackPanel>
         </ScrollViewer>
 
@@ -324,20 +497,69 @@
                         CornerRadius="20"
                         Padding="35">
                     <StackPanel>
-                        <!-- Number of Cards -->
-                        <TextBlock Text="Số thẻ" FontSize="16" FontWeight="SemiBold"
-                                   Foreground="{DynamicResource TextColor}" Margin="0,0,0,15" />
+                        <!-- Data Source Selection -->
+                        <!-- Nguồn từ vựng -->
+                        <TextBlock Text="📚 Nguồn từ vựng"
+                                   FontSize="16"
+                                   FontWeight="SemiBold"
+                                   Foreground="{DynamicResource TextColor}"
+                                   Margin="0,0,0,15" />
+
+                        <Grid x:Name="DataSourceSelector" Margin="0,0,0,10">
+                            <Button x:Name="BtnDataSource"
+                                    Style="{StaticResource DropdownButtonStyle}"
+                                    Click="BtnDataSource_Click">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock x:Name="TxtSelectedSource" Text="📚 All Words" Grid.Column="0" />
+                                    <Path Grid.Column="1"
+                                          Data="M 0 0 L 4 4 L 8 0"
+                                          Stroke="{DynamicResource TextColor}"
+                                          StrokeThickness="1.5"
+                                          Margin="10,0,0,0"
+                                          VerticalAlignment="Center" />
+                                </Grid>
+                            </Button>
+
+                            <Popup x:Name="PopupDataSource"
+                                   PlacementTarget="{Binding ElementName=BtnDataSource}"
+                                   Placement="Bottom"
+                                   StaysOpen="False"
+                                   AllowsTransparency="True">
+                                <Border Background="{DynamicResource SearchBackground}"
+                                        BorderBrush="{DynamicResource BorderColor}"
+                                        BorderThickness="2"
+                                        CornerRadius="12"
+                                        Margin="0,2,0,0"
+                                        Padding="0"
+                                        ClipToBounds="True">
+                                    <StackPanel x:Name="DataSourceOptions">
+                                    </StackPanel>
+                                </Border>
+                            </Popup>
+                        </Grid>
+
+                        <TextBlock x:Name="TxtAvailableCards"
+                                   Text="0 từ khả dụng"
+                                   FontSize="12"
+                                   Foreground="{DynamicResource TextColor}"
+                                   Opacity="0.7"
+                                   Margin="0,0,0,25" />
+
+                        <!-- Số thẻ -->
+                        <TextBlock Text="🎴 Số thẻ"
+                                   FontSize="16"
+                                   FontWeight="SemiBold"
+                                   Foreground="{DynamicResource TextColor}"
+                                   Margin="0,0,0,15" />
+
                         <Grid x:Name="CardCountSelector" Margin="0,0,0,25">
                             <Button x:Name="BtnCardCount"
-                                    Click="BtnCardCount_Click"
-                                    Background="{DynamicResource SearchBackground}"
-                                    Foreground="{DynamicResource TextColor}"
-                                    BorderBrush="{DynamicResource BorderColor}"
-                                    BorderThickness="2"
-                                    Padding="15,10"
-                                    FontSize="14"
-                                    HorizontalContentAlignment="Left"
-                                    Cursor="Hand">
+                                    Style="{StaticResource DropdownButtonStyle}"
+                                    Click="BtnCardCount_Click">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*" />
@@ -361,11 +583,13 @@
                                 <Border Background="{DynamicResource SearchBackground}"
                                         BorderBrush="{DynamicResource BorderColor}"
                                         BorderThickness="2"
-                                        CornerRadius="0, 0, 15 , 15"
-                                        Margin="0,2,0,0">
-                                    <StackPanel>
+                                        CornerRadius="12"
+                                        Margin="0,2,0,0"
+                                        Padding="0"
+                                        ClipToBounds="True">   <!-- ✅ Thêm này để chắc chắn -->
+                                    <StackPanel Margin="0">
                                         <Button Content="5 thẻ" Click="CardCountOption_Click" Tag="5"
-                                                Style="{StaticResource PopupItemStyle}" />
+                                                Style="{StaticResource PopupItemFirstStyle}" />
                                         <Button Content="10 thẻ" Click="CardCountOption_Click" Tag="10"
                                                 Style="{StaticResource PopupItemStyle}" />
                                         <Button Content="15 thẻ" Click="CardCountOption_Click" Tag="15"
@@ -373,7 +597,7 @@
                                         <Button Content="20 thẻ" Click="CardCountOption_Click" Tag="20"
                                                 Style="{StaticResource PopupItemStyle}" />
                                         <Button Content="30 thẻ" Click="CardCountOption_Click" Tag="30"
-                                                Style="{StaticResource PopupItemStyle}" />
+                                                Style="{StaticResource PopupItemLastStyle}" />  <!-- ✅ Style riêng -->
                                     </StackPanel>
                                 </Border>
                             </Popup>
@@ -636,7 +860,8 @@
                             </Border>
 
                             <!-- Summary Stats -->
-                            <Border Background="{DynamicResource SearchBackground}"
+                            <Border x:Name="StatsSummaryBorder"
+                                    Background="{DynamicResource SearchBackground}"
                                     BorderBrush="{DynamicResource BorderColor}"
                                     BorderThickness="2"
                                     CornerRadius="15"
@@ -684,8 +909,8 @@
 
                                     <!-- Skipped List -->
                                     <Border x:Name="SkippedListCompletion"
-                                            Background="#fff3cd"
-                                            BorderBrush="#ffc107"
+                                            Background="{DynamicResource CardBackground}"
+                                            BorderBrush="{DynamicResource BorderColor}"
                                             BorderThickness="1"
                                             CornerRadius="10"
                                             Padding="15"
@@ -702,8 +927,12 @@
                                 </StackPanel>
                             </Border>
 
-                            <!-- Actions -->
-                            <UniformGrid Columns="3" Rows="1">
+                            <!-- Actions - 3 Buttons -->
+                            <UniformGrid x:Name="Actions3Buttons"
+                                         Columns="3"
+                                         Rows="1"
+                                         Width="{Binding ElementName=StatsSummaryBorder, Path=ActualWidth}"
+                                         Visibility="Collapsed">
                                 <Button Content="🏠 Home"
                                         Style="{StaticResource SecondaryButtonStyle}"
                                         Margin="0,0,7,0"
@@ -712,17 +941,156 @@
                                         Style="{StaticResource PrimaryButtonStyle}"
                                         Margin="7,0,7,0"
                                         Click="RestartGame_Click" />
-                                <Button x:Name="BtnReviewSkippedCompletion"
-                                        Content="👁️ Review Skipped"
+                                <Button Content="👁️ Review Skipped"
                                         Style="{StaticResource SuccessButtonStyle}"
                                         Margin="7,0,0,0"
-                                        Visibility="Collapsed"
                                         Click="ReviewSkippedOnly_Click" />
+                            </UniformGrid>
+
+                            <!-- Actions - 2 Buttons -->
+                            <UniformGrid x:Name="Actions2Buttons"
+                                         Columns="2"
+                                         Rows="1"
+                                         Width="{Binding ElementName=StatsSummaryBorder, Path=ActualWidth}"
+                                         Visibility="Visible">
+                                <Button Content="🏠 Home"
+                                        Style="{StaticResource SecondaryButtonStyle}"
+                                        Margin="0,0,7,0"
+                                        Click="ExitGame_Click" />
+                                <Button Content="🔄 Restart"
+                                        Style="{StaticResource PrimaryButtonStyle}"
+                                        Margin="7,0,0,0"
+                                        Click="RestartGame_Click" />
                             </UniformGrid>
                         </StackPanel>
                     </Border>
                 </ScrollViewer>
             </Grid>
+        </Grid>
+        <!-- History Overlay -->
+        <Grid x:Name="HistoryOverlay" Visibility="Collapsed" Background="#80000000">
+            <Border Background="{DynamicResource CardBackground}"
+                    BorderBrush="{DynamicResource BorderColor}"
+                    BorderThickness="2"
+                    CornerRadius="20"
+                    Width="900"
+                    MaxHeight="700"
+                    Margin="50"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <!-- Header -->
+                    <DockPanel Grid.Row="0" Margin="30,20,30,20">
+                        <Button Content="✕"
+                                Width="40" Height="40"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                FontSize="20"
+                                Cursor="Hand"
+                                DockPanel.Dock="Right"
+                                Click="CloseHistory_Click" />
+                        <TextBlock Text="📊 Lịch sử luyện tập"
+                                   FontSize="28"
+                                   FontWeight="Bold"
+                                   Foreground="{DynamicResource TextColor}"
+                                   VerticalAlignment="Center" />
+                    </DockPanel>
+
+                    <!-- Statistics Summary -->
+                    <Border Grid.Row="1"
+                            Background="{DynamicResource SearchBackground}"
+                            BorderBrush="{DynamicResource BorderColor}"
+                            BorderThickness="0,2,0,2"
+                            Padding="40,25"
+                            Margin="0,20,0,0">
+                        <UniformGrid Columns="4" Rows="1" HorizontalAlignment="Stretch">
+                            <StackPanel HorizontalAlignment="Center" Margin="10,0">
+                                <TextBlock x:Name="TxtHistoryTotalGames"
+                                           Text="0"
+                                           FontSize="36"
+                                           FontWeight="Bold"
+                                           Foreground="{DynamicResource ButtonColor}"
+                                           HorizontalAlignment="Center" />
+                                <TextBlock Text="Lượt chơi"
+                                           FontSize="13"
+                                           Foreground="{DynamicResource TextColor}"
+                                           Opacity="0.7"
+                                           HorizontalAlignment="Center" />
+                            </StackPanel>
+
+                            <StackPanel HorizontalAlignment="Center" Margin="10,0">
+                                <TextBlock x:Name="TxtHistoryTotalCards"
+                                           Text="0"
+                                           FontSize="36"
+                                           FontWeight="Bold"
+                                           Foreground="{DynamicResource ButtonColor}"
+                                           HorizontalAlignment="Center" />
+                                <TextBlock Text="Từ đã học"
+                                           FontSize="13"
+                                           Foreground="{DynamicResource TextColor}"
+                                           Opacity="0.7"
+                                           HorizontalAlignment="Center" />
+                            </StackPanel>
+
+                            <StackPanel HorizontalAlignment="Center" Margin="10,0">
+                                <TextBlock x:Name="TxtHistoryAvgAccuracy"
+                                           Text="0%"
+                                           FontSize="36"
+                                           FontWeight="Bold"
+                                           Foreground="{DynamicResource ButtonColor}"
+                                           HorizontalAlignment="Center" />
+                                <TextBlock Text="Độ chính xác trung bình"
+                                           FontSize="13"
+                                           Foreground="{DynamicResource TextColor}"
+                                           Opacity="0.7"
+                                           HorizontalAlignment="Center" />
+                            </StackPanel>
+
+                            <StackPanel HorizontalAlignment="Center">
+                                <TextBlock x:Name="TxtHistoryTotalTime"
+                                           Text="0h"
+                                           FontSize="36"
+                                           FontWeight="Bold"
+                                           Foreground="{DynamicResource ButtonColor}"
+                                           HorizontalAlignment="Center" />
+                                <TextBlock Text="Tổng thời gian"
+                                           FontSize="13"
+                                           Foreground="{DynamicResource TextColor}"
+                                           Opacity="0.7"
+                                           HorizontalAlignment="Center" />
+                            </StackPanel>
+                        </UniformGrid>
+                    </Border>
+
+                    <!-- History List -->
+                    <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto"
+                                  Padding="40,20,40,0" Margin="0,10,0,25">
+                        <ItemsControl x:Name="HistoryList"
+                                      ItemTemplate="{StaticResource HistoryItemTemplate}">
+                            <!-- Items sẽ được bind tự động -->
+                        </ItemsControl>
+                    </ScrollViewer>
+
+                    <!-- Actions -->
+                    <UniformGrid Grid.Row="3" Columns="2" Rows="1" Margin="40,20,40,30">
+                        <Button Content="🗑️ Xóa tất cả"
+                                Style="{StaticResource DangerButtonStyle}"
+                                Margin="0,0,10,0"
+                                Click="ClearHistory_Click" />
+                        <Button Content="✓ Đóng"
+                                Style="{StaticResource PrimaryButtonStyle}"
+                                Margin="10,0,0,0"
+                                Click="CloseHistory_Click" />
+                    </UniformGrid>
+                </Grid>
+            </Border>
         </Grid>
     </Grid>
 </local:WordListPageBase>

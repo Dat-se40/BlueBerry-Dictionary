@@ -62,7 +62,7 @@
             </Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="{DynamicResource ButtonColor}"/>
+                    <Setter Property="Background" Value="{DynamicResource WordItemHover}"/>
                     <Setter Property="RenderTransform">
                         <Setter.Value>
                             <TranslateTransform Y="-2"/>
