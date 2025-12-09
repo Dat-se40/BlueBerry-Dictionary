@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Image\google.png" />
     <None Remove="Resources\Image\logo.png" />
   </ItemGroup>
 
@@ -32,6 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Image\google.png" />
     <Resource Include="Resources\Image\logo.png" />
   </ItemGroup>
 

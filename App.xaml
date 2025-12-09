@@ -11,13 +11,27 @@
                 <ResourceDictionary Source="Resources/Styles/ControlStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
+
+            <!-- ========== CONVERTERS ========== -->
+
             <!-- ✅ WPF Built-in Converter -->
             <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
 
             <!-- ✅ Custom Inverse Converter -->
             <helpers:InverseBoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter"/>
 
-            <!-- ✅ THÊM: Global Font Settings -->
+            <!-- ✅ THÊM MỚI: Game Converters -->
+            <helpers:SkipIndexConverter x:Key="SkipIndexConverter"/>
+            <helpers:IntToFormattedStringConverter x:Key="IntToFormattedStringConverter"/>
+            <helpers:PercentageConverter x:Key="PercentageConverter"/>
+            <helpers:StringToVisibilityConverter x:Key="StringToVisibilityConverter"/>
+            <helpers:CollectionCountToVisibilityConverter x:Key="CollectionCountToVisibilityConverter"/>
+            <helpers:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
+            <helpers:TimeSpanToStringConverter x:Key="TimeSpanToStringConverter"/>
+
+            <!-- ========== GLOBAL SETTINGS ========== -->
+
+            <!-- ✅ Global Font Settings -->
             <FontFamily x:Key="AppFontFamily">Segoe UI</FontFamily>
             <System:Double x:Key="AppFontSize" xmlns:System="clr-namespace:System;assembly=mscorlib">14</System:Double>
 

@@ -1,0 +1,60 @@
+{
+  "Sessions": [
+    {
+      "Id": "e2e259f8-dfe0-49de-acbb-58a5722465cb",
+      "StartTime": "2025-12-09T16:28:31.4213347+07:00",
+      "EndTime": "2025-12-09T16:28:42.1408668+07:00",
+      "DataSource": "All",
+      "DataSourceName": "📚 All Words",
+      "TotalCards": 2,
+      "KnownCards": 1,
+      "UnknownCards": 1,
+      "AccuracyPercentage": 50.0,
+      "Duration": "00:00:10.7195321",
+      "SkippedCardIndices": [
+        0
+      ],
+      "SkippedWords": [
+        "hi"
+      ],
+      "DurationText": "10s"
+    },
+    {
+      "Id": "e2e259f8-dfe0-49de-acbb-58a5722465cb",
+      "StartTime": "2025-12-09T16:28:31.4213347+07:00",
+      "EndTime": "2025-12-09T16:28:42.1408668+07:00",
+      "DataSource": "All",
+      "DataSourceName": "📚 All Words",
+      "TotalCards": 2,
+      "KnownCards": 1,
+      "UnknownCards": 1,
+      "AccuracyPercentage": 50.0,
+      "Duration": "00:00:10.7195321",
+      "SkippedCardIndices": [
+        0
+      ],
+      "SkippedWords": [
+        "hi"
+      ],
+      "DurationText": "10s"
+    },
+    {
+      "Id": "b2e1d1c6-cbec-4f9b-b22a-0093736c8bf0",
+      "StartTime": "2025-12-09T17:28:04.4722778+07:00",
+      "EndTime": "2025-12-09T17:28:13.166112+07:00",
+      "DataSource": "446a047f-a520-4d59-8d1f-014df3d0349d",
+      "DataSourceName": "🏷️ test (1)",
+      "TotalCards": 1,
+      "KnownCards": 1,
+      "UnknownCards": 0,
+      "AccuracyPercentage": 100.0,
+      "Duration": "00:00:08.6938342",
+      "SkippedCardIndices": [],
+      "SkippedWords": [],
+      "DurationText": "8s"
+    }
+  ],
+  "LastUpdated": "2025-12-09T17:28:13.167697+07:00",
+  "TotalGamesPlayed": 3,
+  "TotalCardsStudied": 5
+}

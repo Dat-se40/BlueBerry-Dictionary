@@ -1,0 +1,65 @@
+[
+  {
+    "word": "significant",
+    "phonetic": "/sɪɡˈnɪf.ɪ.kənt/",
+    "phonetics": [
+      {
+        "text": "/sɪɡˈnɪf.ɪ.kənt/",
+        "audio": "https://api.dictionaryapi.dev/media/pronunciations/en/significant-us.mp3",
+        "sourceUrl": "https://commons.wikimedia.org/w/index.php?curid=1780234",
+        "license": {
+          "name": "BY-SA 3.0",
+          "url": "https://creativecommons.org/licenses/by-sa/3.0"
+        }
+      }
+    ],
+    "meanings": [
+      {
+        "partOfSpeech": "adjective",
+        "definitions": [
+          {
+            "definition": "Sufficiently great or important to be worthy of attention; noteworthy.",
+            "synonyms": [
+              "important",
+              "notable",
+              "considerable"
+            ],
+            "antonyms": [
+              "insignificant",
+              "trivial"
+            ],
+            "example": "There has been a significant increase in air pollution."
+          },
+          {
+            "definition": "Having a particular meaning; indicative of something.",
+            "synonyms": [
+              "meaningful",
+              "telling"
+            ],
+            "antonyms": [
+              "meaningless"
+            ],
+            "example": "She gave me a significant look."
+          }
+        ],
+        "synonyms": [
+          "major",
+          "substantial",
+          "vital"
+        ],
+        "antonyms": [
+          "minor",
+          "unimportant",
+          "negligible"
+        ]
+      }
+    ],
+    "license": {
+      "name": "CC BY-SA 3.0",
+      "url": "https://creativecommons.org/licenses/by-sa/3.0"
+    },
+    "sourceUrls": [
+      "https://en.wiktionary.org/wiki/significant"
+    ]
+  }
+]

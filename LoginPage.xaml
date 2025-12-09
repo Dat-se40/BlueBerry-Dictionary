@@ -30,18 +30,18 @@
 
                     <!-- Logo -->
                     <Border Width="100" Height="100"
-                    CornerRadius="50"
-        Margin="0,0,0,25"
-        HorizontalAlignment="Center">
+                            CornerRadius="50"
+                            Margin="0,0,0,25"
+                            HorizontalAlignment="Center">
                         <Border.Effect>
                             <DropShadowEffect BlurRadius="15" ShadowDepth="4" Opacity="0.3" Color="#2D4ACC"/>
                         </Border.Effect>
 
                         <!-- Logo Image -->
                         <Image Name="LogoImg"
-           Stretch="Uniform"
-           HorizontalAlignment="Center"
-           VerticalAlignment="Center">
+                               Stretch="Uniform"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center">
                             <Image.Clip>
                                 <EllipseGeometry Center="50,50" RadiusX="50" RadiusY="50"/>
                             </Image.Clip>
@@ -72,126 +72,22 @@
 
                     <!-- Gmail Login Button -->
                     <Button x:Name="GmailLoginBtn"
-                            Height="60"
                             Margin="0,0,0,15"
-                            Cursor="Hand"
+                            Style="{StaticResource LoginButtonStyle}"
                             Command="{Binding LoginWithGmailCommand}">
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Setter Property="Background">
-                                    <Setter.Value>
-                                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                            <GradientStop Color="#FFFFFF" Offset="0"/>
-                                            <GradientStop Color="#F0F4FF" Offset="1"/>
-                                        </LinearGradientBrush>
-                                    </Setter.Value>
-                                </Setter>
-                                <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
-                                <Setter Property="BorderThickness" Value="2"/>
-                                <Setter Property="Foreground" Value="{DynamicResource TextColor}"/>
-                                <Setter Property="FontSize" Value="16"/>
-                                <Setter Property="FontWeight" Value="SemiBold"/>
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border Background="{TemplateBinding Background}"
-                                                    BorderBrush="{TemplateBinding BorderBrush}"
-                                                    BorderThickness="{TemplateBinding BorderThickness}"
-                                                    CornerRadius="16">
-                                                <Grid>
-                                                    <!-- Button Content -->
-                                                    <StackPanel Orientation="Horizontal"
-                                                                HorizontalAlignment="Center"
-                                                                VerticalAlignment="Center"
-                                                                x:Name="ButtonContent">
-                                                        <!-- Google Icon -->
-                                                        <TextBlock Text="G"
-                                                                   FontSize="24"
-                                                                   FontWeight="Bold"
-                                                                   Margin="0,0,12,0">
-                                                            <TextBlock.Foreground>
-                                                                <LinearGradientBrush>
-                                                                    <GradientStop Color="#4285F4" Offset="0"/>
-                                                                    <GradientStop Color="#34A853" Offset="0.33"/>
-                                                                    <GradientStop Color="#FBBC05" Offset="0.66"/>
-                                                                    <GradientStop Color="#EA4335" Offset="1"/>
-                                                                </LinearGradientBrush>
-                                                            </TextBlock.Foreground>
-                                                        </TextBlock>
-                                                        <TextBlock Text="Continue with Google"
-                                                                   VerticalAlignment="Center"/>
-                                                    </StackPanel>
-
-                                                    <!-- Loading Spinner -->
-                                                    <Border x:Name="LoadingSpinner"
-                                                            Width="20" Height="20"
-                                                            Visibility="Collapsed">
-                                                        <Border.RenderTransform>
-                                                            <RotateTransform x:Name="SpinnerRotate" CenterX="10" CenterY="10"/>
-                                                        </Border.RenderTransform>
-                                                        <Ellipse Stroke="{TemplateBinding Foreground}"
-                                                                 StrokeThickness="3"
-                                                                 StrokeDashArray="15 5"/>
-                                                    </Border>
-                                                </Grid>
-                                            </Border>
-                                            <ControlTemplate.Triggers>
-                                                <!-- Hover Effect -->
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="Background">
-                                                        <Setter.Value>
-                                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                                                <GradientStop Color="#2D4ACC" Offset="0"/>
-                                                                <GradientStop Color="#5B7FFF" Offset="1"/>
-                                                            </LinearGradientBrush>
-                                                        </Setter.Value>
-                                                    </Setter>
-                                                    <Setter Property="Foreground" Value="White"/>
-                                                    <Trigger.EnterActions>
-                                                        <BeginStoryboard>
-                                                            <Storyboard>
-                                                                <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
-                                                                                 To="-3" Duration="0:0:0.3"/>
-                                                            </Storyboard>
-                                                        </BeginStoryboard>
-                                                    </Trigger.EnterActions>
-                                                    <Trigger.ExitActions>
-                                                        <BeginStoryboard>
-                                                            <Storyboard>
-                                                                <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
-                                                                                 To="0" Duration="0:0:0.3"/>
-                                                            </Storyboard>
-                                                        </BeginStoryboard>
-                                                    </Trigger.ExitActions>
-                                                </Trigger>
-
-                                                <!-- Loading State -->
-                                                <DataTrigger Binding="{Binding IsGmailLoading}" Value="True">
-                                                    <Setter TargetName="ButtonContent" Property="Visibility" Value="Collapsed"/>
-                                                    <Setter TargetName="LoadingSpinner" Property="Visibility" Value="Visible"/>
-                                                    <DataTrigger.EnterActions>
-                                                        <BeginStoryboard>
-                                                            <Storyboard RepeatBehavior="Forever">
-                                                                <DoubleAnimation Storyboard.TargetName="SpinnerRotate"
-                                                                                 Storyboard.TargetProperty="Angle"
-                                                                                 From="0" To="360"
-                                                                                 Duration="0:0:0.8"/>
-                                                            </Storyboard>
-                                                        </BeginStoryboard>
-                                                    </DataTrigger.EnterActions>
-                                                </DataTrigger>
-                                            </ControlTemplate.Triggers>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                                <Setter Property="RenderTransform">
-                                    <Setter.Value>
-                                        <TranslateTransform/>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </Button.Style>
+                        <StackPanel Orientation="Horizontal"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center">
+                            <Image Source="/Resources/Image/google.png"
+                                   Width="24" Height="24"
+                                   Margin="0,0,12,0"
+                                   VerticalAlignment="Center"/>
+                            <TextBlock Text="Continue with Google"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
                     </Button>
+
+
 
                     <!-- Divider -->
                     <Grid Margin="0,20,0,20">
@@ -234,109 +130,16 @@
 
                     <!-- Guest Mode Button -->
                     <Button x:Name="GuestBtn"
-                            Height="60"
-                            Cursor="Hand"
+                            Style="{StaticResource LoginButtonStyle}"
                             Command="{Binding ContinueAsGuestCommand}">
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Setter Property="Background">
-                                    <Setter.Value>
-                                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                                            <GradientStop Color="#E8F1FF" Offset="0"/>
-                                            <GradientStop Color="#F5E8FF" Offset="1"/>
-                                        </LinearGradientBrush>
-                                    </Setter.Value>
-                                </Setter>
-                                <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
-                                <Setter Property="BorderThickness" Value="2"/>
-                                <Setter Property="Foreground" Value="{DynamicResource ButtonColor}"/>
-                                <Setter Property="FontSize" Value="16"/>
-                                <Setter Property="FontWeight" Value="SemiBold"/>
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border Background="{TemplateBinding Background}"
-                                                    BorderBrush="{TemplateBinding BorderBrush}"
-                                                    BorderThickness="{TemplateBinding BorderThickness}"
-                                                    CornerRadius="16">
-                                                <Grid>
-                                                    <!-- Button Content -->
-                                                    <StackPanel Orientation="Horizontal"
-                                                                HorizontalAlignment="Center"
-                                                                VerticalAlignment="Center"
-                                                                x:Name="GuestButtonContent">
-                                                        <TextBlock Text="👤" FontSize="24" Margin="0,0,12,0"/>
-                                                        <TextBlock Text="Continue as Guest" VerticalAlignment="Center"/>
-                                                    </StackPanel>
-
-                                                    <!-- Loading Spinner -->
-                                                    <Border x:Name="GuestLoadingSpinner"
-                                                            Width="20" Height="20"
-                                                            Visibility="Collapsed">
-                                                        <Border.RenderTransform>
-                                                            <RotateTransform x:Name="GuestSpinnerRotate" CenterX="10" CenterY="10"/>
-                                                        </Border.RenderTransform>
-                                                        <Ellipse Stroke="{TemplateBinding Foreground}"
-                                                                 StrokeThickness="3"
-                                                                 StrokeDashArray="15 5"/>
-                                                    </Border>
-                                                </Grid>
-                                            </Border>
-                                            <ControlTemplate.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="Background">
-                                                        <Setter.Value>
-                                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                                                <GradientStop Color="#1A2D6D" Offset="0"/>
-                                                                <GradientStop Color="#2D4ACC" Offset="1"/>
-                                                            </LinearGradientBrush>
-                                                        </Setter.Value>
-                                                    </Setter>
-                                                    <Setter Property="Foreground" Value="White"/>
-                                                    <Trigger.EnterActions>
-                                                        <BeginStoryboard>
-                                                            <Storyboard>
-                                                                <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
-                                                                                 To="-3" Duration="0:0:0.3"/>
-                                                            </Storyboard>
-                                                        </BeginStoryboard>
-                                                    </Trigger.EnterActions>
-                                                    <Trigger.ExitActions>
-                                                        <BeginStoryboard>
-                                                            <Storyboard>
-                                                                <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
-                                                                                 To="0" Duration="0:0:0.3"/>
-                                                            </Storyboard>
-                                                        </BeginStoryboard>
-                                                    </Trigger.ExitActions>
-                                                </Trigger>
-
-                                                <DataTrigger Binding="{Binding IsGuestLoading}" Value="True">
-                                                    <Setter TargetName="GuestButtonContent" Property="Visibility" Value="Collapsed"/>
-                                                    <Setter TargetName="GuestLoadingSpinner" Property="Visibility" Value="Visible"/>
-                                                    <DataTrigger.EnterActions>
-                                                        <BeginStoryboard>
-                                                            <Storyboard RepeatBehavior="Forever">
-                                                                <DoubleAnimation Storyboard.TargetName="GuestSpinnerRotate"
-                                                                                 Storyboard.TargetProperty="Angle"
-                                                                                 From="0" To="360"
-                                                                                 Duration="0:0:0.8"/>
-                                                            </Storyboard>
-                                                        </BeginStoryboard>
-                                                    </DataTrigger.EnterActions>
-                                                </DataTrigger>
-                                            </ControlTemplate.Triggers>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                                <Setter Property="RenderTransform">
-                                    <Setter.Value>
-                                        <TranslateTransform/>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </Button.Style>
+                        <StackPanel Orientation="Horizontal"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center">
+                            <TextBlock Text="👤" FontSize="24" Margin="0,0,12,0"/>
+                            <TextBlock Text="Continue as Guest" VerticalAlignment="Center"/>
+                        </StackPanel>
                     </Button>
+
                 </StackPanel>
 
             </StackPanel>

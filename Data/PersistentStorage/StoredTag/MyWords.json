@@ -1,1 +1,62 @@
-[]
+[
+  {
+    "isFavorited": false,
+    "note": "hhghghgjbkjblkjgilhgh gfdjdjtkkhjfkdf ddtdlgc,jbcmghdg g uiglhgkjhfkyu lyljb. ugl iugtlu ;';ih;jlkjtdtk l",
+    "Word": "limit",
+    "Phonetic": "ˈli-mət",
+    "PartOfSpeech": "noun",
+    "Definition": "something that bounds, restrains, or confines",
+    "Example": "",
+    "Synonyms": [
+      "cap",
+      "circumscribe",
+      "confine",
+      "hold down",
+      "restrict",
+      "bound",
+      "define",
+      "delimit",
+      "demarcate",
+      "demark",
+      "mark (off)",
+      "terminate",
+      "boundary",
+      "ceiling",
+      "confines",
+      "end",
+      "extent",
+      "limitation",
+      "line",
+      "termination",
+      "depth",
+      "extremity",
+      "height"
+    ],
+    "Antonyms": [
+      "exceed"
+    ],
+    "Tags": [],
+    "AddedAt": "2025-12-09T14:39:46.6506882+07:00",
+    "ViewCount": 0,
+    "MeaningIndex": 0,
+    "HasRelatedWords": true
+  },
+  {
+    "isFavorited": false,
+    "note": null,
+    "Word": "hi",
+    "Phonetic": "ˈhī(-ē)",
+    "PartOfSpeech": "interjection",
+    "Definition": "—used especially as a greeting",
+    "Example": "",
+    "Synonyms": [],
+    "Antonyms": [],
+    "Tags": [
+      "446a047f-a520-4d59-8d1f-014df3d0349d"
+    ],
+    "AddedAt": "2025-12-09T14:51:27.5952359+07:00",
+    "ViewCount": 0,
+    "MeaningIndex": 0,
+    "HasRelatedWords": false
+  }
+]

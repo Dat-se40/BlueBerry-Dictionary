@@ -1,0 +1,221 @@
+{
+  "Id": "pkg_demo_ielts",
+  "Name": "IELTS Essential Vocabulary - Demo",
+  "Description": "Bộ từ vựng IELTS cơ bản với 2 topics: Academic và Daily Life",
+  "Author": "BlueBerry Team",
+  "TotalItems": 4,
+  "SizeInBytes": 15000,
+  "CreatedAt": "2024-12-08T10:00:00Z",
+  "Version": "1.0",
+  "Category": "IELTS",
+  "Level": "Intermediate",
+  "ThumbnailUrl": "🎯",
+  "DownloadUrl": "https://raw.githubusercontent.com/Dat-se40/BlueBerry-Dictionary/OfflineMode/Data/pkg_demo_ielts.json",
+  "IsDownloaded": false,
+  "LocalPath": null,
+  "Container": [
+    {
+      "Id": "topic_academic_words",
+      "Name": "Academic Vocabulary",
+      "Description": "Từ vựng học thuật thường gặp trong IELTS Writing Task 2",
+      "Icon": "📚",
+      "Color": "#2D4ACC",
+      "Words": [
+        {
+          "word": "analyze",
+          "phonetic": "/ˈæn.əl.aɪz/",
+          "phonetics": [
+            {
+              "text": "/ˈæn.əl.aɪz/",
+              "audio": "https://api.dictionaryapi.dev/media/pronunciations/en/analyze-us.mp3",
+              "sourceUrl": "https://commons.wikimedia.org/w/index.php?curid=1762969",
+              "license": {
+                "name": "BY-SA 3.0",
+                "url": "https://creativecommons.org/licenses/by-sa/3.0"
+              }
+            }
+          ],
+          "meanings": [
+            {
+              "partOfSpeech": "verb",
+              "definitions": [
+                {
+                  "definition": "To examine methodically by separating into parts and studying their interrelations.",
+                  "synonyms": ["examine", "study", "investigate"],
+                  "antonyms": ["synthesize"],
+                  "example": "The researcher analyzed the data to find patterns."
+                },
+                {
+                  "definition": "To make a mathematical, chemical, or grammatical analysis of.",
+                  "synonyms": ["break down", "dissect"],
+                  "antonyms": [],
+                  "example": "We need to analyze this chemical compound."
+                }
+              ],
+              "synonyms": ["examine", "evaluate", "assess"],
+              "antonyms": ["ignore", "overlook"]
+            }
+          ],
+          "license": {
+            "name": "CC BY-SA 3.0",
+            "url": "https://creativecommons.org/licenses/by-sa/3.0"
+          },
+          "sourceUrls": [
+            "https://en.wiktionary.org/wiki/analyze"
+          ]
+        },
+        {
+          "word": "significant",
+          "phonetic": "/sɪɡˈnɪf.ɪ.kənt/",
+          "phonetics": [
+            {
+              "text": "/sɪɡˈnɪf.ɪ.kənt/",
+              "audio": "https://api.dictionaryapi.dev/media/pronunciations/en/significant-us.mp3",
+              "sourceUrl": "https://commons.wikimedia.org/w/index.php?curid=1780234",
+              "license": {
+                "name": "BY-SA 3.0",
+                "url": "https://creativecommons.org/licenses/by-sa/3.0"
+              }
+            }
+          ],
+          "meanings": [
+            {
+              "partOfSpeech": "adjective",
+              "definitions": [
+                {
+                  "definition": "Sufficiently great or important to be worthy of attention; noteworthy.",
+                  "synonyms": ["important", "notable", "considerable"],
+                  "antonyms": ["insignificant", "trivial"],
+                  "example": "There has been a significant increase in air pollution."
+                },
+                {
+                  "definition": "Having a particular meaning; indicative of something.",
+                  "synonyms": ["meaningful", "telling"],
+                  "antonyms": ["meaningless"],
+                  "example": "She gave me a significant look."
+                }
+              ],
+              "synonyms": ["major", "substantial", "vital"],
+              "antonyms": ["minor", "unimportant", "negligible"]
+            }
+          ],
+          "license": {
+            "name": "CC BY-SA 3.0",
+            "url": "https://creativecommons.org/licenses/by-sa/3.0"
+          },
+          "sourceUrls": [
+            "https://en.wiktionary.org/wiki/significant"
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "topic_daily_life",
+      "Name": "Daily Life Vocabulary",
+      "Description": "Từ vựng giao tiếp hàng ngày cho IELTS Speaking",
+      "Icon": "🏠",
+      "Color": "#10B981",
+      "Words": [
+        {
+          "word": "routine",
+          "phonetic": "/ruːˈtiːn/",
+          "phonetics": [
+            {
+              "text": "/ruːˈtiːn/",
+              "audio": "https://api.dictionaryapi.dev/media/pronunciations/en/routine-us.mp3",
+              "sourceUrl": "https://commons.wikimedia.org/w/index.php?curid=1780001",
+              "license": {
+                "name": "BY-SA 3.0",
+                "url": "https://creativecommons.org/licenses/by-sa/3.0"
+              }
+            }
+          ],
+          "meanings": [
+            {
+              "partOfSpeech": "noun",
+              "definitions": [
+                {
+                  "definition": "A sequence of actions regularly followed; a fixed program.",
+                  "synonyms": ["habit", "pattern", "schedule"],
+                  "antonyms": ["irregularity"],
+                  "example": "My morning routine includes exercise and breakfast."
+                },
+                {
+                  "definition": "A set sequence of steps, part of larger computer program.",
+                  "synonyms": ["procedure", "subroutine"],
+                  "antonyms": [],
+                  "example": "The software routine processes the data."
+                }
+              ],
+              "synonyms": ["custom", "practice", "ritual"],
+              "antonyms": ["variation", "spontaneity"]
+            },
+            {
+              "partOfSpeech": "adjective",
+              "definitions": [
+                {
+                  "definition": "Performed as part of a regular procedure rather than for a special reason.",
+                  "synonyms": ["regular", "standard", "normal"],
+                  "antonyms": ["special", "unusual"],
+                  "example": "This is just a routine check-up."
+                }
+              ],
+              "synonyms": ["ordinary", "typical", "conventional"],
+              "antonyms": ["extraordinary", "exceptional"]
+            }
+          ],
+          "license": {
+            "name": "CC BY-SA 3.0",
+            "url": "https://creativecommons.org/licenses/by-sa/3.0"
+          },
+          "sourceUrls": [
+            "https://en.wiktionary.org/wiki/routine"
+          ]
+        },
+        {
+          "word": "leisure",
+          "phonetic": "/ˈleʒ.ər/",
+          "phonetics": [
+            {
+              "text": "/ˈleʒ.ər/",
+              "audio": "https://api.dictionaryapi.dev/media/pronunciations/en/leisure-us.mp3",
+              "sourceUrl": "https://commons.wikimedia.org/w/index.php?curid=1762555",
+              "license": {
+                "name": "BY-SA 3.0",
+                "url": "https://creativecommons.org/licenses/by-sa/3.0"
+              }
+            }
+          ],
+          "meanings": [
+            {
+              "partOfSpeech": "noun",
+              "definitions": [
+                {
+                  "definition": "Free time; time at one's own disposal.",
+                  "synonyms": ["free time", "spare time", "relaxation"],
+                  "antonyms": ["work", "duty"],
+                  "example": "I enjoy reading in my leisure time."
+                },
+                {
+                  "definition": "Opportunity afforded by free time to do something.",
+                  "synonyms": ["opportunity", "chance"],
+                  "antonyms": ["obligation"],
+                  "example": "She studied the report at her leisure."
+                }
+              ],
+              "synonyms": ["recreation", "downtime", "rest"],
+              "antonyms": ["labor", "toil", "employment"]
+            }
+          ],
+          "license": {
+            "name": "CC BY-SA 3.0",
+            "url": "https://creativecommons.org/licenses/by-sa/3.0"
+          },
+          "sourceUrls": [
+            "https://en.wiktionary.org/wiki/leisure"
+          ]
+        }
+      ]
+    }
+  ]
+}
