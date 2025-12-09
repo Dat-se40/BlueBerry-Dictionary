@@ -1,0 +1,188 @@
+﻿<Window x:Class="BlueBerryDictionary.Views.Dialogs.Introduces.UserGuideDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Hướng Dẫn Sử Dụng BlueBerry Dictionary"
+        Width="900" Height="700"
+        WindowStartupLocation="CenterScreen"
+        Background="{DynamicResource MainBackground}"
+        ResizeMode="CanResize">
+
+    <Window.Resources>
+        <!-- Section Header Style -->
+        <Style x:Key="SectionHeaderStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextColor}"/>
+            <Setter Property="Margin" Value="0,0,0,15"/>
+        </Style>
+
+        <!-- Sub Header Style -->
+        <Style x:Key="SubHeaderStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextColor}"/>
+            <Setter Property="Margin" Value="0,15,0,10"/>
+        </Style>
+
+        <!-- Body Text Style -->
+        <Style x:Key="BodyTextStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextColor}"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="LineHeight" Value="22"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+            <Setter Property="Opacity" Value="0.9"/>
+        </Style>
+
+        <!-- Step Text Style -->
+        <Style x:Key="StepTextStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextColor}"/>
+            <Setter Property="Margin" Value="20,5,0,5"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+
+        <!-- Bullet Point Style -->
+        <Style x:Key="BulletStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextColor}"/>
+            <Setter Property="Margin" Value="30,3,0,3"/>
+            <Setter Property="Opacity" Value="0.9"/>
+        </Style>
+
+        <!-- Tab Button Style -->
+        <Style x:Key="TabButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextColor}"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0,0,0,3"/>
+            <Setter Property="Padding" Value="20,10"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource WordItemHover}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Active Tab Style -->
+        <Style x:Key="ActiveTabStyle" TargetType="Button" BasedOn="{StaticResource TabButtonStyle}">
+            <Setter Property="BorderBrush" Value="{DynamicResource ButtonColor}"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+
+        <!-- Close Button Style (ROUNDED) -->
+        <Style x:Key="CloseButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="{DynamicResource ButtonColor}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="25,10"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Padding="{TemplateBinding Padding}"
+                                CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Opacity" Value="0.9"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Header -->
+            <RowDefinition Height="Auto"/>
+            <!-- Tabs -->
+            <RowDefinition Height="*"/>
+            <!-- Content -->
+            <RowDefinition Height="Auto"/>
+            <!-- Close Button -->
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0"
+                Background="{DynamicResource ButtonColor}"
+                Padding="30,20">
+            <StackPanel>
+                <TextBlock Text="📖 HƯỚNG DẪN SỬ DỤNG"
+                           FontSize="24"
+                           FontWeight="Bold"
+                           Foreground="White"/>
+                <TextBlock Text="BlueBerry Dictionary - Từ điển thông minh cho mọi người"
+                           FontSize="14"
+                           Foreground="White"
+                           Opacity="0.9"
+                           Margin="0,5,0,0"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Tabs Navigation -->
+        <Border Grid.Row="1"
+                Background="{DynamicResource CardBackground}"
+                BorderBrush="{DynamicResource BorderColor}"
+                BorderThickness="0,0,0,1">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                          VerticalScrollBarVisibility="Disabled">
+                <StackPanel Orientation="Horizontal" x:Name="TabsPanel">
+                    <Button Content="🎯 Giới thiệu" Tag="intro" Click="Tab_Click" Style="{StaticResource ActiveTabStyle}" x:Name="IntroTab"/>
+                    <Button Content="🔍 Tra cứu" Tag="search" Click="Tab_Click" Style="{StaticResource TabButtonStyle}"/>
+                    <Button Content="📚 Quản lý từ" Tag="manage" Click="Tab_Click" Style="{StaticResource TabButtonStyle}"/>
+                    <Button Content="📜 Lịch sử" Tag="history" Click="Tab_Click" Style="{StaticResource TabButtonStyle}"/>
+                    <Button Content="❤️ Yêu thích" Tag="favourite" Click="Tab_Click" Style="{StaticResource TabButtonStyle}"/>
+                    <Button Content="🎨 Giao diện" Tag="theme" Click="Tab_Click" Style="{StaticResource TabButtonStyle}"/>
+                    <Button Content="🔐 Đồng bộ" Tag="sync" Click="Tab_Click" Style="{StaticResource TabButtonStyle}"/>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+
+        <!-- Content ScrollViewer -->
+        <ScrollViewer Grid.Row="2"
+                      VerticalScrollBarVisibility="Auto"
+                      Padding="30,20">
+            <StackPanel x:Name="ContentPanel">
+                <!-- Content will be loaded here dynamically -->
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Close Button -->
+        <Border Grid.Row="3"
+                Background="{DynamicResource CardBackground}"
+                BorderBrush="{DynamicResource BorderColor}"
+                BorderThickness="0,1,0,0"
+                Padding="20">
+            <Button Content="Đóng"
+                    Width="120"
+                    Height="40"
+                    HorizontalAlignment="Right"
+                    Style="{StaticResource CloseButtonStyle}"
+                    Click="CloseButton_Click"/>
+        </Border>
+    </Grid>
+</Window>

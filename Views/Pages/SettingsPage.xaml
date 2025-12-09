@@ -334,7 +334,7 @@
 
                             <Button Grid.Column="1"
                                     Style="{StaticResource SecondaryButtonStyle}"
-                                    Command="{Binding OpenUserGuideCommand}">
+                                    Click="OpenUserGuide_Click">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="📖" FontSize="16" Margin="0,0,8,0"/>
                                     <TextBlock Text="Xem"/>
@@ -367,7 +367,7 @@
 
                             <Button Grid.Column="1"
                                     Style="{StaticResource SecondaryButtonStyle}"
-                                    Command="{Binding OpenFAQCommand}">
+                                    Click="OpenFAQ_Click">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="❓" FontSize="16" Margin="0,0,8,0"/>
                                     <TextBlock Text="Xem"/>
@@ -400,7 +400,7 @@
 
                             <Button Grid.Column="1"
                                     Style="{StaticResource SecondaryButtonStyle}"
-                                    Command="{Binding OpenFAQCommand}">
+                                    Click="OpenContact_Click">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="📧" FontSize="16" Margin="0,0,8,0"/>
                                     <TextBlock Text="Liên hệ"/>
@@ -433,7 +433,7 @@
 
                             <Button Grid.Column="1"
                                     Style="{StaticResource SecondaryButtonStyle}"
-                                    Command="{Binding OpenFAQCommand}">
+                                    Click="OpenReportBug_Click">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="🐛" FontSize="16" Margin="0,0,8,0"/>
                                     <TextBlock Text="Báo lỗi"/>
@@ -466,7 +466,7 @@
 
                             <Button Grid.Column="1"
                                     Style="{StaticResource SecondaryButtonStyle}"
-                                    Command="{Binding OpenFAQCommand}">
+                                    Click="OpenRateApp_Click">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="⭐" FontSize="16" Margin="0,0,8,0"/>
                                     <TextBlock Text="Đánh giá"/>
@@ -498,7 +498,7 @@
                             </StackPanel>
                             <Button Grid.Column="1"
                                     Style="{StaticResource SecondaryButtonStyle}"
-                                    Command="{Binding OpenFAQCommand}">
+                                    Click="OpenAbout_Click">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="ℹ️" FontSize="16" Margin="0,0,8,0"/>
                                     <TextBlock Text="Xem"/>
@@ -531,7 +531,7 @@
 
                             <Button Grid.Column="1"
                                     Style="{StaticResource SecondaryButtonStyle}"
-                                    Command="{Binding OpenFAQCommand}">
+                                    Click="OpenTerms_Click">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="📄" FontSize="16" Margin="0,0,8,0"/>
                                     <TextBlock Text="Xem"/>
@@ -562,7 +562,7 @@
 
                             <Button Grid.Column="1"
                                     Style="{StaticResource SecondaryButtonStyle}"
-                                    Command="{Binding OpenFAQCommand}">
+                                    Click="OpenLicenses_Click">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="⚖️" FontSize="16" Margin="0,0,8,0"/>
                                     <TextBlock Text="Xem"/>
