@@ -5,7 +5,8 @@ using CommunityToolkit.Mvvm.Input;
 using MyDictionary.Services;
 using System.Collections.ObjectModel;
 using System.Windows;
-
+using BlueBerryDictionary.Data;
+using System.IO;
 namespace BlueBerryDictionary.Views.Dialogs
 {
     public partial class PackageDetailsDialog : Window
@@ -213,9 +214,8 @@ namespace BlueBerryDictionary.Views.Dialogs
             }
             else
             {
-                // TODO: sau này bạn check trong local xem từ này đã tồn tại chưa:
-                // IsSelectable = !LocalHasWord(word);
-                IsSelectable = true;
+               
+               IsSelectable = !File.Exists(FileStorage.GetWordFilePath(this.word));
             }
         }
 

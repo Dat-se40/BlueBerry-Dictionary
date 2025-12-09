@@ -1,0 +1,88 @@
+[
+  {
+    "word": "routine",
+    "phonetic": "/ruːˈtiːn/",
+    "phonetics": [
+      {
+        "text": "/ruːˈtiːn/",
+        "audio": "https://api.dictionaryapi.dev/media/pronunciations/en/routine-us.mp3",
+        "sourceUrl": "https://commons.wikimedia.org/w/index.php?curid=1780001",
+        "license": {
+          "name": "BY-SA 3.0",
+          "url": "https://creativecommons.org/licenses/by-sa/3.0"
+        }
+      }
+    ],
+    "meanings": [
+      {
+        "partOfSpeech": "noun",
+        "definitions": [
+          {
+            "definition": "A sequence of actions regularly followed; a fixed program.",
+            "synonyms": [
+              "habit",
+              "pattern",
+              "schedule"
+            ],
+            "antonyms": [
+              "irregularity"
+            ],
+            "example": "My morning routine includes exercise and breakfast."
+          },
+          {
+            "definition": "A set sequence of steps, part of larger computer program.",
+            "synonyms": [
+              "procedure",
+              "subroutine"
+            ],
+            "antonyms": [],
+            "example": "The software routine processes the data."
+          }
+        ],
+        "synonyms": [
+          "custom",
+          "practice",
+          "ritual"
+        ],
+        "antonyms": [
+          "variation",
+          "spontaneity"
+        ]
+      },
+      {
+        "partOfSpeech": "adjective",
+        "definitions": [
+          {
+            "definition": "Performed as part of a regular procedure rather than for a special reason.",
+            "synonyms": [
+              "regular",
+              "standard",
+              "normal"
+            ],
+            "antonyms": [
+              "special",
+              "unusual"
+            ],
+            "example": "This is just a routine check-up."
+          }
+        ],
+        "synonyms": [
+          "ordinary",
+          "typical",
+          "conventional"
+        ],
+        "antonyms": [
+          "extraordinary",
+          "exceptional"
+        ]
+      }
+    ],
+    "license": {
+      "name": "CC BY-SA 3.0",
+      "url": "https://creativecommons.org/licenses/by-sa/3.0"
+    },
+    "sourceUrls": [
+      "https://en.wiktionary.org/wiki/routine"
+    ]
+  }
+]

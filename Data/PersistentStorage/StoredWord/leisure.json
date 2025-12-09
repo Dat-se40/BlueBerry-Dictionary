@@ -1,0 +1,65 @@
+[
+  {
+    "word": "leisure",
+    "phonetic": "/ˈleʒ.ər/",
+    "phonetics": [
+      {
+        "text": "/ˈleʒ.ər/",
+        "audio": "https://api.dictionaryapi.dev/media/pronunciations/en/leisure-us.mp3",
+        "sourceUrl": "https://commons.wikimedia.org/w/index.php?curid=1762555",
+        "license": {
+          "name": "BY-SA 3.0",
+          "url": "https://creativecommons.org/licenses/by-sa/3.0"
+        }
+      }
+    ],
+    "meanings": [
+      {
+        "partOfSpeech": "noun",
+        "definitions": [
+          {
+            "definition": "Free time; time at one's own disposal.",
+            "synonyms": [
+              "free time",
+              "spare time",
+              "relaxation"
+            ],
+            "antonyms": [
+              "work",
+              "duty"
+            ],
+            "example": "I enjoy reading in my leisure time."
+          },
+          {
+            "definition": "Opportunity afforded by free time to do something.",
+            "synonyms": [
+              "opportunity",
+              "chance"
+            ],
+            "antonyms": [
+              "obligation"
+            ],
+            "example": "She studied the report at her leisure."
+          }
+        ],
+        "synonyms": [
+          "recreation",
+          "downtime",
+          "rest"
+        ],
+        "antonyms": [
+          "labor",
+          "toil",
+          "employment"
+        ]
+      }
+    ],
+    "license": {
+      "name": "CC BY-SA 3.0",
+      "url": "https://creativecommons.org/licenses/by-sa/3.0"
+    },
+    "sourceUrls": [
+      "https://en.wiktionary.org/wiki/leisure"
+    ]
+  }
+]
