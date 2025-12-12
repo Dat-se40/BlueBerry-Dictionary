@@ -201,22 +201,27 @@ namespace BlueBerryDictionary.ViewModels
         private void OpenRemoveTagDialog()
         {
             var dialog = new RemoveTagDialog();
+
             if (dialog.ShowDialog() == true)
             {
-                // list tagId bị xóa nằm ở đây:
                 var deleted = dialog.RemovedTagIds;
 
                 if (deleted.Any())
                 {
                     foreach (var item in deleted)
-                    {   
-                        Console.WriteLine(item + "is deleted");
-                        _tagService.DeleteTag(item); 
-                        
+                    {
+                        Console.WriteLine($"🗑️ Tag deleted: {item}");
+                        _tagService.DeleteTag(item);
                     }
+
+                    // ========== RELOAD DATA AFTER DELETE ==========
+                    _tagService.SaveTags();
+                    LoadData(); // ✅ Reload tất cả data
+                    UpdateStatistics(); // ✅ Update statistics
+                    acOnTagChanged?.Invoke(); // ✅ Notify listeners
+
+                    Console.WriteLine($"✅ Deleted {deleted.Count} tags, UI refreshed");
                 }
-                _tagService.SaveTags(); 
-                acOnTagChanged?.Invoke();   
             }
         }
         [RelayCommand]

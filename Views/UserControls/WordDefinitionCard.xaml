@@ -58,7 +58,7 @@
         <BooleanToVisibilityConverter x:Key="BoolToVis" />
     </UserControl.Resources>
 
-    <Border x:Name="CardBorder"
+    <Border x:Name="CardBorder" Cursor="Hand"
             Background="{DynamicResource CardBackground}"
             CornerRadius="15" Padding="25" Margin="10"
             BorderBrush="{DynamicResource BorderColor}"

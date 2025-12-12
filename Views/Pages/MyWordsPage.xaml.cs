@@ -22,8 +22,17 @@ namespace BlueBerryDictionary.Pages
             InitializeComponent();
             myWordsViewModel = new MyWordsViewModel();
             this.DataContext = myWordsViewModel;
+
             myWordsViewModel.acOnFilterWordsChanged += this.LoadDefCards;
-            RemoveTagDialog.UpdateUI += LoadTags; 
+            myWordsViewModel.acOnTagChanged += this.LoadData; // ✅ New listener
+
+            // ========== LISTEN TO REMOVE TAG DIALOG ==========
+            RemoveTagDialog.OnTagsDeleted += () =>
+            {
+                Console.WriteLine("🔄 Tags deleted, refreshing tags dropdown...");
+                LoadTags(); // ✅ Reload tags immediately
+            };
+
             LoadData();
         }
         public override void LoadData() 

@@ -13,7 +13,10 @@ namespace BlueBerryDictionary.Views.Dialogs
     {
         private readonly TagService _tagService;
         public List<string> RemovedTagIds { get; private set; } = new();
-        static public Action UpdateUI;
+
+        // ========== STATIC EVENT (để Page listen) ==========
+        public static event Action OnTagsDeleted;
+
         public RemoveTagDialog()
         {
             InitializeComponent();
@@ -30,6 +33,7 @@ namespace BlueBerryDictionary.Views.Dialogs
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
+
             TagsList.ItemsSource = allTags;
         }
 
@@ -38,6 +42,7 @@ namespace BlueBerryDictionary.Views.Dialogs
             try
             {
                 var selectedIds = new List<string>();
+
                 foreach (var item in TagsList.Items)
                 {
                     var container = TagsList.ItemContainerGenerator.ContainerFromItem(item) as FrameworkElement;
@@ -64,14 +69,19 @@ namespace BlueBerryDictionary.Views.Dialogs
 
                 if (confirm == MessageBoxResult.Yes)
                 {
+                    // ========== DELETE TAGS ==========
                     foreach (string id in selectedIds)
                     {
                         _tagService.DeleteTag(id);
                         RemovedTagIds.Add(id);
+                        Console.WriteLine($"❌ Deleted tag: {id}");
                     }
 
                     MessageBox.Show($"Đã xoá {selectedIds.Count} tag thành công.",
                         "Thành công", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    // ========== TRIGGER EVENT FOR UI UPDATE ==========
+                    OnTagsDeleted?.Invoke();
 
                     DialogResult = true;
                     Close();
@@ -90,7 +100,7 @@ namespace BlueBerryDictionary.Views.Dialogs
             Close();
         }
 
-        // Generic helper tìm control con
+        // Generic helper to find control
         private T FindDescendant<T>(DependencyObject parent) where T : DependencyObject
         {
             if (parent == null) return null;
@@ -98,7 +108,6 @@ namespace BlueBerryDictionary.Views.Dialogs
             for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
             {
                 var child = VisualTreeHelper.GetChild(parent, i);
-
                 if (child is T t)
                     return t;
 
