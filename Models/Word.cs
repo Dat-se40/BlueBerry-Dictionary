@@ -91,7 +91,7 @@ namespace BlueBerryDictionary.Models
         /// </summary>
         /// <param name="word">Word đầy đủ</param>
         /// <param name="meaningIndex">Index của meaning muốn lưu (0-based)</param>
-        public static WordShortened FromWord(Word word, int meaningIndex)
+        public static WordShortened FromWord(Word word, int meaningIndex = 0)
         {
             // Validate input
             if (word == null || word.meanings == null || word.meanings.Count == 0)
@@ -113,18 +113,14 @@ namespace BlueBerryDictionary.Models
                 Phonetic = word.phonetic ?? "",
                 PartOfSpeech = selectedMeaning.partOfSpeech ?? "unknown",
                 Definition = firstDef?.definition ?? "",
-                Example = firstDef?.example ?? "",
+                Example = firstDef?.example ?? "", // ✅ Key: Lấy example từ definition
                 MeaningIndex = meaningIndex,
-
-                // Lấy synonyms & antonyms (ưu tiên từ definition, fallback về meaning)
                 Synonyms = firstDef?.synonyms?.Count > 0
                     ? firstDef.synonyms
                     : (selectedMeaning.synonyms ?? new List<string>()),
-
                 Antonyms = firstDef?.antonyms?.Count > 0
                     ? firstDef.antonyms
                     : (selectedMeaning.antonyms ?? new List<string>()),
-
                 AddedAt = DateTime.Now
             };
         }

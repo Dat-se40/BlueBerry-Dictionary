@@ -203,10 +203,10 @@
                                     <TextBlock Text="Tạo nhãn mới" />
                                 </StackPanel>
                             </Button>
-                            <Button Style="{StaticResource PrimaryButtonStyle}" Command="{Binding OpenRemoveTagDialogCommand}">
+                            <Button Style="{StaticResource DangerButtonStyle}" Command="{Binding OpenRemoveTagDialogCommand}">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="➕" FontSize="16" Margin="0,0,8,0" />
-                                    <TextBlock Text="Xóa tag" />
+                                    <TextBlock Text="❌" FontSize="16" Margin="0,0,8,0" />
+                                    <TextBlock Text="Xóa tag" VerticalAlignment="Center"/>
                                 </StackPanel>
                             </Button>
                         </StackPanel>

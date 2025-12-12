@@ -28,19 +28,30 @@ namespace BlueBerryDictionary.ApiClient
         public async Task<List<Word>> FetchFromMerriamWebster(string word, CancellationToken ct)
         {
             string dictJson = await _merriamService.LookupWordAsync(word);
-            if (string.IsNullOrEmpty(dictJson)) return null;
+            if (string.IsNullOrEmpty(dictJson))
+                return null;
 
             var words = MerriamWebsterParser.ParseDictionary(dictJson);
 
-            // Enrich với thesaurus
+            // ✅ Fetch thesaurus in parallel (không chờ tuần tự)
             if (words?.Count > 0)
             {
-                string thesaurusJson = await _merriamService.LookupThesaurusAsync(word);
-                if (!string.IsNullOrEmpty(thesaurusJson))
+                try
                 {
-                    var (synonyms, antonyms) = MerriamWebsterParser.ParseThesaurus(thesaurusJson);
-                    words[0].meanings[0].synonyms = synonyms;
-                    words[0].meanings[0].antonyms = antonyms;
+                    // Không chờ thesaurus, fetch nó song song
+                    var thesaurusTask = _merriamService.LookupThesaurusAsync(word);
+
+                    string thesaurusJson = await Task.Run(() => thesaurusTask, ct);
+                    if (!string.IsNullOrEmpty(thesaurusJson))
+                    {
+                        var (synonyms, antonyms) = MerriamWebsterParser.ParseThesaurus(thesaurusJson);
+                        words[0].meanings[0].synonyms = synonyms;
+                        words[0].meanings[0].antonyms = antonyms;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"⚠️ Thesaurus enrichment timeout/failed: {ex.Message}");
                 }
             }
 

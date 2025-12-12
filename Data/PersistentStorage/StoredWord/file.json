@@ -1,0 +1,265 @@
+[
+  {
+    "word": "file",
+    "phonetic": "ˈfī(-ə)l",
+    "phonetics": [
+      {
+        "text": "ˈfī(-ə)l",
+        "audio": "https://media.merriam-webster.com/audio/prons/en/us/mp3/f/file_101.mp3",
+        "sourceUrl": "https://www.merriam-webster.com",
+        "license": null
+      }
+    ],
+    "meanings": [
+      {
+        "partOfSpeech": "noun",
+        "definitions": [
+          {
+            "definition": "a tool usually of hardened steel with cutting ridges for forming or smoothing surfaces especially of metal",
+            "synonyms": [],
+            "antonyms": [],
+            "example": ""
+          },
+          {
+            "definition": "a shrewd or crafty person",
+            "synonyms": [],
+            "antonyms": [],
+            "example": ""
+          }
+        ],
+        "synonyms": [
+          "buff",
+          "grind",
+          "hone",
+          "rasp",
+          "rub",
+          "sand",
+          "march",
+          "pace",
+          "parade",
+          "stride",
+          "column",
+          "cue",
+          "line",
+          "queue",
+          "range",
+          "string",
+          "train",
+          "commoners",
+          "commons",
+          "crowd",
+          "herd",
+          "hoi polloi",
+          "mass",
+          "millions",
+          "mob",
+          "multitude",
+          "people",
+          "plebeians",
+          "plebs",
+          "populace",
+          "public",
+          "accessible",
+          "acquirable",
+          "attainable",
+          "available",
+          "obtainable",
+          "procurable"
+        ],
+        "antonyms": [
+          "A-list",
+          "aristocracy",
+          "best",
+          "choice",
+          "corps d'elite",
+          "cream",
+          "elect",
+          "elite",
+          "fat",
+          "flower",
+          "pick",
+          "pink",
+          "pride",
+          "upper crust",
+          "inaccessible",
+          "unattainable",
+          "unavailable",
+          "unobtainable"
+        ]
+      },
+      {
+        "partOfSpeech": "verb",
+        "definitions": [
+          {
+            "definition": "to rub, smooth, or cut away with or as if with a file",
+            "synonyms": [],
+            "antonyms": [],
+            "example": ""
+          }
+        ],
+        "synonyms": [],
+        "antonyms": []
+      },
+      {
+        "partOfSpeech": "verb",
+        "definitions": [
+          {
+            "definition": "defile, corrupt",
+            "synonyms": [],
+            "antonyms": [],
+            "example": ""
+          }
+        ],
+        "synonyms": [],
+        "antonyms": []
+      },
+      {
+        "partOfSpeech": "verb",
+        "definitions": [
+          {
+            "definition": "to arrange in order for preservation and reference",
+            "synonyms": [],
+            "antonyms": [],
+            "example": ""
+          },
+          {
+            "definition": "to place among official records as prescribed by law",
+            "synonyms": [],
+            "antonyms": [],
+            "example": ""
+          },
+          {
+            "definition": "to send (copy) to a newspaper",
+            "synonyms": [],
+            "antonyms": [],
+            "example": ""
+          }
+        ],
+        "synonyms": [],
+        "antonyms": []
+      },
+      {
+        "partOfSpeech": "noun",
+        "definitions": [
+          {
+            "definition": "a device (such as a folder, case, or cabinet) by means of which papers are kept in order",
+            "synonyms": [],
+            "antonyms": [],
+            "example": ""
+          },
+          {
+            "definition": "roll, list",
+            "synonyms": [],
+            "antonyms": [],
+            "example": ""
+          },
+          {
+            "definition": "a collection of papers or publications usually arranged or classified",
+            "synonyms": [],
+            "antonyms": [],
+            "example": ""
+          }
+        ],
+        "synonyms": [],
+        "antonyms": []
+      },
+      {
+        "partOfSpeech": "noun",
+        "definitions": [
+          {
+            "definition": "single file",
+            "synonyms": [],
+            "antonyms": [],
+            "example": ""
+          },
+          {
+            "definition": "any of the rows of squares that extend across a chessboard from one player's side to the other player's side",
+            "synonyms": [],
+            "antonyms": [],
+            "example": ""
+          }
+        ],
+        "synonyms": [],
+        "antonyms": []
+      },
+      {
+        "partOfSpeech": "verb",
+        "definitions": [
+          {
+            "definition": "to march or proceed in single file",
+            "synonyms": [],
+            "antonyms": [],
+            "example": ""
+          }
+        ],
+        "synonyms": [],
+        "antonyms": []
+      },
+      {
+        "partOfSpeech": "noun",
+        "definitions": [
+          {
+            "definition": "powdered young leaves of sassafras used to thicken soups or stews",
+            "synonyms": [],
+            "antonyms": [],
+            "example": ""
+          }
+        ],
+        "synonyms": [],
+        "antonyms": []
+      }
+    ],
+    "license": null,
+    "sourceUrls": [
+      "https://www.merriam-webster.com/dictionary/file"
+    ]
+  },
+  {
+    "word": "file clerk",
+    "phonetic": "",
+    "phonetics": [],
+    "meanings": [
+      {
+        "partOfSpeech": "noun",
+        "definitions": [
+          {
+            "definition": "a clerk who works on files",
+            "synonyms": [],
+            "antonyms": [],
+            "example": ""
+          }
+        ],
+        "synonyms": [],
+        "antonyms": []
+      }
+    ],
+    "license": null,
+    "sourceUrls": [
+      "https://www.merriam-webster.com/dictionary/file clerk"
+    ]
+  },
+  {
+    "word": "file cabinet",
+    "phonetic": "",
+    "phonetics": [],
+    "meanings": [
+      {
+        "partOfSpeech": "noun",
+        "definitions": [
+          {
+            "definition": "a piece of furniture that is used for storing documents so that they can be found easily",
+            "synonyms": [],
+            "antonyms": [],
+            "example": ""
+          }
+        ],
+        "synonyms": [],
+        "antonyms": []
+      }
+    ],
+    "license": null,
+    "sourceUrls": [
+      "https://www.merriam-webster.com/dictionary/file cabinet"
+    ]
+  }
+]

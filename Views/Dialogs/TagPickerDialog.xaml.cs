@@ -61,9 +61,9 @@ namespace BlueBerryDictionary.Views.Dialogs
                 FontSize = 24,
                 Margin = new Thickness(5),
                 Cursor = System.Windows.Input.Cursors.Hand,
-                Tag = icon
+                Tag = icon 
             };
-
+            btn.SetResourceReference(Button.ForegroundProperty, "TextColor"); 
             btn.Style = FindResource("IconButtonStyle") as Style;
 
             btn.Click += (s, e) =>

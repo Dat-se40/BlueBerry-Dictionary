@@ -1,0 +1,25 @@
+{
+  "content": "Happiness depends upon ourselves.",
+  "author": "Aristotle",
+  "imageUrl": "https://picsum.photos/400/200?random=4",
+  "relativeWords": [
+    {
+      "word": "happiness",
+      "phonetic": "/ˈhæpinəs/",
+      "meaning": "the state of feeling or showing pleasure",
+      "partOfSpeech": "noun"
+    },
+    {
+      "word": "depends",
+      "phonetic": "/dɪˈpɛndz/",
+      "meaning": "to be determined or influenced by something else",
+      "partOfSpeech": "verb"
+    },
+    {
+      "word": "ourselves",
+      "phonetic": "/aʊəˈsɛlvz/",
+      "meaning": "we, used to emphasize the people speaking",
+      "partOfSpeech": "pronoun"
+    }
+  ]
+}

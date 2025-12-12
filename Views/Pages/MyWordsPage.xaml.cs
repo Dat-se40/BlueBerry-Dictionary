@@ -23,7 +23,7 @@ namespace BlueBerryDictionary.Pages
             myWordsViewModel = new MyWordsViewModel();
             this.DataContext = myWordsViewModel;
             myWordsViewModel.acOnFilterWordsChanged += this.LoadDefCards;
-            myWordsViewModel.acOnTagChanged += LoadData; 
+            RemoveTagDialog.UpdateUI += LoadTags; 
             LoadData();
         }
         public override void LoadData() 
@@ -178,33 +178,6 @@ namespace BlueBerryDictionary.Pages
             return border;
         }
 
-        // Load từ theo filter
-        private void LoadWords(string letter)
-        {
-            // TODO: Lấy danh sách từ từ database/collection
-            // Ví dụ:
-            // var filteredWords = letter == "All" 
-            //     ? allWords 
-            //     : allWords.Where(w => w.Word.StartsWith(letter, StringComparison.OrdinalIgnoreCase));
-
-            // TODO: Cập nhật UniformGrid với các word cards
-            // WordsGrid.Children.Clear();
-            // foreach (var word in filteredWords)
-            // {
-            //     WordsGrid.Children.Add(CreateWordCard(word));
-            // }
-        }
-
-        // Cập nhật header "A (2 words)"
-        private void UpdateLetterHeader(string letter)
-        {
-            // TODO: Tìm TextBlock header và cập nhật
-            // int wordCount = GetWordCountForLetter(letter);
-            // LetterHeaderText.Text = letter;
-            // WordCountText.Text = $"({wordCount} words)";
-        }
-
-        // Kiểm tra chữ cái có từ không
         private bool CheckIfLetterHasWords(string letter)
         {
             if (letter == "All") return true;

@@ -1,6 +1,7 @@
 using BlueBerryDictionary.Data;
 using BlueBerryDictionary.Models;
 using BlueBerryDictionary.Services;
+using MyDictionary.Services;
 using System.IO;
 using System.Security.Policy;
 using System.Threading.Tasks;
@@ -28,7 +29,7 @@ namespace BlueBerryDictionary.Views.UserControls
             DependencyProperty.Register("TimeStamp", typeof(string), typeof(WordDefinitionCard), new PropertyMetadata(string.Empty));
 
         public static readonly DependencyProperty ViewCountProperty =
-            DependencyProperty.Register("ViewCount", typeof(string), typeof(WordDefinitionCard), new PropertyMetadata("0 lần"));
+            DependencyProperty.Register("ViewCount", typeof(string), typeof(WordDefinitionCard), new PropertyMetadata(string.Empty));
         public static readonly DependencyProperty RegionProperty =
                DependencyProperty.Register("Region", typeof(string), typeof(WordDefinitionCard), new PropertyMetadata(string.Empty));
         // Properties
@@ -108,15 +109,22 @@ namespace BlueBerryDictionary.Views.UserControls
         public event EventHandler FavoriteClicked;
         public event EventHandler DeleteClicked;
         public event EventHandler CardClicked;
-        
+
         public WordDefinitionCard(Word mainWord = null)
         {
             InitializeComponent();
             DataContext = this;
 
             // Handle card click
-            MouseLeftButtonDown += (s, e) => CardClicked?.Invoke(this, EventArgs.Empty);
-            
+            MouseLeftButtonDown += (s, e) =>
+            {
+                if (_mainWord != null)
+                {
+                    UpdateViewCount();
+                }
+                CardClicked?.Invoke(this, EventArgs.Empty);
+            };
+
             if (mainWord != null) 
             {
                 this.Word = mainWord.word;
@@ -132,7 +140,16 @@ namespace BlueBerryDictionary.Views.UserControls
         {
             InitializeComponent();
             DataContext = this;
-            MouseLeftButtonDown += (s, e) => CardClicked?.Invoke(this, EventArgs.Empty);
+
+            MouseLeftButtonDown += (s, e) =>
+            {
+                if (_mainWord != null)
+                {
+                    UpdateViewCount();
+                }
+                CardClicked?.Invoke(this, EventArgs.Empty);
+            };
+
             if (mainWord != null)
             {
                 this.Word = mainWord.Word;
@@ -199,7 +216,6 @@ namespace BlueBerryDictionary.Views.UserControls
             }
 
         }
-
         private async void btnSave_Click(object sender, RoutedEventArgs e)
         {
             if (File.Exists(FileStorage.GetWordFilePath(Word)))
@@ -221,12 +237,84 @@ namespace BlueBerryDictionary.Views.UserControls
 
             }
         }
-        private void HandleExampleAndNote() 
+        private void HandleExampleAndNote()
         {
-            if(Example1 == null && Example1 == string.Empty )
+            // ========== _mainWord đã là WordShortened (rút gọn từ meaning được chọn) ==========
+            Action CollapsedExample2ContainerVisility = () =>
             {
-                Example1 = _mainWord.note; 
+                Example2Container.Visibility = Visibility.Collapsed;    
+            }; 
+            if (_mainWord == null)
+            {
+                Example1 = string.Empty;
+                Example2 = string.Empty;
+                CollapsedExample2ContainerVisility?.Invoke(); 
+                return;
             }
+
+            // ========== SCENARIO 1: Có Example từ definition ==========
+            if (!string.IsNullOrEmpty(_mainWord.Example))
+            {
+                Example1 = _mainWord.Example;
+
+                // Nếu có note (do manual add), hiển thị ở Example2
+                if (!string.IsNullOrEmpty(_mainWord.note))
+                {
+                    Example2 = _mainWord.note;
+
+                    // Show Example2 Container
+                    var example2Container = FindName("Example2Container") as Border;
+                    if (example2Container != null)
+                    {
+                        example2Container.Visibility = Visibility.Visible;
+
+                        // Change label to "Note:"
+                        var example2Label = FindName("Example2Label") as TextBlock;
+                        if (example2Label != null)
+                            example2Label.Text = "📝 Note:";
+                    }
+                }
+                else
+                {
+                    Example2 = string.Empty;
+                    CollapsedExample2ContainerVisility?.Invoke();
+                }
+            }
+            // ========== SCENARIO 2: Không có Example, nhưng có note ==========
+            else if (!string.IsNullOrEmpty(_mainWord.note))
+            {
+                Example1 = _mainWord.note;
+                Example2 = string.Empty;
+
+                // Change Example1Label to "Note:"
+                var example1Label = FindName("Example1Label") as TextBlock;
+                if (example1Label != null)
+                    example1Label.Text = "📝 Note:";
+
+                CollapsedExample2ContainerVisility?.Invoke();
+            }
+            // ========== SCENARIO 3: Không có gì cả ==========
+            else
+            {
+                Example1 = string.Empty;
+                Example2 = string.Empty;
+
+                // Change Example1Label
+                var example1Label = FindName("Example1Label") as TextBlock;
+                if (example1Label != null)
+                    example1Label.Text = "Note:";
+
+                CollapsedExample2ContainerVisility?.Invoke();
+            }
+        }
+
+        private void UpdateViewCount()
+        {
+            if (_mainWord == null)
+                return;
+
+            _mainWord.ViewCount++;
+            ViewCount = $"{_mainWord.ViewCount} views";
         }
     }
 }

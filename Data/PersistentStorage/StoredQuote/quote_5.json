@@ -1,0 +1,25 @@
+{
+  "content": "The unexamined life is not worth living.",
+  "author": "Socrates",
+  "imageUrl": "https://picsum.photos/400/200?random=2",
+  "relativeWords": [
+    {
+      "word": "unexamined",
+      "phonetic": "/ˌʌnɪɡˈzæmɪnd/",
+      "meaning": "not carefully thought about or studied",
+      "partOfSpeech": "adjective"
+    },
+    {
+      "word": "life",
+      "phonetic": "/laɪf/",
+      "meaning": "the existence of an individual human being or animal",
+      "partOfSpeech": "noun"
+    },
+    {
+      "word": "worth",
+      "phonetic": "/wɜːθ/",
+      "meaning": "having value or merit",
+      "partOfSpeech": "adjective"
+    }
+  ]
+}

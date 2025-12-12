@@ -46,7 +46,7 @@
                                               Tag="{Binding Id}"
                                               IsChecked="False"
                                               Margin="0,0,12,0"/>
-                                    <TextBlock Text="{Binding Icon}" FontSize="18" Margin="0,0,6,0"/>
+                                    <TextBlock Text="{Binding Icon}" FontSize="18" Margin="0,0,6,0" Foreground="{Binding Color}"/>
                                     <TextBlock Text="{Binding Name}" FontSize="16"
                                                VerticalAlignment="Center"
                                                Foreground="{DynamicResource TextColor}"/>

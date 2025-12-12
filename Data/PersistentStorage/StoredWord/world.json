@@ -1,0 +1,112 @@
+[
+  {
+    "word": "world",
+    "phonetic": "ˈwər(-ə)ld",
+    "phonetics": [
+      {
+        "text": "ˈwər(-ə)ld",
+        "audio": "https://media.merriam-webster.com/audio/prons/en/us/mp3/w/world001.mp3",
+        "sourceUrl": "https://www.merriam-webster.com",
+        "license": null
+      }
+    ],
+    "meanings": [
+      {
+        "partOfSpeech": "noun",
+        "definitions": [
+          {
+            "definition": "the earthly state of human existence",
+            "synonyms": [],
+            "antonyms": [],
+            "example": ""
+          },
+          {
+            "definition": "life after death —used with a qualifier",
+            "synonyms": [],
+            "antonyms": [],
+            "example": ""
+          },
+          {
+            "definition": "the earth with its inhabitants and all things upon it",
+            "synonyms": [],
+            "antonyms": [],
+            "example": ""
+          }
+        ],
+        "synonyms": [
+          "folks",
+          "humanity",
+          "humankind",
+          "people",
+          "public",
+          "species",
+          "earth",
+          "globe",
+          "planet",
+          "cosmos",
+          "creation",
+          "macrocosm",
+          "nature",
+          "universe",
+          "galaxy",
+          "light-year",
+          "circle",
+          "Earth",
+          "Sol III"
+        ],
+        "antonyms": []
+      },
+      {
+        "partOfSpeech": "adjective",
+        "definitions": [
+          {
+            "definition": "of or relating to the world",
+            "synonyms": [],
+            "antonyms": [],
+            "example": ""
+          },
+          {
+            "definition": "extending or found throughout the world : worldwide",
+            "synonyms": [],
+            "antonyms": [],
+            "example": ""
+          },
+          {
+            "definition": "involving or applying to part of or the whole world",
+            "synonyms": [],
+            "antonyms": [],
+            "example": ""
+          }
+        ],
+        "synonyms": [],
+        "antonyms": []
+      },
+      {
+        "partOfSpeech": "verb",
+        "definitions": [
+          {
+            "definition": "To consider or cause to be considered from a global perspective; to consider as a global whole, rather than making or focussing on national or other distinctions; compare globalise.",
+            "synonyms": [],
+            "antonyms": [],
+            "example": null
+          },
+          {
+            "definition": "To make real; to make worldly.",
+            "synonyms": [],
+            "antonyms": [],
+            "example": null
+          }
+        ],
+        "synonyms": [],
+        "antonyms": []
+      }
+    ],
+    "license": {
+      "name": "CC BY-SA 3.0",
+      "url": "https://creativecommons.org/licenses/by-sa/3.0"
+    },
+    "sourceUrls": [
+      "https://www.merriam-webster.com/dictionary/world"
+    ]
+  }
+]

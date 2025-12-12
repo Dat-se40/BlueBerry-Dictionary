@@ -208,10 +208,15 @@ namespace BlueBerryDictionary.ViewModels
 
                 if (deleted.Any())
                 {
-                    MessageBox.Show($"Đã xoá {deleted.Count} tag khỏi hệ thống!",
-                        "Xong", MessageBoxButton.OK, MessageBoxImage.Information);
-                    acOnFilterWordsChanged?.Invoke(); 
+                    foreach (var item in deleted)
+                    {   
+                        Console.WriteLine(item + "is deleted");
+                        _tagService.DeleteTag(item); 
+                        
+                    }
                 }
+                _tagService.SaveTags(); 
+                acOnTagChanged?.Invoke();   
             }
         }
         [RelayCommand]
@@ -271,24 +276,6 @@ namespace BlueBerryDictionary.ViewModels
             dialog.ShowDialog();  
             LoadData();
             acOnTagChanged?.Invoke();
-        }
-
-        [RelayCommand]
-        private void DeleteTag(string tagId)
-        {
-            var result = MessageBox.Show(
-                "Bạn có chắc muốn xóa tag này? Các từ sẽ không bị xóa.",
-                "Xác nhận",
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Question
-            );
-
-            if (result == MessageBoxResult.Yes)
-            {
-                _tagService.DeleteTag(tagId);
-                LoadData();
-                acOnTagChanged?.Invoke();
-            }
         }
 
         [RelayCommand]

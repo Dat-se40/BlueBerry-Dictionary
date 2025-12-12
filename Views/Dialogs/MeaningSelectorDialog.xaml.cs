@@ -366,15 +366,54 @@
                 }
             }
 
-            private void SaveButton_Click(object sender, RoutedEventArgs e)
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            IsCancelled = false;
+
+            try
             {
-                IsCancelled = false;
+                // ========== CREATE WordShortened from selected meaning ==========
+                var selectedMeaning = _word.meanings[SelectedMeaningIndex];
+
+                // Sử dụng FromWord method với meaningIndex
+                var wordShortened = WordShortened.FromWord(_word, SelectedMeaningIndex);
+
+                if (wordShortened == null)
+                {
+                    MessageBox.Show("Error creating word. Please try again.");
+                    return;
+                }
+
+                // ========== SMART NOTE HANDLING ==========
+                // Nếu không có example, tạo note tự động
+                if (string.IsNullOrEmpty(wordShortened.Example))
+                {
+                    wordShortened.note = $"Part of Speech: {selectedMeaning.partOfSpeech.ToUpper()}\n" +
+                                          $"Saved: {DateTime.Now:g}";
+                }
+                else
+                {
+                    // Có example, nhưng thêm metadata vào note (optional)
+                    wordShortened.note = $"Meaning #{SelectedMeaningIndex + 1} - {selectedMeaning.partOfSpeech}";
+                }
+
+                // ========== SAVE TO SERVICE ==========
+                TagService.Instance.AddNewWordShortened(wordShortened);
+
+                Console.WriteLine($"✅ Saved: {wordShortened.Word} ({selectedMeaning.partOfSpeech})");
+
                 DialogResult = true;
-                
                 Close();
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"❌ Save error: {ex.Message}");
+                MessageBox.Show($"Error saving word: {ex.Message}");
+            }
+        }
 
-            private void CancelButton_Click(object sender, RoutedEventArgs e)
+
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
             {
                 IsCancelled = true;
                 DialogResult = false;

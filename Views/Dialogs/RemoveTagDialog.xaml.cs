@@ -19,10 +19,6 @@ namespace BlueBerryDictionary.Views.Dialogs
             InitializeComponent();
             _tagService = TagService.Instance;
             LoadTags();
-            Dispatcher.ShutdownStarted += (s, e) =>
-            {
-                UpdateUI?.Invoke(); 
-            };
         }
 
         private void LoadTags()
