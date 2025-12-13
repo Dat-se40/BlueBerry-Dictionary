@@ -31,7 +31,7 @@ namespace BlueBerryDictionary.Services
             var baseDir = AppDomain.CurrentDomain.BaseDirectory;
             var dataDir = Path.Combine(baseDir, @"..\..\..\Data\PersistentStorage\GameLogs");
             Directory.CreateDirectory(dataDir);
-            _logPath = Path.Combine(dataDir, "GameHistory.json");
+            _logPath = Path.Combine(dataDir, "GameLog.json");
             
             LoadLog();
         }

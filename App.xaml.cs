@@ -58,10 +58,10 @@ namespace BlueBerryDictionary
         /// <summary>
         /// Check if user is logged in
         /// </summary>
+
         private bool CheckLoginState()
         {
-            // TODO: return GoogleAuthService.Instance.TrySilentLoginAsync().Result;
-            return false;
+            return GoogleAuthService.Instance.TrySilentLoginAsync().Result;
         }
 
         /// <summary>
