@@ -1,15 +1,11 @@
 ﻿using BlueBerryDictionary.Models;
 using BlueBerryDictionary.Services;
 using BlueBerryDictionary.Views.Dialogs;
-using Newtonsoft.Json.Linq;
-using SerpApi;
-using System.Collections;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 
 namespace BlueBerryDictionary.Views.Pages
 {
