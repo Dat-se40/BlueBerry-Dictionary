@@ -280,23 +280,24 @@
                     <!-- WORD IMAGE (Nhỏ hơn, căn giữa) -->
                     <!-- ================================= -->
                     <Border Padding="30,20"
-                            HorizontalAlignment="Center">
+        HorizontalAlignment="Center">
                         <Border Width="500" Height="300"
-                                CornerRadius="15"
-                                Background="{DynamicResource WordItemBackground}"
-                                BorderBrush="{DynamicResource BorderColor}"
-                                BorderThickness="3">
+            CornerRadius="15"
+            Background="{DynamicResource WordItemBackground}"
+            BorderBrush="{DynamicResource BorderColor}"
+            BorderThickness="3"
+            ClipToBounds="True">
                             <Border.Effect>
                                 <DropShadowEffect Color="Black"
-                                                Opacity="0.1"
-                                                BlurRadius="12"
-                                                ShadowDepth="4"/>
+                              Opacity="0.1"
+                              BlurRadius="12"
+                              ShadowDepth="4"/>
                             </Border.Effect>
-                            <TextBlock Text="📖"
-                                      FontSize="80"
-                                      HorizontalAlignment="Center"
-                                      VerticalAlignment="Center"
-                                      Opacity="0.3"/>
+
+                            <Image x:Name="DemonstrateImage"
+               Stretch="Uniform"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"/>
                         </Border>
                     </Border>
 

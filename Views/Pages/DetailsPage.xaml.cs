@@ -1,13 +1,15 @@
 ﻿using BlueBerryDictionary.Models;
 using BlueBerryDictionary.Services;
 using BlueBerryDictionary.Views.Dialogs;
-using System;
-using System.Linq;
+using Newtonsoft.Json.Linq;
+using SerpApi;
+using System.Collections;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace BlueBerryDictionary.Views.Pages
 {
@@ -36,8 +38,26 @@ namespace BlueBerryDictionary.Views.Pages
             this.Unloaded += DetailsPage_Unloaded;
 
             LoadWordData();
+            _ = LoadImageAsync();
         }
+        private async Task LoadImageAsync()
+        {
+            try
+            {
+                DemonstrateImage.Source = null;
 
+                string? pos = _word.meanings?.FirstOrDefault()?.partOfSpeech;
+                var imgService = MyDictionary.Services.ImageSearchService.Instance;
+                var bmp = await imgService.FetchAndCacheAsync(_word.word, pos);
+
+                if (bmp != null)
+                    DemonstrateImage.Source = bmp;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Image load error: {ex.Message}");
+            }
+        }
         private void LoadWordData()
         {
             if (_word == null) return;

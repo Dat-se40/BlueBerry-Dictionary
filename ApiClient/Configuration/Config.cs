@@ -35,6 +35,7 @@ namespace BlueBerryDictionary.ApiClient.Configuration
         public string MerriamWebsterDictionaryKey => _configuration["ApiKeys:MerriamWebsterDictionary"];
         public string MerriamWebsterThesaurusKey => _configuration["ApiKeys:MerriamWebsterThesaurus"];
         public string PixabayKey => _configuration["ApiKeys:Pixabay"];
+        public string SerpApiKey => _configuration["ApiKeys:SerpApi"]; 
 
         // ========== API ENDPOINTS ==========
         public string FreeDictionaryEndpoint => _configuration["ApiEndpoints:FreeDictionary"];
