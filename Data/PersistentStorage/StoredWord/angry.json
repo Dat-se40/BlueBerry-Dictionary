@@ -1,0 +1,85 @@
+[
+  {
+    "word": "angry",
+    "phonetic": "ˈaŋ-grē",
+    "phonetics": [
+      {
+        "text": "ˈaŋ-grē",
+        "audio": "https://media.merriam-webster.com/audio/prons/en/us/mp3/a/angry001.mp3",
+        "sourceUrl": "https://www.merriam-webster.com",
+        "license": null
+      }
+    ],
+    "meanings": [
+      {
+        "partOfSpeech": "adjective",
+        "definitions": [
+          {
+            "definition": "feeling or showing anger",
+            "synonyms": [],
+            "antonyms": [],
+            "example": "An angry mob started looting the warehouse."
+          },
+          {
+            "definition": "indicative of or proceeding from anger",
+            "synonyms": [],
+            "antonyms": [],
+            "example": "The broken glass left two angry cuts across my arm."
+          },
+          {
+            "definition": "seeming to show anger or to threaten in an angry manner",
+            "synonyms": [],
+            "antonyms": [],
+            "example": "Angry clouds raced across the sky."
+          }
+        ],
+        "synonyms": [
+          "angered",
+          "apoplectic",
+          "ballistic",
+          "cheesed off",
+          "choleric",
+          "enraged",
+          "foaming",
+          "fuming",
+          "furious",
+          "hopping",
+          "horn-mad",
+          "hot",
+          "incensed",
+          "indignant",
+          "inflamed",
+          "infuriate",
+          "infuriated",
+          "irate",
+          "ireful",
+          "livid",
+          "mad",
+          "outraged",
+          "rabid",
+          "rankled",
+          "riled",
+          "riley",
+          "roiled",
+          "shirty",
+          "sore",
+          "steamed up",
+          "steaming",
+          "teed off",
+          "ticked",
+          "wrathful",
+          "wroth"
+        ],
+        "antonyms": [
+          "angerless",
+          "delighted",
+          "pleased"
+        ]
+      }
+    ],
+    "license": null,
+    "sourceUrls": [
+      "https://www.merriam-webster.com/dictionary/angry"
+    ]
+  }
+]

@@ -328,6 +328,7 @@ namespace BlueBerryDictionary.ViewModels
             // TODO: Navigate to DetailsPage
             MessageBox.Show($"View details for: {word}");
         }
+
     }
 
     // ========== HELPER CLASSES ==========

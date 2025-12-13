@@ -254,17 +254,20 @@ namespace BlueBerryDictionary.ViewModels
         /// Download word to local storage
         /// </summary>
         [RelayCommand]
-        private void ExecuteDownload()
+        private async Task ExecuteDownload()
         {
-            if (CurrentWords != null && CurrentWords.Count > 0)
-            {
-                if (File.Exists(Data.FileStorage.GetWordFilePath(CurrentWords[0].word)))
-                {
-                    MessageBox.Show("Từ này đã được tải");
-                }
-                else
-                    Data.FileStorage.Download(CurrentWords);
-            }
+            if (CurrentWords == null || CurrentWords.Count == 0) return;
+
+            var word = CurrentWords[0].word;
+            var wordPath = Data.FileStorage.GetWordFilePath(word);
+            bool already = File.Exists(wordPath);
+
+            if (!already)
+                Data.FileStorage.Download(CurrentWords);
+            var imageService = MyDictionary.Services.ImageSearchService.Instance;
+            await imageService.EnsureImageDownloadedAsync(word);
+
+            MessageBox.Show(already ? "Từ này đã được tải" : "Đã tải từ và hình ảnh về máy");
         }
 
         // ==================== HELPER METHODS ====================
