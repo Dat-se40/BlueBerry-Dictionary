@@ -1,4 +1,5 @@
-﻿using BlueBerryDictionary.Models;
+﻿using BlueBerryDictionary.Helpers;
+using BlueBerryDictionary.Models;
 using Newtonsoft.Json;
 using System.IO;
 using System.Windows;
@@ -8,15 +9,15 @@ namespace BlueBerryDictionary.Data
     #region Tương tác với PersientStorage
     internal class FileStorage
     {
-        static private string _storedWordPath = Path.Combine(
+        static private string _storedWordPath = PathHelper.Combine(
             AppDomain.CurrentDomain.BaseDirectory,
             @"..\..\..\Data\PersistentStorage\StoredWord"
         );
-        static public string _storedQuotePath = Path.Combine(
+        static public string _storedQuotePath = PathHelper.Combine(
             AppDomain.CurrentDomain.BaseDirectory,
             @"..\..\..\Data\PersistentStorage\StoredQuote"
         );
-        static private string _listFile = Path.Combine(
+        static private string _listFile = PathHelper.Combine(
            AppDomain.CurrentDomain.BaseDirectory,
            @"..\..\..\Data\PersistentStorage\AvailableWordList.txt"
         );

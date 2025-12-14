@@ -1,0 +1,73 @@
+[
+  {
+    "word": "language",
+    "phonetic": "ˈlaŋ-gwij",
+    "phonetics": [
+      {
+        "text": "ˈlaŋ-gwij",
+        "audio": "https://media.merriam-webster.com/audio/prons/en/us/mp3/l/langua01.mp3",
+        "sourceUrl": "https://www.merriam-webster.com",
+        "license": null
+      },
+      {
+        "text": "-wij",
+        "audio": "https://api.dictionaryapi.dev/media/pronunciations/en/language-us.mp3",
+        "sourceUrl": "https://www.merriam-webster.com",
+        "license": null
+      }
+    ],
+    "meanings": [
+      {
+        "partOfSpeech": "noun",
+        "definitions": [
+          {
+            "definition": "an organically developed system of communication used by groups of humans: such as",
+            "synonyms": [],
+            "antonyms": [],
+            "example": "Deaf and mute people communicate using languages like ASL."
+          },
+          {
+            "definition": "the words, their pronunciation, their written representation, and the methods of combining them as used and understood by a community",
+            "synonyms": [],
+            "antonyms": [],
+            "example": "the gift of language"
+          },
+          {
+            "definition": "a system of communication with a vocabulary and a grammar that uses hand gestures and their placement relative to the upper body, facial expressions, body postures, and finger spelling : sign language",
+            "synonyms": [],
+            "antonyms": [],
+            "example": "legal language;   the language of chemistry"
+          }
+        ],
+        "synonyms": [
+          "lingo",
+          "mother tongue",
+          "speech",
+          "tongue",
+          "vocabulary",
+          "argot",
+          "cant",
+          "dialect",
+          "jargon",
+          "jive",
+          "patois",
+          "patter",
+          "shop",
+          "shoptalk",
+          "slang",
+          "terminology",
+          "diction",
+          "phraseology",
+          "phrasing",
+          "verbiage",
+          "wording"
+        ],
+        "antonyms": []
+      }
+    ],
+    "license": null,
+    "sourceUrls": [
+      "https://www.merriam-webster.com/dictionary/language"
+    ]
+  }
+]

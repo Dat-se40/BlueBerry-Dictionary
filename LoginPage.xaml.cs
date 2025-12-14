@@ -22,10 +22,6 @@ namespace BlueBerryDictionary
             _viewModel.GuestModeEvent += OnGuestMode;
 
             // Load logo
-            LogoImg.Source = new BitmapImage(new Uri(Path.Combine(
-                AppDomain.CurrentDomain.BaseDirectory,
-                @"..\..\..\Resources\Image\logo.png"
-            )));
         }
 
         /// <summary>

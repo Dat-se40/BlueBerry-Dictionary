@@ -1,4 +1,5 @@
-﻿using BlueBerryDictionary.Models;
+﻿using BlueBerryDictionary.Helpers;
+using BlueBerryDictionary.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -17,10 +18,10 @@ namespace BlueBerryDictionary.Services
 
         private List<TopicPackage> _availablePackages = new();
         private bool _isInitialized = false;
-        public static readonly string DownloadedPackagesFolder = Path.Combine(
+        public static readonly string DownloadedPackagesFolder = PathHelper.Combine(
                                         AppDomain.CurrentDomain.BaseDirectory,
                                             @"..\..\..\Data\PackageStorage");
-        public static readonly string AvailablePackagePath = Path.Combine(
+        public static readonly string AvailablePackagePath = PathHelper.Combine(
                                       DownloadedPackagesFolder, @"..\PersistentStorage\AvailablePackages.json");
         private readonly string _availablePackageUrl = "https://raw.githubusercontent.com/Dat-se40/BlueBerry-Dictionary/OfflineMode/Data/AvailablePackages.json"; // sẽ cập nhật link gg drive sau
         private PackageManager() { }
@@ -165,7 +166,7 @@ namespace BlueBerryDictionary.Services
 
             foreach (var package in _availablePackages)
             {
-                var localPath = Path.Combine(DownloadedPackagesFolder, $"{package.Id}.json");
+                var localPath = PathHelper.Combine(DownloadedPackagesFolder, $"{package.Id}.json");
                 if (File.Exists(localPath))
                 {
                     package.IsDownloaded = true;

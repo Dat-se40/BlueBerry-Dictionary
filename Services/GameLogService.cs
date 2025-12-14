@@ -1,4 +1,5 @@
-﻿using BlueBerryDictionary.Models;
+﻿using BlueBerryDictionary.Helpers;
+using BlueBerryDictionary.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -29,7 +30,7 @@ namespace BlueBerryDictionary.Services
         private GameLogService()
         {
             var baseDir = AppDomain.CurrentDomain.BaseDirectory;
-            var dataDir = Path.Combine(baseDir, @"..\..\..\Data\PersistentStorage\GameLogs");
+            var dataDir = PathHelper.Combine(baseDir, @"..\..\..\Data\PersistentStorage\GameLogs");
             Directory.CreateDirectory(dataDir);
             _logPath = Path.Combine(dataDir, "GameLog.json");
             

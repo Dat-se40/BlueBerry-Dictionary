@@ -6,17 +6,11 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>true</SelfContained>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Remove="Resources\Image\google.png" />
-    <None Remove="Resources\Image\logo.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Data\PersistentStorage\Images\" />
-    <Folder Include="Data\PersistentStorage\StoredWord\" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
@@ -36,6 +30,18 @@
   <ItemGroup>
     <Resource Include="Resources\Image\google.png" />
     <Resource Include="Resources\Image\logo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Data\**\*.*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="ApiClient\Configuration\appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content >
+   
   </ItemGroup>
 
 </Project>

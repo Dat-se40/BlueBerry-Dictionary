@@ -1,4 +1,5 @@
 ﻿using BlueBerryDictionary.ApiClient.Configuration;
+using BlueBerryDictionary.Helpers;
 using Newtonsoft.Json.Linq;
 using System.Collections.Concurrent;
 using System.IO;
@@ -24,14 +25,14 @@ namespace MyDictionary.Services
             _apiKey = Config.Instance.SerpApiKey; // dùng Config hiện có[file:57]
 
             var baseDir = AppDomain.CurrentDomain.BaseDirectory;
-            _imagesFolder = Path.Combine(baseDir, @"..\..\..\Data\PersistentStorage\Images");
+            _imagesFolder = PathHelper.Combine(baseDir, @"..\..\..\Data\PersistentStorage\Images");
             Directory.CreateDirectory(_imagesFolder);
         }
 
         private string NormalizeKey(string word) => word.Trim().ToLowerInvariant();
 
         private string GetImagePath(string word) =>
-            Path.Combine(_imagesFolder, $"{NormalizeKey(word)}.jpg");
+            PathHelper.Combine(_imagesFolder, $"{NormalizeKey(word)}.jpg");
 
         public bool HasLocalImage(string word) => File.Exists(GetImagePath(word));
 

@@ -41,7 +41,8 @@
                         <Image Name="LogoImg"
                                Stretch="Uniform"
                                HorizontalAlignment="Center"
-                               VerticalAlignment="Center">
+                               VerticalAlignment="Center"
+                               Source="/Resources/Image/logo.png">
                             <Image.Clip>
                                 <EllipseGeometry Center="50,50" RadiusX="50" RadiusY="50"/>
                             </Image.Clip>

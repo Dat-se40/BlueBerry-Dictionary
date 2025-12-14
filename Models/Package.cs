@@ -1,4 +1,5 @@
 ﻿using BlueBerryDictionary.Data;
+using BlueBerryDictionary.Helpers;
 using BlueBerryDictionary.Services;
 using Newtonsoft.Json;
 using System.IO;
@@ -74,14 +75,14 @@ namespace BlueBerryDictionary.Models
                 }
 
                 // Tạo folder lưu packages
-                var packagesFolder = Path.Combine(
+                var packagesFolder = PathHelper.Combine(
                     AppDomain.CurrentDomain.BaseDirectory,
                     @"..\..\..\Data\PackageStorage"
                 );
                 Directory.CreateDirectory(packagesFolder);
 
                 // Tên file local
-                LocalPath = Path.Combine(packagesFolder, $"{Id}.json");
+                LocalPath = PathHelper.Combine(packagesFolder, $"{Id}.json");
 
                 // ✅ Download từ URL (có thể dùng HttpClient hoặc Google Drive API)
                 using var client = new HttpClient();

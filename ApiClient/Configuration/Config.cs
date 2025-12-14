@@ -23,12 +23,15 @@ namespace BlueBerryDictionary.ApiClient.Configuration
 
         private Config()
         {
+            string basePath = AppDomain.CurrentDomain.BaseDirectory;
+
             var builder = new ConfigurationBuilder()
-               .SetBasePath(Directory.GetCurrentDirectory() + @"..\..\..\..\ApiClient\Configuration")
-               .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-               .AddEnvironmentVariables(); // ✅ Now works
+               .SetBasePath(basePath)
+               .AddJsonFile("ApiClient/Configuration/appsettings.json", optional: false, reloadOnChange: true)
+               .AddEnvironmentVariables();
 
             _configuration = builder.Build();
+
         }
 
         // ========== API KEYS ==========
