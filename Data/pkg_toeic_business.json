@@ -1,0 +1,81 @@
+{
+  "Id": "pkg_toeic_business",
+  "Name": "TOEIC Business Vocabulary",
+  "Author": "BlueBerry Team",
+  "Category": "TOEIC",
+  "Level": "Intermediate",
+  "Version": "1.0",
+  "CreatedAt": "2024-12-11T08:30:00Z",
+  "Items": [
+    {
+      "Word": "deadline",
+      "PartOfSpeech": "noun",
+      "Definition": "A time or date by which something must be finished.",
+      "Example": "The team worked late to meet the project deadline.",
+      "Topic": "Office"
+    },
+    {
+      "Word": "contract",
+      "PartOfSpeech": "noun",
+      "Definition": "A formal, usually written, agreement between two or more people or companies.",
+      "Example": "Both companies signed a two‑year contract for the supply of materials.",
+      "Topic": "Contracts"
+    },
+    {
+      "Word": "invoice",
+      "PartOfSpeech": "noun",
+      "Definition": "A document that lists goods or services provided and shows how much money is owed.",
+      "Example": "Please send the invoice to our accounting department.",
+      "Topic": "Finance"
+    },
+    {
+      "Word": "negotiation",
+      "PartOfSpeech": "noun",
+      "Definition": "Formal discussions in which people try to reach an agreement.",
+      "Example": "After long negotiation, they agreed on a lower price.",
+      "Topic": "Meetings"
+    },
+    {
+      "Word": "colleague",
+      "PartOfSpeech": "noun",
+      "Definition": "A person that you work with, especially in a profession or business.",
+      "Example": "My colleagues and I usually have lunch together.",
+      "Topic": "Office"
+    },
+    {
+      "Word": "annual",
+      "PartOfSpeech": "adjective",
+      "Definition": "Happening once every year.",
+      "Example": "The company holds an annual meeting for all staff.",
+      "Topic": "Company"
+    },
+    {
+      "Word": "promotion",
+      "PartOfSpeech": "noun",
+      "Definition": "A move to a more important job or position in a company.",
+      "Example": "She received a promotion after two years of excellent performance.",
+      "Topic": "Career"
+    },
+    {
+      "Word": "supplier",
+      "PartOfSpeech": "noun",
+      "Definition": "A company or person that provides goods or services.",
+      "Example": "We changed our supplier to reduce costs.",
+      "Topic": "Business"
+    },
+    {
+      "Word": "budget",
+      "PartOfSpeech": "noun",
+      "Definition": "A plan of how much money will be spent and how it will be used.",
+      "Example": "The marketing budget for next year has been increased.",
+      "Topic": "Finance"
+    },
+    {
+      "Word": "agenda",
+      "PartOfSpeech": "noun",
+      "Definition": "A list of items to be discussed at a meeting.",
+      "Example": "The first item on the agenda is last month’s sales report.",
+      "Topic": "Meetings"
+    }
+  ]
+}
