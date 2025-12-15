@@ -1,0 +1,81 @@
+{
+  "Id": "pkg_ielts_advanced_topics",
+  "Name": "IELTS Academic Vocabulary - Advanced",
+  "Author": "BlueBerry Team",
+  "Category": "IELTS",
+  "Level": "Advanced",
+  "Version": "1.0",
+  "CreatedAt": "2024-12-10T09:00:00Z",
+  "Items": [
+    {
+      "Word": "sustainable",
+      "PartOfSpeech": "adjective",
+      "Definition": "Able to be maintained at a certain rate or level without causing damage to the environment or resources.",
+      "Example": "Many governments are investing in sustainable energy sources to reduce pollution.",
+      "Topic": "Environment"
+    },
+    {
+      "Word": "mitigate",
+      "PartOfSpeech": "verb",
+      "Definition": "To make something less severe, serious, or harmful.",
+      "Example": "Planting more trees can help mitigate the effects of climate change.",
+      "Topic": "Environment"
+    },
+    {
+      "Word": "disparity",
+      "PartOfSpeech": "noun",
+      "Definition": "A noticeable and often unfair difference between people or groups.",
+      "Example": "There is still a significant disparity in income between rural and urban areas.",
+      "Topic": "Society"
+    },
+    {
+      "Word": "curriculum",
+      "PartOfSpeech": "noun",
+      "Definition": "The subjects and content that are studied in a particular course or at a school or university.",
+      "Example": "Many schools are updating their curriculum to include more digital skills.",
+      "Topic": "Education"
+    },
+    {
+      "Word": "innovation",
+      "PartOfSpeech": "noun",
+      "Definition": "The introduction of new ideas, methods, or devices.",
+      "Example": "Innovation in technology has transformed the way people communicate.",
+      "Topic": "Technology"
+    },
+    {
+      "Word": "infrastructure",
+      "PartOfSpeech": "noun",
+      "Definition": "The basic systems and services, such as transport and power supplies, that a country or organization uses to work effectively.",
+      "Example": "Improved transport infrastructure can boost regional economic growth.",
+      "Topic": "Society"
+    },
+    {
+      "Word": "digital divide",
+      "PartOfSpeech": "noun",
+      "Definition": "The gap between people who have access to modern information and communication technology and those who do not.",
+      "Example": "The digital divide makes it difficult for some students to study online.",
+      "Topic": "Technology"
+    },
+    {
+      "Word": "tuition",
+      "PartOfSpeech": "noun",
+      "Definition": "Money that you pay to take classes, especially at a college or university.",
+      "Example": "Rising tuition fees have made higher education less accessible for some families.",
+      "Topic": "Education"
+    },
+    {
+      "Word": "urbanization",
+      "PartOfSpeech": "noun",
+      "Definition": "The process by which more and more people leave the countryside to live in cities.",
+      "Example": "Rapid urbanization often leads to overcrowded housing and traffic congestion.",
+      "Topic": "Society"
+    },
+    {
+      "Word": "renewable",
+      "PartOfSpeech": "adjective",
+      "Definition": "Relating to energy that is produced from resources that cannot be used up, such as wind or sunlight.",
+      "Example": "Solar panels are a common way to use renewable energy.",
+      "Topic": "Environment"
+    }
+  ]
+}
