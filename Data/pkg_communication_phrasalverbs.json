@@ -1,0 +1,81 @@
+{
+  "Id": "pkg_communication_phrasalverbs",
+  "Name": "Daily Communication - Phrasal Verbs",
+  "Author": "BlueBerry Team",
+  "Category": "Communication",
+  "Level": "Upper-Intermediate",
+  "Version": "1.0",
+  "CreatedAt": "2024-12-12T07:15:00Z",
+  "Items": [
+    {
+      "Word": "look after",
+      "PartOfSpeech": "phrasal verb",
+      "Definition": "To take care of someone or something.",
+      "Example": "She looks after her younger brother when their parents are at work.",
+      "Topic": "Family"
+    },
+    {
+      "Word": "pick up",
+      "PartOfSpeech": "phrasal verb",
+      "Definition": "To collect someone or something; or to learn something without formal study.",
+      "Example": "I will pick you up at the station at 7 p.m.",
+      "Topic": "Travel"
+    },
+    {
+      "Word": "run out of",
+      "PartOfSpeech": "phrasal verb",
+      "Definition": "To have no more of something left.",
+      "Example": "We ran out of paper, so we cannot print the report.",
+      "Topic": "Office"
+    },
+    {
+      "Word": "carry on",
+      "PartOfSpeech": "phrasal verb",
+      "Definition": "To continue doing something.",
+      "Example": "Please carry on with your work while I talk to the manager.",
+      "Topic": "Work"
+    },
+    {
+      "Word": "get along with",
+      "PartOfSpeech": "phrasal verb",
+      "Definition": "To have a friendly relationship with someone.",
+      "Example": "He gets along well with most of his coworkers.",
+      "Topic": "Relationships"
+    },
+    {
+      "Word": "turn down",
+      "PartOfSpeech": "phrasal verb",
+      "Definition": "To refuse an offer or request.",
+      "Example": "She turned down the job offer because the salary was too low.",
+      "Topic": "Career"
+    },
+    {
+      "Word": "catch up",
+      "PartOfSpeech": "phrasal verb",
+      "Definition": "To reach the same level or standard as someone or something.",
+      "Example": "After being sick, he worked hard to catch up with the rest of the class.",
+      "Topic": "Study"
+    },
+    {
+      "Word": "figure out",
+      "PartOfSpeech": "phrasal verb",
+      "Definition": "To understand or solve something.",
+      "Example": "We need to figure out why the system crashed.",
+      "Topic": "Problem-solving"
+    },
+    {
+      "Word": "put off",
+      "PartOfSpeech": "phrasal verb",
+      "Definition": "To delay doing something until a later time.",
+      "Example": "They decided to put off the meeting until next week.",
+      "Topic": "Time"
+    },
+    {
+      "Word": "break down",
+      "PartOfSpeech": "phrasal verb",
+      "Definition": "To stop working (for a machine) or to become very upset emotionally.",
+      "Example": "The car broke down on the way to the airport.",
+      "Topic": "Travel"
+    }
+  ]
+}
