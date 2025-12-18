@@ -119,7 +119,7 @@
                                HorizontalAlignment="Center"
                                Margin="0,0,0,30"/>
 
-                    <!-- ✅ Go to Login Button (Same style as Continue) -->
+                    <!-- Go to Login Button (Same style as Continue) -->
                     <Button x:Name="GoToLoginBtn"
                             Height="60"
                             Cursor="Hand"

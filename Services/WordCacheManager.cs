@@ -38,7 +38,9 @@ namespace MyDictionary.Services
 
         private WordCacheManager() { }
 
-      
+        /// <summary>
+        /// Thêm từ vào cache
+        /// </summary>
         public void AddToCache(string word, List<Word> words)
         {
             if (_memoryCache.ContainsKey(word)) return;

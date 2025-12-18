@@ -84,7 +84,7 @@ namespace BlueBerryDictionary.Models
                 // Tên file local
                 LocalPath = PathHelper.Combine(packagesFolder, $"{Id}.json");
 
-                // ✅ Download từ URL (có thể dùng HttpClient hoặc Google Drive API)
+                // Download từ URL (có thể dùng HttpClient hoặc Google Drive API)
                 using var client = new HttpClient();
                 var jsonData = await client.GetStringAsync(DownloadUrl);
 
@@ -119,14 +119,14 @@ namespace BlueBerryDictionary.Models
 
             foreach (var topic in Container)
             {
-                // ✅ Tạo Tag cho mỗi topic
+                // Tạo Tag cho mỗi topic
                 var tag = tagService.CreateTag(
                     name: topic.Name,
                     icon: topic.Icon ?? "📚",
                     color: topic.Color ?? "#2D4ACC"
                 );
 
-                // ✅ Import từng Word FULL vào TagService
+                // Import từng Word FULL vào TagService
                 foreach (var fullWord in topic.Words)
                 {
                     // Convert Word → WordShortened (lấy meaning đầu tiên)
@@ -139,7 +139,7 @@ namespace BlueBerryDictionary.Models
                         // Lưu vào TagService
                         tagService.AddNewWordShortened(shortened);
 
-                        // ✅ LƯU FILE FULL WORD VÀO OFFLINE STORAGE
+                        // Lưu file full word vào offline storage
                         FileStorage.LoadWordAsync(new List<Word> { fullWord });
 
                         totalWordsAdded++;

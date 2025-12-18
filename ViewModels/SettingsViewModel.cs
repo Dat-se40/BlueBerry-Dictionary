@@ -11,7 +11,7 @@ namespace BlueBerryDictionary.ViewModels
     /// </summary>
     public partial class SettingsViewModel : ObservableObject
     {
-        // ========== PROPERTIES ==========
+        #region Properties
 
         [ObservableProperty]
         private int _themeModeIndex = 0; // 0: Sáng, 1: Tối, 2: Tự động
@@ -21,15 +21,19 @@ namespace BlueBerryDictionary.ViewModels
 
         [ObservableProperty]
         private int _favouriteLimitIndex = 0; // 0: 500, 1: 1000, 2: 5000, 3: Không giới hạn
+        #endregion
 
-        // ========== CONSTRUCTOR ==========
+        #region Constructor
 
         public SettingsViewModel()
         {
             LoadCurrentSettings();
         }
 
-        // ========== LOAD SETTINGS ==========
+
+        #endregion
+
+        #region Load settings
 
         /// <summary>
         /// Load settings hiện tại từ file
@@ -59,15 +63,16 @@ namespace BlueBerryDictionary.ViewModels
             };
         }
 
-        // ========== THEME MODE COMMAND ==========
+        #endregion
 
+        #region Theme commands
         /// <summary>
         /// Đổi theme mode khi user chọn ComboBox
         /// </summary>
         [RelayCommand]
         private void ChangeThemeMode(int index)
         {
-            // ✅ FIX: Dùng Services.ThemeMode thay vì ThemeMode
+            // Dùng Services.ThemeMode thay vì ThemeMode
             Services.ThemeMode mode = index switch
             {
                 0 => Services.ThemeMode.Light,
@@ -79,8 +84,6 @@ namespace BlueBerryDictionary.ViewModels
             ThemeManager.Instance.SetThemeMode(mode);
             System.Diagnostics.Debug.WriteLine($"✅ Đã chọn theme: {mode}");
         }
-
-        // ========== COLOR THEME COMMANDS ==========
 
         /// <summary>
         /// Mở dialog chọn theme có sẵn (8 màu)
@@ -127,8 +130,9 @@ namespace BlueBerryDictionary.ViewModels
         }
 
 
-        // ========== TOGGLE AUTO SAVE ==========
+        #endregion
 
+        #region Data settings commands
         /// <summary>
         /// Bật/tắt tự động lưu lịch sử
         /// </summary>
@@ -141,8 +145,6 @@ namespace BlueBerryDictionary.ViewModels
 
             System.Diagnostics.Debug.WriteLine($"✅ Auto save: {AutoSaveHistory}");
         }
-
-        // ========== FAVOURITE LIMIT ==========
 
         /// <summary>
         /// Đổi giới hạn từ yêu thích
@@ -165,8 +167,6 @@ namespace BlueBerryDictionary.ViewModels
             System.Diagnostics.Debug.WriteLine($"✅ Favourite limit: {limit}");
         }
 
-        // ========== DATA COMMANDS ==========
-
         /// <summary>
         /// Khôi phục dữ liệu từ backup
         /// </summary>
@@ -182,7 +182,6 @@ namespace BlueBerryDictionary.ViewModels
 
             if (result == MessageBoxResult.Yes)
             {
-                // TODO: Implement restore logic
                 MessageBox.Show("Chức năng đang được phát triển!", "Thông báo",
                     MessageBoxButton.OK, MessageBoxImage.Information);
             }
@@ -247,7 +246,9 @@ namespace BlueBerryDictionary.ViewModels
             }
         }
 
-        // ========== HELP COMMANDS ==========
+        #endregion
+
+        #region Help & About commands
 
         [RelayCommand]
         private void OpenUserGuide()
@@ -302,5 +303,6 @@ namespace BlueBerryDictionary.ViewModels
         {
             MessageBox.Show("Xem giấy phép mã nguồn", "Open Source Licenses");
         }
+        #endregion
     }
 }

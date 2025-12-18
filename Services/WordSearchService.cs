@@ -26,7 +26,7 @@ namespace MyDictionary.Services
         {
             word = word.ToLower().Trim();
 
-            // ========== CHECK CACHE ==========
+            // Kiểm tra cache
             var cachedWords = _cacheManager.GetWordsFormCache(word);
             if (cachedWords != null)
             {
@@ -34,7 +34,7 @@ namespace MyDictionary.Services
                 return cachedWords;
             }
 
-            // ========== CHECK LOCAL FILE ==========
+            // Kiểm tra local file
             var localWords = await FileStorage.LoadWordAsync(word);
             if (localWords != null && localWords.Count > 0)
             {
@@ -43,7 +43,7 @@ namespace MyDictionary.Services
                 return localWords;
             }
 
-            // ========== PARALLEL: Gọi 2 API cùng lúc ==========
+            // Gọi 2 API song song
             Console.WriteLine("🔄 Fetching from both APIs in parallel...");
 
             var merriamTask = FetchMerriamWebsterAsync(word, ct);
@@ -54,7 +54,7 @@ namespace MyDictionary.Services
             var merriamWords = results[0];
             var freeWords = results[1];
 
-            // ========== MERGE khi cả 2 đã xong ==========
+            // Merge kết quả nếu cả 2 có data
             if (merriamWords?.Count > 0 && freeWords?.Count > 0)
             {
                 Console.WriteLine("✅ Both APIs returned data - Merging...");
@@ -291,6 +291,9 @@ namespace MyDictionary.Services
             return exactMatches;
         }
 
+        /// <summary>
+        /// Tính khoảng cách Levenshtein (cho fuzzy search)
+        /// </summary>
         public int CalcLevenshteinDistance(string s1, string s2)
         {
             int m = s1.Length, n = s2.Length;

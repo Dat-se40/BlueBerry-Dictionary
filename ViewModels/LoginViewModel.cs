@@ -13,7 +13,7 @@ namespace BlueBerryDictionary.ViewModels
     /// </summary>
     public partial class LoginViewModel : ObservableObject
     {
-        // ========== EVENTS ==========
+        #region Events
 
         /// <summary>
         /// Event khi login Gmail thành công
@@ -27,7 +27,9 @@ namespace BlueBerryDictionary.ViewModels
         /// </summary>
         public event EventHandler GuestModeEvent;
 
-        // ========== OBSERVABLE PROPERTIES ==========
+        #endregion
+
+        #region Observable properties
 
         [ObservableProperty]
         private bool isGmailLoading;
@@ -35,19 +37,21 @@ namespace BlueBerryDictionary.ViewModels
         [ObservableProperty]
         private bool isGuestLoading;
 
-        // ========== CONSTRUCTOR ==========
+        #endregion
+
+        #region Constructor
 
         public LoginViewModel()
         {
             // Constructor để sau này có thể inject services
             // TODO: Inject GoogleAuthService khi implement
         }
+        #endregion
 
-        // ========== RELAY COMMANDS ==========
+        #region Commands
 
         /// <summary>
-        /// [STUB] Login bằng Gmail
-        /// TODO: Implement GoogleAuthService.LoginAsync() sau khi duyệt giao diện
+        /// Login bằng Gmail (OAuth 2.0)
         /// </summary>
         [RelayCommand]
         private async Task LoginWithGmailAsync()
@@ -56,7 +60,7 @@ namespace BlueBerryDictionary.ViewModels
 
             try
             {
-                // ✅ gọi service thật
+                // gọi service thật
                 var result = await GoogleAuthService.Instance.LoginAsync();
 
                 if (result.Success)
@@ -113,11 +117,6 @@ namespace BlueBerryDictionary.ViewModels
 
             try
             {
-                // TODO: UserDataManager.Instance.SetCurrentUser("guest");
-                // TODO:
-                // TODO: // ✅ Trigger event để LoginWindow close
-                // TODO: GuestModeEvent?.Invoke(this, EventArgs.Empty);
-
                 // Simulate loading (demo)
                 await Task.Delay(1500);
 
@@ -135,5 +134,6 @@ namespace BlueBerryDictionary.ViewModels
                 IsGuestLoading = false;
             }
         }
+        #endregion
     }
 }

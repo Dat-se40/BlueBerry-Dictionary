@@ -23,12 +23,13 @@ namespace BlueBerryDictionary.Services.User
         private readonly string _systemPath;
         private string _currentUserFolder;
 
-        // ========== PROPERTIES ==========
+        #region Properties
 
         public bool IsGuestMode => UserSessionManage.Instance.IsGuest;
         public string CurrentUserEmail => UserSessionManage.Instance.Email ?? "guest";
+        #endregion
 
-        // ========== CONSTRUCTOR ==========
+        #region Constructor
 
         private UserDataManager()
         {
@@ -50,7 +51,10 @@ namespace BlueBerryDictionary.Services.User
             
         }
 
-        // ========== SET USER ==========
+
+        #endregion
+
+        #region Set user
 
         /// <summary>
         /// Set current user (sau khi login hoặc guest)
@@ -69,8 +73,10 @@ namespace BlueBerryDictionary.Services.User
             Console.WriteLine($"✅ UserDataManager: Current user folder = {_currentUserFolder}");
             CreateEssentialFile();
         }
-        
-        // ========== GET PATHS ==========
+
+        #endregion
+
+        #region Get paths
 
         public string GetMyWordsPath() => PathHelper.Combine(_currentUserFolder, "MyWords.json");
         public string GetTagsPath() => PathHelper.Combine(_currentUserFolder, "Tags.json");
@@ -80,7 +86,9 @@ namespace BlueBerryDictionary.Services.User
 
         public string GetCurrentUserFolder() => _currentUserFolder;
 
-        // ========== METADATA ==========
+        #endregion
+
+        #region Metadata
 
         /// <summary>
         /// Load metadata (để check sync state)
@@ -153,7 +161,9 @@ namespace BlueBerryDictionary.Services.User
             SaveMetadata(metadata);
         }
 
-        // ========== HELPERS ==========
+        #endregion
+
+        #region Helper methods
 
         private string ComputeMD5(string filePath)
         {
@@ -162,6 +172,10 @@ namespace BlueBerryDictionary.Services.User
             var hash = md5.ComputeHash(stream);
             return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
         }
+
+        /// <summary>
+        /// Tạo các file cần thiết (nếu chưa có)
+        /// </summary>
         private void CreateEssentialFile() 
         {
             foreach (var file in CloudSyncService.essentialFile)
@@ -188,7 +202,9 @@ namespace BlueBerryDictionary.Services.User
             TagService.Instance.SaveTags(GetTagsPath());
             TagService.Instance.SaveWords(GetMyWordsPath()); 
         }
-        // ========== LIST ALL USERS ==========
+        #endregion
+
+        #region List users
 
         /// <summary>
         /// Lấy danh sách email đã login (để show history)
@@ -204,5 +220,7 @@ namespace BlueBerryDictionary.Services.User
                 .Select(name => name.Replace("_at_", "@").Replace("_", "."))
                 .ToList();
         }
+
+        #endregion
     }
 }

@@ -1,1 +1,30 @@
-[]
+[
+  {
+    "isFavorited": true,
+    "note": null,
+    "Word": "reassure",
+    "Phonetic": "ˌrē-ə-ˈshu̇r",
+    "PartOfSpeech": "verb",
+    "Definition": "to assure anew",
+    "Example": "The boy's mother reassured him that there was no monster hiding under the bed.",
+    "Synonyms": [
+      "assure",
+      "cheer",
+      "comfort",
+      "console",
+      "solace",
+      "soothe"
+    ],
+    "Antonyms": [
+      "distress",
+      "torment",
+      "torture",
+      "trouble"
+    ],
+    "Tags": [],
+    "AddedAt": "2025-12-18T14:02:53.0335396+07:00",
+    "ViewCount": 0,
+    "MeaningIndex": 0,
+    "HasRelatedWords": true
+  }
+]

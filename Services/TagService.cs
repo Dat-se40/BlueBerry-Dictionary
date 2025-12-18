@@ -48,8 +48,7 @@ namespace BlueBerryDictionary.Services
             LoadData();
         }
 
-        // ====================== UTILITIES ======================
-
+        #region Utilities
         private string Normalize(string word)
             => word?.Trim().ToLowerInvariant();
 
@@ -65,8 +64,9 @@ namespace BlueBerryDictionary.Services
                 w.Word.Equals(word, StringComparison.OrdinalIgnoreCase));
         }
 
-        // ====================== TAG ======================
+        #endregion
 
+        #region Quản lý Tag
         public Tag CreateTag(string name, string icon = "🏷️", string color = "#2D4ACC")
         {
             var tag = new Tag { Name = name, Icon = icon, Color = color };
@@ -108,7 +108,9 @@ namespace BlueBerryDictionary.Services
             return false;
         }
 
-        // ====================== WORD ======================
+        #endregion
+
+        #region Quản lý Word
 
         /// <summary>
         /// Thêm từ vào collection (hoặc cập nhật tags nếu đã tồn tại)
@@ -119,9 +121,7 @@ namespace BlueBerryDictionary.Services
 
             var wordKey = fullWord.word;
 
-            // ========================================
-            // ✅ CASE 1: Từ ĐÃ TỒN TẠI → Cập nhật tags
-            // ========================================
+            // Case 1: Từ đã tồn tại → Cập nhật tags
             if (_words.ContainsKey(wordKey))
             {
                 Console.WriteLine($"📝 Word '{wordKey}' already exists, updating tags...");
@@ -162,9 +162,7 @@ namespace BlueBerryDictionary.Services
                 return existingWord;
             }
 
-            // ========================================
-            // ✅ CASE 2: Từ CHƯA TỒN TẠI → Tạo mới
-            // ========================================
+            // Case 2: Từ chưa tồn tại → Tạo mới
             var shortened = WordShortened.FromWord(fullWord);
             if (shortened == null) return null;
 
@@ -196,7 +194,6 @@ namespace BlueBerryDictionary.Services
             return shortened;
         }
 
-
         /// <summary>
         /// Xóa từ khỏi collection
         /// </summary>
@@ -214,11 +211,10 @@ namespace BlueBerryDictionary.Services
             if (!_words.ContainsKey(key))
             {
                 _words[key] = newWord;
-                SaveWords(); // ✅ luôn ghi file
+                SaveWords(); // luôn ghi file
             }
         }
 
-        
 
         public void DeleteWordShortened(string word)
         {
@@ -269,9 +265,9 @@ namespace BlueBerryDictionary.Services
                     w.PartOfSpeech.Equals(pos, StringComparison.OrdinalIgnoreCase))
                 .ToList();
         }
+        #endregion
 
-        // ====================== ADD/REMOVE TAG from WORD ======================
-
+        #region Thêm/Xóa tag cho word
         public bool AddTagToWord(string word, string tagId)
         {
             var wordObj = FindWordInsensitive(word);
@@ -304,7 +300,9 @@ namespace BlueBerryDictionary.Services
             return true;
         }
 
-        // ====================== FAVORITE ======================
+        #endregion
+
+        #region Favorite
 
         public bool ToggleFavorite(string word)
         {
@@ -330,7 +328,9 @@ namespace BlueBerryDictionary.Services
                 .ToList();
         }
 
-        // ====================== STATISTICS ======================
+        #endregion
+
+        #region Thống kê
 
         public int GetTotalWords() => _words.Count;
         public int GetTotalTags() => _tags.Count;
@@ -358,9 +358,9 @@ namespace BlueBerryDictionary.Services
             }
             return dist;
         }
+        #endregion
 
-        // ====================== IO ======================
-
+        #region Load & Save
         private void LoadData()
         {
             try
@@ -435,5 +435,6 @@ namespace BlueBerryDictionary.Services
             CreateTag("Business", "💼", "#F59E0B");
             SaveTags();
         }
+        #endregion
     }
 }

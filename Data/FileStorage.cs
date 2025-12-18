@@ -9,18 +9,26 @@ namespace BlueBerryDictionary.Data
     #region Tương tác với PersientStorage
     internal class FileStorage
     {
+        // folder lưu từ vựng
         static private string _storedWordPath = PathHelper.Combine(
             AppDomain.CurrentDomain.BaseDirectory,
             @"..\..\..\Data\PersistentStorage\StoredWord"
         );
+        // folder lưu quotes
         static public string _storedQuotePath = PathHelper.Combine(
             AppDomain.CurrentDomain.BaseDirectory,
             @"..\..\..\Data\PersistentStorage\StoredQuote"
         );
+        // file danh sách từ có sẵn
         static private string _listFile = PathHelper.Combine(
            AppDomain.CurrentDomain.BaseDirectory,
            @"..\..\..\Data\PersistentStorage\AvailableWordList.txt"
         );
+
+
+        /// <summary>
+        /// Lấy đường dẫn file JSON của từ
+        /// </summary>
         public static string GetWordFilePath(string word)
         {
             if (word.EndsWith(".json", StringComparison.OrdinalIgnoreCase))
@@ -30,6 +38,9 @@ namespace BlueBerryDictionary.Data
             return Path.Combine(_storedWordPath, word + ".json");
         }
 
+        /// <summary>
+        /// Lấy danh sách từ đã lưu trong storage
+        /// </summary
         public static List<string> GetStoredWordList()
         {
             if (!Directory.Exists(_storedWordPath)) return new List<string>();
@@ -45,13 +56,18 @@ namespace BlueBerryDictionary.Data
             return words;
         }
 
+        /// <summary>
+        /// Lấy danh sách từ có sẵn từ file text
+        /// </summary>
         public static List<string> GetAvailableWordList()
         {
             List<string> results = File.ReadAllLines(_listFile).Where(line => !string.IsNullOrWhiteSpace(line)).
                                     Select(line => line.Trim()).ToList().ToList();
             return results;
         }
-
+        /// <summary>
+        /// Load từ từ file JSON (async)
+        /// </summary>
         public static async Task<List<Word>?> LoadWordAsync(string word)
         {
             string path = GetWordFilePath(word.ToLower());
@@ -61,6 +77,9 @@ namespace BlueBerryDictionary.Data
             return JsonConvert.DeserializeObject<List<Word>>(content);
         }
 
+        /// <summary>
+        /// Lưu từ vào file JSON (nếu chưa tồn tại)
+        /// </summary>
         public static bool LoadWordAsync(List<Word>? words)
         {
             if (words == null || words.Count == 0) return false;
@@ -74,6 +93,10 @@ namespace BlueBerryDictionary.Data
             return true;
         }
 
+
+        /// <summary>
+        /// Build dictionary hoàn chỉnh (merge available + stored)
+        /// </summary>
         public static List<string> BuildDictionary()
         {
 
@@ -108,6 +131,9 @@ namespace BlueBerryDictionary.Data
             MessageBox.Show(message, "Download status", MessageBoxButton.OK);
         }
 
+        /// <summary>
+        /// Load quote theo ID
+        /// </summary>
         public static async Task<Quote?> LoadQuoteAsync(int ID)
         {
             string path = Path.Combine(_storedQuotePath, $"quote_{ID}") + ".json";
@@ -123,7 +149,7 @@ namespace BlueBerryDictionary.Data
             return obj;
         }
 
-
-        #endregion
     }
+
+    #endregion
 }

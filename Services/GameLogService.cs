@@ -8,11 +8,14 @@ using System.Linq;
 
 namespace BlueBerryDictionary.Services
 {
+    /// <summary>
+    /// Service quản lý lịch sử chơi game (Singleton)
+    /// </summary>
     public class GameLogService
     {
         private static GameLogService _instance;
-        private static readonly object _lock = new object();
-        
+        private static readonly object _lock = new object(); // Lock cho thread-safe singleton
+
         private GameLog _gameLog;
         private readonly string _logPath;
         
@@ -26,7 +29,10 @@ namespace BlueBerryDictionary.Services
                 }
             }
         }
-        
+
+        /// <summary>
+        /// Instance singleton
+        /// </summary>
         private GameLogService()
         {
             var baseDir = AppDomain.CurrentDomain.BaseDirectory;
@@ -36,9 +42,9 @@ namespace BlueBerryDictionary.Services
             
             LoadLog();
         }
-        
-        // ========== LOAD & SAVE ==========
-        
+
+        #region Load & Save
+
         private void LoadLog()
         {
             try
@@ -74,9 +80,12 @@ namespace BlueBerryDictionary.Services
                 Console.WriteLine($"❌ Save game log error: {ex.Message}");
             }
         }
-        
-        // ========== ADD SESSION ==========
-        
+        #endregion
+
+        #region Thêm session
+        /// <summary>
+        /// Thêm session mới vào log
+        /// </summary>
         public void AddSession(GameSession session)
         {
             _gameLog.Sessions.Add(session);
@@ -84,9 +93,11 @@ namespace BlueBerryDictionary.Services
             _gameLog.TotalCardsStudied += session.TotalCards;
             SaveLog();
         }
-        
-        // ========== GET STATISTICS ==========
-        
+
+        #endregion
+
+        #region Lấy thống kê
+
         public List<GameSession> GetAllSessions()
         {
             return _gameLog.Sessions.OrderByDescending(s => s.StartTime).ToList();
@@ -137,9 +148,10 @@ namespace BlueBerryDictionary.Services
                 .GroupBy(s => s.DataSourceName)
                 .ToDictionary(g => g.Key, g => g.Count());
         }
-        
-        // ========== DELETE ==========
-        
+
+        #endregion
+
+        #region Xóa dữ liệu
         public void DeleteSession(string sessionId)
         {
             var session = _gameLog.Sessions.FirstOrDefault(s => s.Id == sessionId);
@@ -159,5 +171,6 @@ namespace BlueBerryDictionary.Services
             _gameLog.TotalCardsStudied = 0;
             SaveLog();
         }
+        #endregion
     }
 }

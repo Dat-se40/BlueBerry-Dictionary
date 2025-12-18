@@ -14,8 +14,9 @@ namespace BlueBerryDictionary.ViewModels
     {
         private readonly TagService _tagService;
         public Action acOnFilterWordsChanged;
-        public Action acOnTagChanged; 
-        // ========== OBSERVABLE PROPERTIES ==========
+        public Action acOnTagChanged;
+
+        #region Observable properties
         [ObservableProperty]
         private string currFilter = "All"; // "All" for default
 
@@ -52,8 +53,9 @@ namespace BlueBerryDictionary.ViewModels
         [ObservableProperty]
         private ObservableCollection<AlphabetItem> _alphabetItems;
 
-        // ========== CONSTRUCTOR ==========
+        #endregion
 
+        #region Constructor
         public MyWordsViewModel()
         {
             _tagService = TagService.Instance;
@@ -65,8 +67,9 @@ namespace BlueBerryDictionary.ViewModels
             LoadData();
         }
 
-        // ========== DATA LOADING ==========
+        #endregion
 
+        #region Data loading
         private void LoadData()
         {
             // Load tags
@@ -117,7 +120,10 @@ namespace BlueBerryDictionary.ViewModels
             }
         }
 
-        public  void UpdateStatistics()
+        /// <summary>
+        /// Cập nhật thống kê
+        /// </summary>
+        public void UpdateStatistics()
         {
             TotalWords = _tagService.GetTotalWords();
             TotalTags = _tagService.GetTotalTags();
@@ -126,8 +132,9 @@ namespace BlueBerryDictionary.ViewModels
             WordsCount =  FilteredWords.Count;
         }
 
-        // ========== FILTERING ==========
+        #endregion
 
+        #region Filtering
         private void ApplyFilters()
         {
             Console.WriteLine($"🔍 ApplyFilters START");
@@ -135,15 +142,13 @@ namespace BlueBerryDictionary.ViewModels
             Console.WriteLine($"   SelectedLetter: {SelectedLetter}");
             Console.WriteLine($"   SelectedPartOfSpeech: {SelectedPartOfSpeech}");
 
-            // ✅ Bắt đầu từ TẤT CẢ từ (bao gồm cả favorite và có tag)
+            // Bắt đầu từ TẤT CẢ từ (bao gồm cả favorite và có tag)
             var words = _tagService.GetAllWords();
             Console.WriteLine($"   Initial words: {words.Count}");
 
             var filterParts = new List<string>(); // Để build CurrFilter
 
-            // ========================================
-            // ✅ FILTER 1: TAG (nếu có)
-            // ========================================
+            // Filter 1: Tag (nếu có)
             if (SelectedTag != null)
             {
                 // Lấy words thuộc tag này
@@ -156,9 +161,7 @@ namespace BlueBerryDictionary.ViewModels
                 Console.WriteLine($"   After tag filter: {words.Count}");
             }
 
-            // ========================================
-            // ✅ FILTER 2: LETTER (nếu có)
-            // ========================================
+            // Filter 2: Letter (nếu có)
             if (!string.IsNullOrEmpty(SelectedLetter) && SelectedLetter != "ALL")
             {
                 words = words.Where(w => w.Word.StartsWith(SelectedLetter, StringComparison.OrdinalIgnoreCase)).ToList();
@@ -166,9 +169,7 @@ namespace BlueBerryDictionary.ViewModels
                 Console.WriteLine($"   After letter filter '{SelectedLetter}': {words.Count}");
             }
 
-            // ========================================
-            // ✅ FILTER 3: PART OF SPEECH (nếu có)
-            // ========================================
+            // Filter 3: Part of Speech (nếu có)
             if (!string.IsNullOrEmpty(SelectedPartOfSpeech))
             {
                 words = words.Where(w => w.PartOfSpeech.Equals(SelectedPartOfSpeech, StringComparison.OrdinalIgnoreCase)).ToList();
@@ -176,14 +177,10 @@ namespace BlueBerryDictionary.ViewModels
                 Console.WriteLine($"   After POS filter '{SelectedPartOfSpeech}': {words.Count}");
             }
 
-            // ========================================
-            // ✅ BUILD CURRFILTER TEXT
-            // ========================================
+            // Build filter text
             CurrFilter = filterParts.Count > 0 ? string.Join(" + ", filterParts) : "All";
-
-            // ========================================
-            // ✅ UPDATE UI
-            // ========================================
+            
+            // Update UI
             FilteredWords.Clear();
             foreach (var word in words)
             {
@@ -196,7 +193,9 @@ namespace BlueBerryDictionary.ViewModels
             acOnFilterWordsChanged?.Invoke();
         }
 
-        // ========== RELAY COMMANDS ==========
+        #endregion
+
+        #region Commands
         [RelayCommand]
         private void OpenRemoveTagDialog()
         {
@@ -214,11 +213,10 @@ namespace BlueBerryDictionary.ViewModels
                         _tagService.DeleteTag(item);
                     }
 
-                    // ========== RELOAD DATA AFTER DELETE ==========
                     _tagService.SaveTags();
-                    LoadData(); // ✅ Reload tất cả data
-                    UpdateStatistics(); // ✅ Update statistics
-                    acOnTagChanged?.Invoke(); // ✅ Notify listeners
+                    LoadData(); // Reload tất cả data
+                    UpdateStatistics(); // Update statistics
+                    acOnTagChanged?.Invoke(); // Notify listeners
 
                     Console.WriteLine($"✅ Deleted {deleted.Count} tags, UI refreshed");
                 }
@@ -233,12 +231,11 @@ namespace BlueBerryDictionary.ViewModels
             ApplyFilters();
         }
 
+
         [RelayCommand]
         private void FilterByLetter(string letter)
         {
             SelectedLetter = letter;
-
-            // Update alphabet buttons state
             foreach (var item in AlphabetItems)
             {
                 item.IsActive = item.Letter == letter;
@@ -247,6 +244,9 @@ namespace BlueBerryDictionary.ViewModels
             ApplyFilters();
         }
 
+        /// <summary>
+        /// Filter theo loại từ (noun, verb...)
+        /// </summary>
         [RelayCommand]
         private void FilterByPartOfSpeech(string pos)
         {
@@ -263,7 +263,6 @@ namespace BlueBerryDictionary.ViewModels
             SelectedLetter = "ALL";
             SelectedPartOfSpeech = null;
 
-            // Reset alphabet buttons
             foreach (var item in AlphabetItems)
             {
                 item.IsActive = item.Letter == "ALL";
@@ -286,7 +285,6 @@ namespace BlueBerryDictionary.ViewModels
         [RelayCommand]
         private void AddWord()
         {
-            // TODO: Show dialog to add new word
             MessageBox.Show("Chức năng thêm từ mới đang phát triển");
         }
 
@@ -325,14 +323,15 @@ namespace BlueBerryDictionary.ViewModels
         [RelayCommand]
         private void ViewWordDetails(string word)
         {
-            // TODO: Navigate to DetailsPage
             MessageBox.Show($"View details for: {word}");
         }
 
+        #endregion
     }
 
-    // ========== HELPER CLASSES ==========
-
+    /// <summary>
+    /// Item cho alphabet navigation (A-Z)
+    /// </summary>
     public partial class AlphabetItem : ObservableObject
     {
         [ObservableProperty]
