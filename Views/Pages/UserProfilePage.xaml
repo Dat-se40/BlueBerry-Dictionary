@@ -262,36 +262,16 @@
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
 
-                                        <Button Grid.Column="0" Height="50" Cursor="Hand" Command="{Binding SaveProfileCommand}">
-                                            <Button.Template>
-                                                <ControlTemplate TargetType="Button">
-                                                    <Border CornerRadius="12">
-                                                        <Border.Background>
-                                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                                                <GradientStop Color="#2D4ACC" Offset="0"/>
-                                                                <GradientStop Color="#5B7FFF" Offset="1"/>
-                                                            </LinearGradientBrush>
-                                                        </Border.Background>
-                                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                            <TextBlock Text="💾" FontSize="18" Margin="0,0,10,0"/>
-                                                            <TextBlock Text="Save Changes" FontWeight="SemiBold" Foreground="White" FontSize="16"/>
-                                                        </StackPanel>
-                                                    </Border>
-                                                </ControlTemplate>
-                                            </Button.Template>
+                                        <Button Grid.Column="0" Height="50" Cursor="Hand" Command="{Binding SaveProfileCommand}"
+                                                Style="{StaticResource SecondaryButtonStyle}" 
+                                                Content="Save changes" Foreground="{StaticResource TextColor}"  FontSize="20">
+                                            
                                         </Button>
 
-                                        <Button Grid.Column="2" Height="50" Cursor="Hand" Command="{Binding LogoutCommand}">
-                                            <Button.Template>
-                                                <ControlTemplate TargetType="Button">
-                                                    <Border CornerRadius="12" Background="#FFF1F2">
-                                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                            <TextBlock Text="🚪" FontSize="18" Margin="0,0,10,0"/>
-                                                            <TextBlock Text="Logout" FontWeight="SemiBold" Foreground="#EF4444" FontSize="16"/>
-                                                        </StackPanel>
-                                                    </Border>
-                                                </ControlTemplate>
-                                            </Button.Template>
+                                        <Button Grid.Column="2" Height="50" Cursor="Hand" Command="{Binding LogoutCommand}"
+                                                Style="{StaticResource DangerButtonStyle}"
+                                                Content="Log out" FontSize="20">
+                                          
                                         </Button>
                                     </Grid>
                                 </StackPanel>

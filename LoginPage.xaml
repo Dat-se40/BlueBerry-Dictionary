@@ -84,7 +84,8 @@
                                    Margin="0,0,12,0"
                                    VerticalAlignment="Center"/>
                             <TextBlock Text="Continue with Google"
-                                       VerticalAlignment="Center"/>
+                                       VerticalAlignment="Center"
+                                       Foreground="{DynamicResource TextColor}"/>
                         </StackPanel>
                     </Button>
 
@@ -136,8 +137,9 @@
                         <StackPanel Orientation="Horizontal"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center">
-                            <TextBlock Text="👤" FontSize="24" Margin="0,0,12,0"/>
-                            <TextBlock Text="Continue as Guest" VerticalAlignment="Center"/>
+                            <TextBlock Text="👤" FontSize="24" Margin="0,0,12,0" Foreground="{DynamicResource TextColor}"/>
+                            <TextBlock Text="Continue as Guest" VerticalAlignment="Center"
+                                       Foreground="{DynamicResource TextColor}"/>
                         </StackPanel>
                     </Button>
 

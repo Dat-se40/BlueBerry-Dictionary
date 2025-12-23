@@ -125,7 +125,8 @@
                                          Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
                                          GotFocus="SearchInput_GotFocus"
                                          LostFocus="SearchInput_LostFocus"
-                                         KeyDown="SearchInput_KeyDown"/>
+                                         KeyDown="SearchInput_KeyDown"
+                                         Foreground="{DynamicResource TextColor}"/>
 
                                 <!-- Search Button -->
                                 <Button x:Name="SearchBtn"  
@@ -195,14 +196,17 @@
                                                                            FontSize="14"
                                                                            VerticalAlignment="Center"
                                                                            Margin="0,0,10,0"
-                                                                           Opacity="0.6"/>
+                                                                           Opacity="0.6"
+                                                                           Foreground="{DynamicResource TextColor}"
+                                                                           Background="Transparent"/>
 
                                                                 <!-- Word Text -->
                                                                 <TextBlock Grid.Column="1"
                                                                            Text="{Binding}"
                                                                            FontSize="14"
                                                                            VerticalAlignment="Center"
-                                                                           Foreground="{DynamicResource TextColor}"/>
+                                                                           Foreground="{DynamicResource TextColor}"
+                                                                           Background="Transparent"/>
                                                             </Grid>
                                                         </Border>
                                                         <ControlTemplate.Triggers>

@@ -35,7 +35,7 @@ namespace BlueBerryDictionary.Services.Network
                 Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
                 "BlueBerryDictionary", "credentials");
             Directory.CreateDirectory(_credentialPath);
-
+            Console.WriteLine(_credentialPath);
             _scopesFilePath = Path.Combine(_credentialPath, "scopes.json");
             _tokenFilePath = Path.Combine(_credentialPath, "Google.Apis.Auth.OAuth2.Responses.TokenResponse-user");
         }
