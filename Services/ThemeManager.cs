@@ -15,6 +15,8 @@ namespace BlueBerryDictionary.Services
     public class ThemeManager
     {
         private static ThemeManager _instance;
+        private ThemeMode _currentMode = ThemeMode.Light;
+     
         private ResourceDictionary _appResources;
 
         public static ThemeManager Instance => _instance ??= new ThemeManager();
@@ -32,6 +34,7 @@ namespace BlueBerryDictionary.Services
             _appResources = Application.Current.Resources;
             // Load theme mặc định
             _currentThemeObject = ThemePresets.GetTheme("theme1");
+            SystemThemeDetector.SystemThemeChanged += OnSystemThemeChanged;
         }
 
 
@@ -40,36 +43,57 @@ namespace BlueBerryDictionary.Services
         /// </summary>
         public void SetThemeMode(ThemeMode mode)
         {
-            CurrentTheme = mode;
+            _currentMode = mode;  
+            CurrentTheme = mode;  
+
+            System.Diagnostics.Debug.WriteLine($"🎨 [ThemeManager] Mode changed: {mode}");
 
             if (mode == ThemeMode.Auto)
             {
-                mode = ThemeMode.Light;
-            }
+                // Bật theo dõi system theme
+                SystemThemeDetector.StartWatching();
 
-            // Nếu đang ở "default", phải reload Colors.xaml
-            if (CurrentColorTheme == "default" || _currentThemeObject == null)
-            {
-                // Reload màu gốc từ Colors.xaml
-                ReloadDefaultColors(mode);
+                // Apply theme theo system hiện tại
+                ApplySystemTheme();
+
+                var settings = SettingsService.Instance.CurrentSettings;
+                settings.ThemeMode = "Auto";
+                SettingsService.Instance.SaveSettings();
+
+                System.Diagnostics.Debug.WriteLine("✅ [ThemeManager] Auto mode enabled");
             }
             else
             {
-                // Re-apply custom/preset theme
-                ApplyColorTheme(_currentThemeObject);
+                // Tắt theo dõi system theme
+                SystemThemeDetector.StopWatching();
+
+                // Determine actual theme (Light or Dark)
+                ThemeMode actualMode = mode;
+
+                // Nếu đang ở "default", phải reload Colors.xaml
+                if (CurrentColorTheme == "default" || _currentThemeObject == null)
+                {
+                    ReloadDefaultColors(actualMode);
+                }
+                else
+                {
+                    // Re-apply custom/preset theme
+                    ApplyColorTheme(_currentThemeObject);
+                }
+
+                UpdateSearchInputColor();
+
+                // Trigger event
+                ThemeChanged?.Invoke(actualMode);
+
+                var settings = SettingsService.Instance.CurrentSettings;
+                settings.ThemeMode = actualMode == ThemeMode.Light ? "Light" : "Dark";
+                SettingsService.Instance.SaveSettings();
+
+                System.Diagnostics.Debug.WriteLine($"✅ [ThemeManager] Manual mode: {actualMode} (ColorTheme: {CurrentColorTheme})");
             }
-
-            UpdateSearchInputColor();
-            // Trigger event
-            ThemeChanged?.Invoke(mode);
-
-            // Save to settings
-            string themeString = mode == ThemeMode.Light ? "Light" : "Dark";
-            SettingsService.Instance.CurrentSettings.ThemeMode = themeString;
-            SettingsService.Instance.SaveSettings();
-
-            System.Diagnostics.Debug.WriteLine($"✅ Theme mode changed to: {mode} (ColorTheme: {CurrentColorTheme})");
         }
+
 
         /// <summary>
         /// Apply Light or Dark theme (BASE COLORS ONLY)
@@ -508,6 +532,70 @@ namespace BlueBerryDictionary.Services
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine($"⚠️ Failed to update SearchInput color: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Dùng theme theo system hiện tại
+        /// </summary>
+        private void ApplySystemTheme()
+        {
+            bool isDark = SystemThemeDetector.IsSystemDarkMode();
+            ThemeMode actualMode = isDark ? ThemeMode.Dark : ThemeMode.Light;
+
+            System.Diagnostics.Debug.WriteLine($"🔍 [ThemeManager] System theme detected: {(isDark ? "Dark" : "Light")}");
+
+            // Apply theme
+            CurrentTheme = actualMode;
+
+            if (CurrentColorTheme == "default" || _currentThemeObject == null)
+            {
+                ReloadDefaultColors(actualMode);
+            }
+            else
+            {
+                ApplyColorTheme(_currentThemeObject);
+            }
+
+            UpdateSearchInputColor();
+            ThemeChanged?.Invoke(actualMode);
+
+            System.Diagnostics.Debug.WriteLine($"✅ [ThemeManager] Applied system theme → {actualMode}");
+        }
+
+        /// <summary>
+        /// Handler khi system theme thay đổi
+        /// </summary>
+        private void OnSystemThemeChanged(object sender, bool isDark)
+        {
+            // Chỉ apply nếu đang ở Auto mode
+            if (_currentMode == ThemeMode.Auto)
+            {
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    ThemeMode newMode = isDark ? ThemeMode.Dark : ThemeMode.Light;
+                    CurrentTheme = newMode;
+
+                    System.Diagnostics.Debug.WriteLine($"🔄 [ThemeManager] System theme changed → {(isDark ? "Dark" : "Light")}");
+
+                    if (CurrentColorTheme == "default" || _currentThemeObject == null)
+                    {
+                        ReloadDefaultColors(newMode);
+                    }
+                    else
+                    {
+                        ApplyColorTheme(_currentThemeObject);
+                    }
+
+                    UpdateSearchInputColor();
+                    ThemeChanged?.Invoke(newMode);
+
+                    System.Diagnostics.Debug.WriteLine($"✅ [ThemeManager] Auto mode applied: {newMode}");
+                });
+            }
+            else
+            {
+                System.Diagnostics.Debug.WriteLine($"⚠️ [ThemeManager] System theme changed but Auto mode is OFF (current: {_currentMode})");
             }
         }
         #endregion

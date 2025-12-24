@@ -1,0 +1,81 @@
+{
+  "Sessions": [
+    {
+      "Id": "b9e680bc-4261-4dc8-a5f8-727cb06f69cc",
+      "StartTime": "2025-12-18T19:02:43.574102+07:00",
+      "EndTime": "2025-12-18T19:02:46.4427683+07:00",
+      "DataSource": "All",
+      "DataSourceName": "📚 All Words",
+      "TotalCards": 1,
+      "KnownCards": 0,
+      "UnknownCards": 1,
+      "AccuracyPercentage": 0.0,
+      "Duration": "00:00:02.8686663",
+      "SkippedCardIndices": [
+        0
+      ],
+      "SkippedWords": [
+        "reassure"
+      ],
+      "DurationText": "2s"
+    },
+    {
+      "Id": "817cc26f-5b54-4643-9743-bcf7bd1cb233",
+      "StartTime": "2025-12-18T19:03:00.0125774+07:00",
+      "EndTime": "2025-12-18T19:03:01.0749785+07:00",
+      "DataSource": "All",
+      "DataSourceName": "📚 All Words",
+      "TotalCards": 1,
+      "KnownCards": 0,
+      "UnknownCards": 1,
+      "AccuracyPercentage": 0.0,
+      "Duration": "00:00:01.0624011",
+      "SkippedCardIndices": [
+        0
+      ],
+      "SkippedWords": [
+        "reassure"
+      ],
+      "DurationText": "1s"
+    },
+    {
+      "Id": "8eb61c76-bb95-4c2b-9ccf-1760ddd7f5d1",
+      "StartTime": "2025-12-18T19:04:22.1549935+07:00",
+      "EndTime": "2025-12-18T19:04:25.2994264+07:00",
+      "DataSource": "Favorites",
+      "DataSourceName": "⭐ Favorites",
+      "TotalCards": 3,
+      "KnownCards": 1,
+      "UnknownCards": 2,
+      "AccuracyPercentage": 33.0,
+      "Duration": "00:00:03.1444329",
+      "SkippedCardIndices": [
+        0,
+        1
+      ],
+      "SkippedWords": [
+        "yes",
+        "reassure"
+      ],
+      "DurationText": "3s"
+    },
+    {
+      "Id": "040649ff-33c4-46fc-9913-f94350c4f41e",
+      "StartTime": "2025-12-18T19:06:57.9144097+07:00",
+      "EndTime": "2025-12-18T19:07:02.7285841+07:00",
+      "DataSource": "All",
+      "DataSourceName": "📚 All Words",
+      "TotalCards": 3,
+      "KnownCards": 3,
+      "UnknownCards": 0,
+      "AccuracyPercentage": 100.0,
+      "Duration": "00:00:04.8141744",
+      "SkippedCardIndices": [],
+      "SkippedWords": [],
+      "DurationText": "4s"
+    }
+  ],
+  "LastUpdated": "2025-12-18T19:07:02.7303649+07:00",
+  "TotalGamesPlayed": 4,
+  "TotalCardsStudied": 8
+}

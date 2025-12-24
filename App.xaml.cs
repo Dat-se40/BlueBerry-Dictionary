@@ -1,4 +1,5 @@
-﻿using BlueBerryDictionary.Services.Network;
+﻿using BlueBerryDictionary.Services;
+using BlueBerryDictionary.Services.Network;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -14,13 +15,13 @@ namespace BlueBerryDictionary
         {
             base.OnStartup(e);
 
-            // ✅ 1. LOAD SETTINGS TRƯỚC (set resources globally)
+            // 1. LOAD SETTINGS TRƯỚC (set resources globally)
             LoadSettings();
 
-            // ✅ 2. SET SHUTDOWN MODE
+            // 2. SET SHUTDOWN MODE
             this.ShutdownMode = ShutdownMode.OnExplicitShutdown;
 
-            // ✅ 3. CHECK LOGIN & SHOW WINDOWS
+            // 3. CHECK LOGIN & SHOW WINDOWS
             bool isLoggedIn = CheckLoginState();
 
             if (!isLoggedIn)
@@ -101,7 +102,7 @@ namespace BlueBerryDictionary
         {
             var mainWindow = new MainWindow();
 
-            // ✅ Apply font to MainWindow
+            // Apply font to MainWindow
             try
             {
                 mainWindow.FontFamily = (FontFamily)Current.Resources["AppFontFamily"];
@@ -117,7 +118,7 @@ namespace BlueBerryDictionary
         }
 
         /// <summary>
-        /// ✅ Load settings và apply khi app khởi động
+        /// Load settings và apply khi app khởi động
         /// </summary>
         private void LoadSettings()
         {
@@ -165,13 +166,13 @@ namespace BlueBerryDictionary
             }
             else if (settings.ColorTheme == "default" || string.IsNullOrEmpty(settings.ColorTheme))
             {
-                // ✅ Reset về màu mặc định trong Colors.xaml
+                // Reset về màu mặc định trong Colors.xaml
                 Services.ThemeManager.Instance.ResetToDefaultColors();
                 System.Diagnostics.Debug.WriteLine("✅ Loaded default colors from Colors.xaml");
             }
             else
             {
-                // ✅ Load preset theme (theme1, theme2, ...)
+                // Load preset theme (theme1, theme2, ...)
                 Services.ThemeManager.Instance.ApplyColorTheme(settings.ColorTheme);
                 System.Diagnostics.Debug.WriteLine($"✅ Loaded preset theme: {settings.ColorTheme}");
             }
@@ -180,7 +181,7 @@ namespace BlueBerryDictionary
 
 
         /// <summary>
-        /// ✅ Set empty background (for future use)
+        /// Set empty background (for future use)
         /// </summary>
         private void SetEmptyBackground()
         {
@@ -191,6 +192,14 @@ namespace BlueBerryDictionary
                 ImageSource = null
             };
             Current.Resources["AppBackgroundImage"] = emptyBrush;
+        }
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            // Cleanup: Stop watching system theme
+            SystemThemeDetector.StopWatching();
+
+            base.OnExit(e);
         }
     }
 }

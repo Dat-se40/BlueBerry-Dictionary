@@ -16,11 +16,6 @@ namespace BlueBerryDictionary.ViewModels
         [ObservableProperty]
         private int _themeModeIndex = 0; // 0: Sáng, 1: Tối, 2: Tự động
 
-        [ObservableProperty]
-        private bool _autoSaveHistory = true;
-
-        [ObservableProperty]
-        private int _favouriteLimitIndex = 0; // 0: 500, 1: 1000, 2: 5000, 3: Không giới hạn
         #endregion
 
         #region Constructor
@@ -49,17 +44,6 @@ namespace BlueBerryDictionary.ViewModels
                 "Dark" => 1,
                 "Auto" => 2,
                 _ => 0
-            };
-
-            // Data settings
-            AutoSaveHistory = settings.AutoSaveHistory;
-
-            FavouriteLimitIndex = settings.FavouriteLimit switch
-            {
-                500 => 0,
-                1000 => 1,
-                5000 => 2,
-                _ => 3 // Không giới hạn
             };
         }
 
@@ -129,122 +113,6 @@ namespace BlueBerryDictionary.ViewModels
             }
         }
 
-
-        #endregion
-
-        #region Data settings commands
-        /// <summary>
-        /// Bật/tắt tự động lưu lịch sử
-        /// </summary>
-        [RelayCommand]
-        private void ToggleAutoSave()
-        {
-            AutoSaveHistory = !AutoSaveHistory;
-            SettingsService.Instance.CurrentSettings.AutoSaveHistory = AutoSaveHistory;
-            SettingsService.Instance.SaveSettings();
-
-            System.Diagnostics.Debug.WriteLine($"✅ Auto save: {AutoSaveHistory}");
-        }
-
-        /// <summary>
-        /// Đổi giới hạn từ yêu thích
-        /// </summary>
-        [RelayCommand]
-        private void ChangeFavouriteLimit(int index)
-        {
-            int limit = index switch
-            {
-                0 => 500,
-                1 => 1000,
-                2 => 5000,
-                3 => int.MaxValue, // Không giới hạn
-                _ => 500
-            };
-
-            SettingsService.Instance.CurrentSettings.FavouriteLimit = limit;
-            SettingsService.Instance.SaveSettings();
-
-            System.Diagnostics.Debug.WriteLine($"✅ Favourite limit: {limit}");
-        }
-
-        /// <summary>
-        /// Khôi phục dữ liệu từ backup
-        /// </summary>
-        [RelayCommand]
-        private void RestoreData()
-        {
-            var result = MessageBox.Show(
-                "Bạn có chắc muốn khôi phục dữ liệu từ backup?\nDữ liệu hiện tại sẽ bị ghi đè.",
-                "Xác nhận",
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Question
-            );
-
-            if (result == MessageBoxResult.Yes)
-            {
-                MessageBox.Show("Chức năng đang được phát triển!", "Thông báo",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-        }
-
-        /// <summary>
-        /// Xóa cache
-        /// </summary>
-        [RelayCommand]
-        private void ClearCache()
-        {
-            var result = MessageBox.Show(
-                "Xóa cache sẽ làm mất dữ liệu tạm thời.\nTiếp tục?",
-                "Xác nhận",
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Warning
-            );
-
-            if (result == MessageBoxResult.Yes)
-            {
-                // TODO: Implement clear cache logic
-                MessageBox.Show("Đã xóa cache thành công!", "Thành công",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-        }
-
-        /// <summary>
-        /// Xóa toàn bộ dữ liệu (reset app)
-        /// </summary>
-        [RelayCommand]
-        private void ResetApp()
-        {
-            var result = MessageBox.Show(
-                "⚠️ CẢNH BÁO: Hành động này sẽ xóa TOÀN BỘ dữ liệu!\n" +
-                "Bao gồm:\n" +
-                "- Từ yêu thích\n" +
-                "- Lịch sử tra cứu\n" +
-                "- Tags\n" +
-                "- Settings\n\n" +
-                "Bạn có CHẮC CHẮN muốn tiếp tục?",
-                "XÁC NHẬN XÓA DỮ LIỆU",
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Error
-            );
-
-            if (result == MessageBoxResult.Yes)
-            {
-                // Double confirm
-                var confirm = MessageBox.Show(
-                    "Xác nhận lần cuối: Xóa toàn bộ dữ liệu?",
-                    "Xác nhận",
-                    MessageBoxButton.YesNo,
-                    MessageBoxImage.Error
-                );
-
-                if (confirm == MessageBoxResult.Yes)
-                {
-                    // TODO: Implement reset logic
-                    MessageBox.Show("Chức năng đang được phát triển!", "Thông báo",
-                        MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-            }
-        }
 
         #endregion
 

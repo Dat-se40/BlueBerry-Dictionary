@@ -25,7 +25,6 @@ namespace BlueBerryDictionary.Views.Pages
             FontFamilyComboBox.SelectionChanged += FontFamilyComboBox_SelectionChanged;
             ColorThemeComboBox.SelectionChanged += ColorThemeComboBox_SelectionChanged;
             ThemeModeComboBox.SelectionChanged += ThemeModeComboBox_SelectionChanged;
-            FavouriteLimitComboBox.SelectionChanged += FavouriteLimitComboBox_SelectionChanged;
 
             _isInitializing = false;
             System.Diagnostics.Debug.WriteLine("✅ SettingsPage initialized");
@@ -77,15 +76,6 @@ namespace BlueBerryDictionary.Views.Pages
                 FontFamilyComboBox.SelectedIndex = 0;
             }
 
-            // FAVOURITE LIMIT
-            FavouriteLimitComboBox.SelectedIndex = settings.FavouriteLimit switch
-            {
-                500 => 0,
-                1000 => 1,
-                5000 => 2,
-                _ => 3
-            };
-
             System.Diagnostics.Debug.WriteLine($"✅ Loaded: Theme={settings.ColorTheme}, Font={settings.FontFamily}");
         }
 
@@ -98,21 +88,21 @@ namespace BlueBerryDictionary.Views.Pages
             {
                 string tag = item.Tag?.ToString();
 
-                // ✅ Đang ở Preset Active
+                // Đang ở Preset Active
                 if (tag == "preset_active")
                 {
                     System.Diagnostics.Debug.WriteLine("✅ Already using preset theme");
                     return;
                 }
 
-                // ✅ Đang ở Custom Active
+                // Đang ở Custom Active
                 if (tag == "custom_active")
                 {
                     System.Diagnostics.Debug.WriteLine("✅ Already using custom theme");
                     return;
                 }
 
-                // ✅ Chọn Preset Theme
+                // Chọn Preset Theme
                 if (tag == "preset_picker")
                 {
                     var dialog = new ThemePresetDialog { Owner = Window.GetWindow(this) };
@@ -129,7 +119,7 @@ namespace BlueBerryDictionary.Views.Pages
                         MessageBox.Show($"Đã áp dụng theme: {selectedTheme}", "Thành công",
                             MessageBoxButton.OK, MessageBoxImage.Information);
 
-                        // ✅ Chuyển sang "✓ Theme có sẵn"
+                        // Chuyển sang "✓ Theme có sẵn"
                         _isResetting = true;
                         ShowActiveItem(ColorThemeComboBox, 1);
                         ColorThemeComboBox.SelectedIndex = 1;
@@ -143,7 +133,7 @@ namespace BlueBerryDictionary.Views.Pages
                     }
                 }
 
-                // ✅ Chọn Custom Color
+                // Chọn Custom Color
                 else if (tag == "custom_picker")
                 {
                     var dialog = new CustomThemeDialog { Owner = Window.GetWindow(this) };
@@ -168,7 +158,7 @@ namespace BlueBerryDictionary.Views.Pages
                         MessageBox.Show("Đã áp dụng màu tùy chỉnh!", "Thành công",
                             MessageBoxButton.OK, MessageBoxImage.Information);
 
-                        // ✅ Chuyển sang "✓ Màu tùy chỉnh"
+                        // Chuyển sang "✓ Màu tùy chỉnh"
                         _isResetting = true;
                         ShowActiveItem(ColorThemeComboBox, 2);
                         ColorThemeComboBox.SelectedIndex = 2;
@@ -182,7 +172,7 @@ namespace BlueBerryDictionary.Views.Pages
                     }
                 }
 
-                // ✅ Reset về Default
+                // Reset về Default
                 else if (tag == "default")
                 {
                     var settings = SettingsService.Instance.CurrentSettings;
@@ -348,23 +338,7 @@ namespace BlueBerryDictionary.Views.Pages
             }
         }
 
-        // ========== FAVOURITE LIMIT ==========
-        private void FavouriteLimitComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (_isInitializing || _isResetting) return;
-            if (FavouriteLimitComboBox.SelectedIndex >= 0)
-            {
-                _viewModel.ChangeFavouriteLimitCommand.Execute(FavouriteLimitComboBox.SelectedIndex);
-            }
-        }
-
-        // ========== TOGGLE AUTO SAVE ==========
-        private void ToggleAutoSave_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            _viewModel.ToggleAutoSaveCommand.Execute(null);
-        }
-
-        // ===== ✅ HELPER METHODS - MỚI =====
+        // ===== HELPER METHODS =====
 
         /// <summary>
         /// Hiện active item tại index, ẩn các item khác

@@ -26,5 +26,81 @@
     "ViewCount": 0,
     "MeaningIndex": 0,
     "HasRelatedWords": true
+  },
+  {
+    "isFavorited": true,
+    "note": null,
+    "Word": "yes",
+    "Phonetic": "ˈyes",
+    "PartOfSpeech": "adverb",
+    "Definition": "—used as a function word to express assent or agreement",
+    "Example": "",
+    "Synonyms": [
+      "all right",
+      "alright",
+      "aye",
+      "exactly",
+      "OK",
+      "okeydoke",
+      "yea",
+      "yeah",
+      "yep",
+      "yo",
+      "affirmative"
+    ],
+    "Antonyms": [
+      "nay",
+      "no",
+      "no way",
+      "scarcely",
+      "negative",
+      "non placet"
+    ],
+    "Tags": [],
+    "AddedAt": "2025-12-18T19:04:02.603592+07:00",
+    "ViewCount": 0,
+    "MeaningIndex": 0,
+    "HasRelatedWords": true
+  },
+  {
+    "isFavorited": true,
+    "note": "hihiihihhi",
+    "Word": "hi",
+    "Phonetic": "ˈhī(-ē)",
+    "PartOfSpeech": "interjection",
+    "Definition": "—used especially as a greeting",
+    "Example": "Hi, how are you?",
+    "Synonyms": [
+      "greetings",
+      "hello"
+    ],
+    "Antonyms": [],
+    "Tags": [],
+    "AddedAt": "2025-12-18T19:04:13.8136335+07:00",
+    "ViewCount": 0,
+    "MeaningIndex": 0,
+    "HasRelatedWords": true
+  },
+  {
+    "isFavorited": false,
+    "note": null,
+    "Word": "set",
+    "Phonetic": "ˈset",
+    "PartOfSpeech": "verb",
+    "Definition": "to cause to sit : place in or on a seat",
+    "Example": "Set the tray there.",
+    "Synonyms": [
+      "lay",
+      "put",
+      "set down"
+    ],
+    "Antonyms": [
+      "pick up"
+    ],
+    "Tags": [],
+    "AddedAt": "2025-12-23T20:39:06.7129906+07:00",
+    "ViewCount": 0,
+    "MeaningIndex": 0,
+    "HasRelatedWords": true
   }
 ]
