@@ -14,7 +14,7 @@ namespace BlueBerryDictionary.Services.Network
 {
     /// <summary>
     /// Google OAuth Authentication Service (Singleton)
-    /// ✅ Production-ready: Blocking logout + Optimized login
+    /// Production-ready: Blocking logout + Optimized login
     /// </summary>
     public class GoogleAuthService
     {
@@ -37,11 +37,10 @@ namespace BlueBerryDictionary.Services.Network
 
         private GoogleAuthService() { }
 
-        // ==================== LOGIN ====================
-
+        #region Login
         /// <summary>
         /// Login bằng Gmail (OAuth 2.0)
-        /// ✅ Optimized: Credential cleanup + Retry logic
+        /// Flow: Check config → Try reuse token → Fresh OAuth → Get user info → Init Drive
         /// </summary>
         public async Task<LoginResult> LoginAsync()
         {
@@ -67,7 +66,7 @@ namespace BlueBerryDictionary.Services.Network
                     ClientSecret = config.GoogleClientSecret
                 };
 
-                // ✅ TRY REUSE TOKEN
+                // Thử reuse token có sẵn
                 var reuseResult = await TokenManager.Instance.TryReuseTokenAsync(
                     clientSecrets,
                     config.GoogleScopes
@@ -83,10 +82,10 @@ namespace BlueBerryDictionary.Services.Network
                     Console.WriteLine($"⚠️ [GoogleAuthService] Cannot reuse token: {reuseResult.Reason}");
                     Console.WriteLine("🔄 [GoogleAuthService] Starting fresh OAuth flow...");
 
-                    // ✅ CRITICAL: Complete credential cleanup
+                    // Complete credential cleanup
                     await TokenManager.Instance.ClearAllCredentialsAsync();
 
-                    // ✅ Authorize
+                    // Authorize
                     var credPath = TokenManager.Instance.GetCredentialPath();
                     var dataStore = new FileDataStore(credPath, true);
 
@@ -117,7 +116,7 @@ namespace BlueBerryDictionary.Services.Network
                     Console.WriteLine("🟢 [GoogleAuthService] Authorization completed");
                 }
 
-                // ✅ GET USER INFO
+                // Lấy user info
                 var userInfo = await GetUserInfoAsync();
                 if (userInfo == null)
                 {
@@ -150,13 +149,13 @@ namespace BlueBerryDictionary.Services.Network
 
                 UserSessionManage.Instance.SaveSession(_currentUser);
 
-                // ✅ INITIALIZE DRIVE SYNC
+                // Initialize Drive sync
                 try
                 {
                     await CloudSyncService.Instance.InitializeAsync(_credential);
                     var syncResult = await CloudSyncService.Instance.DownloadAllDataAsync();
 
-                    // ✅ SAVE SCOPES ONLY AFTER DRIVE SUCCESS
+                    // Lưu scopes chỉ sau khi Drive thành công
                     try
                     {
                         await TokenManager.Instance.SaveScopesAsync(config.GoogleScopes);
@@ -191,7 +190,7 @@ namespace BlueBerryDictionary.Services.Network
                 {
                     Console.WriteLine($"⚠️ [GoogleAuthService] Drive sync failed: {driveEx.Message}");
 
-                    // ✅ RETRY LOGIC: Detect scope issue + retry
+                    // Retry logic: Phát hiện scope issue và retry
                     if ((driveEx.Message.Contains("insufficient authentication scopes") ||
                          driveEx.Message.Contains("Forbidden")) &&
                         _loginRetryCount < MAX_LOGIN_RETRIES)
@@ -238,7 +237,9 @@ namespace BlueBerryDictionary.Services.Network
             }
         }
 
-        // ==================== SILENT LOGIN ====================
+        #endregion
+
+        #region Silent Login
 
         /// <summary>
         /// Auto login using saved token
@@ -307,14 +308,13 @@ namespace BlueBerryDictionary.Services.Network
                 return false;
             }
         }
+        #endregion
 
-        // ==================== LOGOUT ====================
+        #region Logout
 
         /// <summary>
-        /// ✅ PRODUCTION-READY: Instant UI + Complete cleanup
-        /// - UI response: < 100ms
-        /// - Cleanup: Blocking (no race condition)
-        /// - Next login: Clean & fast
+        /// Logout (instant UI + blocking cleanup)
+        /// Flow: Clear memory → Update UI → Revoke token → Final sync → Clear credentials
         /// </summary>
         public async Task LogoutAsync()
         {
@@ -324,27 +324,27 @@ namespace BlueBerryDictionary.Services.Network
             {
                 Console.WriteLine("🔓 [GoogleAuthService] Logging out...");
 
-                // ✅ 1. Save references BEFORE clearing
+                // Lưu references trước khi clear
                 var credentialToRevoke = _credential;
                 var currentUserEmail = _currentUser?.Email;
 
-                // ✅ 2. Clear in-memory INSTANTLY
+                // Clear in-memory ngay lập tức
                 _credential = null;
                 _currentUser = null;
 
-                // ✅ 3. Update session
+                // Update session
                 if (currentUserEmail != null)
                 {
                     UserSessionManage.Instance.UpdateLogoutTime(currentUserEmail);
                 }
                 UserSessionManage.Instance.Clear();
 
-                // ✅ 4. Notify UI (instant)
+                // Notify UI (instant)
                 LoginStateChanged?.Invoke(this, false);
 
                 Console.WriteLine("✅ [GoogleAuthService] Logout UI updated (instant)");
-
-                // ✅ 5. BLOCKING cleanup (non-UI-blocking)
+               
+                // Blocking cleanup (non-UI-blocking)
                 try
                 {
                     // Revoke token (sync with timeout)
@@ -374,7 +374,7 @@ namespace BlueBerryDictionary.Services.Network
                     Console.WriteLine($"⚠️ [GoogleAuthService] Final sync warning: {ex.Message}");
                 }
 
-                // ✅ 6. DELETE CREDENTIALS (BLOCKING - CRITICAL!)
+                // Delete credentials (blocking - critical)
                 Console.WriteLine("🗑️ [GoogleAuthService] Clearing credentials...");
                 await TokenManager.Instance.ClearAllCredentialsAsync();
 
@@ -387,8 +387,12 @@ namespace BlueBerryDictionary.Services.Network
             }
         }
 
-        // ==================== HELPERS ====================
+        #endregion
 
+        #region Helper methods
+        /// <summary>
+        /// Lấy user info từ Google OAuth API
+        /// </summary>
         private async Task<Google.Apis.Oauth2.v2.Data.Userinfo> GetUserInfoAsync()
         {
             try
@@ -409,5 +413,7 @@ namespace BlueBerryDictionary.Services.Network
         }
 
         public UserCredential GetCredential() => _credential;
+
+        #endregion
     }
 }

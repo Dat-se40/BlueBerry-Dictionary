@@ -1,12 +1,13 @@
-﻿using BlueBerryDictionary.Models;
+﻿using BlueBerryDictionary.Data;
+using BlueBerryDictionary.Models;
 using BlueBerryDictionary.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MyDictionary.Services;
 using System.Collections.ObjectModel;
-using System.Windows;
-using BlueBerryDictionary.Data;
 using System.IO;
+using System.Windows;
+using System.Windows.Media;
 namespace BlueBerryDictionary.Views.Dialogs
 {
     public partial class PackageDetailsDialog : Window
@@ -15,12 +16,35 @@ namespace BlueBerryDictionary.Views.Dialogs
         {
             InitializeComponent();
             DataContext = new PackageDetailsViewModel(package, this);
+            ApplyGlobalFont();
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = false;
             Close();
+        }
+
+        private void ApplyGlobalFont()
+        {
+            try
+            {
+                if (Application.Current.Resources.Contains("AppFontFamily"))
+                {
+                    this.FontFamily = (FontFamily)Application.Current.Resources["AppFontFamily"];
+                }
+
+                if (Application.Current.Resources.Contains("AppFontSize"))
+                {
+                    this.FontSize = (double)Application.Current.Resources["AppFontSize"];
+                }
+
+                System.Diagnostics.Debug.WriteLine($"✅ Applied font to {this.GetType().Name}");
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"⚠️ Apply font error: {ex.Message}");
+            }
         }
     }
 
@@ -139,7 +163,6 @@ namespace BlueBerryDictionary.Views.Dialogs
         {
             if (!ShowSelectionControls)
             {
-                // Mode preview: sau này bạn có thể xử lý kiểu "Tải metadata" ở đây nếu muốn
                 MessageBox.Show("Đây là chế độ xem thử, chưa hỗ trợ tải.", "Thông báo");
                 return;
             }
@@ -166,7 +189,6 @@ namespace BlueBerryDictionary.Views.Dialogs
                 foreach (var wordVM in selectedWords)
                 {
                     Data.FileStorage.LoadWordAsync(new List<Word> { wordVM.Word });
-                    // chỗ này bạn có thể sync với TagService nếu muốn
                 }
 
                 MessageBox.Show(
@@ -229,5 +251,6 @@ namespace BlueBerryDictionary.Views.Dialogs
                 return firstDef?.definition ?? "No definition";
             }
         }
+
     }
 }

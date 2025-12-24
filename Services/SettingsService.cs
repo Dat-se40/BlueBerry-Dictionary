@@ -72,8 +72,7 @@ namespace BlueBerryDictionary.Services
             }
         }
 
-        // ========== SHORTCUT METHODS ==========
-
+        #region Shortcut methods
         public void SaveThemeMode(Services.ThemeMode mode)
         {
             CurrentSettings.ThemeMode = mode.ToString();
@@ -98,5 +97,6 @@ namespace BlueBerryDictionary.Services
             CurrentSettings.FontSize = fontSize;
             SaveSettings();
         }
+        #endregion
     }
 }

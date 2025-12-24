@@ -15,6 +15,7 @@ namespace BlueBerryDictionary.Views.Dialogs
         {
             InitializeComponent();
             LoadSystemFonts();
+            ApplyGlobalFont();
         }
 
         /// <summary>
@@ -50,7 +51,7 @@ namespace BlueBerryDictionary.Views.Dialogs
         }
 
         /// <summary>
-        /// ✅ THÊM METHOD NÀY - Khi user chọn font size
+        /// Khi user chọn font size
         /// </summary>
         private void FontSizeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -63,7 +64,7 @@ namespace BlueBerryDictionary.Views.Dialogs
         }
 
         /// <summary>
-        /// ✅ THÊM METHOD NÀY - Cập nhật preview
+        /// Cập nhật preview
         /// </summary>
         private void UpdatePreview()
         {
@@ -98,6 +99,29 @@ namespace BlueBerryDictionary.Views.Dialogs
         {
             DialogResult = false;
             Close();
+        }
+
+        /// <summary>
+        /// Thêm font chữ
+        /// </summary>
+        private void ApplyGlobalFont()
+        {
+            try
+            {
+                if (Application.Current.Resources.Contains("AppFontFamily"))
+                {
+                    this.FontFamily = (FontFamily)Application.Current.Resources["AppFontFamily"];
+                }
+
+                if (Application.Current.Resources.Contains("AppFontSize"))
+                {
+                    this.FontSize = (double)Application.Current.Resources["AppFontSize"];
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"⚠️ Apply font to dialog error: {ex.Message}");
+            }
         }
     }
 }

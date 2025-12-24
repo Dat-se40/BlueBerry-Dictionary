@@ -542,7 +542,7 @@
                     </StackPanel>
                 </Border>
 
-                <!-- ===== WORD CARDS (Grid.Column="1") ===== -->
+                <!-- ===== WORD CARDS  ===== -->
                 <UniformGrid Columns="3" Margin="0,30,0,0" Name="mainContent" >
                     
                 </UniformGrid>

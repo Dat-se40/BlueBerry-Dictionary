@@ -1,6 +1,7 @@
-﻿using System;
+﻿using BlueBerryDictionary.Services;
+using System;
 using System.Windows;
-using BlueBerryDictionary.Services;
+using System.Windows.Media;
 
 namespace BlueBerryDictionary.Views.Dialogs
 {
@@ -13,6 +14,7 @@ namespace BlueBerryDictionary.Views.Dialogs
             InitializeComponent();
             _gameLogService = GameLogService.Instance;
             LoadHistoryData();
+            ApplyGlobalFont();
         }
 
         private void LoadHistoryData()
@@ -63,6 +65,29 @@ namespace BlueBerryDictionary.Views.Dialogs
         private void Close_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        /// <summary>
+        /// Thêm font chữ
+        /// </summary>
+        private void ApplyGlobalFont()
+        {
+            try
+            {
+                if (Application.Current.Resources.Contains("AppFontFamily"))
+                {
+                    this.FontFamily = (FontFamily)Application.Current.Resources["AppFontFamily"];
+                }
+
+                if (Application.Current.Resources.Contains("AppFontSize"))
+                {
+                    this.FontSize = (double)Application.Current.Resources["AppFontSize"];
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"⚠️ Apply font to dialog error: {ex.Message}");
+            }
         }
     }
 }

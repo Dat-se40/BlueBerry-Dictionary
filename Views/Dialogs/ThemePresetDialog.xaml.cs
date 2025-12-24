@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Media;
 
 namespace BlueBerryDictionary.Views.Dialogs
 {
@@ -9,6 +10,7 @@ namespace BlueBerryDictionary.Views.Dialogs
         public ThemePresetDialog()
         {
             InitializeComponent();
+            ApplyGlobalFont();
         }
 
         private void ThemeButton_Click(object sender, RoutedEventArgs e)
@@ -25,6 +27,29 @@ namespace BlueBerryDictionary.Views.Dialogs
         {
             DialogResult = false;
             Close();
+        }
+
+        /// <summary>
+        /// Thêm font chữ
+        /// </summary>
+        private void ApplyGlobalFont()
+        {
+            try
+            {
+                if (Application.Current.Resources.Contains("AppFontFamily"))
+                {
+                    this.FontFamily = (FontFamily)Application.Current.Resources["AppFontFamily"];
+                }
+
+                if (Application.Current.Resources.Contains("AppFontSize"))
+                {
+                    this.FontSize = (double)Application.Current.Resources["AppFontSize"];
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"⚠️ Apply font to dialog error: {ex.Message}");
+            }
         }
     }
 }

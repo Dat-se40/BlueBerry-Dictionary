@@ -31,7 +31,8 @@
                 _availableTags = _tagService.GetAllTags();
 
                 LoadMeanings();
-            }
+                ApplyGlobalFont();
+        }
 
             private void LoadMeanings()
             {
@@ -372,7 +373,6 @@
 
             try
             {
-                // ========== CREATE WordShortened from selected meaning ==========
                 var selectedMeaning = _word.meanings[SelectedMeaningIndex];
 
                 // Sử dụng FromWord method với meaningIndex
@@ -383,8 +383,6 @@
                     MessageBox.Show("Error creating word. Please try again.");
                     return;
                 }
-
-                // ========== SMART NOTE HANDLING ==========
                 // Nếu không có example, tạo note tự động
                 if (string.IsNullOrEmpty(wordShortened.Example))
                 {
@@ -414,18 +412,41 @@
 
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
-            {
+        {
                 IsCancelled = true;
                 DialogResult = false;
                 Close();
             }
 
-            private void SkipTagsButton_Click(object sender, RoutedEventArgs e)
-            {
+        private void SkipTagsButton_Click(object sender, RoutedEventArgs e)
+        {
                 // Skip tags, just save the word
                 IsCancelled = false;
                 DialogResult = true;
                 Close();
+        }
+
+        /// <summary>
+        /// Thêm font chữ
+        /// </summary>
+        private void ApplyGlobalFont()
+        {
+            try
+            {
+                if (Application.Current.Resources.Contains("AppFontFamily"))
+                {
+                    this.FontFamily = (FontFamily)Application.Current.Resources["AppFontFamily"];
+                }
+
+                if (Application.Current.Resources.Contains("AppFontSize"))
+                {
+                    this.FontSize = (double)Application.Current.Resources["AppFontSize"];
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"⚠️ Apply font to dialog error: {ex.Message}");
             }
         }
+    }
     }
