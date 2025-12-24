@@ -14,13 +14,13 @@
 
             <!-- ========== CONVERTERS ========== -->
 
-            <!-- ✅ WPF Built-in Converter -->
+            <!-- WPF Built-in Converter -->
             <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
 
-            <!-- ✅ Custom Inverse Converter -->
+            <!-- Custom Inverse Converter -->
             <helpers:InverseBoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter"/>
 
-            <!-- ✅ THÊM MỚI: Game Converters -->
+            <!-- Game Converters -->
             <helpers:SkipIndexConverter x:Key="SkipIndexConverter"/>
             <helpers:IntToFormattedStringConverter x:Key="IntToFormattedStringConverter"/>
             <helpers:PercentageConverter x:Key="PercentageConverter"/>
@@ -31,9 +31,15 @@
 
             <!-- ========== GLOBAL SETTINGS ========== -->
 
-            <!-- ✅ Global Font Settings -->
+            <!-- Global Font Settings -->
             <FontFamily x:Key="AppFontFamily">Segoe UI</FontFamily>
             <System:Double x:Key="AppFontSize" xmlns:System="clr-namespace:System;assembly=mscorlib">14</System:Double>
+
+            <!-- Global Style cho tất cả Pages -->
+            <Style TargetType="Page">
+                <Setter Property="FontFamily" Value="{DynamicResource AppFontFamily}"/>
+                <Setter Property="FontSize" Value="{DynamicResource AppFontSize}"/>
+            </Style>
 
             <!-- Global Background Image -->
             <ImageBrush x:Key="AppBackgroundImage" Stretch="UniformToFill" Opacity="0.15">

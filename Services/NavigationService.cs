@@ -72,6 +72,10 @@ namespace BlueBerryDictionary.Services
             var page = (customPage != null ) ? customPage : CreatePage(pageTag);
             _frame.Navigate(page);
 
+            ApplyFontToPage(page);
+
+            _frame.Navigate(page);
+
             System.Console.WriteLine($"📄 {pageTag} | Back: {_backStack.Count} | Forward: {_forwardStack.Count}");
         }
 
@@ -86,6 +90,8 @@ namespace BlueBerryDictionary.Services
             _currentPage = _backStack.Pop();
 
             var page = CreatePage(_currentPage);
+
+            ApplyFontToPage(page);
             while (_frame.CanGoBack)
             {
                 _frame.RemoveBackEntry();
@@ -107,6 +113,9 @@ namespace BlueBerryDictionary.Services
             _currentPage = _forwardStack.Pop();
 
             var page = CreatePage(_currentPage);
+
+            ApplyFontToPage(page);
+
             while (_frame.CanGoBack)
             {
                 _frame.RemoveBackEntry();
@@ -172,6 +181,7 @@ namespace BlueBerryDictionary.Services
             }
 
             _currentPage = pageName;
+            ApplyFontToPage(page);
             // ép frame không giữ cache, luôn tạo fresh page
             while (_frame.CanGoBack)
             {
@@ -183,5 +193,39 @@ namespace BlueBerryDictionary.Services
 
             System.Diagnostics.Debug.WriteLine($"📄 {pageName} | Back: {_backStack.Count} | Forward: {_forwardStack.Count}");
         }
+
+        /// <summary>
+        /// Thuộc tính font từ resources và áp dụng cho page
+        /// </summary>
+        private void ApplyFontToPage(Page page)
+        {
+            try
+            {
+                if (System.Windows.Application.Current.Resources.Contains("AppFontFamily"))
+                {
+                    var fontFamily = System.Windows.Application.Current.Resources["AppFontFamily"] as System.Windows.Media.FontFamily;
+                    if (fontFamily != null)
+                    {
+                        page.FontFamily = fontFamily;
+                    }
+                }
+
+                if (System.Windows.Application.Current.Resources.Contains("AppFontSize"))
+                {
+                    var fontSize = System.Windows.Application.Current.Resources["AppFontSize"];
+                    if (fontSize is double size)
+                    {
+                        page.FontSize = size;
+                    }
+                }
+
+                System.Diagnostics.Debug.WriteLine($"✅ Applied font to {page.GetType().Name}");
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"⚠️ Apply font error: {ex.Message}");
+            }
+        }
+
     }
 }

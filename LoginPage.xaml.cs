@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using System.Windows;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace BlueBerryDictionary
@@ -21,7 +22,8 @@ namespace BlueBerryDictionary
             _viewModel.LoginSuccessEvent += OnLoginSuccess;
             _viewModel.GuestModeEvent += OnGuestMode;
 
-            // Load logo
+            ApplyGlobalFont();
+
         }
 
         /// <summary>
@@ -53,6 +55,28 @@ namespace BlueBerryDictionary
             _viewModel.LoginSuccessEvent -= OnLoginSuccess;
             _viewModel.GuestModeEvent -= OnGuestMode;
             base.OnClosed(e);
+        }
+
+        private void ApplyGlobalFont()
+        {
+            try
+            {
+                if (Application.Current.Resources.Contains("AppFontFamily"))
+                {
+                    this.FontFamily = (FontFamily)Application.Current.Resources["AppFontFamily"];
+                }
+
+                if (Application.Current.Resources.Contains("AppFontSize"))
+                {
+                    this.FontSize = (double)Application.Current.Resources["AppFontSize"];
+                }
+
+                System.Diagnostics.Debug.WriteLine($"✅ Applied font to {this.GetType().Name}");
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"⚠️ Apply font error: {ex.Message}");
+            }
         }
     }
 }

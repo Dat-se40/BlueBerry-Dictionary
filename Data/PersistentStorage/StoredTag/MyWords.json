@@ -82,7 +82,7 @@
     "HasRelatedWords": true
   },
   {
-    "isFavorited": false,
+    "isFavorited": true,
     "note": null,
     "Word": "set",
     "Phonetic": "ˈset",

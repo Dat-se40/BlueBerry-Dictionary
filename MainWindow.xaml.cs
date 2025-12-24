@@ -23,26 +23,26 @@ namespace BlueBerryDictionary
         {
             InitializeComponent();
 
-            // ✅ Initialize NavigationService with OnWordClicked callback
+            // Initialize NavigationService with OnWordClicked callback
             _navigationService = new NavigationService(MainFrame, null); // Temp null
 
-            // ✅ Initialize SearchViewModel with NavigationService
+            // Initialize SearchViewModel with NavigationService
             _searchViewModel = new SearchViewModel(_navigationService);
             DataContext = _searchViewModel;
 
-            // ✅ Update NavigationService callback
+            // Update NavigationService callback
             _navigationService = new NavigationService(MainFrame, _searchViewModel.OnWordClicked);
             _searchViewModel = new SearchViewModel(_navigationService);
             DataContext = _searchViewModel;
 
-            // ✅ Navigate to Home using NavigationService
+            // Navigate to Home using NavigationService
             _navigationService.NavigateTo("Home");
             UpdateNavigationButtons();
 
-            // ✅ THÊM: Subscribe to theme change event
+            // THÊM: Subscribe to theme change event
             ThemeManager.Instance.ThemeChanged += OnThemeChanged;
 
-            // ✅ THÊM: Sync toggle với theme hiện tại
+            // THÊM: Sync toggle với theme hiện tại
             SyncThemeToggle();
 
             Dispatcher.ShutdownStarted += (s, e) => {
@@ -53,7 +53,7 @@ namespace BlueBerryDictionary
             };
         }
 
-        // ✅ THÊM: Sync toggle button với theme hiện tại
+        // THÊM: Sync toggle button với theme hiện tại
         private void SyncThemeToggle()
         {
             bool isDark = ThemeManager.Instance.CurrentTheme == Services.ThemeMode.Dark;
@@ -77,7 +77,7 @@ namespace BlueBerryDictionary
             }
         }
 
-        // ✅ THÊM: Handler khi theme thay đổi (từ Settings)
+        // THÊM: Handler khi theme thay đổi (từ Settings)
         private void OnThemeChanged(Services.ThemeMode newTheme)
         {
             Dispatcher.Invoke(() => SyncThemeToggle());
@@ -195,7 +195,7 @@ namespace BlueBerryDictionary
         /// </summary>
         private void BackBtn_Click(object sender, RoutedEventArgs e)
         {
-            // ✅ Use NavigationService.GoBack
+            // Use NavigationService.GoBack
             _navigationService.GoBack();
             UpdateNavigationButtons();
         }
@@ -205,7 +205,7 @@ namespace BlueBerryDictionary
         /// </summary>
         private void ForwardBtn_Click(object sender, RoutedEventArgs e)
         {
-            // ✅ Use NavigationService.GoForward
+            // Use NavigationService.GoForward
             _navigationService.GoForward();
             UpdateNavigationButtons();
         }
@@ -229,7 +229,7 @@ namespace BlueBerryDictionary
             ReloadIcon.RenderTransformOrigin = new Point(0.5, 0.5);
             rotateTransform.BeginAnimation(RotateTransform.AngleProperty, rotateAnimation);
 
-            // ✅ Reload using LoadData if available
+            // Reload using LoadData if available
             if (MainFrame.Content is WordListPageBase page)
             {
                 page.LoadData();
@@ -237,7 +237,7 @@ namespace BlueBerryDictionary
         }
 
         /// <summary>
-        /// ✅ NEW: Update navigation button states
+        /// Update navigation button states
         /// </summary>
         private void UpdateNavigationButtons()
         {
@@ -250,7 +250,7 @@ namespace BlueBerryDictionary
         /// </summary>
         private void MainFrame_Navigated(object sender, System.Windows.Navigation.NavigationEventArgs e)
         {
-            // ✅ Use NavigationService state instead of Frame
+            // Use NavigationService state instead of Frame
             UpdateNavigationButtons();
         }
 
@@ -334,7 +334,7 @@ namespace BlueBerryDictionary
 
         private void SearchInput_GotFocus(object sender, RoutedEventArgs e)
         {
-            // ✅ THÊM: Đổi màu khi focus
+            // Đổi màu khi focus
             if (SearchInput.Text == "Nhập từ cần tra...")
             {
                 SearchInput.Text = "";
@@ -350,7 +350,7 @@ namespace BlueBerryDictionary
 
         private void SearchInput_LostFocus(object sender, RoutedEventArgs e)
         {
-            // ✅ THÊM: Hiện placeholder nếu rỗng
+            // Hiện placeholder nếu rỗng
             if (string.IsNullOrWhiteSpace(SearchInput.Text))
             {
                 SearchInput.Text = "Nhập từ cần tra...";
