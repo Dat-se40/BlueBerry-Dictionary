@@ -94,7 +94,7 @@ namespace BlueBerryDictionary.ViewModels
                 else
                 {
                     // Logged in
-                    UserId = session.UserId ?? session.Email;
+                    UserId = session.UserId ?? CloudSyncService.Instance._appFolderId;
                     DisplayName = session.DisplayName ?? "User";
                     Nickname = ""; // TODO: Load từ Settings.json nếu có
                     Email = session.Email;

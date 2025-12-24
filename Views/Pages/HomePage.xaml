@@ -71,7 +71,8 @@
                         </Button>
 
                         <!-- Offline -->
-                        <Button Style="{StaticResource ToolButtonStyle}" Tag="Offline">
+                        <Button Style="{StaticResource ToolButtonStyle}" Tag="Offline"
+                                 Click="ButtnNavigate_Click">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="📥" FontSize="18" Margin="0,0,8,0"/>
                                 <TextBlock Text="Offline"/>
@@ -79,7 +80,8 @@
                         </Button>
 
                         <!-- Setting -->
-                        <Button Style="{StaticResource ToolButtonStyle}" Tag="Setting">
+                        <Button Style="{StaticResource ToolButtonStyle}" Tag="Setting"
+                                 Click="ButtnNavigate_Click">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="⚙️" FontSize="18" Margin="0,0,8,0"/>
                                 <TextBlock Text="Setting"/>

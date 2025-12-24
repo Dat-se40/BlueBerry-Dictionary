@@ -21,7 +21,7 @@ namespace BlueBerryDictionary
             this.ShutdownMode = ShutdownMode.OnExplicitShutdown;
 
             // ✅ 3. CHECK LOGIN & SHOW WINDOWS
-            bool isLoggedIn = CheckLoginState();
+            bool isLoggedIn = false ;
 
             if (!isLoggedIn)
             {

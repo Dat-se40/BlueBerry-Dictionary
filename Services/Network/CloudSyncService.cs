@@ -26,7 +26,7 @@ namespace BlueBerryDictionary.Services.Network
 
         private DriveService _driveService;
         private const string APP_FOLDER_NAME = "BlueBerryDictionary";
-        private string _appFolderId;
+        public string _appFolderId { get; private set; }
         public static  readonly string[] essentialFile = new[] { "MyWords.json", "Tags.json", "GameLog.json" };
         private CloudSyncService()
         {

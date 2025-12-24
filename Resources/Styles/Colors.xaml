@@ -338,5 +338,32 @@
                       ShadowDepth="2"
                       Opacity="0.3"
                       Color="Black" />
+    <!-- Thêm vào phần LIGHT MODE COLORS (sau Search Container) -->
 
+    <!-- Suggestions Popup -->
+    <SolidColorBrush x:Key="LightSuggestionsBackground" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="LightSuggestionsBorder" Color="#5B7FFF" />
+    <SolidColorBrush x:Key="LightSuggestionsItemBorder" Color="#E8F1FF" />
+    <SolidColorBrush x:Key="LightSuggestionsItemHover" Color="#E8F1FF" />
+    <SolidColorBrush x:Key="LightSuggestionsItemSelected" Color="#D1E3FF" />
+
+
+    <!-- Thêm vào phần DARK MODE COLORS (sau Search Container) -->
+
+    <!-- Suggestions Popup -->
+    <SolidColorBrush x:Key="DarkSuggestionsBackground" Color="#1E293B" />
+    <SolidColorBrush x:Key="DarkSuggestionsBorder" Color="#3B82F6" />
+    <SolidColorBrush x:Key="DarkSuggestionsItemBorder" Color="#334155" />
+    <SolidColorBrush x:Key="DarkSuggestionsItemHover" Color="#334155" />
+    <SolidColorBrush x:Key="DarkSuggestionsItemSelected" Color="#475569" />
+
+
+    <!-- Thêm vào phần DYNAMIC RESOURCES (Mặc định Light Mode) -->
+
+    <!-- Suggestions Popup -->
+    <SolidColorBrush x:Key="SuggestionsBackground" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="SuggestionsBorder" Color="#5B7FFF" />
+    <SolidColorBrush x:Key="SuggestionsItemBorder" Color="#E8F1FF" />
+    <SolidColorBrush x:Key="SuggestionsItemHover" Color="#E8F1FF" />
+    <SolidColorBrush x:Key="SuggestionsItemSelected" Color="#D1E3FF" />
 </ResourceDictionary>

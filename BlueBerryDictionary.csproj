@@ -10,6 +10,7 @@
     <PublishSingleFile>true</PublishSingleFile>
     <SelfContained>true</SelfContained>
     <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <ApplicationIcon>Resources\Image\logo.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -30,6 +31,7 @@
   <ItemGroup>
     <Resource Include="Resources\Image\google.png" />
     <Resource Include="Resources\Image\logo.png" />
+    <Resource Include="Resources\Image\logo.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -40,7 +42,8 @@
     <Content Include="ApiClient\Configuration\appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content >
+    </Content>
+    <Content Include="Resources\Image\logo.ico" />
    
   </ItemGroup>
 

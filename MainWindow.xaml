@@ -56,6 +56,7 @@
                     <Button x:Name="HamburgerBtn"
                             Grid.Column="0"
                             Style="{StaticResource HamburgerButtonStyle}"
+                            Foreground="{DynamicResource MainBackground}"
                             Click="HamburgerBtn_Click"
                             Margin="0,0,10,0"/>
 
@@ -66,7 +67,8 @@
                             Click="BackBtn_Click"
                             IsEnabled="False"
                             ToolTip="Quay lại"
-                            Margin="0,0,8,0">
+                            Margin="0,0,8,0"
+                            Foreground="{DynamicResource MainBackground}">
                         <TextBlock Text="◀" FontSize="16" FontWeight="Bold"/>
                     </Button>
 
@@ -77,7 +79,8 @@
                             Click="ForwardBtn_Click"
                             IsEnabled="False"
                             ToolTip="Tiến tới"
-                            Margin="0,0,8,0">
+                            Margin="0,0,8,0"
+                            Foreground="{DynamicResource MainBackground}">
                         <TextBlock Text="▶" FontSize="16" FontWeight="Bold"/>
                     </Button>
 
@@ -87,7 +90,8 @@
                             Style="{StaticResource NavButtonStyle}"
                             Click="ReloadBtn_Click"
                             ToolTip="Tải lại"
-                            Margin="0,0,20,0">
+                            Margin="0,0,20,0"
+                            Foreground="{DynamicResource MainBackground}">
                         <TextBlock x:Name="ReloadIcon" Text="🔄" FontSize="16"/>
                     </Button>
 
@@ -99,7 +103,7 @@
 
                         <!-- Border chứa Search Input -->
                         <Border Background="{DynamicResource SearchBackground}"
-                                BorderBrush="{DynamicResource SearchBorder}"
+                                BorderBrush="{DynamicResource BorderColor}"
                                 BorderThickness="2"
                                 CornerRadius="25"
                                 Padding="15,8">
@@ -139,39 +143,40 @@
                         </Border>
 
                         <!-- Popup Suggestions  -->
+                        <!-- Popup Suggestions  -->
                         <Popup x:Name="SuggestionsPopup"
-                               PlacementTarget="{Binding ElementName=SearchInput}"
-                               Placement="Bottom"
-                               Width="{Binding ElementName=SearchInput, Path=ActualWidth}"
-                               MaxHeight="300"
-                               IsOpen="{Binding IsSuggestionsOpen, Mode=TwoWay}"
-                               StaysOpen="False"
-                               AllowsTransparency="True"
-                               PopupAnimation="Slide">
-                              
-                            <Border Background="White"
-                                    BorderBrush="{DynamicResource BorderColor}"
-                                    BorderThickness="2"
-                                    CornerRadius="0,0,12,12"
-                                    Padding="0">
+       PlacementTarget="{Binding ElementName=SearchInput}"
+       Placement="Bottom"
+       Width="{Binding ElementName=SearchInput, Path=ActualWidth}"
+       MaxHeight="300"
+       IsOpen="{Binding IsSuggestionsOpen, Mode=TwoWay}"
+       StaysOpen="False"
+       AllowsTransparency="True"
+       PopupAnimation="Slide">
+
+                            <Border Background="{DynamicResource SuggestionsBackground}"
+            BorderBrush="{DynamicResource SuggestionsBorder}"
+            BorderThickness="2"
+            CornerRadius="0,0,12,12"
+            Padding="0">
                                 <Border.Effect>
                                     <DropShadowEffect BlurRadius="10"
-                                                      ShadowDepth="2"
-                                                      Opacity="0.3"
-                                                      Color="#5B7FFF"/>
+                              ShadowDepth="2"
+                              Opacity="0.3"
+                              Color="#5B7FFF"/>
                                 </Border.Effect>
 
                                 <!-- Suggestions List -->
                                 <ListBox x:Name="SuggestionsList"
-                                         Background="Transparent"
-                                         BorderThickness="0"
-                                         ItemsSource="{Binding Suggestions}"
-                                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                         ScrollViewer.VerticalScrollBarVisibility="Auto"
-                                         MouseDown="SuggestionsList_MouseDown"
-                                         SelectionChanged="SuggestionsList_SelectionChanged"
-                                         SelectionMode="Single">
-                                        
+                 Background="Transparent"
+                 BorderThickness="0"
+                 ItemsSource="{Binding Suggestions}"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                 ScrollViewer.VerticalScrollBarVisibility="Auto"
+                 MouseDown="SuggestionsList_MouseDown"
+                 SelectionChanged="SuggestionsList_SelectionChanged"
+                 SelectionMode="Single">
+
                                     <!-- ListBox Item Style -->
                                     <ListBox.ItemContainerStyle>
                                         <Style TargetType="ListBoxItem">
@@ -181,9 +186,9 @@
                                                 <Setter.Value>
                                                     <ControlTemplate TargetType="ListBoxItem">
                                                         <Border Background="{TemplateBinding Background}"
-                                                                Padding="{TemplateBinding Padding}"
-                                                                BorderThickness="0,0,0,1"
-                                                                BorderBrush="#E8F1FF">
+                                        Padding="{TemplateBinding Padding}"
+                                        BorderThickness="0,0,0,1"
+                                        BorderBrush="{DynamicResource SuggestionsItemBorder}">
                                                             <Grid>
                                                                 <Grid.ColumnDefinitions>
                                                                     <ColumnDefinition Width="Auto"/>
@@ -192,29 +197,29 @@
 
                                                                 <!-- Search Icon -->
                                                                 <TextBlock Grid.Column="0"
-                                                                           Text="🔍"
-                                                                           FontSize="14"
-                                                                           VerticalAlignment="Center"
-                                                                           Margin="0,0,10,0"
-                                                                           Opacity="0.6"
-                                                                           Foreground="{DynamicResource TextColor}"
-                                                                           Background="Transparent"/>
+                                                   Text="🔍"
+                                                   FontSize="14"
+                                                   VerticalAlignment="Center"
+                                                   Margin="0,0,10,0"
+                                                   Opacity="0.6"
+                                                   Foreground="{DynamicResource TextColor}"
+                                                   Background="Transparent"/>
 
                                                                 <!-- Word Text -->
                                                                 <TextBlock Grid.Column="1"
-                                                                           Text="{Binding}"
-                                                                           FontSize="14"
-                                                                           VerticalAlignment="Center"
-                                                                           Foreground="{DynamicResource TextColor}"
-                                                                           Background="Transparent"/>
+                                                   Text="{Binding}"
+                                                   FontSize="14"
+                                                   VerticalAlignment="Center"
+                                                   Foreground="{DynamicResource TextColor}"
+                                                   Background="Transparent"/>
                                                             </Grid>
                                                         </Border>
                                                         <ControlTemplate.Triggers>
                                                             <Trigger Property="IsMouseOver" Value="True">
-                                                                <Setter Property="Background" Value="#E8F1FF"/>
+                                                                <Setter Property="Background" Value="{DynamicResource SuggestionsItemHover}"/>
                                                             </Trigger>
                                                             <Trigger Property="IsSelected" Value="True">
-                                                                <Setter Property="Background" Value="#D1E3FF"/>
+                                                                <Setter Property="Background" Value="{DynamicResource SuggestionsItemSelected}"/>
                                                             </Trigger>
                                                         </ControlTemplate.Triggers>
                                                     </ControlTemplate>
