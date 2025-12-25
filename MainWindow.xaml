@@ -143,7 +143,6 @@
                         </Border>
 
                         <!-- Popup Suggestions  -->
-                        <!-- Popup Suggestions  -->
                         <Popup x:Name="SuggestionsPopup"
        PlacementTarget="{Binding ElementName=SearchInput}"
        Placement="Bottom"

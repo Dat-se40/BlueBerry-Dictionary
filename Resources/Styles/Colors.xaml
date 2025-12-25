@@ -338,7 +338,6 @@
                       ShadowDepth="2"
                       Opacity="0.3"
                       Color="Black" />
-    <!-- Thêm vào phần LIGHT MODE COLORS (sau Search Container) -->
 
     <!-- Suggestions Popup -->
     <SolidColorBrush x:Key="LightSuggestionsBackground" Color="#FFFFFF" />
