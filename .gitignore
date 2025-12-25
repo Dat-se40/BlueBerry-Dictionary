@@ -421,6 +421,7 @@ FodyWeavers.xsd
 Data/System/CurrentUser.json
 Data/System/LoginLog.json
 Data/PersistentStorage/Users/
+Data/PersistentStorage/GameLogs/
 Data/PackageStorage/AvailalePackages.json
 Data/PersistentStorage/Images
 # ==================== CREDENTIALS ====================
