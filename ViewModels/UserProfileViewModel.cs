@@ -21,8 +21,7 @@ namespace BlueBerryDictionary.ViewModels
     /// </summary>
     public partial class UserProfileViewModel : ObservableObject
     {
-        // ========== OBSERVABLE PROPERTIES ==========
-
+        #region Observable properties
         [ObservableProperty]
         private string _userId;
 
@@ -42,7 +41,7 @@ namespace BlueBerryDictionary.ViewModels
         private string _avatarUrl;
 
         [ObservableProperty]
-        private BitmapImage _avatarImage; // ✅ THÊM: để bind vào Image control
+        private BitmapImage _avatarImage; // để bind vào Image control
 
         [ObservableProperty]
         private string _syncStatusText = "Last synced: Never";
@@ -55,22 +54,24 @@ namespace BlueBerryDictionary.ViewModels
 
         [ObservableProperty]
         private bool _isSaving;
+        #endregion
 
-        // ========== COMPUTED PROPERTIES ==========
+        #region Computed properties
 
         public bool HasAvatar => !string.IsNullOrEmpty(AvatarUrl);
         public string DisplayNameCharCount => $"{DisplayName?.Length ?? 0} / 50";
         public string NicknameCharCount => $"{Nickname?.Length ?? 0} / 30";
 
-        // ========== CONSTRUCTOR ==========
+        #endregion
 
+        #region Constructor
         public UserProfileViewModel()
         {
             LoadUserProfile();
         }
+        #endregion
 
-        // ========== DATA LOADING ==========
-
+        #region Data loading
         /// <summary>
         /// Load user profile từ GoogleAuthService & UserSessionManage
         /// </summary>
@@ -94,7 +95,7 @@ namespace BlueBerryDictionary.ViewModels
                 else
                 {
                     // Logged in
-                    UserId = session.UserId ?? session.Email;
+                    UserId = session.UserId ?? CloudSyncService.Instance._appFolderId;
                     DisplayName = session.DisplayName ?? "User";
                     Nickname = ""; // TODO: Load từ Settings.json nếu có
                     Email = session.Email;
@@ -156,9 +157,9 @@ namespace BlueBerryDictionary.ViewModels
         {
             SyncStatusText = $"Last synced: {DateTime.Now:yyyy-MM-dd HH:mm:ss}";
         }
+        #endregion
 
-        // ========== RELAY COMMANDS ==========
-
+        #region Commands
         /// <summary>
         /// Upload avatar (local file)
         /// </summary>
@@ -385,5 +386,6 @@ namespace BlueBerryDictionary.ViewModels
                 MessageBox.Show($"Failed to logout: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+        #endregion
     }
 }

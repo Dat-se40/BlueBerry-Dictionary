@@ -13,13 +13,11 @@ namespace BlueBerryDictionary.ViewModels
 {
     public partial class SearchViewModel : ObservableObject
     {
-        // ==================== SERVICES ====================
         private readonly WordSearchService _searchService;
         private CancellationTokenSource _searchCts;
         private INavigationService _navigationService;
         private DetailsPage _detailsPage;
-
-        // ==================== OBSERVABLE PROPERTIES ====================
+        #region Observable properties
 
         [ObservableProperty]
         private string _searchText;
@@ -51,8 +49,9 @@ namespace BlueBerryDictionary.ViewModels
         [ObservableProperty]
         private string _ukAudioUrl;
         public ICommand SearchFromRelatedWordCommand { get; }
+        #endregion
 
-        // ==================== CONSTRUCTOR ====================
+        #region Constructor
         public SearchViewModel(INavigationService navigationService)
         {
             _searchService = new WordSearchService();
@@ -72,34 +71,14 @@ namespace BlueBerryDictionary.ViewModels
 
         }
 
-        // ==================== PROPERTY CHANGED HANDLERS ====================
+        #endregion
+
+        #region Property changed handlers
 
         partial void OnSearchTextChanged(string value)
         {
             OnSearchTextChangedAsync();
         }
-
-        private async Task SearchAndNavigate(string word)
-        {
-            SearchText = word;
-            await ExecuteSearchAsync();
-
-            if (HasResults && CurrentWords != null && CurrentWords.Count > 0)
-            {
-                var detailsPage = new DetailsPage(CurrentWords[0], OnWordClicked);
-                detailsPage.DataContext = this;
-
-                string uniqueId = $"Details_{word}_{DateTime.Now.Ticks}";
-                _navigationService.NavigateTo("Details", detailsPage, uniqueId);
-            }
-        }
-        public async void OnWordClicked(string word)
-        {
-            if (string.IsNullOrWhiteSpace(word))
-                return;
-            await SearchAndNavigate(word);
-        }
-        // ==================== SEARCH LOGIC ====================
 
         /// <summary>
         /// Debounce search với autocomplete
@@ -137,8 +116,42 @@ namespace BlueBerryDictionary.ViewModels
                 // Expected when user types fast
             }
         }
+        #endregion
 
-        // ==================== RELAY COMMANDS ====================
+        #region Search logic
+
+        /// <summary>
+        /// Tìm từ và navigate tới DetailsPage
+        /// </summary>
+        private async Task SearchAndNavigate(string word)
+        {
+            SearchText = word;
+            await ExecuteSearchAsync();
+
+            if (HasResults && CurrentWords != null && CurrentWords.Count > 0)
+            {
+                var detailsPage = new DetailsPage(CurrentWords[0], OnWordClicked);
+                detailsPage.DataContext = this;
+
+                string uniqueId = $"Details_{word}_{DateTime.Now.Ticks}";
+                _navigationService.NavigateTo("Details", detailsPage, uniqueId);
+            }
+        }
+
+        /// <summary>
+        /// Callback khi click từ liên quan
+        /// </summary>
+        public async void OnWordClicked(string word)
+        {
+            if (string.IsNullOrWhiteSpace(word))
+                return;
+            await SearchAndNavigate(word);
+        }
+
+        #endregion
+
+        #region Commands
+
         [RelayCommand] 
         public async Task ExcuteSearchAndNavigate() 
         {
@@ -166,7 +179,7 @@ namespace BlueBerryDictionary.ViewModels
                 _searchCts?.Cancel();
                 _searchCts = new CancellationTokenSource();
 
-                // 🔥 PARALLEL EXECUTION
+                // Parallel execution: search word + get audio
                 var searchTask = _searchService.SearchWordAsync(SearchText, _searchCts.Token);
                 var audioTask = _searchService.GetAudioAsync(SearchText);
 
@@ -232,7 +245,7 @@ namespace BlueBerryDictionary.ViewModels
         }
 
         /// <summary>
-        /// Play US audio
+        /// Phát âm US
         /// </summary>
         [RelayCommand]
         private async Task PlayUsAudio()
@@ -242,7 +255,7 @@ namespace BlueBerryDictionary.ViewModels
         }
 
         /// <summary>
-        /// Play UK audio
+        /// Phát âm UK
         /// </summary>
         [RelayCommand]
         private async Task PlayUkAudio()
@@ -251,7 +264,7 @@ namespace BlueBerryDictionary.ViewModels
         }
 
         /// <summary>
-        /// Download word to local storage
+        /// Download từ về local storage
         /// </summary>
         [RelayCommand]
         private async Task ExecuteDownload()
@@ -270,7 +283,9 @@ namespace BlueBerryDictionary.ViewModels
             MessageBox.Show(already ? "This word has been downloaded" : "he word and images have been downloaded to your device");
         }
 
-        // ==================== HELPER METHODS ====================
+        #endregion
+
+        #region Helper methods
 
         /// <summary>
         /// Load audio URLs for pronunciation
@@ -290,7 +305,7 @@ namespace BlueBerryDictionary.ViewModels
         }
 
         /// <summary>
-        /// Play audio using Audio service
+        /// Phát audio sử dụng Audio service
         /// </summary>
         private async Task PlayAudioAsync(string audioUrl)
         {
@@ -310,5 +325,6 @@ namespace BlueBerryDictionary.ViewModels
                 StatusMessage = $"Audio error: {ex.Message}";
             }
         }
+        #endregion
     }
 }

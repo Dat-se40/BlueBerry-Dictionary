@@ -9,6 +9,10 @@ using System.Linq;
 
 namespace BlueBerryDictionary.Services.User
 {
+    /// <summary>
+    /// Quản lý session user (Singleton)
+    /// Lưu thông tin login, logout, login log
+    /// </summary>
     public class UserSessionManage
     {
         private static UserSessionManage _instance;
@@ -16,21 +20,23 @@ namespace BlueBerryDictionary.Services.User
 
         private readonly string _sessionPath;
         private readonly string _loginLogPath;
-
-        // ========== PROPERTIES ==========
-
+        
+        #region Properties
         public bool IsGuest { get; private set; } = true;
         public string UserId { get; private set; }
         public string Email { get; private set; }
         public string DisplayName { get; private set; }
         public string AvatarUrl { get; private set; }
 
-        // ========== EVENTS ==========
+        #endregion
+
+        #region Events
 
         public event EventHandler<bool> LoginStateChanged;
 
-        // ========== CONSTRUCTOR ==========
+        #endregion
 
+        #region Constructor
         private UserSessionManage()
         {
             var baseDir = AppDomain.CurrentDomain.BaseDirectory;
@@ -41,8 +47,9 @@ namespace BlueBerryDictionary.Services.User
             _loginLogPath = PathHelper.Combine(systemDir, "LoginLog.json");
         }
 
-        // ========== SET MODES ==========
+        #endregion
 
+        #region Set modes
         public void SetGuestMode()
         {
             IsGuest = true;
@@ -76,9 +83,9 @@ namespace BlueBerryDictionary.Services.User
             SetGuestMode();
             ClearSession();
         }
+        #endregion
 
-        // ========== SAVE/LOAD SESSION ==========
-
+        #region Save/Load session
         /// <summary>
         /// Save session (gọi sau khi login)
         /// </summary>
@@ -146,8 +153,9 @@ namespace BlueBerryDictionary.Services.User
             }
         }
 
-        // ========== LOGIN LOG ==========
+        #endregion
 
+        #region Login log
         /// <summary>
         /// Add login record
         /// </summary>
@@ -219,5 +227,6 @@ namespace BlueBerryDictionary.Services.User
                 Console.WriteLine($"❌ Update logout time error: {ex.Message}");
             }
         }
+        #endregion
     }
 }

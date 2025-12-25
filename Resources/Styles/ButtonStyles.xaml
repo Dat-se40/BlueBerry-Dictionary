@@ -297,16 +297,9 @@
         <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="BorderThickness" Value="2"/>
 
-        <!-- Trạng thái mặc định: gradient nhẹ -->
-        <Setter Property="Background">
-            <Setter.Value>
-                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                    <GradientStop Color="#FFFFFF" Offset="0"/>
-                    <GradientStop Color="#F0F4FF" Offset="1"/>
-                </LinearGradientBrush>
-            </Setter.Value>
-        </Setter>
-        <Setter Property="Foreground" Value="{DynamicResource ButtonColor}"/>
+        <!-- Dùng background động giống SearchButton -->
+        <Setter Property="Background" Value="{DynamicResource MainBackground}"/>
+        <Setter Property="Foreground" Value="White"/>
         <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
 
         <Setter Property="RenderTransform">
@@ -331,9 +324,9 @@
         </Setter>
 
         <Style.Triggers>
-            <!-- Hover: gradient đậm + chữ trắng + đẩy lên -->
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{DynamicResource ToolButtonActive}"/>
+                <!-- Hover giống SearchButtonHover -->
+                <Setter Property="Background" Value="{DynamicResource ButtonColor }"/>
                 <Setter Property="Foreground" Value="White"/>
                 <Trigger.EnterActions>
                     <BeginStoryboard>

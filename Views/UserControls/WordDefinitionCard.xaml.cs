@@ -175,10 +175,11 @@ namespace BlueBerryDictionary.Views.UserControls
             if (TagService.Instance.FindWordInsensitive(this.Word) is WordShortened ws) 
             {
                 ws.isFavorited = IsFavorite ;
+                TagService.Instance.SaveWords(); 
             }else 
             {
                 TagService.Instance.AddNewWordShortened(_mainWord); 
-
+                _mainWord.isFavorited = IsFavorite;
             }
             FavoriteClicked?.Invoke(this, EventArgs.Empty);
         }

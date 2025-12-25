@@ -11,7 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using DriveFile = Google.Apis.Drive.v3.Data.File; // ✅ Alias
+using DriveFile = Google.Apis.Drive.v3.Data.File; // Alias
 
 namespace BlueBerryDictionary.Services.Network
 {
@@ -26,14 +26,14 @@ namespace BlueBerryDictionary.Services.Network
 
         private DriveService _driveService;
         private const string APP_FOLDER_NAME = "BlueBerryDictionary";
-        private string _appFolderId;
+        public string _appFolderId { get; private set; }
         public static  readonly string[] essentialFile = new[] { "MyWords.json", "Tags.json", "GameLog.json" };
         private CloudSyncService()
         {
             // Paths sẽ lấy từ UserDataManager (dynamic theo user)
         }
 
-        // ==================== INITIALIZE ====================
+        #region Initialize
 
         public async Task InitializeAsync(UserCredential credential)
         {
@@ -46,8 +46,9 @@ namespace BlueBerryDictionary.Services.Network
             _appFolderId = await GetOrCreateAppFolderAsync();
             Console.WriteLine($"✅ Drive initialized. Folder ID: {_appFolderId}");
         }
+        #endregion
 
-        // ==================== DOWNLOAD ALL ====================
+        #region Download từ Drive
 
         public async Task<SyncResult> DownloadAllDataAsync()
         {
@@ -148,6 +149,11 @@ namespace BlueBerryDictionary.Services.Network
                 throw;
             }
         }
+
+        /// <summary>
+        /// Merge MyWords từ Drive với local
+        /// Logic: Drive mới hơn → Update, Local mới hơn → Giữ
+        /// </summary>
         public async Task MergeTagsAsync(string driveJsonData)
         {
             try
@@ -211,8 +217,13 @@ namespace BlueBerryDictionary.Services.Network
             return await reader.ReadToEndAsync(); // Trả về JSON string
         }
 
-        // ==================== UPLOAD ALL PENDING ====================
 
+        #endregion
+
+        #region Upload lên Drive
+        /// <summary>
+        /// Upload tất cả file pending lên Drive
+        /// </summary>
         public async Task UploadAllPendingAsync()
         {
             try
@@ -246,7 +257,10 @@ namespace BlueBerryDictionary.Services.Network
             }
         }
 
-        // ==================== UPLOAD SINGLE FILE ====================
+
+        #endregion
+
+        #region Upload lên Drive
 
         /// <summary>
         /// Upload/Update 1 file lên Drive
@@ -262,19 +276,19 @@ namespace BlueBerryDictionary.Services.Network
                     return;
                 }
 
-                // ✅ CHECK FILE TỒN TẠI CHƯA
+                // Check xem file tồn tại chưa
                 var existingFileId = await FindFileIdAsync(filename);
 
                 if (existingFileId != null)
                 {
-                    // ========== UPDATE FILE CŨ ==========
+                    // Update file cũ
                     Console.WriteLine($"🔄 Updating existing file: {filename} (ID: {existingFileId})");
 
                     using var stream = new FileStream(localPath, FileMode.Open, FileAccess.Read);
 
-                    // ✅ CÁCH 1: Update chỉ content (KHÔNG đổi metadata)
+                    // CÁCH 1: Update chỉ content (KHÔNG đổi metadata)
                     var updateRequest = _driveService.Files.Update(
-                        new DriveFile(), // ⬅️ Empty metadata (chỉ update content)
+                        new DriveFile(), //  Empty metadata (chỉ update content)
                         existingFileId,
                         stream,
                         "application/json"
@@ -294,7 +308,7 @@ namespace BlueBerryDictionary.Services.Network
                 }
                 else
                 {
-                    // ========== TẠO FILE MỚI ==========
+                    // Tạo file mới
                     Console.WriteLine($"📤 Creating new file: {filename}");
 
                     var fileMetadata = new DriveFile
@@ -331,8 +345,9 @@ namespace BlueBerryDictionary.Services.Network
                 throw;
             }
         }
+        #endregion
 
-        // ==================== PRIVATE HELPERS ====================
+        #region Helper methods
 
         private async Task DownloadFileAsync(string fileId, string localPath)
         {
@@ -349,7 +364,7 @@ namespace BlueBerryDictionary.Services.Network
                     Directory.CreateDirectory(directory);
                 }
 
-                await File.WriteAllBytesAsync(localPath, stream.ToArray()); // ✅ System.IO.File
+                await File.WriteAllBytesAsync(localPath, stream.ToArray()); // System.IO.File
             }
             catch (Exception ex)
             {
@@ -357,7 +372,9 @@ namespace BlueBerryDictionary.Services.Network
                 throw;
             }
         }
-
+        /// <summary>
+        /// Tìm file ID trên Drive theo tên
+        /// </summary>
         private async Task<string> FindFileIdAsync(string filename)
         {
             try
@@ -365,11 +382,11 @@ namespace BlueBerryDictionary.Services.Network
                 var request = _driveService.Files.List();
                 request.Q = $"name='{filename}' and '{_appFolderId}' in parents and trashed=false";
                 request.Fields = "files(id, name, modifiedTime)";
-                request.PageSize = 10; // ⬆️ Tăng lên 10 để debug
+                request.PageSize = 10; // Tăng lên 10 để debug
 
                 var result = await request.ExecuteAsync();
 
-                // ✅ LOG ĐỂ DEBUG
+                // LOG ĐỂ DEBUG
                 Console.WriteLine($"🔍 Searching for: {filename}");
                 Console.WriteLine($"📁 Files found: {result.Files?.Count ?? 0}");
 
@@ -391,7 +408,9 @@ namespace BlueBerryDictionary.Services.Network
                 return null;
             }
         }
-
+        /// <summary>
+        /// Lấy hoặc tạo folder app trên Drive
+        /// </summary>
         private async Task<string> GetOrCreateAppFolderAsync()
         {
             try
@@ -407,7 +426,7 @@ namespace BlueBerryDictionary.Services.Network
                     return result.Files[0].Id;
                 }
 
-                var folderMetadata = new DriveFile // ✅ Alias
+                var folderMetadata = new DriveFile // Alias
                 {
                     Name = APP_FOLDER_NAME,
                     MimeType = "application/vnd.google-apps.folder"
@@ -427,7 +446,7 @@ namespace BlueBerryDictionary.Services.Network
         }
 
         /// <summary>
-        /// Get local file path (dynamic theo user)
+        /// Lấy đường dẫn file local theo tên (dynamic theo user)
         /// </summary>
         public string GetLocalFilePath(string filename)
         {
@@ -439,5 +458,7 @@ namespace BlueBerryDictionary.Services.Network
                 _ => throw new ArgumentException($"Unknown file: {filename}")
             };
         }
+
+        #endregion
     }
 }

@@ -14,7 +14,7 @@ namespace BlueBerryDictionary.Services.Network
 {
     /// <summary>
     /// Token Management (Singleton)
-    /// ✅ Production-ready: Complete scope validation + Fast cleanup
+    /// Production-ready: Complete scope validation + Fast cleanup
     /// </summary>
     public class TokenManager
     {
@@ -35,15 +35,16 @@ namespace BlueBerryDictionary.Services.Network
                 Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
                 "BlueBerryDictionary", "credentials");
             Directory.CreateDirectory(_credentialPath);
-
+            Console.WriteLine(_credentialPath);
             _scopesFilePath = Path.Combine(_credentialPath, "scopes.json");
             _tokenFilePath = Path.Combine(_credentialPath, "Google.Apis.Auth.OAuth2.Responses.TokenResponse-user");
         }
 
-        // ==================== PUBLIC API ====================
+        #region Public API
 
         /// <summary>
-        /// Check if can reuse existing token
+        /// Kiểm tra xem có thể reuse token không
+        /// Flow: Check file → Validate scopes → Check expiry → Refresh → Verify với Google
         /// </summary>
         public async Task<TokenReuseResult> TryReuseTokenAsync(
             ClientSecrets clientSecrets,
@@ -64,7 +65,7 @@ namespace BlueBerryDictionary.Services.Network
                     return TokenReuseResult.Fail("Failed to load token");
                 }
 
-                // ✅ Check scope changes (fail fast)
+                // Check scope changes (fail fast)
                 if (!await ValidateScopesAsync(requiredScopes))
                 {
                     Console.WriteLine("⚠️ [TokenManager] Scopes changed → Clearing all tokens");
@@ -72,7 +73,7 @@ namespace BlueBerryDictionary.Services.Network
                     return TokenReuseResult.Fail("Required scopes changed - token cleared");
                 }
 
-                // ✅ Check expiry & refresh
+                // Check expiry & refresh
                 var validToken = await EnsureTokenValidAsync(clientSecrets, tokenResponse);
                 if (validToken == null)
                 {
@@ -81,7 +82,7 @@ namespace BlueBerryDictionary.Services.Network
                     return TokenReuseResult.Fail("Token expired and refresh failed");
                 }
 
-                // ✅ Verify token with Google
+                // Verify token with Google
                 if (!await VerifyTokenWithGoogleAsync(validToken.AccessToken, requiredScopes))
                 {
                     Console.WriteLine("⚠️ [TokenManager] Token missing scopes");
@@ -89,7 +90,7 @@ namespace BlueBerryDictionary.Services.Network
                     return TokenReuseResult.Fail("Token missing required scopes");
                 }
 
-                // ✅ Create credential
+                // Create credential
                 var credential = CreateCredential(clientSecrets, requiredScopes, validToken);
                 if (credential == null)
                 {
@@ -109,7 +110,7 @@ namespace BlueBerryDictionary.Services.Network
         }
 
         /// <summary>
-        /// Save scopes ONLY after successful Drive auth
+        /// Lưu scopes chỉ sau khi Drive auth thành công
         /// </summary>
         public async Task SaveScopesAsync(string[] scopes)
         {
@@ -139,10 +140,12 @@ namespace BlueBerryDictionary.Services.Network
 
         public string GetCredentialPath() => _credentialPath;
 
-        // ==================== CLEAR METHODS ====================
+        #endregion
+
+        #region Clear credentials
 
         /// <summary>
-        /// ✅ COMPLETE cleanup: token + scopes + folder
+        /// Complete cleanup: token + scopes + folder
         /// Async version for login
         /// </summary>
         public async Task ClearAllCredentialsAsync()
@@ -198,7 +201,9 @@ namespace BlueBerryDictionary.Services.Network
             }
         }
 
-        // ==================== PRIVATE METHODS ====================
+        #endregion
+
+        #region Private methods
 
         private async Task<TokenResponse> LoadTokenResponseAsync()
         {
@@ -212,7 +217,9 @@ namespace BlueBerryDictionary.Services.Network
                 return null;
             }
         }
-
+        /// <summary>
+        /// Đảm bảo token còn valid (refresh nếu cần)
+        /// </summary>
         private async Task<TokenResponse> EnsureTokenValidAsync(
             ClientSecrets clientSecrets,
             TokenResponse tokenResponse)
@@ -229,6 +236,9 @@ namespace BlueBerryDictionary.Services.Network
             return await RefreshTokenAsync(clientSecrets, tokenResponse);
         }
 
+        /// <summary>
+        /// Refresh token với Google
+        /// </summary>
         private async Task<TokenResponse> RefreshTokenAsync(
             ClientSecrets clientSecrets,
             TokenResponse oldToken)
@@ -302,7 +312,7 @@ namespace BlueBerryDictionary.Services.Network
         }
 
         /// <summary>
-        /// ✅ Verify token scopes with cache to avoid rate limit
+        /// Verify token scopes với Google (có cache 5 phút)
         /// </summary>
         private async Task<bool> VerifyTokenWithGoogleAsync(string accessToken, string[] requiredScopes)
         {
@@ -392,7 +402,10 @@ namespace BlueBerryDictionary.Services.Network
             }
         }
 
-        // ==================== MODELS ====================
+        #endregion
+
+        #region Models
+
 
         private class TokenInfo
         {
@@ -404,6 +417,8 @@ namespace BlueBerryDictionary.Services.Network
             public string[] Scopes { get; set; }
             public DateTime SavedAt { get; set; }
         }
+
+        #endregion
     }
 
     public class TokenReuseResult

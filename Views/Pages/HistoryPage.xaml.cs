@@ -47,10 +47,10 @@ namespace BlueBerryDictionary.Pages
                 {
                     base.HandleWordClick(newCard.Word);
                 };
-                if (TagService.Instance.FindWordInsensitive(newCard.Word) is WordShortened ws)
-                {
-                    newCard.IsFavorite = ws.isFavorited;
-                }
+                //if (TagService.Instance.FindWordInsensitive(newCard.Word) is WordShortened ws)
+                //{
+                //    newCard.IsFavorite = ws.isFavorited;
+                //}
                 mainContent.Children.Add(newCard);
             }
 

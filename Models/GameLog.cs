@@ -18,7 +18,7 @@ namespace BlueBerryDictionary.Models
         public List<int> SkippedCardIndices { get; set; }
         public List<string> SkippedWords { get; set; }
     
-        // ✅ Thêm property này để binding
+        // Property này để binding
         public string DurationText
         {
             get

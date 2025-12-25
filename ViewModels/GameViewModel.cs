@@ -14,7 +14,7 @@ namespace BlueBerryDictionary.ViewModels
         private readonly GameLogService _gameLogService;
         private readonly TagService _tagService;
 
-        // ========== PROPERTIES ==========
+        #region Properties
 
         private List<WordShortened> _flashcards = new List<WordShortened>();
         public List<WordShortened> Flashcards
@@ -119,7 +119,9 @@ namespace BlueBerryDictionary.ViewModels
         private DateTime _sessionStartTime;
         public string DataSourceName { get; set; }
 
-        // ========== CONSTRUCTOR ==========
+        #endregion
+
+        #region Constructor
 
         public GameViewModel()
         {
@@ -127,7 +129,9 @@ namespace BlueBerryDictionary.ViewModels
             _tagService = TagService.Instance;
         }
 
-        // ========== GAME LIFECYCLE ==========
+        #endregion
+
+        #region Game lifecycle
 
         /// <summary>
         /// Bắt đầu game với flashcards đã được chuẩn bị
@@ -191,7 +195,9 @@ namespace BlueBerryDictionary.ViewModels
             };
         }
 
-        // ========== CARD NAVIGATION ==========
+        #endregion
+
+        #region Navigation
 
         public void GoToCard(int index)
         {
@@ -205,13 +211,13 @@ namespace BlueBerryDictionary.ViewModels
 
         public void NextCard()
         {
-            // Mark as known if not skipped
+            // Đánh dấu known nếu chưa skip
             if (!KnownCards.Contains(CurrentCardIndex) && !SkippedCards.Contains(CurrentCardIndex))
             {
                 KnownCards.Add(CurrentCardIndex);
             }
 
-            // Remove from skipped if was skipped before
+            // Xóa khỏi skipped nếu đã skip trước đó
             if (SkippedCards.Contains(CurrentCardIndex))
             {
                 SkippedCards.Remove(CurrentCardIndex);
@@ -227,13 +233,13 @@ namespace BlueBerryDictionary.ViewModels
 
         public void SkipCurrentCard()
         {
-            // Mark as skipped
+            // Đánh dấu skipped
             if (!SkippedCards.Contains(CurrentCardIndex))
             {
                 SkippedCards.Add(CurrentCardIndex);
             }
 
-            // Remove from known
+            // Xóa khỏi known
             if (KnownCards.Contains(CurrentCardIndex))
             {
                 KnownCards.Remove(CurrentCardIndex);
@@ -251,8 +257,9 @@ namespace BlueBerryDictionary.ViewModels
             }
         }
 
-        // ========== FLIP ANIMATION ==========
+        #endregion
 
+        #region Flip animation
         public void ToggleFlip()
         {
             if (!IsAnimating)
@@ -261,8 +268,10 @@ namespace BlueBerryDictionary.ViewModels
             }
         }
 
-        // ========== RESTART ==========
 
+        #endregion
+
+        #region Restart
         public void RestartGame()
         {
             CurrentCardIndex = 0;
@@ -273,18 +282,21 @@ namespace BlueBerryDictionary.ViewModels
             OnPropertyChanged(nameof(CurrentCard));
         }
 
-        // ========== INOTIFYPROPERTYCHANGED ==========
+        #endregion
 
+        #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+        #endregion
     }
 
-    // ========== HELPER CLASS ==========
-
+    /// <summary>
+    /// Data trả về khi hoàn thành game
+    /// </summary>
     public class GameCompletionData
     {
         public int Percentage { get; set; }

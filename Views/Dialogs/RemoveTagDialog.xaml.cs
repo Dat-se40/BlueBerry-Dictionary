@@ -22,6 +22,7 @@ namespace BlueBerryDictionary.Views.Dialogs
             InitializeComponent();
             _tagService = TagService.Instance;
             LoadTags();
+            ApplyGlobalFont();
         }
 
         private void LoadTags()
@@ -117,6 +118,29 @@ namespace BlueBerryDictionary.Views.Dialogs
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Thêm font chữ
+        /// </summary>
+        private void ApplyGlobalFont()
+        {
+            try
+            {
+                if (Application.Current.Resources.Contains("AppFontFamily"))
+                {
+                    this.FontFamily = (FontFamily)Application.Current.Resources["AppFontFamily"];
+                }
+
+                if (Application.Current.Resources.Contains("AppFontSize"))
+                {
+                    this.FontSize = (double)Application.Current.Resources["AppFontSize"];
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"⚠️ Apply font to dialog error: {ex.Message}");
+            }
         }
     }
 }

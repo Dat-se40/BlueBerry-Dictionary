@@ -11,6 +11,10 @@ using System.Threading.Tasks;
 
 namespace BlueBerryDictionary.Services
 {
+    /// <summary>
+    /// Quản lý offline packages (Singleton)
+    /// Lazy load khi user vào Offline Mode
+    /// </summary>
     internal class PackageManager
     {
         private static PackageManager _instance;
@@ -26,13 +30,10 @@ namespace BlueBerryDictionary.Services
         private readonly string _availablePackageUrl = "https://raw.githubusercontent.com/Dat-se40/BlueBerry-Dictionary/OfflineMode/Data/AvailablePackages.json"; // sẽ cập nhật link gg drive sau
         private PackageManager() { }
 
-        // ==================== INITIALIZE ====================
-
+        #region Initialize
         /// <summary>
-        /// ✅ Lazy Load: GỌI KHI USER VÀO OFFLINE MODE PAGE
-        /// LOGIC:
-        /// 1. Fetch từ server (nếu có mạng)
-        /// 2. Nếu fail → Load từ file local (fallback)
+        /// Khởi tạo PackageManager (lazy load)
+        /// Logic: Fetch từ server → Load từ file → Check downloaded
         /// </summary>
         public async Task InitializeAsync()
         {
@@ -40,21 +41,23 @@ namespace BlueBerryDictionary.Services
 
             Console.WriteLine("📦 Loading offline packages...");
 
-            // ✅ BƯỚC 1: Thử fetch từ server
+            // Thử fetch từ server
             bool fetchSuccess = await FetchFromServerAsync();
 
-            // ✅ BƯỚC 2: Load từ file (local hoặc vừa download)
+            // Load từ file (local hoặc vừa download)
             bool loadSuccess = LoadPackageListFromFile();
 
 
-            // ✅ BƯỚC 4: Check packages nào đã download
+            // Check packages nào đã download
             CheckDownloadedPackages();
 
             _isInitialized = true;
             Console.WriteLine($"✅ Loaded {_availablePackages.Count} packages");
         }
 
-        // ==================== FETCH FROM SERVER ====================
+        #endregion
+
+        #region Fetch từ server
 
         /// <summary>
         /// Fetch catalog mới nhất từ server
@@ -74,7 +77,7 @@ namespace BlueBerryDictionary.Services
 
                 using var client = new HttpClient { Timeout = TimeSpan.FromSeconds(10) };
                 string json = await client.GetStringAsync(_availablePackageUrl);
-                // ✅ Validate JSON trước khi save
+                // Validate JSON trước khi save
                 var packages = JsonConvert.DeserializeObject<List<TopicPackage>>(json);
                 if (packages == null || packages.Count == 0)
                 {
@@ -82,14 +85,14 @@ namespace BlueBerryDictionary.Services
                     return false;
                 }
 
-                // ✅ Tạo folder nếu chưa có
+                // Tạo folder nếu chưa có
                 var directory = Path.GetDirectoryName(AvailablePackagePath);
                 if (!Directory.Exists(directory))
                 {
                     Directory.CreateDirectory(directory);
                 }
 
-                // ✅ Lưu file
+                // Lưu file
                 await File.WriteAllTextAsync(AvailablePackagePath, json);
 
                 Console.WriteLine($"✅ Fetched {packages.Count} packages from server");
@@ -111,8 +114,9 @@ namespace BlueBerryDictionary.Services
                 return false;
             }
         }
+        #endregion
 
-        // ==================== LOAD FROM FILE ====================
+        #region Load từ file
 
         /// <summary>
         /// Load package catalog từ file local
@@ -128,10 +132,10 @@ namespace BlueBerryDictionary.Services
                     return false;
                 }
 
-                // ✅ ĐỌC FILE CONTENT (KHÔNG PHẢI PATH!)
+                // Đọc file content (không phải path)
                 string json = File.ReadAllText(AvailablePackagePath);
 
-                // ✅ Deserialize
+                // Deserialize
                 _availablePackages = JsonConvert.DeserializeObject<List<TopicPackage>>(json);
 
                 if (_availablePackages == null || _availablePackages.Count == 0)
@@ -150,8 +154,9 @@ namespace BlueBerryDictionary.Services
                 return false;
             }
         }
+        #endregion
 
-        // ==================== CHECK DOWNLOADED ====================
+        #region Kiểm tra downloaded
 
         /// <summary>
         /// Kiểm tra packages nào đã download
@@ -176,7 +181,9 @@ namespace BlueBerryDictionary.Services
             }
         }
 
-        // ==================== PUBLIC API ====================
+        #endregion
+
+        #region Public API
 
         public List<TopicPackage> GetAllPackages() => _availablePackages;
 
@@ -243,6 +250,7 @@ namespace BlueBerryDictionary.Services
                 Console.WriteLine($"🗑️ Deleted package: {package.Name}");
             }
         }
+        #endregion
 
     }
 }

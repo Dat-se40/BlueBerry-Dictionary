@@ -15,6 +15,8 @@ namespace BlueBerryDictionary.Services
     public class ThemeManager
     {
         private static ThemeManager _instance;
+        private ThemeMode _currentMode = ThemeMode.Light;
+
         private ResourceDictionary _appResources;
 
         public static ThemeManager Instance => _instance ??= new ThemeManager();
@@ -22,7 +24,7 @@ namespace BlueBerryDictionary.Services
         public ThemeMode CurrentTheme { get; private set; } = ThemeMode.Light;
         public string CurrentColorTheme { get; private set; } = "theme1";
 
-        // ✅ THÊM: Lưu theme object hiện tại
+        // Lưu theme object hiện tại
         private AppColorTheme _currentThemeObject;
 
         public event Action<ThemeMode> ThemeChanged;
@@ -30,49 +32,68 @@ namespace BlueBerryDictionary.Services
         private ThemeManager()
         {
             _appResources = Application.Current.Resources;
-            // ✅ THÊM: Load theme mặc định
+            // Load theme mặc định
             _currentThemeObject = ThemePresets.GetTheme("theme1");
+            SystemThemeDetector.SystemThemeChanged += OnSystemThemeChanged;
         }
 
-        /// <summary>
-        /// Set theme mode (Light/Dark/Auto)
-        /// </summary>
+
         /// <summary>
         /// Set theme mode (Light/Dark/Auto)
         /// </summary>
         public void SetThemeMode(ThemeMode mode)
         {
+            _currentMode = mode;
             CurrentTheme = mode;
+
+            System.Diagnostics.Debug.WriteLine($"🎨 [ThemeManager] Mode changed: {mode}");
 
             if (mode == ThemeMode.Auto)
             {
-                // TODO: Detect system theme
-                mode = ThemeMode.Light;
-            }
+                // Bật theo dõi system theme
+                SystemThemeDetector.StartWatching();
 
-            // ✅ FIX: Nếu đang ở "default", phải reload Colors.xaml
-            if (CurrentColorTheme == "default" || _currentThemeObject == null)
-            {
-                // ✅ Reload màu gốc từ Colors.xaml
-                ReloadDefaultColors(mode);
+                // Apply theme theo system hiện tại
+                ApplySystemTheme();
+
+                var settings = SettingsService.Instance.CurrentSettings;
+                settings.ThemeMode = "Auto";
+                SettingsService.Instance.SaveSettings();
+
+                System.Diagnostics.Debug.WriteLine("✅ [ThemeManager] Auto mode enabled");
             }
             else
             {
-                // ✅ Re-apply custom/preset theme
-                ApplyColorTheme(_currentThemeObject);
+                // Tắt theo dõi system theme
+                SystemThemeDetector.StopWatching();
+
+                // Determine actual theme (Light or Dark)
+                ThemeMode actualMode = mode;
+
+                // Nếu đang ở "default", phải reload Colors.xaml
+                if (CurrentColorTheme == "default" || _currentThemeObject == null)
+                {
+                    ReloadDefaultColors(actualMode);
+                }
+                else
+                {
+                    // Re-apply custom/preset theme
+                    ApplyColorTheme(_currentThemeObject);
+                }
+
+                UpdateSearchInputColor();
+
+                // Trigger event
+                ThemeChanged?.Invoke(actualMode);
+
+                var settings = SettingsService.Instance.CurrentSettings;
+                settings.ThemeMode = actualMode == ThemeMode.Light ? "Light" : "Dark";
+                SettingsService.Instance.SaveSettings();
+
+                System.Diagnostics.Debug.WriteLine($"✅ [ThemeManager] Manual mode: {actualMode} (ColorTheme: {CurrentColorTheme})");
             }
-
-            UpdateSearchInputColor();
-            // Trigger event
-            ThemeChanged?.Invoke(mode);
-
-            // Save to settings
-            string themeString = mode == ThemeMode.Light ? "Light" : "Dark";
-            SettingsService.Instance.CurrentSettings.ThemeMode = themeString;
-            SettingsService.Instance.SaveSettings();
-
-            System.Diagnostics.Debug.WriteLine($"✅ Theme mode changed to: {mode} (ColorTheme: {CurrentColorTheme})");
         }
+
 
         /// <summary>
         /// Apply Light or Dark theme (BASE COLORS ONLY)
@@ -131,7 +152,7 @@ namespace BlueBerryDictionary.Services
             if (theme == null) return;
 
             CurrentColorTheme = themeName;
-            _currentThemeObject = theme; // ✅ LƯU THEME OBJECT
+            _currentThemeObject = theme; // LƯU THEME OBJECT
 
             ApplyColorTheme(theme);
             SettingsService.Instance.SaveColorTheme(themeName, null);
@@ -150,7 +171,7 @@ namespace BlueBerryDictionary.Services
             };
 
             CurrentColorTheme = "custom";
-            _currentThemeObject = theme; // ✅ LƯU THEME OBJECT
+            _currentThemeObject = theme; // LƯU THEME OBJECT
 
             ApplyColorTheme(theme);
             SettingsService.Instance.SaveColorTheme("custom", theme);
@@ -288,13 +309,13 @@ namespace BlueBerryDictionary.Services
                     theme.Primary, theme.Secondary);
             }
 
-            // ✅ Apply current theme mode
+            // Apply current theme mode
             ApplyTheme(CurrentTheme);
 
             System.Diagnostics.Debug.WriteLine($"✅ Applied color theme: {CurrentColorTheme} ({CurrentTheme} mode)");
         }
 
-        // ========== HELPER METHODS ==========
+        #region Helper methods
 
         /// <summary>
         /// Lighten color (cho Light mode backgrounds)
@@ -363,13 +384,13 @@ namespace BlueBerryDictionary.Services
         }
 
         /// <summary>
-        /// ✅ Reload màu mặc định từ Colors.xaml khi toggle Light/Dark
+        /// Reload màu mặc định từ Colors.xaml khi toggle Light/Dark
         /// </summary>
         private void ReloadDefaultColors(ThemeMode mode)
         {
             try
             {
-                // ✅ RELOAD Colors.xaml để lấy màu gốc
+                // reload Colors.xaml để lấy màu gốc
                 var colorsDict = new ResourceDictionary
                 {
                     Source = new Uri("Resources/Styles/Colors.xaml", UriKind.Relative)
@@ -377,7 +398,7 @@ namespace BlueBerryDictionary.Services
 
                 string prefix = mode == ThemeMode.Light ? "Light" : "Dark";
 
-                // ✅ Danh sách resources cần reload
+                // Danh sách resources cần reload
                 var resourcesToReset = new[]
                 {
             "MainBackground", "NavbarBackground", "ToolbarBackground",
@@ -394,7 +415,7 @@ namespace BlueBerryDictionary.Services
             "ThemeIconColor", "ToolbarBorder", "SidebarHover", "SidebarHoverText"
         };
 
-                // ✅ Copy từ Colors.xaml mới load
+                // Copy từ Colors.xaml mới load
                 foreach (var key in resourcesToReset)
                 {
                     string sourceKey = $"{prefix}{key}";
@@ -415,13 +436,13 @@ namespace BlueBerryDictionary.Services
 
 
         /// <summary>
-        /// ✅ Reset về màu mặc định trong Colors.xaml (Blue Gradient)
+        /// Reset về màu mặc định trong Colors.xaml (Blue Gradient)
         /// </summary>
         public void ResetToDefaultColors()
         {
             try
             {
-                // ✅ RELOAD Colors.xaml để lấy màu gốc (chưa bị override)
+                // RELOAD Colors.xaml để lấy màu gốc (chưa bị override)
                 var colorsDict = new ResourceDictionary
                 {
                     Source = new Uri("Resources/Styles/Colors.xaml", UriKind.Relative)
@@ -430,7 +451,7 @@ namespace BlueBerryDictionary.Services
                 // Xác định prefix theo theme mode hiện tại
                 string prefix = CurrentTheme == ThemeMode.Dark ? "Dark" : "Light";
 
-                // ✅ Danh sách tất cả resources cần reset
+                // Danh sách tất cả resources cần reset
                 var resourcesToReset = new[]
                 {
             "MainBackground", "NavbarBackground", "ToolbarBackground",
@@ -447,7 +468,7 @@ namespace BlueBerryDictionary.Services
             "ThemeIconColor", "ToolbarBorder", "SidebarHover", "SidebarHoverText"
         };
 
-                // ✅ Copy từ Colors.xaml mới load (màu gốc) vào Application.Resources
+                // Copy từ Colors.xaml mới load (màu gốc) vào Application.Resources
                 foreach (var key in resourcesToReset)
                 {
                     string sourceKey = $"{prefix}{key}";
@@ -463,7 +484,7 @@ namespace BlueBerryDictionary.Services
                     }
                 }
 
-                // ✅ Reset internal state
+                // Reset internal state
                 CurrentColorTheme = "default";
                 _currentThemeObject = null;
 
@@ -494,7 +515,7 @@ namespace BlueBerryDictionary.Services
                 var searchTextBrush = _appResources["SearchText"] as Brush;
                 var placeholderBrush = _appResources["SearchPlaceholder"] as Brush;
 
-                // ✅ Kiểm tra placeholder hay có chữ
+                // Kiểm tra placeholder hay có chữ
                 if (searchInput.Text == "Nhập từ cần tra...")
                 {
                     // Placeholder → màu xám
@@ -514,6 +535,69 @@ namespace BlueBerryDictionary.Services
             }
         }
 
+        /// <summary>
+        /// Dùng theme theo system hiện tại
+        /// </summary>
+        private void ApplySystemTheme()
+        {
+            bool isDark = SystemThemeDetector.IsSystemDarkMode();
+            ThemeMode actualMode = isDark ? ThemeMode.Dark : ThemeMode.Light;
+
+            System.Diagnostics.Debug.WriteLine($"🔍 [ThemeManager] System theme detected: {(isDark ? "Dark" : "Light")}");
+
+            // Apply theme
+            CurrentTheme = actualMode;
+
+            if (CurrentColorTheme == "default" || _currentThemeObject == null)
+            {
+                ReloadDefaultColors(actualMode);
+            }
+            else
+            {
+                ApplyColorTheme(_currentThemeObject);
+            }
+
+            UpdateSearchInputColor();
+            ThemeChanged?.Invoke(actualMode);
+
+            System.Diagnostics.Debug.WriteLine($"✅ [ThemeManager] Applied system theme → {actualMode}");
+        }
+
+        /// <summary>
+        /// Handler khi system theme thay đổi
+        /// </summary>
+        private void OnSystemThemeChanged(object sender, bool isDark)
+        {
+            // Chỉ apply nếu đang ở Auto mode
+            if (_currentMode == ThemeMode.Auto)
+            {
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    ThemeMode newMode = isDark ? ThemeMode.Dark : ThemeMode.Light;
+                    CurrentTheme = newMode;
+
+                    System.Diagnostics.Debug.WriteLine($"🔄 [ThemeManager] System theme changed → {(isDark ? "Dark" : "Light")}");
+
+                    if (CurrentColorTheme == "default" || _currentThemeObject == null)
+                    {
+                        ReloadDefaultColors(newMode);
+                    }
+                    else
+                    {
+                        ApplyColorTheme(_currentThemeObject);
+                    }
+
+                    UpdateSearchInputColor();
+                    ThemeChanged?.Invoke(newMode);
+
+                    System.Diagnostics.Debug.WriteLine($"✅ [ThemeManager] Auto mode applied: {newMode}");
+                });
+            }
+            else
+            {
+                System.Diagnostics.Debug.WriteLine($"⚠️ [ThemeManager] System theme changed but Auto mode is OFF (current: {_currentMode})");
+            }
+        }
+        #endregion
     }
 }
-

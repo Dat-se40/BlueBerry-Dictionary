@@ -25,5 +25,14 @@
     "CreatedAt": "2025-12-14T13:03:48.4597518+07:00",
     "RelatedWords": [],
     "WordCount": 0
+  },
+  {
+    "Id": "76177387-912c-4998-88e3-61cf758fca3a",
+    "Name": "test",
+    "Icon": "🏷️",
+    "Color": "#2D4ACC",
+    "CreatedAt": "2025-12-23T23:04:45.548837+07:00",
+    "RelatedWords": [],
+    "WordCount": 0
   }
 ]

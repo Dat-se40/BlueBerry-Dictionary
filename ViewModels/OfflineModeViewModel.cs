@@ -15,10 +15,16 @@ namespace BlueBerryDictionary.ViewModels
     {
         private readonly PackageManager _packageManager;
 
-        // Events
+        #region Events
+
+        /// <summary>
+        /// Event khi danh sách packages thay đổi
+        /// </summary>
         public event Action OnPackagesChanged;
 
-        // Observable Collections
+        #endregion
+
+        #region Observable properties
         [ObservableProperty]
         private ObservableCollection<TopicPackage> _availablePackages;
 
@@ -44,13 +50,18 @@ namespace BlueBerryDictionary.ViewModels
         [ObservableProperty]
         private string _statusMessage;
 
+        #endregion
+
+        #region Constructor
         public OfflineModeViewModel()
         {
             _packageManager = PackageManager.Instance;
             AvailablePackages = new ObservableCollection<TopicPackage>();
             DownloadedPackages = new ObservableCollection<TopicPackage>();
         }
+        #endregion
 
+        #region Data loading
         /// <summary>
         /// Load data khi page được mở
         /// </summary>
@@ -129,6 +140,9 @@ namespace BlueBerryDictionary.ViewModels
                 : $"{totalBytes / 1_000.0:F0} KB";
         }
 
+        #endregion
+
+        #region Commands
         /// <summary>
         /// Refresh packages từ server
         /// </summary>
@@ -258,5 +272,7 @@ namespace BlueBerryDictionary.ViewModels
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+        #endregion
     }
 }

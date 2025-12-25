@@ -13,6 +13,10 @@ namespace MyDictionary.Model.MerriamWebster
     #region Model cho việc Serialize từ json -> class
     public class MWEntry
     {
+        /// <summary>
+        /// Entry chính từ Dictionary API
+        /// </summary>
+
         [JsonPropertyName("meta")]
         public MWMeta Meta { get; set; }
 
@@ -34,6 +38,10 @@ namespace MyDictionary.Model.MerriamWebster
 
     public class MWMeta
     {
+        /// <summary>
+        /// Metadata của từ (ID, stems, offensive flag...)
+        /// </summary>
+
         [JsonPropertyName("id")]
         public string Id { get; set; }
 
@@ -52,6 +60,10 @@ namespace MyDictionary.Model.MerriamWebster
 
     public class MWHeadwordInfo
     {
+        /// <summary>
+        /// Thông tin headword và phát âm
+        /// </summary>
+
         [JsonPropertyName("hw")]
         public string Headword { get; set; }
 
@@ -61,6 +73,10 @@ namespace MyDictionary.Model.MerriamWebster
 
     public class MWPronunciation
     {
+        /// <summary>
+        /// Dữ liệu phát âm IPA
+        /// </summary>
+
         [JsonPropertyName("mw")]
         public string Mw { get; set; } // IPA pronunciation
 
@@ -70,6 +86,10 @@ namespace MyDictionary.Model.MerriamWebster
 
     public class MWSound
     {
+        /// <summary>
+        /// Metadata file âm thanh
+        /// </summary>
+
         [JsonPropertyName("audio")]
         public string Audio { get; set; }
 
@@ -82,16 +102,21 @@ namespace MyDictionary.Model.MerriamWebster
 
     public class MWDefinitionSection
     {
+        /// <summary>
+        /// Section định nghĩa (cấu trúc nested phức tạp)
+        /// </summary>
+
         [JsonPropertyName("sseq")]
-        public List<List<List<object>>> Sseq { get; set; } // Sense sequence (complex nested structure)
+        public List<List<List<object>>> Sseq { get; set; } 
 
         [JsonPropertyName("vd")]
         public string VerbDivider { get; set; }
     }
 
     /// <summary>
-    /// Thesaurus Entry (synonyms/antonyms)
+    /// Định nghĩa từ Thesaurus API
     /// </summary>
+
     public class MWThesaurusEntry
     {
         [JsonPropertyName("meta")]
@@ -117,7 +142,7 @@ namespace MyDictionary.Model.MerriamWebster
     }
     #endregion
 
-    #region Tool parse, đưa 1 class Models.Words di nhất, nhất quán dữ liệu
+    #region Tool parse, đưa 1 class Models.Words duy nhất, nhất quán dữ liệu
     public class MerriamWebsterParser
     {
         /// <summary>
@@ -131,7 +156,7 @@ namespace MyDictionary.Model.MerriamWebster
                 if (entries == null || entries.Count == 0)
                     return new List<Word>();
 
-                // Group entries by word (MW trả về nhiều entries cho cùng 1 từ)
+                // Group entries theo từ (MW trả về nhiều entries cho cùng 1 từ)
                 var groupedByWord = entries
                     .Where(e => e.Meta != null)
                     .GroupBy(e => CleanHeadword(e.Meta.Id))
@@ -139,6 +164,7 @@ namespace MyDictionary.Model.MerriamWebster
 
                 List<Word> results = new List<Word>();
 
+                // Xử lý từng nhóm entries
                 foreach (var group in groupedByWord)
                 {
                     Word word = new Word
@@ -186,6 +212,7 @@ namespace MyDictionary.Model.MerriamWebster
                 HashSet<string> synonyms = new HashSet<string>();
                 HashSet<string> antonyms = new HashSet<string>();
 
+                // Duyệt qua tất cả entries
                 foreach (var entry in entries)
                 {
                     if (entry.Definitions == null) continue;
@@ -231,9 +258,7 @@ namespace MyDictionary.Model.MerriamWebster
             }
         }
 
-        // ========================================
-        // ========== HELPER METHODS ==========
-        // ========================================
+        #region Helper methods
 
         /// <summary>
         /// Clean headword (remove subscripts như "hello:1")
@@ -319,7 +344,7 @@ namespace MyDictionary.Model.MerriamWebster
                 antonyms = new List<string>()
             };
 
-            // Use shortdef (simple definitions)
+            // Dùng shortdef (định nghĩa đơn giản)
             if (entry.ShortDefinitions != null)
             {
                 foreach (var def in entry.ShortDefinitions)
@@ -333,8 +358,6 @@ namespace MyDictionary.Model.MerriamWebster
                     });
                 }
             }
-
-            // TODO: Parse complex sseq structure nếu cần (advanced)
 
             return meaning;
         }
@@ -359,6 +382,7 @@ namespace MyDictionary.Model.MerriamWebster
             }
             catch { }
         }
+        #endregion
     }
     #endregion
 }
