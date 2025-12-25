@@ -3,36 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using BlueBerryDictionary.Services;
 using BlueBerryDictionary.Models;
+using BlueBerryDictionary.Services;
 
 namespace BlueBerryDictionary.Views.Dialogs
 {
     public partial class GameSettingsDialog : Window
     {
         private readonly TagService _tagService;
-        
-        public class GameSettings
-        {
-            public List<WordShortened> Flashcards { get; set; }
-            public string DataSource { get; set; }
-            public string DataSourceName { get; set; }
-        }
 
-        public GameSettings Settings { get; private set; }
-
+        // Selected settings
         private string _selectedDataSource = "All";
+        private Tag _selectedTag = null;
         private int _selectedCardCount = 10;
+
+        // Return value
+        public GameSettings GameSettings { get; private set; }
 
         public GameSettingsDialog()
         {
             InitializeComponent();
             _tagService = TagService.Instance;
             LoadDataSourceOptions();
-            UpdateAvailableCardsInfo();
         }
 
-        // ============ DATA SOURCE SELECTION ============
+        // ========== DATA SOURCE ==========
 
         private void LoadDataSourceOptions()
         {
@@ -40,29 +35,27 @@ namespace BlueBerryDictionary.Views.Dialogs
 
             var allButtons = new List<Button>();
 
-            // Add "All Words" option
+            // All Words
             var btnAll = new Button
             {
                 Content = "📚 All Words",
                 Tag = "All",
-                Style = (Style)FindResource("PopupItemStyle"),
-                Margin = new Thickness(0)
+                Style = (Style)FindResource("PopupItemStyle")
             };
             btnAll.Click += DataSourceOption_Click;
             allButtons.Add(btnAll);
 
-            // Add "Favorites" option
+            // Favorites
             var btnFav = new Button
             {
                 Content = "⭐ Favorites",
                 Tag = "Favorites",
-                Style = (Style)FindResource("PopupItemStyle"),
-                Margin = new Thickness(0)
+                Style = (Style)FindResource("PopupItemStyle")
             };
             btnFav.Click += DataSourceOption_Click;
             allButtons.Add(btnFav);
 
-            // Add tags
+            // Tags
             var tags = _tagService.GetAllTags();
             foreach (var tag in tags)
             {
@@ -70,8 +63,7 @@ namespace BlueBerryDictionary.Views.Dialogs
                 {
                     Content = $"{tag.Icon} {tag.Name} ({tag.WordCount})",
                     Tag = tag.Id,
-                    Style = (Style)FindResource("PopupItemStyle"),
-                    Margin = new Thickness(0)
+                    Style = (Style)FindResource("PopupItemStyle")
                 };
                 btnTag.Click += DataSourceOption_Click;
                 allButtons.Add(btnTag);
@@ -85,14 +77,14 @@ namespace BlueBerryDictionary.Views.Dialogs
                     allButtons[i].Style = (Style)FindResource("PopupItemFirstStyle");
                 }
 
-                // Add separator after first 2 items
-                if (i == 2)
+                // Separator after first 2 items
+                if (i == 2 && allButtons.Count > 2)
                 {
                     var separator = new Separator { Margin = new Thickness(0) };
                     DataSourceOptions.Children.Add(separator);
                 }
 
-                // Last item
+                // Last item style
                 if (i == allButtons.Count - 1)
                 {
                     allButtons[i].Style = (Style)FindResource("PopupItemLastStyle");
@@ -101,14 +93,13 @@ namespace BlueBerryDictionary.Views.Dialogs
                 DataSourceOptions.Children.Add(allButtons[i]);
             }
 
-            // Set default
-            _selectedDataSource = "All";
-            TxtSelectedSource.Text = "📚 All Words";
+            UpdateAvailableCardsInfo();
         }
 
         private void BtnDataSource_Click(object sender, RoutedEventArgs e)
         {
             PopupDataSource.IsOpen = !PopupDataSource.IsOpen;
+
             if (PopupDataSource.IsOpen)
             {
                 PopupDataSource.Width = BtnDataSource.ActualWidth;
@@ -121,6 +112,18 @@ namespace BlueBerryDictionary.Views.Dialogs
             {
                 TxtSelectedSource.Text = btn.Content.ToString();
                 _selectedDataSource = btn.Tag.ToString();
+
+                // Store tag if selected
+                if (_selectedDataSource != "All" && _selectedDataSource != "Favorites")
+                {
+                    _selectedTag = _tagService.GetAllTags()
+                        .FirstOrDefault(t => t.Id == _selectedDataSource);
+                }
+                else
+                {
+                    _selectedTag = null;
+                }
+
                 PopupDataSource.IsOpen = false;
                 UpdateAvailableCardsInfo();
             }
@@ -131,16 +134,13 @@ namespace BlueBerryDictionary.Views.Dialogs
             var words = GetWordsFromSource();
             int availableCount = words.Count;
 
-            TxtAvailableCards.Text = $"{availableCount} từ khả dụng";
-            UpdateCardCountOptions(availableCount);
-        }
+            TxtAvailableCards.Text = $"{availableCount} available words";
 
-        private void UpdateCardCountOptions(int maxCards)
-        {
-            if (_selectedCardCount > maxCards && maxCards > 0)
+            // Update card count if exceeds available
+            if (_selectedCardCount > availableCount)
             {
-                _selectedCardCount = Math.Max(1, maxCards);
-                TxtSelectedCount.Text = $"{_selectedCardCount} thẻ";
+                _selectedCardCount = Math.Max(1, availableCount);
+                TxtSelectedCount.Text = $"{_selectedCardCount} cards";
             }
         }
 
@@ -150,18 +150,21 @@ namespace BlueBerryDictionary.Views.Dialogs
             {
                 case "All":
                     return _tagService.GetAllWords();
+
                 case "Favorites":
                     return _tagService.GetFavoriteWords();
+
                 default:
                     return _tagService.GetWordsByTag(_selectedDataSource);
             }
         }
 
-        // ============ CARD COUNT SELECTION ============
+        // ========== CARD COUNT ==========
 
         private void BtnCardCount_Click(object sender, RoutedEventArgs e)
         {
             PopupCardCount.IsOpen = !PopupCardCount.IsOpen;
+
             if (PopupCardCount.IsOpen)
             {
                 PopupCardCount.Width = BtnCardCount.ActualWidth;
@@ -178,44 +181,59 @@ namespace BlueBerryDictionary.Views.Dialogs
             }
         }
 
-        // ============ ACTIONS ============
+        // ========== ACTIONS ==========
 
-        private void Cancel_Click(object sender, RoutedEventArgs e)
-        {
-            DialogResult = false;
-            Close();
-        }
-
-        private void Start_Click(object sender, RoutedEventArgs e)
+        private void StartGame_Click(object sender, RoutedEventArgs e)
         {
             var sourceWords = GetWordsFromSource();
 
             if (sourceWords.Count == 0)
             {
                 MessageBox.Show(
-                    "Không có từ nào để học! Vui lòng chọn nguồn dữ liệu khác.",
-                    "Thông báo",
+                    "No words to study! Please select a different data source.",
+                    "Notification",
                     MessageBoxButton.OK,
                     MessageBoxImage.Information
                 );
                 return;
             }
 
+            // Shuffle and take cards
             var random = new Random();
             var flashcards = sourceWords
                 .OrderBy(x => random.Next())
                 .Take(Math.Min(_selectedCardCount, sourceWords.Count))
                 .ToList();
 
-            Settings = new GameSettings
+            // Create settings object
+            GameSettings = new GameSettings
             {
-                Flashcards = flashcards,
                 DataSource = _selectedDataSource,
-                DataSourceName = TxtSelectedSource.Text
+                DataSourceName = TxtSelectedSource.Text,
+                SelectedTag = _selectedTag,
+                CardCount = _selectedCardCount,
+                Flashcards = flashcards
             };
 
             DialogResult = true;
             Close();
         }
+
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = false;
+            Close();
+        }
+    }
+
+    // ========== HELPER CLASS ==========
+
+    public class GameSettings
+    {
+        public string DataSource { get; set; }          // "All", "Favorites", "tagId"
+        public string DataSourceName { get; set; }      // Display name
+        public Tag SelectedTag { get; set; }            // null if not tag
+        public int CardCount { get; set; }
+        public List<WordShortened> Flashcards { get; set; }
     }
 }

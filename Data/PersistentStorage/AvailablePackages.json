@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "pkg_demo_ielts",
+    "Name": "IELTS Essential Vocabulary - Demo",
+    "Description": "Basic IELTS vocabulary pack with 2 topics: Academic and Daily Life",
+    "Author": "BlueBerry Team",
+    "TotalItems": 4,
+    "SizeInBytes": 15000,
+    "CreatedAt": "2024-12-08T10:00:00Z",
+    "Version": "1.0",
+    "Category": "IELTS",
+    "Level": "Intermediate",
+    "ThumbnailUrl": "🎯",
+    "DownloadUrl": "https://raw.githubusercontent.com/Dat-se40/BlueBerry-Dictionary/OfflineMode/Data/pkg_demo_ielts.json",
+    "IsDownloaded": false,
+    "LocalPath": null
+  }
+]

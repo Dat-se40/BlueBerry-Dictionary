@@ -1,0 +1,262 @@
+﻿using BlueBerryDictionary.Models;
+using BlueBerryDictionary.Services;
+using BlueBerryDictionary.Views.Dialogs;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using System;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows;
+
+namespace BlueBerryDictionary.ViewModels
+{
+    public partial class OfflineModeViewModel : ObservableObject
+    {
+        private readonly PackageManager _packageManager;
+
+        // Events
+        public event Action OnPackagesChanged;
+
+        // Observable Collections
+        [ObservableProperty]
+        private ObservableCollection<TopicPackage> _availablePackages;
+
+        [ObservableProperty]
+        private ObservableCollection<TopicPackage> _downloadedPackages;
+
+        // Stats Properties
+        [ObservableProperty]
+        private int _downloadedCount;
+
+        [ObservableProperty]
+        private string _totalWords;
+
+        [ObservableProperty]
+        private string _totalSize;
+
+        [ObservableProperty]
+        private int _availableCount;
+
+        [ObservableProperty]
+        private bool _isLoading;
+
+        [ObservableProperty]
+        private string _statusMessage;
+
+        public OfflineModeViewModel()
+        {
+            _packageManager = PackageManager.Instance;
+            AvailablePackages = new ObservableCollection<TopicPackage>();
+            DownloadedPackages = new ObservableCollection<TopicPackage>();
+        }
+
+        /// <summary>
+        /// Load data khi page được mở
+        /// </summary>
+        public async Task LoadDataAsync()
+        {
+            IsLoading = true;
+            StatusMessage = "Loading package list...";
+
+            try
+            {
+                // Lazy initialize PackageManager
+                await _packageManager.InitializeAsync();
+
+                // Refresh UI
+                RefreshPackagesList();
+
+                StatusMessage = $"Packages {AvailablePackages.Count} downloaded";
+            }
+            catch (Exception ex)
+            {
+                StatusMessage = $"Error: {ex.Message}";
+                Console.WriteLine($"❌ LoadData error: {ex.Message}");
+            }
+            finally
+            {
+                IsLoading = false;
+            }
+        }
+
+        /// <summary>
+        /// Refresh danh sách packages và stats
+        /// </summary>
+        private void RefreshPackagesList()
+        {
+            // Load all packages
+            AvailablePackages.Clear();
+            foreach (var pkg in _packageManager.GetAllPackages())
+            {
+                AvailablePackages.Add(pkg);
+            }
+
+            // Load downloaded packages
+            DownloadedPackages.Clear();
+            foreach (var pkg in _packageManager.GetDownloadedPackages())
+            {
+                DownloadedPackages.Add(pkg);
+            }
+
+            // Update stats
+            UpdateStats();
+
+            // Notify UI
+            OnPackagesChanged?.Invoke();
+
+            Console.WriteLine($"[OfflineModeViewModel] Available: {AvailablePackages.Count}, Downloaded: {DownloadedPackages.Count}");
+        }
+
+        /// <summary>
+        /// Cập nhật thống kê
+        /// </summary>
+        private void UpdateStats()
+        {
+            DownloadedCount = DownloadedPackages.Count;
+            AvailableCount = AvailablePackages.Count;
+
+            // Tính tổng số từ
+            var totalWordsCount = DownloadedPackages.Sum(p => p.TotalItems);
+            TotalWords = totalWordsCount >= 1000
+                ? $"{totalWordsCount / 1000.0:F1}K"
+                : totalWordsCount.ToString();
+
+            // Tính tổng dung lượng
+            var totalBytes = DownloadedPackages.Sum(p => p.SizeInBytes);
+            TotalSize = totalBytes >= 1_000_000
+                ? $"{totalBytes / 1_000_000.0:F0} MB"
+                : $"{totalBytes / 1_000.0:F0} KB";
+        }
+
+        /// <summary>
+        /// Refresh packages từ server
+        /// </summary>
+        [RelayCommand]
+        private async Task RefreshFromServerAsync()
+        {
+            StatusMessage = "Checking for updates...";
+
+            try
+            {
+                bool success = await _packageManager.FetchFromServerAsync();
+
+                if (success)
+                {
+                    // Reload packages
+                    await _packageManager.InitializeAsync();
+                    RefreshPackagesList();
+
+                    MessageBox.Show(
+                        "The package list has been updated!",
+                        "Completed successfully",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information
+                    );
+                }
+                else
+                {
+                    MessageBox.Show(
+                        "Unable to connect to the server.\nUsing the saved list.",
+                        "Warning",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Warning
+                    );
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}", "Error", 
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        /// <summary>
+        /// Download package
+        /// </summary>
+        public async Task DownloadPackageAsync(TopicPackage package)
+        {
+            try
+            {
+                await _packageManager.DownloadPackageAsync(package.Id);
+                RefreshPackagesList();
+                MessageBox.Show($"✅ Package downloaded: {package.Name}", "Completed successfully");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}", "Error", 
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        /// <summary>
+        /// Tải bản xem trước
+        /// </summary>
+        public async Task PreviewPackageAsync(TopicPackage meta)
+        {
+            try
+            {
+                var full = await _packageManager.LoadPackagePreviewAsync(meta);
+
+                var dialog = new PackageDetailsDialog(full)
+                {
+                    Owner = Application.Current.MainWindow
+                };
+                dialog.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}", "Error",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        /// <summary>
+        /// Open package details
+        /// </summary>
+        public void OpenPackage(TopicPackage package)
+        {
+            if (!package.IsDownloaded)
+            {
+                MessageBox.Show("Please download the package first!", "Warning");
+                return;
+            }
+
+            var dialog = new Views.Dialogs.PackageDetailsDialog(package)
+            {
+                Owner = Application.Current.MainWindow
+            };
+
+            if (dialog.ShowDialog() == true)
+            {
+                // Refresh after importing words
+                RefreshPackagesList();
+            }
+        }
+
+        /// <summary>
+        /// Delete package
+        /// </summary>
+        public async Task DeletePackageAsync(TopicPackage package)
+        {
+            var result = MessageBox.Show(
+                $"Delete package '{package.Name}'?\n\n(Words imported into My Words will NOT be deleted)",
+                "Confirmation",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Warning
+            );
+
+            if (result != MessageBoxResult.Yes) return;
+
+            try
+            {
+                await _packageManager.DeletePackageAsync(package.Id);
+                RefreshPackagesList();
+                MessageBox.Show($"Package deleted: {package.Name}", "Completed successfully");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}", "Error", 
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+    }
+}

@@ -1,4 +1,5 @@
-﻿using BlueBerryDictionary.Services.Network;
+﻿using BlueBerryDictionary.Helpers;
+using BlueBerryDictionary.Services.Network;
 using Google.Apis.Oauth2.v2.Data;
 using Newtonsoft.Json;
 using System;
@@ -33,11 +34,11 @@ namespace BlueBerryDictionary.Services.User
         private UserSessionManage()
         {
             var baseDir = AppDomain.CurrentDomain.BaseDirectory;
-            var systemDir = Path.Combine(baseDir, @"..\..\..\Data\System");
+            var systemDir = PathHelper.Combine(baseDir, @"..\..\..\Data\System");
             Directory.CreateDirectory(systemDir);
 
-            _sessionPath = Path.Combine(systemDir, "CurrentUser.json");
-            _loginLogPath = Path.Combine(systemDir, "LoginLog.json");
+            _sessionPath = PathHelper.Combine(systemDir, "CurrentUser.json");
+            _loginLogPath = PathHelper.Combine(systemDir, "LoginLog.json");
         }
 
         // ========== SET MODES ==========

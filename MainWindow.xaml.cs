@@ -334,6 +334,13 @@ namespace BlueBerryDictionary
 
         private void SearchInput_GotFocus(object sender, RoutedEventArgs e)
         {
+            // ✅ THÊM: Đổi màu khi focus
+            if (SearchInput.Text == "Enter word to look up...")
+            {
+                SearchInput.Text = "";
+                SearchInput.Foreground = (Brush)Application.Current.Resources["SearchText"];
+            }
+
             if (!string.IsNullOrWhiteSpace(_searchViewModel.SearchText) &&
                 _searchViewModel.Suggestions.Count > 0)
             {
@@ -343,6 +350,13 @@ namespace BlueBerryDictionary
 
         private void SearchInput_LostFocus(object sender, RoutedEventArgs e)
         {
+            // ✅ THÊM: Hiện placeholder nếu rỗng
+            if (string.IsNullOrWhiteSpace(SearchInput.Text))
+            {
+                SearchInput.Text = "Enter word to look up...";
+                SearchInput.Foreground = (Brush)Application.Current.Resources["SearchPlaceholder"];
+            }
+
             Dispatcher.BeginInvoke(new Action(() =>
             {
                 if (!SuggestionsList.IsMouseOver && !SuggestionsPopup.IsMouseOver)

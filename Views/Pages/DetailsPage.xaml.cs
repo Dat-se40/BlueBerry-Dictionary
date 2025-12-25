@@ -1,8 +1,6 @@
 ﻿using BlueBerryDictionary.Models;
 using BlueBerryDictionary.Services;
 using BlueBerryDictionary.Views.Dialogs;
-using System;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -36,8 +34,26 @@ namespace BlueBerryDictionary.Views.Pages
             this.Unloaded += DetailsPage_Unloaded;
 
             LoadWordData();
+            _ = LoadImageAsync();
         }
+        private async Task LoadImageAsync()
+        {
+            try
+            {
+                DemonstrateImage.Source = null;
 
+                string? pos = _word.meanings?.FirstOrDefault()?.partOfSpeech;
+                var imgService = MyDictionary.Services.ImageSearchService.Instance;
+                var bmp = await imgService.FetchAndCacheAsync(_word.word, pos);
+
+                if (bmp != null)
+                    DemonstrateImage.Source = bmp;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Image load error: {ex.Message}");
+            }
+        }
         private void LoadWordData()
         {
             if (_word == null) return;
@@ -91,7 +107,7 @@ namespace BlueBerryDictionary.Views.Pages
             {
                 var errorText = new TextBlock
                 {
-                    Text = "Không có định nghĩa",
+                    Text = "No definition available",
                     FontSize = 16,
                     Foreground = Brushes.Gray,
                     HorizontalAlignment = HorizontalAlignment.Center,
@@ -249,7 +265,7 @@ namespace BlueBerryDictionary.Views.Pages
 
             if (hasSynonyms)
             {
-                var synPanel = CreateRelatedPanel("Synonyms (Từ đồng nghĩa)", meaning.synonyms.Take(6).ToList());
+                var synPanel = CreateRelatedPanel("Synonyms", meaning.synonyms.Take(6).ToList());
                 Grid.SetColumn(synPanel, 0);
                 synPanel.Margin = new Thickness(0, 0, 10, 0);
                 grid.Children.Add(synPanel);
@@ -257,7 +273,7 @@ namespace BlueBerryDictionary.Views.Pages
 
             if (hasAntonyms)
             {
-                var antPanel = CreateRelatedPanel("Antonyms (Từ trái nghĩa)", meaning.antonyms.Take(6).ToList());
+                var antPanel = CreateRelatedPanel("Antonyms", meaning.antonyms.Take(6).ToList());
                 Grid.SetColumn(antPanel, 1);
                 antPanel.Margin = new Thickness(10, 0, 0, 0);
                 grid.Children.Add(antPanel);
@@ -334,7 +350,7 @@ namespace BlueBerryDictionary.Views.Pages
         {
             if (string.IsNullOrEmpty(audioUrl))
             {
-                MessageBox.Show($"Không có audio {accent}", "Thông báo");
+                MessageBox.Show($"No audio available {accent}", "Notification");
                 return;
             }
 
@@ -350,7 +366,7 @@ namespace BlueBerryDictionary.Views.Pages
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi phát âm: {ex.Message}", "Lỗi");
+                MessageBox.Show($"Pronunciation error: {ex.Message}", "Error");
             }
         }
 
@@ -397,7 +413,7 @@ namespace BlueBerryDictionary.Views.Pages
                 }
             }
 
-            MessageBox.Show(_isFavorite ? "Đã thêm vào yêu thích" : "Đã xóa khỏi yêu thích");
+            MessageBox.Show(_isFavorite ? "Added to favourites" : "Removed from favourites");
         }
 
 
@@ -431,14 +447,14 @@ namespace BlueBerryDictionary.Views.Pages
                     {
                         var selectedMeaning = _word.meanings[meaningIndex];
                         string tagInfo = selectedTags.Count > 0
-                            ? $" với {selectedTags.Count} nhãn"
+                            ? $" with {selectedTags.Count} tag(s)"
                             : "";
 
                         Console.WriteLine($"✅ Saved '{_word.word}' with {savedWord.Tags.Count} tags");
 
                         MessageBox.Show(
-                            $"✅ Đã lưu '{_word.word}' ({selectedMeaning.partOfSpeech}){tagInfo} vào My Words",
-                            "Thành công",
+                            $"✅ Saved '{_word.word}' ({selectedMeaning.partOfSpeech}){tagInfo} to My Words",
+                            "Completed successfully",
                             MessageBoxButton.OK,
                             MessageBoxImage.Information
                         );
@@ -446,15 +462,15 @@ namespace BlueBerryDictionary.Views.Pages
                     else
                     {
                         // ⚠️ Trường hợp này KHÔNG BAO GIỜ XẢY RA với AddWord() mới
-                        MessageBox.Show("Từ này đã có trong My Words",
-                            "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show("This word is already in My Words",
+                            "Notification", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"❌ Lỗi: {ex.Message}",
-                    "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"❌ Error: {ex.Message}",
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -462,17 +478,17 @@ namespace BlueBerryDictionary.Views.Pages
         private void Share_Click(object sender, RoutedEventArgs e)
         {
             Clipboard.SetText(_word.word);
-            MessageBox.Show("Đã sao chép từ");
+            MessageBox.Show("Word copied successfully");
         }
 
         private void Download_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Chức năng tải offline đang phát triển");
+            MessageBox.Show("The offline download feature is under development");
         }
 
         private void RelatedWord_Click(string word)
         {
-            MessageBox.Show($"Bạn click từ: {word}");
+            MessageBox.Show($"You clicked the word: {word}");
         }
 
         private string CapitalizeFirstLetter(string text)

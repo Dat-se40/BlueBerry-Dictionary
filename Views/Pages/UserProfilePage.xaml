@@ -138,7 +138,7 @@
                                 </Grid.RowDefinitions>
 
                                 <StackPanel Grid.Row="0">
-                                    <TextBlock Text="Thông tin cá nhân" FontSize="22" FontWeight="Bold" Foreground="{DynamicResource TextColor}" Margin="0,0,0,20"/>
+                                    <TextBlock Text="Personal Information" FontSize="22" FontWeight="Bold" Foreground="{DynamicResource TextColor}" Margin="0,0,0,20"/>
 
                                     <Grid Margin="0,0,0,20">
                                         <Grid.ColumnDefinitions>

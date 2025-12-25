@@ -201,16 +201,26 @@ namespace BlueBerryDictionary.ViewModels
         private void OpenRemoveTagDialog()
         {
             var dialog = new RemoveTagDialog();
+
             if (dialog.ShowDialog() == true)
             {
-                // list tagId bị xóa nằm ở đây:
                 var deleted = dialog.RemovedTagIds;
 
                 if (deleted.Any())
                 {
-                    MessageBox.Show($"Đã xoá {deleted.Count} tag khỏi hệ thống!",
-                        "Xong", MessageBoxButton.OK, MessageBoxImage.Information);
-                    acOnFilterWordsChanged?.Invoke(); 
+                    foreach (var item in deleted)
+                    {
+                        Console.WriteLine($"🗑️ Tag deleted: {item}");
+                        _tagService.DeleteTag(item);
+                    }
+
+                    // ========== RELOAD DATA AFTER DELETE ==========
+                    _tagService.SaveTags();
+                    LoadData(); // ✅ Reload tất cả data
+                    UpdateStatistics(); // ✅ Update statistics
+                    acOnTagChanged?.Invoke(); // ✅ Notify listeners
+
+                    Console.WriteLine($"✅ Deleted {deleted.Count} tags, UI refreshed");
                 }
             }
         }
@@ -274,36 +284,18 @@ namespace BlueBerryDictionary.ViewModels
         }
 
         [RelayCommand]
-        private void DeleteTag(string tagId)
-        {
-            var result = MessageBox.Show(
-                "Bạn có chắc muốn xóa tag này? Các từ sẽ không bị xóa.",
-                "Xác nhận",
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Question
-            );
-
-            if (result == MessageBoxResult.Yes)
-            {
-                _tagService.DeleteTag(tagId);
-                LoadData();
-                acOnTagChanged?.Invoke();
-            }
-        }
-
-        [RelayCommand]
         private void AddWord()
         {
             // TODO: Show dialog to add new word
-            MessageBox.Show("Chức năng thêm từ mới đang phát triển");
+            MessageBox.Show("The add new word feature is under development");
         }
 
         [RelayCommand]
         private void DeleteWord(string word)
         {
             var result = MessageBox.Show(
-                $"Bạn có chắc muốn xóa từ '{word}'?",
-                "Xác nhận",
+                $"Are you sure you want to delete this word '{word}'?",
+                "Confirmation",
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Question
             );
@@ -336,6 +328,7 @@ namespace BlueBerryDictionary.ViewModels
             // TODO: Navigate to DetailsPage
             MessageBox.Show($"View details for: {word}");
         }
+
     }
 
     // ========== HELPER CLASSES ==========

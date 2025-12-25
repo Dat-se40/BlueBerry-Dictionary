@@ -6,20 +6,16 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>true</SelfContained>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Remove="Resources\Image\logo.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Data\PersistentStorage\StoredQuote\" />
-    <Folder Include="Data\PersistentStorage\StoredWord\" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
     <PackageReference Include="Extended.Wpf.Toolkit" Version="5.0.0" />
+    <PackageReference Include="google-search-results-dotnet" Version="2.0.1" />
     <PackageReference Include="Google.Apis.Auth" Version="1.73.0" />
     <PackageReference Include="Google.Apis.Drive.v3" Version="1.72.0.3970" />
     <PackageReference Include="Google.Apis.Oauth2.v2" Version="1.68.0.1869" />
@@ -32,7 +28,20 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Image\google.png" />
     <Resource Include="Resources\Image\logo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Data\**\*.*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="ApiClient\Configuration\appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content >
+   
   </ItemGroup>
 
 </Project>

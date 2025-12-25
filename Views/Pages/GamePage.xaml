@@ -1,4 +1,4 @@
-﻿<local:WordListPageBase x:Class="BlueBerryDictionary.Pages.GamePage"
+﻿<local:WordListPageBase x:Class="BlueBerryDictionary.Views.Pages.GamePage"
                         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -169,7 +169,7 @@
                            Foreground="{DynamicResource TextColor}"
                            HorizontalAlignment="Center"
                            Margin="0,0,0,10" />
-                <TextBlock Text="Học từ vựng qua trò chơi thú vị"
+                <TextBlock Text="Learn vocabulary through interesting games"
                            FontSize="16"
                            Foreground="{DynamicResource TextColor}"
                            Opacity="0.7"
@@ -207,7 +207,7 @@
                                            FontSize="28"
                                            FontWeight="Bold"
                                            Foreground="{DynamicResource TextColor}" />
-                                <TextBlock Text="Lật thẻ từ vựng để học nghĩa và cách dùng"
+                                <TextBlock Text="Flip the vocabulary card to learn the meaning and usage"
                                            FontSize="14"
                                            Foreground="{DynamicResource TextColor}"
                                            Opacity="0.7"
@@ -229,21 +229,21 @@
                                 <StackPanel Grid.Column="0" HorizontalAlignment="Center">
                                     <TextBlock Text="📚" FontSize="24" Foreground="{DynamicResource TextColor}"
                                                HorizontalAlignment="Center" />
-                                    <TextBlock Text="Ôn tập" FontSize="12" Foreground="{DynamicResource TextColor}"
+                                    <TextBlock Text="Review" FontSize="12" Foreground="{DynamicResource TextColor}"
                                                Opacity="0.7" HorizontalAlignment="Center" />
                                 </StackPanel>
 
                                 <StackPanel Grid.Column="1" HorizontalAlignment="Center">
                                     <TextBlock Text="⏱️" FontSize="24" Foreground="{DynamicResource TextColor}"
                                                HorizontalAlignment="Center" />
-                                    <TextBlock Text="Linh hoạt" FontSize="12" Foreground="{DynamicResource TextColor}"
+                                    <TextBlock Text="Flexible" FontSize="12" Foreground="{DynamicResource TextColor}"
                                                Opacity="0.7" HorizontalAlignment="Center" />
                                 </StackPanel>
 
                                 <StackPanel Grid.Column="2" HorizontalAlignment="Center">
                                     <TextBlock Text="🎯" FontSize="24" Foreground="{DynamicResource TextColor}"
                                                HorizontalAlignment="Center" />
-                                    <TextBlock Text="Hiệu quả" FontSize="12" Foreground="{DynamicResource TextColor}"
+                                    <TextBlock Text="Effective" FontSize="12" Foreground="{DynamicResource TextColor}"
                                                Opacity="0.7" HorizontalAlignment="Center" />
                                 </StackPanel>
                             </Grid>
@@ -252,7 +252,7 @@
                 </Border>
 
                 <!-- History Button -->
-                <Button Content="📊 Xem lịch sử luyện tập"
+                <Button Content="📊 View training history"
                         Style="{StaticResource SecondaryButtonStyle}"
                         HorizontalAlignment="Center"
                         Margin="0,20,0,0"
@@ -274,7 +274,7 @@
                     BorderThickness="0,0,0,2"
                     Padding="20,15">
                 <DockPanel>
-                    <Button Content="✕ Thoát"
+                    <Button Content="✕ Exit"
                             Style="{StaticResource DangerButtonStyle}"
                             DockPanel.Dock="Left"
                             Click="ExitGame_Click"
@@ -412,8 +412,7 @@
                         Margin="30,20,30,0"
                         MaxWidth="700">
                     <DockPanel>
-                        <TextBlock x:Name="TxtSkipMessage"
-                                   Text="{Binding SkipTrackerMessage}"
+                        <TextBlock Text="{Binding SkipTrackerMessage}"
                                    FontWeight="SemiBold"
                                    Foreground="#856404"
                                    DockPanel.Dock="Left"
@@ -421,6 +420,7 @@
                                    Margin="0,0,10,0" />
                         <Button x:Name="BtnReviewSkipped"
                                 Content="👁️ Review"
+                                Visibility="{Binding HasSkippedCards, Converter={StaticResource BoolToVisibilityConverter}}"
                                 Background="#ffc107"
                                 Foreground="#856404"
                                 BorderThickness="0"
@@ -435,9 +435,37 @@
                                 </Style>
                             </Button.Resources>
                         </Button>
-                        <WrapPanel x:Name="SkipNumbersPanel"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Left" />
+                        <ItemsControl x:Name="SkipNumbersPanel"
+                                      ItemsSource="{Binding SkippedCards}"
+                                      VerticalAlignment="Center"
+                                      HorizontalAlignment="Left">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Button Content="{Binding Converter={StaticResource SkipIndexConverter}}"
+                                            Background="#ffc107"
+                                            Foreground="#856404"
+                                            BorderBrush="#e0a800"
+                                            BorderThickness="1"
+                                            Padding="10,4"
+                                            Margin="4"
+                                            FontWeight="SemiBold"
+                                            Cursor="Hand"
+                                            Click="SkipNumber_Click"
+                                            Tag="{Binding}">
+                                        <Button.Resources>
+                                            <Style TargetType="Border">
+                                                <Setter Property="CornerRadius" Value="5" />
+                                            </Style>
+                                        </Button.Resources>
+                                    </Button>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
                     </DockPanel>
                 </Border>
 

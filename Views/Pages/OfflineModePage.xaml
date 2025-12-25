@@ -1,0 +1,186 @@
+﻿<local:WordListPageBase x:Class="BlueBerryDictionary.Views.Pages.OfflineModePage"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:local="clr-namespace:BlueBerryDictionary.Views.Pages"
+                        xmlns:uc="clr-namespace:BlueBerryDictionary.Views.UserControls"
+                        Background="{DynamicResource MainBackground}">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="30">
+            <!-- HEADER -->
+            <Border Background="{DynamicResource CardBackground}"
+                    BorderBrush="{DynamicResource BorderColor}"
+                    BorderThickness="2"
+                    CornerRadius="20"
+                    Padding="40,30"
+                    Margin="0,0,0,30">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                        <TextBlock Text="📥" FontSize="48" Margin="0,0,15,0"
+                                   Foreground="{DynamicResource TextColor}" />
+                        <TextBlock Text="Offline Packages"
+                                   FontSize="40"
+                                   FontWeight="Bold"
+                                   Foreground="{DynamicResource TextColor}"
+                                   VerticalAlignment="Center" />
+                    </StackPanel>
+                    <TextBlock Text="Download vocabulary packs for offline use"
+                               Foreground="{DynamicResource TextColor}"
+                               FontSize="15"
+                               Opacity="0.8"
+                               Margin="63,0,0,0" />
+                </StackPanel>
+            </Border>
+
+            <!-- STATS -->
+            <Border Background="{DynamicResource CardBackground}"
+                    BorderBrush="{DynamicResource ButtonColor}"
+                    BorderThickness="2"
+                    CornerRadius="15"
+                    Padding="30"
+                    Margin="0,0,0,30">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Downloaded Count -->
+                    <StackPanel Grid.Column="0" HorizontalAlignment="Center">
+                        <TextBlock Text="{Binding DownloadedCount}"
+                                   FontSize="32"
+                                   FontWeight="Bold"
+                                   Foreground="{DynamicResource ButtonColor}"
+                                   HorizontalAlignment="Center" />
+                        <TextBlock Text="Downloaded Packages"
+                                   Foreground="{DynamicResource TextColor}"
+                                   FontSize="14"
+                                   Opacity="0.8"
+                                   HorizontalAlignment="Center" />
+                    </StackPanel>
+
+                    <!-- Total Words -->
+                    <StackPanel Grid.Column="1" HorizontalAlignment="Center">
+                        <TextBlock Text="{Binding TotalWords}"
+                                   FontSize="32"
+                                   FontWeight="Bold"
+                                   Foreground="{DynamicResource ButtonColor}"
+                                   HorizontalAlignment="Center" />
+                        <TextBlock Text="Total Words"
+                                   Foreground="{DynamicResource TextColor}"
+                                   FontSize="14"
+                                   Opacity="0.8"
+                                   HorizontalAlignment="Center" />
+                    </StackPanel>
+
+                    <!-- Total Size -->
+                    <StackPanel Grid.Column="2" HorizontalAlignment="Center">
+                        <TextBlock Text="{Binding TotalSize}"
+                                   FontSize="32"
+                                   FontWeight="Bold"
+                                   Foreground="{DynamicResource ButtonColor}"
+                                   HorizontalAlignment="Center" />
+                        <TextBlock Text="Size"
+                                   FontSize="14"
+                                   Opacity="0.8"
+                                   Foreground="{DynamicResource TextColor}"
+                                   HorizontalAlignment="Center" />
+                    </StackPanel>
+
+                    <!-- Available Count -->
+                    <StackPanel Grid.Column="3" HorizontalAlignment="Center">
+                        <TextBlock Text="{Binding AvailableCount}"
+                                   FontSize="32"
+                                   FontWeight="Bold"
+                                   Foreground="{DynamicResource ButtonColor}"
+                                   HorizontalAlignment="Center" />
+                        <TextBlock Text="Available Packages"
+                                   FontSize="14"
+                                   Opacity="0.8"
+                                   Foreground="{DynamicResource TextColor}"
+                                   HorizontalAlignment="Center" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- DOWNLOADED PACKAGES -->
+            <Border Background="{DynamicResource CardBackground}"
+                    BorderBrush="{DynamicResource BorderColor}"
+                    BorderThickness="2"
+                    CornerRadius="20"
+                    Padding="30"
+                    Margin="0,0,0,30">
+                <StackPanel>
+                    <TextBlock Text="✅ Downloaded"
+                               FontSize="24"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource TextColor}"
+                               Margin="0,0,0,20" />
+
+                    <UniformGrid Columns="2" Name="DownloadedPackagesGrid" VerticalAlignment="Stretch">
+                        <!-- PackageCards loaded from code-behind -->
+                    </UniformGrid>
+
+                    <!-- Empty State -->
+                    <StackPanel Name="DownloadedEmptyState"
+                                Visibility="Collapsed"
+                                HorizontalAlignment="Center"
+                                Margin="0,40,0,0">
+                        <TextBlock Text="📭"
+                                   FontSize="60"
+                                   Foreground="{DynamicResource TextColor}"
+                                   HorizontalAlignment="Center"
+                                   Opacity="0.5" />
+                        <TextBlock Text="No packages downloaded yet"
+                                   FontSize="16"
+                                   Foreground="{DynamicResource TextColor}"
+                                   Opacity="0.7"
+                                   Margin="0,10,0,0"
+                                   HorizontalAlignment="Center" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- AVAILABLE PACKAGES -->
+            <Border Background="{DynamicResource CardBackground}"
+                    BorderBrush="{DynamicResource BorderColor}"
+                    BorderThickness="2"
+                    CornerRadius="20"
+                    Padding="30">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                        <TextBlock Text="📦 Available Packages"
+                                   FontSize="24"
+                                   FontWeight="Bold"
+                                   Foreground="{DynamicResource TextColor}"
+                                   VerticalAlignment="Center" />
+                        <Button Content="🔄 Update"
+                                Padding="12,8"
+                                Margin="20,0,0,0"
+                                Background="{DynamicResource ButtonColor}"
+                                Foreground="White"
+                                BorderThickness="0"
+                                Cursor="Hand"
+                                Command="{Binding RefreshFromServerCommand}">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="{TemplateBinding Background}"
+                                            CornerRadius="8"
+                                            Padding="{TemplateBinding Padding}">
+                                        <ContentPresenter />
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </StackPanel>
+
+                    <UniformGrid Columns="2" Name="AvailablePackagesGrid" VerticalAlignment="Stretch">
+                        <!-- PackageCards loaded from code-behind -->
+                    </UniformGrid>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</local:WordListPageBase>

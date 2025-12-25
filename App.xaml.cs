@@ -58,10 +58,10 @@ namespace BlueBerryDictionary
         /// <summary>
         /// Check if user is logged in
         /// </summary>
+
         private bool CheckLoginState()
         {
-            // TODO: return GoogleAuthService.Instance.TrySilentLoginAsync().Result;
-            return false;
+            return GoogleAuthService.Instance.TrySilentLoginAsync().Result;
         }
 
         /// <summary>
@@ -89,7 +89,7 @@ namespace BlueBerryDictionary
             catch (Exception ex)
             {
                 Console.WriteLine($"❌ Async data failed: {ex.Message}");
-                MessageBox.Show($"Lỗi đồng bộ dữ liệu:\n{ex.Message}", "Lỗi",
+                MessageBox.Show($"Data Sync Error:\n{ex.Message}", "Error",
                     MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }

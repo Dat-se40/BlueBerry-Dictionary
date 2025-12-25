@@ -62,6 +62,7 @@ namespace BlueBerryDictionary.Services
                 ApplyColorTheme(_currentThemeObject);
             }
 
+            UpdateSearchInputColor();
             // Trigger event
             ThemeChanged?.Invoke(mode);
 
@@ -474,6 +475,45 @@ namespace BlueBerryDictionary.Services
                 MessageBox.Show($"Lỗi reset màu:\n{ex.Message}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+        /// <summary>
+        /// Cập nhật màu chữ SearchInput khi toggle theme
+        /// </summary>
+        private void UpdateSearchInputColor()
+        {
+            try
+            {
+                // Tìm MainWindow
+                var mainWindow = Application.Current.MainWindow as MainWindow;
+                if (mainWindow == null) return;
+
+                // Tìm SearchInput TextBox
+                var searchInput = mainWindow.FindName("SearchInput") as System.Windows.Controls.TextBox;
+                if (searchInput == null) return;
+
+                // Lấy brush màu hiện tại từ Resources
+                var searchTextBrush = _appResources["SearchText"] as Brush;
+                var placeholderBrush = _appResources["SearchPlaceholder"] as Brush;
+
+                // ✅ Kiểm tra placeholder hay có chữ
+                if (searchInput.Text == "Nhập từ cần tra...")
+                {
+                    // Placeholder → màu xám
+                    searchInput.Foreground = placeholderBrush;
+                }
+                else if (!string.IsNullOrEmpty(searchInput.Text))
+                {
+                    // Có chữ → màu SearchText (đen/trắng tùy theme)
+                    searchInput.Foreground = searchTextBrush;
+                }
+
+                System.Diagnostics.Debug.WriteLine($"✅ Updated SearchInput color (Mode: {CurrentTheme})");
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"⚠️ Failed to update SearchInput color: {ex.Message}");
+            }
+        }
+
     }
 }
 

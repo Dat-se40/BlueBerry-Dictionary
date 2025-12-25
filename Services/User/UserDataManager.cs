@@ -1,4 +1,5 @@
-﻿using BlueBerryDictionary.Models;
+﻿using BlueBerryDictionary.Helpers;
+using BlueBerryDictionary.Models;
 using BlueBerryDictionary.Services.Network;
 using Newtonsoft.Json;
 using System;
@@ -33,18 +34,18 @@ namespace BlueBerryDictionary.Services.User
         {
             var baseDir = AppDomain.CurrentDomain.BaseDirectory;
             _baseDataPath = Path.GetFullPath(
-                 Path.Combine(baseDir, @"..\..\..\Data\PersistentStorage\Users")
+                 PathHelper.Combine(baseDir, @"..\..\..\Data\PersistentStorage\Users")
             );
 
             _systemPath = Path.GetFullPath(
-                Path.Combine(baseDir, @"..\..\..\Data\System")
+                PathHelper.Combine(baseDir, @"..\..\..\Data\System")
             );
             Directory.CreateDirectory(_baseDataPath);
             Directory.CreateDirectory(_systemPath);
             if (Directory.Exists(_baseDataPath)) Console.WriteLine("[UserDataManager] "  + _baseDataPath + " checked " );
             if (Directory.Exists(_systemPath)) Console.WriteLine("[UserDataManager] " + _systemPath + " checked ");
             // Default = guest
-            _currentUserFolder = Path.Combine(_baseDataPath, "guest");
+            _currentUserFolder = PathHelper.Combine(_baseDataPath, "guest");
             Directory.CreateDirectory(_currentUserFolder);
             
         }
@@ -71,11 +72,11 @@ namespace BlueBerryDictionary.Services.User
         
         // ========== GET PATHS ==========
 
-        public string GetMyWordsPath() => Path.Combine(_currentUserFolder, "MyWords.json");
-        public string GetTagsPath() => Path.Combine(_currentUserFolder, "Tags.json");
-        public string GetGameLogPath() => Path.Combine(_currentUserFolder, "GameLog.json");
-        public string GetSettingsPath() => Path.Combine(_currentUserFolder, "Settings.json");
-        public string GetMetadataPath() => Path.Combine(_currentUserFolder, ".metadata.json");
+        public string GetMyWordsPath() => PathHelper.Combine(_currentUserFolder, "MyWords.json");
+        public string GetTagsPath() => PathHelper.Combine(_currentUserFolder, "Tags.json");
+        public string GetGameLogPath() => PathHelper.Combine(_currentUserFolder, "GameLog.json");
+        public string GetSettingsPath() => PathHelper.Combine(_currentUserFolder, "Settings.json");
+        public string GetMetadataPath() => PathHelper.Combine(_currentUserFolder, ".metadata.json");
 
         public string GetCurrentUserFolder() => _currentUserFolder;
 

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -11,42 +12,29 @@ namespace BlueBerryDictionary.ViewModels
     public class GameViewModel : INotifyPropertyChanged
     {
         private readonly GameLogService _gameLogService;
-        
-        // Game State
-        private List<WordShortened> _flashcards;
-        private int _currentCardIndex;
-        private List<int> _skippedCards;
-        private List<int> _knownCards;
-        private bool _isFlipped;
-        private bool _isAnimating;
-        
-        // Session Data
-        private GameSession _currentSession;
-        private DateTime _sessionStartTime;
+        private readonly TagService _tagService;
 
-        public GameViewModel()
+        // ========== PROPERTIES ==========
+
+        private List<WordShortened> _flashcards = new List<WordShortened>();
+        public List<WordShortened> Flashcards
         {
-            _gameLogService = GameLogService.Instance;
-            _flashcards = new List<WordShortened>();
-            _skippedCards = new List<int>();
-            _knownCards = new List<int>();
+            get => _flashcards;
+            set
+            {
+                _flashcards = value;
+                OnPropertyChanged();
+            }
         }
 
-        // ============ PROPERTIES ============
-
-        public WordShortened CurrentCard => 
-            _flashcards != null && _currentCardIndex < _flashcards.Count 
-            ? _flashcards[_currentCardIndex] 
-            : null;
-
-        public int CurrentIndex
+        private int _currentCardIndex;
+        public int CurrentCardIndex
         {
             get => _currentCardIndex;
             set
             {
                 _currentCardIndex = value;
                 OnPropertyChanged();
-                OnPropertyChanged(nameof(CurrentCard));
                 OnPropertyChanged(nameof(ProgressText));
                 OnPropertyChanged(nameof(CanGoBack));
                 OnPropertyChanged(nameof(IsLastCard));
@@ -54,16 +42,19 @@ namespace BlueBerryDictionary.ViewModels
             }
         }
 
-        public int TotalCards => _flashcards?.Count ?? 0;
+        private int _totalCards;
+        public int TotalCards
+        {
+            get => _totalCards;
+            set
+            {
+                _totalCards = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(ProgressText));
+            }
+        }
 
-        public string ProgressText => $"{CurrentIndex + 1}/{TotalCards}";
-
-        public bool CanGoBack => CurrentIndex > 0;
-
-        public bool IsLastCard => CurrentIndex >= TotalCards - 1;
-
-        public string NextButtonText => IsLastCard ? "Finish ✓" : "Next (Known) ▶";
-
+        private bool _isFlipped;
         public bool IsFlipped
         {
             get => _isFlipped;
@@ -74,6 +65,7 @@ namespace BlueBerryDictionary.ViewModels
             }
         }
 
+        private bool _isAnimating;
         public bool IsAnimating
         {
             get => _isAnimating;
@@ -84,24 +76,74 @@ namespace BlueBerryDictionary.ViewModels
             }
         }
 
-        public List<int> SkippedCards => _skippedCards;
-
-        public bool HasSkippedCards => _skippedCards.Count > 0;
-
-        public string SkipTrackerMessage => 
-            HasSkippedCards ? "🚩 Skipped:" : "✅ No skipped cards yet!";
-
-        // ============ GAME CONTROL ============
-
-        public void StartGame(List<WordShortened> flashcards, string dataSource, string dataSourceName)
+        private ObservableCollection<int> _skippedCards = new ObservableCollection<int>();
+        public ObservableCollection<int> SkippedCards
         {
-            _flashcards = flashcards;
-            _currentCardIndex = 0;
-            _skippedCards.Clear();
-            _knownCards.Clear();
-            _isFlipped = false;
+            get => _skippedCards;
+            set
+            {
+                _skippedCards = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(HasSkippedCards));
+                OnPropertyChanged(nameof(SkipTrackerMessage));
+            }
+        }
 
-            // Start new session
+        private List<int> _knownCards = new List<int>();
+        public List<int> KnownCards
+        {
+            get => _knownCards;
+            set
+            {
+                _knownCards = value;
+                OnPropertyChanged();
+            }
+        }
+
+        // Current Card Info
+        public WordShortened CurrentCard =>
+            Flashcards.Count > 0 && CurrentCardIndex < Flashcards.Count
+                ? Flashcards[CurrentCardIndex]
+                : null;
+
+        // UI Computed Properties
+        public string ProgressText => $"{CurrentCardIndex + 1}/{TotalCards}";
+        public bool CanGoBack => CurrentCardIndex > 0;
+        public bool IsLastCard => CurrentCardIndex >= TotalCards - 1;
+        public string NextButtonText => IsLastCard ? "Finish ✓" : "Next (Known) ▶";
+        public bool HasSkippedCards => SkippedCards.Count > 0;
+        public string SkipTrackerMessage => HasSkippedCards ? "🚩 Skipped:" : "✅ No skipped cards yet!";
+
+        // Session tracking
+        private GameSession _currentSession;
+        private DateTime _sessionStartTime;
+        public string DataSourceName { get; set; }
+
+        // ========== CONSTRUCTOR ==========
+
+        public GameViewModel()
+        {
+            _gameLogService = GameLogService.Instance;
+            _tagService = TagService.Instance;
+        }
+
+        // ========== GAME LIFECYCLE ==========
+
+        /// <summary>
+        /// Bắt đầu game với flashcards đã được chuẩn bị
+        /// </summary>
+        public void StartGame(List<WordShortened> cards, string dataSource, string dataSourceName)
+        {
+            Flashcards = cards;
+            TotalCards = cards.Count;
+            CurrentCardIndex = 0;
+            IsFlipped = false;
+            IsAnimating = false;
+            SkippedCards.Clear();
+            KnownCards.Clear();
+            DataSourceName = dataSourceName;
+
+            // Start session
             _sessionStartTime = DateTime.Now;
             _currentSession = new GameSession
             {
@@ -112,108 +154,19 @@ namespace BlueBerryDictionary.ViewModels
             };
 
             OnPropertyChanged(nameof(CurrentCard));
-            OnPropertyChanged(nameof(ProgressText));
-            OnPropertyChanged(nameof(CanGoBack));
-            OnPropertyChanged(nameof(IsLastCard));
-            OnPropertyChanged(nameof(NextButtonText));
-            OnPropertyChanged(nameof(SkipTrackerMessage));
         }
 
-        public void NextCard()
+        /// <summary>
+        /// Kết thúc game và lưu session
+        /// </summary>
+        public GameCompletionData CompleteGame()
         {
-            // Mark as known
-            if (!_knownCards.Contains(CurrentIndex) && !_skippedCards.Contains(CurrentIndex))
-            {
-                _knownCards.Add(CurrentIndex);
-            }
-
-            // Remove from skipped if was skipped before
-            if (_skippedCards.Contains(CurrentIndex))
-            {
-                _skippedCards.Remove(CurrentIndex);
-                OnPropertyChanged(nameof(HasSkippedCards));
-                OnPropertyChanged(nameof(SkipTrackerMessage));
-            }
-
-            if (CurrentIndex < TotalCards - 1)
-            {
-                CurrentIndex++;
-            }
-        }
-
-        public void PreviousCard()
-        {
-            if (CurrentIndex > 0)
-            {
-                CurrentIndex--;
-            }
-        }
-
-        public void SkipCurrentCard()
-        {
-            // Mark as skipped (unknown)
-            if (!_skippedCards.Contains(CurrentIndex))
-            {
-                _skippedCards.Add(CurrentIndex);
-                OnPropertyChanged(nameof(HasSkippedCards));
-                OnPropertyChanged(nameof(SkipTrackerMessage));
-            }
-
-            // Remove from known if was known before
-            if (_knownCards.Contains(CurrentIndex))
-            {
-                _knownCards.Remove(CurrentIndex);
-            }
-        }
-
-        public void GoToCard(int index)
-        {
-            if (index >= 0 && index < TotalCards)
-            {
-                CurrentIndex = index;
-            }
-        }
-
-        public void GoToFirstSkipped()
-        {
-            if (_skippedCards.Count > 0)
-            {
-                var firstSkipped = _skippedCards.OrderBy(x => x).First();
-                GoToCard(firstSkipped);
-            }
-        }
-
-        public void RestartGame()
-        {
-            CurrentIndex = 0;
-            _skippedCards.Clear();
-            _knownCards.Clear();
-            _isFlipped = false;
-
-            OnPropertyChanged(nameof(HasSkippedCards));
-            OnPropertyChanged(nameof(SkipTrackerMessage));
-        }
-
-        // ============ COMPLETION ============
-
-        public class CompletionData
-        {
-            public int Percentage { get; set; }
-            public int KnownCount { get; set; }
-            public int UnknownCount { get; set; }
-            public int TotalCount { get; set; }
-            public List<int> SkippedIndices { get; set; }
-        }
-
-        public CompletionData CompleteGame()
-        {
-            int knownCount = _knownCards.Count;
-            int unknownCount = _skippedCards.Count;
+            int knownCount = KnownCards.Count;
+            int unknownCount = SkippedCards.Count;
             int reviewedCount = TotalCards - (knownCount + unknownCount);
+            knownCount += reviewedCount; // Auto-count reviewed as known
 
-            int percentage = TotalCards > 0 
-                ? (int)Math.Round((double)knownCount / TotalCards * 100) 
-                : 0;
+            int percentage = TotalCards > 0 ? (int)Math.Round((double)knownCount / TotalCards * 100) : 0;
 
             // Save session
             _currentSession.EndTime = DateTime.Now;
@@ -221,26 +174,106 @@ namespace BlueBerryDictionary.ViewModels
             _currentSession.KnownCards = knownCount;
             _currentSession.UnknownCards = unknownCount;
             _currentSession.AccuracyPercentage = percentage;
-            _currentSession.SkippedCardIndices = new List<int>(_skippedCards);
-
-            // Save skipped words
-            _currentSession.SkippedWords = _skippedCards
-                .Select(idx => _flashcards[idx].Word)
+            _currentSession.SkippedCardIndices = SkippedCards.ToList();
+            _currentSession.SkippedWords = SkippedCards
+                .Select(idx => Flashcards[idx].Word)
                 .ToList();
 
             _gameLogService.AddSession(_currentSession);
 
-            return new CompletionData
+            return new GameCompletionData
             {
                 Percentage = percentage,
                 KnownCount = knownCount,
                 UnknownCount = unknownCount,
                 TotalCount = TotalCards,
-                SkippedIndices = new List<int>(_skippedCards)
+                SkippedIndices = SkippedCards.ToList()
             };
         }
 
-        // ============ INotifyPropertyChanged ============
+        // ========== CARD NAVIGATION ==========
+
+        public void GoToCard(int index)
+        {
+            if (index >= 0 && index < TotalCards)
+            {
+                CurrentCardIndex = index;
+                IsFlipped = false;
+                OnPropertyChanged(nameof(CurrentCard));
+            }
+        }
+
+        public void NextCard()
+        {
+            // Mark as known if not skipped
+            if (!KnownCards.Contains(CurrentCardIndex) && !SkippedCards.Contains(CurrentCardIndex))
+            {
+                KnownCards.Add(CurrentCardIndex);
+            }
+
+            // Remove from skipped if was skipped before
+            if (SkippedCards.Contains(CurrentCardIndex))
+            {
+                SkippedCards.Remove(CurrentCardIndex);
+            }
+
+            GoToCard(CurrentCardIndex + 1);
+        }
+
+        public void PreviousCard()
+        {
+            GoToCard(CurrentCardIndex - 1);
+        }
+
+        public void SkipCurrentCard()
+        {
+            // Mark as skipped
+            if (!SkippedCards.Contains(CurrentCardIndex))
+            {
+                SkippedCards.Add(CurrentCardIndex);
+            }
+
+            // Remove from known
+            if (KnownCards.Contains(CurrentCardIndex))
+            {
+                KnownCards.Remove(CurrentCardIndex);
+            }
+
+            GoToCard(CurrentCardIndex + 1);
+        }
+
+        public void GoToFirstSkipped()
+        {
+            if (SkippedCards.Count > 0)
+            {
+                var firstSkipped = SkippedCards.OrderBy(x => x).First();
+                GoToCard(firstSkipped);
+            }
+        }
+
+        // ========== FLIP ANIMATION ==========
+
+        public void ToggleFlip()
+        {
+            if (!IsAnimating)
+            {
+                IsFlipped = !IsFlipped;
+            }
+        }
+
+        // ========== RESTART ==========
+
+        public void RestartGame()
+        {
+            CurrentCardIndex = 0;
+            SkippedCards.Clear();
+            KnownCards.Clear();
+            IsFlipped = false;
+            IsAnimating = false;
+            OnPropertyChanged(nameof(CurrentCard));
+        }
+
+        // ========== INOTIFYPROPERTYCHANGED ==========
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -248,5 +281,16 @@ namespace BlueBerryDictionary.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+    }
+
+    // ========== HELPER CLASS ==========
+
+    public class GameCompletionData
+    {
+        public int Percentage { get; set; }
+        public int KnownCount { get; set; }
+        public int UnknownCount { get; set; }
+        public int TotalCount { get; set; }
+        public List<int> SkippedIndices { get; set; }
     }
 }

@@ -7,7 +7,7 @@
         xmlns:vm="clr-namespace:BlueBerryDictionary.ViewModels"
         mc:Ignorable="d"
         Title="English Dictionary"
-        Height="800" Width="1400"
+        WindowState="Maximized"
         WindowStartupLocation="CenterScreen"
         FontFamily="{DynamicResource AppFontFamily}"
         FontSize="{DynamicResource AppFontSize}"
@@ -65,7 +65,7 @@
                             Style="{StaticResource NavButtonStyle}"
                             Click="BackBtn_Click"
                             IsEnabled="False"
-                            ToolTip="Quay lại"
+                            ToolTip="Go Back"
                             Margin="0,0,8,0">
                         <TextBlock Text="◀" FontSize="16" FontWeight="Bold"/>
                     </Button>
@@ -76,7 +76,7 @@
                             Style="{StaticResource NavButtonStyle}"
                             Click="ForwardBtn_Click"
                             IsEnabled="False"
-                            ToolTip="Tiến tới"
+                            ToolTip="Next"
                             Margin="0,0,8,0">
                         <TextBlock Text="▶" FontSize="16" FontWeight="Bold"/>
                     </Button>
@@ -86,7 +86,7 @@
                             Grid.Column="3"
                             Style="{StaticResource NavButtonStyle}"
                             Click="ReloadBtn_Click"
-                            ToolTip="Tải lại"
+                            ToolTip="Reload"
                             Margin="0,0,20,0">
                         <TextBlock x:Name="ReloadIcon" Text="🔄" FontSize="16"/>
                     </Button>

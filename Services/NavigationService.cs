@@ -104,22 +104,23 @@ namespace BlueBerryDictionary.Services
         {
             Page page = pageTag switch
             {
-                "Home" => new Views.Pages.HomePage(_onWordClick, (s, e) => 
+                "Home" => new Views.Pages.HomePage(_onWordClick, (s, e) =>
                 {
-                    if (s is Button btn && btn.Tag != null) 
+                    if (s is Button btn && btn.Tag != null)
                     {
-                        NavigateTo(btn.Tag.ToString());     
+                        NavigateTo(btn.Tag.ToString());
                     }
                 }),
                 "History" => new Pages.HistoryPage(_onWordClick),
                 "Favourite" => new Views.Pages.FavouriteWordsPage(_onWordClick),
                 "MyWords" => new Pages.MyWordsPage(_onWordClick),
-                "Game" => new Pages.GamePage(_onWordClick),
-                "Account" => new UserProfilePage() ,
+                "Game" => new Views.Pages.GamePage(_onWordClick),
+                "Offline" => new OfflineModePage(_onWordClick),
+                "Account" => new UserProfilePage(),
                 "UserProfile" => new UserProfilePage(),
-                "Setting" => new SettingsPage() ,
+                "Setting" => new SettingsPage(),
                 _ => new Views.Pages.HomePage(_onWordClick, _sidebarNavigate)
-            };
+            }; 
 
             // Auto-load data
             if (page is Views.Pages.WordListPageBase basePage)

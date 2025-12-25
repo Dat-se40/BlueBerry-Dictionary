@@ -1,0 +1,25 @@
+{
+  "content": "We become what we think about.",
+  "author": "Earl Nightingale",
+  "imageUrl": "https://picsum.photos/400/200?random=3",
+  "relativeWords": [
+    {
+      "word": "become",
+      "phonetic": "/bɪˈkʌm/",
+      "meaning": "to begin to be something",
+      "partOfSpeech": "verb"
+    },
+    {
+      "word": "think",
+      "phonetic": "/θɪŋk/",
+      "meaning": "to use the mind to consider ideas and make decisions",
+      "partOfSpeech": "verb"
+    },
+    {
+      "word": "about",
+      "phonetic": "/əˈbaʊt/",
+      "meaning": "concerning; on the subject of",
+      "partOfSpeech": "preposition"
+    }
+  ]
+}

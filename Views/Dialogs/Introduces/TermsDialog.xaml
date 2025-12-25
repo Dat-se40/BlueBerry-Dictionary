@@ -1,0 +1,241 @@
+﻿<Window x:Class="BlueBerryDictionary.Views.Dialogs.Introduces.TermsDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Terms of Service"
+        Width="700" Height="650"
+        WindowStartupLocation="CenterScreen"
+        Background="{DynamicResource MainBackground}"
+        ResizeMode="CanResize">
+
+    <Window.Resources>
+        <!-- Header Style -->
+        <Style x:Key="HeaderStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextColor}"/>
+            <Setter Property="Margin" Value="0,15,0,10"/>
+        </Style>
+
+        <!-- Body Style -->
+        <Style x:Key="BodyStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextColor}"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="LineHeight" Value="22"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+            <Setter Property="Opacity" Value="0.9"/>
+        </Style>
+
+        <!-- Close Button Style -->
+        <Style x:Key="CloseButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="{DynamicResource ButtonColor}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="25,10"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                Padding="{TemplateBinding Padding}"
+                                CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Opacity" Value="0.9"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0"
+                Background="{DynamicResource ButtonColor}"
+                Padding="30,20">
+            <StackPanel>
+                <TextBlock Text="📄 TERMS OF SERVICE"
+                           FontSize="24"
+                           FontWeight="Bold"
+                           Foreground="White"/>
+                <TextBlock Text="Terms of Service and Privacy Policy"
+                           FontSize="14"
+                           Foreground="White"
+                           Opacity="0.9"
+                           Margin="0,5,0,0"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Content -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="30,20">
+            <StackPanel>
+                <!-- License -->
+                <TextBlock Style="{StaticResource HeaderStyle}">
+                    ⚖️ License
+                </TextBlock>
+
+                <Border Background="{DynamicResource CardBackground}"
+                        BorderBrush="{DynamicResource BorderColor}"
+                        BorderThickness="1"
+                        CornerRadius="8"
+                        Padding="20"
+                        Margin="0,0,0,15">
+                    <StackPanel>
+                        <TextBlock Text="MIT License"
+                                   FontSize="16"
+                                   FontWeight="Bold"
+                                   Foreground="{DynamicResource TextColor}"
+                                   Margin="0,0,0,10"/>
+
+                        <TextBlock Style="{StaticResource BodyStyle}">
+                            Copyright (c) 2024 BlueBerry Dictionary Team
+                        </TextBlock>
+
+                        <TextBlock Style="{StaticResource BodyStyle}">
+                            Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software.
+                        </TextBlock>
+
+                        <TextBlock Style="{StaticResource BodyStyle}">
+                            THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED.
+                        </TextBlock>
+                    </StackPanel>
+                </Border>
+
+                <!-- Privacy -->
+                <TextBlock Style="{StaticResource HeaderStyle}">
+                    🔒 Privacy Policy
+                </TextBlock>
+
+                <Border Background="{DynamicResource CardBackground}"
+                        BorderBrush="{DynamicResource BorderColor}"
+                        BorderThickness="1"
+                        CornerRadius="8"
+                        Padding="20"
+                        Margin="0,0,0,15">
+                    <StackPanel>
+                        <TextBlock Text="1. Collected Data"
+                                   FontSize="15"
+                                   FontWeight="SemiBold"
+                                   Foreground="{DynamicResource TextColor}"
+                                   Margin="0,0,0,10"/>
+                        <TextBlock Style="{StaticResource BodyStyle}" Margin="15,0,0,10">
+                            • Vocabulary you saved (My Words)
+                            <LineBreak/>
+                            • Search history
+                            <LineBreak/>
+                            • App settings
+                            <LineBreak/>
+                            • Google account information (if logged in)
+                        </TextBlock>
+
+                        <TextBlock Text="2. Purpose of Use"
+                                   FontSize="15"
+                                   FontWeight="SemiBold"
+                                   Foreground="{DynamicResource TextColor}"
+                                   Margin="0,10,0,10"/>
+                        <TextBlock Style="{StaticResource BodyStyle}" Margin="15,0,0,10">
+                            • Store personal data
+                            <LineBreak/>
+                            • Sync across devices
+                            <LineBreak/>
+                            • Improve user experience
+                        </TextBlock>
+
+                        <TextBlock Text="3. Data Protection"
+                                   FontSize="15"
+                                   FontWeight="SemiBold"
+                                   Foreground="{DynamicResource TextColor}"
+                                   Margin="0,10,0,10"/>
+                        <TextBlock Style="{StaticResource BodyStyle}" Margin="15,0,0,10">
+                            • Data is stored on YOUR Google Drive
+                            <LineBreak/>
+                            • We do NOT collect or sell your data
+                            <LineBreak/>
+                            • You have the right to delete your data at any time
+                        </TextBlock>
+                    </StackPanel>
+                </Border>
+
+                <!-- Terms of Use -->
+                <TextBlock Style="{StaticResource HeaderStyle}">
+                    📋 Terms of Use
+                </TextBlock>
+
+                <Border Background="{DynamicResource CardBackground}"
+                        BorderBrush="{DynamicResource BorderColor}"
+                        BorderThickness="1"
+                        CornerRadius="8"
+                        Padding="20"
+                        Margin="0,0,0,15">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource BodyStyle}">
+                            ✅ YOU ARE ALLOWED TO:
+                            <LineBreak/>
+                            • Use the app for free
+                            <LineBreak/>
+                            • Copy and distribute
+                            <LineBreak/>
+                            • Modify the source code (if available)
+                        </TextBlock>
+
+                        <TextBlock Style="{StaticResource BodyStyle}" Margin="0,15,0,0">
+                            ❌ YOU ARE NOT ALLOWED TO:
+                            <LineBreak/>
+                            • Use it for illegal purposes
+                            <LineBreak/>
+                            • Sell or commercialize it unlawfully
+                            <LineBreak/>
+                            • Remove copyright and license
+                        </TextBlock>
+                    </StackPanel>
+                </Border>
+
+                <!-- Contact -->
+                <TextBlock Style="{StaticResource HeaderStyle}">
+                    📧 Contact
+                </TextBlock>
+
+                <Border Background="{DynamicResource CardBackground}"
+                        BorderBrush="{DynamicResource BorderColor}"
+                        BorderThickness="1"
+                        CornerRadius="8"
+                        Padding="20">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource BodyStyle}">
+                            If you have any questions about these terms, please contact:
+                            <LineBreak/><LineBreak/>
+                            Email: 24520280@gm.uit.edu.vn
+                            <LineBreak/>
+                            GitHub: github.com/Dat-se40/BlueBerry-Dictionary
+                        </TextBlock>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Buttons -->
+        <Border Grid.Row="2"
+                Background="{DynamicResource CardBackground}"
+                BorderBrush="{DynamicResource BorderColor}"
+                BorderThickness="0,1,0,0"
+                Padding="20">
+            <Button Content="Close"
+                    Width="120"
+                    Style="{StaticResource CloseButtonStyle}"
+                    HorizontalAlignment="Right"
+                    Click="CloseButton_Click"/>
+        </Border>
+    </Grid>
+</Window>

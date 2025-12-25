@@ -1,4 +1,5 @@
-﻿using BlueBerryDictionary.Models;
+﻿using BlueBerryDictionary.Helpers;
+using BlueBerryDictionary.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -40,9 +41,9 @@ namespace BlueBerryDictionary.Services
             _words = new Dictionary<string, WordShortened>();
 
             var baseDir = AppDomain.CurrentDomain.BaseDirectory;
-            var dataDir = Path.Combine(baseDir, @"..\..\..\Data\PersistentStorage\StoredTag");
-            _tagsPath = Path.Combine(dataDir, "Tags.json");
-            _wordsPath = Path.Combine(dataDir, "MyWords.json");
+            var dataDir = PathHelper.Combine(baseDir, @"..\..\..\Data\PersistentStorage\StoredTag");
+            _tagsPath = PathHelper.Combine(dataDir, "Tags.json");
+            _wordsPath = PathHelper.Combine(dataDir, "MyWords.json");
 
             LoadData();
         }

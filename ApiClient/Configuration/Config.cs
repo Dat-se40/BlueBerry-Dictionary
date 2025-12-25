@@ -23,18 +23,22 @@ namespace BlueBerryDictionary.ApiClient.Configuration
 
         private Config()
         {
+            string basePath = AppDomain.CurrentDomain.BaseDirectory;
+
             var builder = new ConfigurationBuilder()
-               .SetBasePath(Directory.GetCurrentDirectory() + @"..\..\..\..\ApiClient\Configuration")
-               .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-               .AddEnvironmentVariables(); // ✅ Now works
+               .SetBasePath(basePath)
+               .AddJsonFile("ApiClient/Configuration/appsettings.json", optional: false, reloadOnChange: true)
+               .AddEnvironmentVariables();
 
             _configuration = builder.Build();
+
         }
 
         // ========== API KEYS ==========
         public string MerriamWebsterDictionaryKey => _configuration["ApiKeys:MerriamWebsterDictionary"];
         public string MerriamWebsterThesaurusKey => _configuration["ApiKeys:MerriamWebsterThesaurus"];
         public string PixabayKey => _configuration["ApiKeys:Pixabay"];
+        public string SerpApiKey => _configuration["ApiKeys:SerpApi"]; 
 
         // ========== API ENDPOINTS ==========
         public string FreeDictionaryEndpoint => _configuration["ApiEndpoints:FreeDictionary"];

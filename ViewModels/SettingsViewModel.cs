@@ -77,7 +77,7 @@ namespace BlueBerryDictionary.ViewModels
             };
 
             ThemeManager.Instance.SetThemeMode(mode);
-            System.Diagnostics.Debug.WriteLine($"✅ Đã chọn theme: {mode}");
+            System.Diagnostics.Debug.WriteLine($"✅ Theme selected: {mode}");
         }
 
         // ========== COLOR THEME COMMANDS ==========
@@ -97,7 +97,7 @@ namespace BlueBerryDictionary.ViewModels
             {
                 string selectedTheme = dialog.SelectedTheme;
                 ThemeManager.Instance.ApplyColorTheme(selectedTheme);
-                MessageBox.Show($"Đã áp dụng theme: {selectedTheme}", "Thành công",
+                MessageBox.Show($"Theme applied: {selectedTheme}", "Completed successfully",
                     MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
@@ -121,7 +121,7 @@ namespace BlueBerryDictionary.ViewModels
                     dialog.AccentColor
                 );
 
-                MessageBox.Show("Đã áp dụng màu tùy chỉnh!", "Thành công",
+                MessageBox.Show("Custom color applied!", "Completed successfully",
                     MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
@@ -174,8 +174,8 @@ namespace BlueBerryDictionary.ViewModels
         private void RestoreData()
         {
             var result = MessageBox.Show(
-                "Bạn có chắc muốn khôi phục dữ liệu từ backup?\nDữ liệu hiện tại sẽ bị ghi đè.",
-                "Xác nhận",
+                "Are you sure you want to restore data from the backup ?\nCurrent data will be overwritten.",
+                "Confirmation",
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Question
             );
@@ -183,7 +183,7 @@ namespace BlueBerryDictionary.ViewModels
             if (result == MessageBoxResult.Yes)
             {
                 // TODO: Implement restore logic
-                MessageBox.Show("Chức năng đang được phát triển!", "Thông báo",
+                MessageBox.Show("This feature is under development!", "Notification",
                     MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
@@ -195,8 +195,8 @@ namespace BlueBerryDictionary.ViewModels
         private void ClearCache()
         {
             var result = MessageBox.Show(
-                "Xóa cache sẽ làm mất dữ liệu tạm thời.\nTiếp tục?",
-                "Xác nhận",
+                "Clearing the cache will remove temporary data.\nContinue ?",
+                "Confirmation",
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Warning
             );
@@ -204,7 +204,7 @@ namespace BlueBerryDictionary.ViewModels
             if (result == MessageBoxResult.Yes)
             {
                 // TODO: Implement clear cache logic
-                MessageBox.Show("Đã xóa cache thành công!", "Thành công",
+                MessageBox.Show("Cache cleared successfully!", "Completed successfully",
                     MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
@@ -216,14 +216,14 @@ namespace BlueBerryDictionary.ViewModels
         private void ResetApp()
         {
             var result = MessageBox.Show(
-                "⚠️ CẢNH BÁO: Hành động này sẽ xóa TOÀN BỘ dữ liệu!\n" +
-                "Bao gồm:\n" +
-                "- Từ yêu thích\n" +
-                "- Lịch sử tra cứu\n" +
+                "⚠️ WARNING: This action will DELETE ALL data!\n" +
+                "Includes:\n" +
+                "- Favorites\n" +
+                "- Search history\n" +
                 "- Tags\n" +
                 "- Settings\n\n" +
-                "Bạn có CHẮC CHẮN muốn tiếp tục?",
-                "XÁC NHẬN XÓA DỮ LIỆU",
+                "Are you SURE you want to continue ?",
+                "CONFIRM DATA DELETION",
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Error
             );
@@ -232,8 +232,8 @@ namespace BlueBerryDictionary.ViewModels
             {
                 // Double confirm
                 var confirm = MessageBox.Show(
-                    "Xác nhận lần cuối: Xóa toàn bộ dữ liệu?",
-                    "Xác nhận",
+                    "Final confirmation: Delete all data ?",
+                    "Confirmation",
                     MessageBoxButton.YesNo,
                     MessageBoxImage.Error
                 );
@@ -241,7 +241,7 @@ namespace BlueBerryDictionary.ViewModels
                 if (confirm == MessageBoxResult.Yes)
                 {
                     // TODO: Implement reset logic
-                    MessageBox.Show("Chức năng đang được phát triển!", "Thông báo",
+                    MessageBox.Show("This feature is under development!", "Notification",
                         MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
@@ -252,31 +252,31 @@ namespace BlueBerryDictionary.ViewModels
         [RelayCommand]
         private void OpenUserGuide()
         {
-            MessageBox.Show("Mở hướng dẫn sử dụng", "User Guide");
+            MessageBox.Show("Open user guide", "User Guide");
         }
 
         [RelayCommand]
         private void OpenFAQ()
         {
-            MessageBox.Show("Mở câu hỏi thường gặp", "FAQ");
+            MessageBox.Show("Open FAQ", "FAQ");
         }
 
         [RelayCommand]
         private void ContactSupport()
         {
-            MessageBox.Show("Liên hệ hỗ trợ: support@blueberry.com", "Contact");
+            MessageBox.Show("Contact Support: support@blueberry.com", "Contact");
         }
 
         [RelayCommand]
         private void ReportBug()
         {
-            MessageBox.Show("Báo lỗi tại: bugs@blueberry.com", "Report Bug");
+            MessageBox.Show("Report an issue at: bugs@blueberry.com", "Report Bug");
         }
 
         [RelayCommand]
         private void RateApp()
         {
-            MessageBox.Show("Cảm ơn bạn đã đánh giá!", "Rate App");
+            MessageBox.Show("Thank you for your feedback!", "Rate App");
         }
 
         [RelayCommand]
@@ -294,13 +294,13 @@ namespace BlueBerryDictionary.ViewModels
         [RelayCommand]
         private void ShowTerms()
         {
-            MessageBox.Show("Xem điều khoản dịch vụ", "Terms & Privacy");
+            MessageBox.Show("View Terms of Service", "Terms & Privacy");
         }
 
         [RelayCommand]
         private void ShowLicenses()
         {
-            MessageBox.Show("Xem giấy phép mã nguồn", "Open Source Licenses");
+            MessageBox.Show("View Source Code License", "Open Source Licenses");
         }
     }
 }

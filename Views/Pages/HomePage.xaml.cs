@@ -31,7 +31,8 @@
             InitializeComponent();
             Navigate += navigate;
             listQuotes = new List<Quote>();
-            this.Loaded += Home_Loaded1; 
+            this.Loaded += Home_Loaded1;
+            _ = InitializeAsync();
         }
 
         /// <summary>
@@ -50,7 +51,7 @@
         }
         public override void LoadData() 
         {
-            _ = InitializeAsync();  
+            Home_Loaded1(this,new RoutedEventArgs()); 
         }
         #region Load random qoute 
         private void Home_Loaded1(object sender, RoutedEventArgs e)

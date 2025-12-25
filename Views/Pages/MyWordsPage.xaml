@@ -200,13 +200,13 @@
                                     Command="{Binding CreateTagCommand}">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="🏷️" FontSize="16" Margin="0,0,8,0" />
-                                    <TextBlock Text="Tạo nhãn mới" />
+                                    <TextBlock Text="Create New Tag" FontSize="16" />
                                 </StackPanel>
                             </Button>
-                            <Button Style="{StaticResource PrimaryButtonStyle}" Command="{Binding OpenRemoveTagDialogCommand}">
+                            <Button Style="{StaticResource DangerButtonStyle}" Command="{Binding OpenRemoveTagDialogCommand}">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="➕" FontSize="16" Margin="0,0,8,0" />
-                                    <TextBlock Text="Xóa tag" />
+                                    <TextBlock Text="❌" FontSize="16" Margin="0,0,8,0" />
+                                    <TextBlock Text="Delete Tag" FontSize="16"/>
                                 </StackPanel>
                             </Button>
                         </StackPanel>
@@ -234,7 +234,7 @@
                                            FontWeight="Bold"
                                            Foreground="{DynamicResource ButtonColor}"
                                            HorizontalAlignment="Center" />
-                                <TextBlock Text="Tổng số từ"
+                                <TextBlock Text="Total Words"
                                            FontSize="15"
                                            Foreground="{DynamicResource TextColor}"
                                            Opacity="0.8"
@@ -248,7 +248,7 @@
                                            FontWeight="Bold"
                                            Foreground="{DynamicResource ButtonColor}"
                                            HorizontalAlignment="Center" />
-                                <TextBlock Text="Nhãn"
+                                <TextBlock Text="Total Tags"
                                            FontSize="15"
                                            Foreground="{DynamicResource TextColor}"
                                            Opacity="0.8"
@@ -262,7 +262,7 @@
                                            FontWeight="Bold"
                                            Foreground="{DynamicResource ButtonColor}"
                                            HorizontalAlignment="Center" />
-                                <TextBlock Text="Tuần này"
+                                <TextBlock Text="Words This Week"
                                            FontSize="15"
                                            Foreground="{DynamicResource TextColor}"
                                            Opacity="0.8"
@@ -276,7 +276,7 @@
                                            FontWeight="Bold"
                                            Foreground="{DynamicResource ButtonColor}"
                                            HorizontalAlignment="Center" />
-                                <TextBlock Text="Tháng này"
+                                <TextBlock Text="Words This Month"
                                            FontSize="15"
                                            Foreground="{DynamicResource TextColor}"
                                            Opacity="0.8"
@@ -296,7 +296,7 @@
                         <WrapPanel Grid.Column="0" HorizontalAlignment="Left">
                             <Button Style="{StaticResource FilterChipStyle}" Tag="Active" Command="{Binding ClearFiltersCommand}">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="Tất cả" />
+                                    <TextBlock Text="All" />
                                 </StackPanel>
                             </Button>
 
@@ -304,7 +304,7 @@
                                     Click="PartOfSpeechBtn_Click"
                                     Tag="noun">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="Danh từ" />
+                                    <TextBlock Text="Noun" />
                                 </StackPanel>
                             </Button>
 
@@ -312,7 +312,7 @@
                                     Click="PartOfSpeechBtn_Click"
                                     Tag="verb">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="Động từ" />
+                                    <TextBlock Text="Verb" />
                                 </StackPanel>
                             </Button>
 
@@ -320,7 +320,7 @@
                                     Click="PartOfSpeechBtn_Click"
                                     Tag="adjective">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="Tính từ" />
+                                    <TextBlock Text="Adjective" />
                                 </StackPanel>
                             </Button>
                         </WrapPanel>
@@ -333,7 +333,7 @@
                                               Style="{StaticResource TagDropdownButtonStyle}">
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="🔤" FontSize="14" Margin="0,0,8,0" />
-                                        <TextBlock Text="Lọc theo chữ cái" Margin="0,0,8,0" />
+                                        <TextBlock Text="Filter By Letter" Margin="0,0,8,0" />
                                         <TextBlock Text="▼" FontSize="12" />
                                     </StackPanel>
                                 </ToggleButton>
@@ -354,7 +354,7 @@
                                         </Border.Effect>
 
                                         <StackPanel>
-                                            <TextBlock Text="Chọn chữ cái"
+                                            <TextBlock Text="Select Letter"
                                                        FontSize="16"
                                                        FontWeight="Bold"
                                                        Foreground="{DynamicResource TextColor}"
@@ -416,7 +416,6 @@
                                                         Tag="Y" Click="AlphabetButton_Click" />
                                                 <Button Content="Z" Style="{StaticResource AlphabetButtonStyle}"
                                                         Tag="Z" Click="AlphabetButton_Click" />
-                                                <!-- <Button Visibility="Hidden" IsEnabled="False"/> -->
                                             </UniformGrid>
                                         </StackPanel>
                                     </Border>
@@ -429,7 +428,7 @@
                                               Style="{StaticResource TagDropdownButtonStyle}">
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="🏷️" FontSize="14" Margin="0,0,8,0" />
-                                        <TextBlock Text="Lọc theo nhãn" Margin="0,0,8,0" />
+                                        <TextBlock Text="Filter By Tag" Margin="0,0,8,0" />
                                         <TextBlock Text="▼" FontSize="12" />
                                     </StackPanel>
                                 </ToggleButton>
@@ -453,7 +452,7 @@
 
                                         <StackPanel>
                                             <!-- Search Box -->
-                                            <TextBox Text="Tìm nhãn..."
+                                            <TextBox Text="Search Tag"
                                                      Background="{DynamicResource MainBackground}"
                                                      BorderBrush="{DynamicResource BorderColor}"
                                                      BorderThickness="2"

@@ -421,7 +421,8 @@ FodyWeavers.xsd
 Data/System/CurrentUser.json
 Data/System/LoginLog.json
 Data/PersistentStorage/Users/
-
+Data/PackageStorage/AvailalePackages.json
+Data/PersistentStorage/Images
 # ==================== CREDENTIALS ====================
 appsettings.json
 *.token

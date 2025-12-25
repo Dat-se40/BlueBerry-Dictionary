@@ -1,27 +1,29 @@
 [
   {
-    "Id": "d161081e-3474-4b9d-9063-f03c78875591",
-    "Name": "test12",
-    "Icon": "📚",
-    "Color": "#84CC16",
-    "CreatedAt": "2025-12-05T09:46:30.2683009+07:00",
-    "RelatedWords": [
-      "sorry",
-      "dick",
-      "treasure"
-    ],
-    "WordCount": 3
+    "Id": "048ff40d-5f9e-4dbf-a0fc-49cfbdc94aa9",
+    "Name": "IELTS",
+    "Icon": "🎯",
+    "Color": "#2D4ACC",
+    "CreatedAt": "2025-12-14T13:03:48.4536788+07:00",
+    "RelatedWords": [],
+    "WordCount": 0
   },
   {
-    "Id": "ef39ecb0-7b7d-491d-b1ea-1e3b34183c1f",
-    "Name": "huhu",
-    "Icon": "🎪",
+    "Id": "5e5e27e0-29f5-4aa1-aed0-83324b946c76",
+    "Name": "Giao tiếp",
+    "Icon": "💬",
+    "Color": "#10B981",
+    "CreatedAt": "2025-12-14T13:03:48.4593511+07:00",
+    "RelatedWords": [],
+    "WordCount": 0
+  },
+  {
+    "Id": "cad5123f-69eb-4eba-b143-b9cff63a3ce3",
+    "Name": "Business",
+    "Icon": "💼",
     "Color": "#F59E0B",
-    "CreatedAt": "2025-12-05T09:46:30.2696332+07:00",
-    "RelatedWords": [
-      "sorry",
-      "treasure"
-    ],
-    "WordCount": 2
+    "CreatedAt": "2025-12-14T13:03:48.4597518+07:00",
+    "RelatedWords": [],
+    "WordCount": 0
   }
 ]

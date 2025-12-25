@@ -13,16 +13,15 @@ namespace BlueBerryDictionary.Views.Dialogs
     {
         private readonly TagService _tagService;
         public List<string> RemovedTagIds { get; private set; } = new();
-        static public Action UpdateUI;
+
+        // ========== STATIC EVENT (để Page listen) ==========
+        public static event Action OnTagsDeleted;
+
         public RemoveTagDialog()
         {
             InitializeComponent();
             _tagService = TagService.Instance;
             LoadTags();
-            Dispatcher.ShutdownStarted += (s, e) =>
-            {
-                UpdateUI?.Invoke(); 
-            };
         }
 
         private void LoadTags()
@@ -30,10 +29,11 @@ namespace BlueBerryDictionary.Views.Dialogs
             var allTags = _tagService.GetAllTags();
             if (allTags == null || allTags.Count == 0)
             {
-                MessageBox.Show("Hiện chưa có tag nào để xoá!", "Thông báo",
+                MessageBox.Show("There are no tags to delete yet!", "Notification",
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
+
             TagsList.ItemsSource = allTags;
         }
 
@@ -42,6 +42,7 @@ namespace BlueBerryDictionary.Views.Dialogs
             try
             {
                 var selectedIds = new List<string>();
+
                 foreach (var item in TagsList.Items)
                 {
                     var container = TagsList.ItemContainerGenerator.ContainerFromItem(item) as FrameworkElement;
@@ -55,27 +56,32 @@ namespace BlueBerryDictionary.Views.Dialogs
 
                 if (selectedIds.Count == 0)
                 {
-                    MessageBox.Show("Vui lòng chọn ít nhất một tag!", "Thông báo",
+                    MessageBox.Show("Please select at least one tag!", "Notification",
                         MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
 
                 var confirm = MessageBox.Show(
-                    $"Bạn có chắc chắn muốn xoá {selectedIds.Count} tag không?",
-                    "Xác nhận",
+                    $"Are you sure you want to delete {{selectedIds.Count}} tag(s) ?",
+                    "Confirmation", 
                     MessageBoxButton.YesNo,
                     MessageBoxImage.Question);
 
                 if (confirm == MessageBoxResult.Yes)
                 {
+                    // ========== DELETE TAGS ==========
                     foreach (string id in selectedIds)
                     {
                         _tagService.DeleteTag(id);
                         RemovedTagIds.Add(id);
+                        Console.WriteLine($"❌ Deleted tag: {id}");
                     }
 
-                    MessageBox.Show($"Đã xoá {selectedIds.Count} tag thành công.",
-                        "Thành công", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show($"Successfully deleted {{selectedIds.Count}} tag(s).",
+                        "Completed successfully", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    // ========== TRIGGER EVENT FOR UI UPDATE ==========
+                    OnTagsDeleted?.Invoke();
 
                     DialogResult = true;
                     Close();
@@ -83,7 +89,7 @@ namespace BlueBerryDictionary.Views.Dialogs
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"❌ Lỗi khi xoá tag: {ex.Message}", "Lỗi",
+                MessageBox.Show($"❌ Error deleting tag: {ex.Message}", "Error",
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -94,7 +100,7 @@ namespace BlueBerryDictionary.Views.Dialogs
             Close();
         }
 
-        // Generic helper tìm control con
+        // Generic helper to find control
         private T FindDescendant<T>(DependencyObject parent) where T : DependencyObject
         {
             if (parent == null) return null;
@@ -102,7 +108,6 @@ namespace BlueBerryDictionary.Views.Dialogs
             for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
             {
                 var child = VisualTreeHelper.GetChild(parent, i);
-
                 if (child is T t)
                     return t;
 

@@ -23,7 +23,7 @@ namespace BlueBerryDictionary.Views.Dialogs
             TxtAvgAccuracy.Text = $"{_gameLogService.GetAverageAccuracy():F1}%";
             TxtTotalTime.Text = FormatTimeSpan(_gameLogService.GetTotalStudyTime());
 
-            // Load sessions
+            // Load sessions (recent 20)
             var sessions = _gameLogService.GetRecentSessions(20);
             HistoryList.ItemsSource = sessions;
         }
@@ -41,8 +41,8 @@ namespace BlueBerryDictionary.Views.Dialogs
         private void ClearHistory_Click(object sender, RoutedEventArgs e)
         {
             var result = MessageBox.Show(
-                "Bạn có chắc muốn xóa toàn bộ lịch sử?\nHành động này không thể hoàn tác.",
-                "Xác nhận xóa",
+                "Are you sure you want to delete all history ?\nThis action cannot be undone.",
+                "Confirm Deletion",
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Warning
             );
@@ -52,8 +52,8 @@ namespace BlueBerryDictionary.Views.Dialogs
                 _gameLogService.ClearAllSessions();
                 LoadHistoryData();
                 MessageBox.Show(
-                    "✅ Đã xóa toàn bộ lịch sử!",
-                    "Thành công",
+                    "✅ All history has been deleted!",
+                    "Completed successfully",
                     MessageBoxButton.OK,
                     MessageBoxImage.Information
                 );

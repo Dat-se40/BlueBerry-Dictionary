@@ -40,13 +40,9 @@ namespace BlueBerryDictionary.Views.Dialogs
                 // Show skipped list
                 SkippedListContainer.Visibility = Visibility.Visible;
                 
-                // Convert indices to display format: "#1", "#2", etc.
-                var displayItems = skippedIndices
-                    .OrderBy(i => i)
-                    .Select(i => new { Index = i, Display = $"#{i + 1}" })
-                    .ToList();
-                
-                SkippedNumbersList.ItemsSource = displayItems;
+                // Convert indices to display numbers (index + 1)
+                var displayNumbers = skippedIndices.Select(i => i + 1).ToList();
+                SkippedNumbersList.ItemsSource = displayNumbers;
 
                 // Show 3-button layout
                 Actions2Buttons.Visibility = Visibility.Collapsed;
@@ -86,21 +82,12 @@ namespace BlueBerryDictionary.Views.Dialogs
 
         private void SkipNumber_Click(object sender, RoutedEventArgs e)
         {
-            if (sender is Button btn)
+            if (sender is Button btn && btn.Tag is int displayNumber)
             {
-                // Get the data item (contains both Index and Display)
-                var dataItem = btn.DataContext;
-                if (dataItem != null)
-                {
-                    var indexProperty = dataItem.GetType().GetProperty("Index");
-                    if (indexProperty != null)
-                    {
-                        SelectedCardIndex = (int)indexProperty.GetValue(dataItem);
-                        UserAction = CompletionAction.ReviewSkipped;
-                        DialogResult = true;
-                        Close();
-                    }
-                }
+                SelectedCardIndex = displayNumber - 1; // Convert back to index
+                UserAction = CompletionAction.ReviewSkipped;
+                DialogResult = true;
+                Close();
             }
         }
     }

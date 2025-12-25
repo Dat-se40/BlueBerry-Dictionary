@@ -112,7 +112,7 @@
                                     <Border x:Name="PhoneticUSBorder"
                                            Style="{StaticResource PhoneticButtonStyle}"
                                            MouseDown="PlayAudioUS_Click"
-                                           ToolTip="Phát âm US"
+                                           ToolTip="US Pronunciation"
                                            Margin="0,0,10,0">
                                         <Grid>
                                             <Grid.ColumnDefinitions>
@@ -163,7 +163,7 @@
                                     <Border x:Name="PhoneticUKBorder"
                                            Style="{StaticResource PhoneticButtonStyle}"
                                            MouseDown="PlayAudioUK_Click"
-                                           ToolTip="Phát âm UK">
+                                           ToolTip="UK Pronunciation">
                                         <Grid>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="*"/>
@@ -216,7 +216,7 @@
                                 <Button x:Name="FavoriteBtn"
                                        Style="{StaticResource ActionButtonStyle}"
                                        Click="Favorite_Click"
-                                       ToolTip="Yêu thích"
+                                       ToolTip="Favorite"
                                        Margin="0,0,8,0">
                                     <Viewbox Width="18" Height="18">
                                         <Canvas Width="24" Height="24">
@@ -231,56 +231,24 @@
                                 <!-- Save -->
                                 <Button Style="{StaticResource ActionButtonStyle}"
                                        Click="Save_Click"
-                                       ToolTip="Lưu vào My Words"
-                                       Margin="0,0,8,0">
-                                    <Viewbox Width="18" Height="18">
-                                        <Canvas Width="24" Height="24">
-                                            <Path Data="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"
-                                                  Stroke="{DynamicResource ButtonColor}"
-                                                  StrokeThickness="2"
-                                                  Fill="Transparent"/>
-                                            <Path Data="M17 3v5h5"
-                                                  Stroke="{DynamicResource ButtonColor}"
-                                                  StrokeThickness="2"
-                                                  Fill="Transparent"/>
-                                        </Canvas>
-                                    </Viewbox>
+                                       ToolTip="Save word to My Words"
+                                        FontSize="14"
+                                       Margin="0,0,8,0" Content="🏷️"
+                                        Foreground="{StaticResource ButtonColor}">
                                 </Button>
-
                                 <!-- Note -->
                                 <Button Style="{StaticResource ActionButtonStyle}"
                                        Name="btnNote"
                                        ToolTip="Note"
+                                        FontSize="14"
                                        Margin="0,0,8,0"
-                                        Click="btnNote_Click">
-                                    <Viewbox Width="18" Height="18">
-                                        <Canvas Width="24" Height="24">
-                                            <Ellipse Width="6" Height="6"
-                                                    Canvas.Left="15" Canvas.Top="2"
-                                                    Fill="{DynamicResource ButtonColor}"/>
-                                            <Ellipse Width="6" Height="6"
-                                                    Canvas.Left="3" Canvas.Top="9"
-                                                    Fill="{DynamicResource ButtonColor}"/>
-                                            <Ellipse Width="6" Height="6"
-                                                    Canvas.Left="15" Canvas.Top="16"
-                                                    Fill="{DynamicResource ButtonColor}"/>
-                                            <Line X1="8.59" Y1="13.51" X2="15.42" Y2="17.49"
-                                                  Stroke="{DynamicResource ButtonColor}"
-                                                  StrokeThickness="2"
-                                                  StrokeStartLineCap="Round"
-                                                  StrokeEndLineCap="Round"/>
-                                            <Line X1="15.41" Y1="6.51" X2="8.59" Y2="10.49"
-                                                  Stroke="{DynamicResource ButtonColor}"
-                                                  StrokeThickness="2"
-                                                  StrokeStartLineCap="Round"
-                                                  StrokeEndLineCap="Round"/>
-                                        </Canvas>
-                                    </Viewbox>
+                                        Click="btnNote_Click" Content="📝"
+                                        Foreground="{StaticResource ButtonColor}">
                                 </Button>
                                 <!-- Download -->
                                 <Button Style="{StaticResource ActionButtonStyle}"
                                        Command="{Binding ExecuteDownloadCommand}"
-                                       ToolTip="Tải offline">
+                                       ToolTip="Download offline">
                                     <Viewbox Width="18" Height="18">
                                         <Canvas Width="24" Height="24">
                                             <Path Data="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"
@@ -312,23 +280,24 @@
                     <!-- WORD IMAGE (Nhỏ hơn, căn giữa) -->
                     <!-- ================================= -->
                     <Border Padding="30,20"
-                            HorizontalAlignment="Center">
+        HorizontalAlignment="Center">
                         <Border Width="500" Height="300"
-                                CornerRadius="15"
-                                Background="{DynamicResource WordItemBackground}"
-                                BorderBrush="{DynamicResource BorderColor}"
-                                BorderThickness="3">
+            CornerRadius="15"
+            Background="{DynamicResource WordItemBackground}"
+            BorderBrush="{DynamicResource BorderColor}"
+            BorderThickness="3"
+            ClipToBounds="True">
                             <Border.Effect>
                                 <DropShadowEffect Color="Black"
-                                                Opacity="0.1"
-                                                BlurRadius="12"
-                                                ShadowDepth="4"/>
+                              Opacity="0.1"
+                              BlurRadius="12"
+                              ShadowDepth="4"/>
                             </Border.Effect>
-                            <TextBlock Text="📖"
-                                      FontSize="80"
-                                      HorizontalAlignment="Center"
-                                      VerticalAlignment="Center"
-                                      Opacity="0.3"/>
+
+                            <Image x:Name="DemonstrateImage"
+               Stretch="Uniform"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"/>
                         </Border>
                     </Border>
 

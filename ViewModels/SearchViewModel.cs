@@ -25,7 +25,7 @@ namespace BlueBerryDictionary.ViewModels
         private string _searchText;
 
         [ObservableProperty]
-        private string _searchButtonText = "Tìm kiếm";
+        private string _searchButtonText = "Search";
 
         [ObservableProperty]
         private ObservableCollection<string> _suggestions;
@@ -156,7 +156,7 @@ namespace BlueBerryDictionary.ViewModels
                 return;
             }
 
-            SearchButtonText = "Đang tìm...";
+            SearchButtonText = "Searching...";
             IsSearching = true;
             HasResults = false;
             IsSuggestionsOpen = false;
@@ -197,7 +197,7 @@ namespace BlueBerryDictionary.ViewModels
             finally
             {
                 IsSearching = false;
-                SearchButtonText = "Tìm kiếm";
+                SearchButtonText = "Search";
             }
 
             Console.WriteLine(StatusMessage);
@@ -237,7 +237,7 @@ namespace BlueBerryDictionary.ViewModels
         [RelayCommand]
         private async Task PlayUsAudio()
         {
-            Console.WriteLine("OKe" + CurrentWords[0].phonetic);
+            Console.WriteLine("OK" + CurrentWords[0].phonetic);
             await PlayAudioAsync(UsAudioUrl);
         }
 
@@ -254,17 +254,20 @@ namespace BlueBerryDictionary.ViewModels
         /// Download word to local storage
         /// </summary>
         [RelayCommand]
-        private void ExecuteDownload()
+        private async Task ExecuteDownload()
         {
-            if (CurrentWords != null && CurrentWords.Count > 0)
-            {
-                if (File.Exists(Data.FileStorage.GetWordFilePath(CurrentWords[0].word)))
-                {
-                    MessageBox.Show("Từ này đã được tải");
-                }
-                else
-                    Data.FileStorage.Download(CurrentWords);
-            }
+            if (CurrentWords == null || CurrentWords.Count == 0) return;
+
+            var word = CurrentWords[0].word;
+            var wordPath = Data.FileStorage.GetWordFilePath(word);
+            bool already = File.Exists(wordPath);
+
+            if (!already)
+                Data.FileStorage.Download(CurrentWords);
+            var imageService = MyDictionary.Services.ImageSearchService.Instance;
+            await imageService.EnsureImageDownloadedAsync(word);
+
+            MessageBox.Show(already ? "This word has been downloaded" : "he word and images have been downloaded to your device");
         }
 
         // ==================== HELPER METHODS ====================

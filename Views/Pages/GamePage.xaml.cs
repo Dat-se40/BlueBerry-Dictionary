@@ -1,21 +1,18 @@
 ﻿using System;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Animation;
-using BlueBerryDictionary.Views.Pages;
-using BlueBerryDictionary.Views.Dialogs;
 using BlueBerryDictionary.ViewModels;
+using BlueBerryDictionary.Views.Dialogs;
 
-namespace BlueBerryDictionary.Pages
+namespace BlueBerryDictionary.Views.Pages
 {
     public partial class GamePage : WordListPageBase
     {
         private GameViewModel _viewModel;
 
-        public GamePage(Action<string> CardOnClicked) : base(CardOnClicked)
+        public GamePage(Action<string> cardOnClicked) : base(cardOnClicked)
         {
             InitializeComponent();
             _viewModel = new GameViewModel();
@@ -38,7 +35,7 @@ namespace BlueBerryDictionary.Pages
 
             if (settingsDialog.ShowDialog() == true)
             {
-                var settings = settingsDialog.Settings;
+                var settings = settingsDialog.GameSettings;
 
                 _viewModel.StartGame(
                     settings.Flashcards,
@@ -48,8 +45,6 @@ namespace BlueBerryDictionary.Pages
 
                 GameSelectionPanel.Visibility = Visibility.Collapsed;
                 GamePlayPanel.Visibility = Visibility.Visible;
-
-                UpdateSkipTracker();
             }
         }
 
@@ -89,22 +84,19 @@ namespace BlueBerryDictionary.Pages
 
         private void NextCard_Click(object sender, RoutedEventArgs e)
         {
-            _viewModel.NextCard();
-            UpdateSkipTracker();
             if (_viewModel.IsLastCard)
             {
                 ShowCompletionDialog();
             }
             else
             {
-                _viewModel.CurrentIndex++; // Hoặc _viewModel.NextCard() nhưng không đánh dấu Known
+                _viewModel.NextCard();
             }
         }
 
         private void SkipCard_Click(object sender, RoutedEventArgs e)
         {
             _viewModel.SkipCurrentCard();
-            UpdateSkipTracker();
 
             if (_viewModel.IsLastCard)
             {
@@ -115,6 +107,14 @@ namespace BlueBerryDictionary.Pages
         private void ReviewSkipped_Click(object sender, RoutedEventArgs e)
         {
             _viewModel.GoToFirstSkipped();
+        }
+
+        private void SkipNumber_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button btn && btn.Tag is int index)
+            {
+                _viewModel.GoToCard(index);
+            }
         }
 
         // ========== FLIP ANIMATIONS ==========
@@ -141,60 +141,6 @@ namespace BlueBerryDictionary.Pages
         {
             _viewModel.IsAnimating = false;
             _viewModel.IsFlipped = !_viewModel.IsFlipped;
-        }
-
-        // ========== SKIP TRACKER UI ==========
-
-        private void UpdateSkipTracker()
-        {
-            SkipNumbersPanel.Children.Clear();
-
-            if (!_viewModel.HasSkippedCards)
-            {
-                SkipTracker.Background = new SolidColorBrush(Color.FromRgb(209, 231, 221));
-                SkipTracker.BorderBrush = new SolidColorBrush(Color.FromRgb(16, 185, 129));
-                TxtSkipMessage.Foreground = new SolidColorBrush(Color.FromRgb(15, 81, 50));
-                BtnReviewSkipped.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                SkipTracker.Background = new SolidColorBrush(Color.FromRgb(255, 243, 205));
-                SkipTracker.BorderBrush = new SolidColorBrush(Color.FromRgb(255, 193, 7));
-                TxtSkipMessage.Foreground = new SolidColorBrush(Color.FromRgb(133, 100, 4));
-                BtnReviewSkipped.Visibility = Visibility.Visible;
-
-                var sortedSkipped = _viewModel.SkippedCards.OrderBy(x => x).ToList();
-                foreach (var index in sortedSkipped)
-                {
-                    var button = new Button
-                    {
-                        Content = $"#{index + 1}",
-                        Background = new SolidColorBrush(Color.FromRgb(255, 193, 7)),
-                        Foreground = new SolidColorBrush(Color.FromRgb(133, 100, 4)),
-                        BorderBrush = new SolidColorBrush(Color.FromRgb(224, 168, 0)),
-                        BorderThickness = new Thickness(1),
-                        Padding = new Thickness(10, 4, 10, 4),
-                        Margin = new Thickness(4),
-                        FontWeight = FontWeights.SemiBold,
-                        Cursor = Cursors.Hand,
-                        Tag = index
-                    };
-
-                    Style borderStyle = new Style(typeof(Border));
-                    borderStyle.Setters.Add(new Setter(Border.CornerRadiusProperty, new CornerRadius(5)));
-                    button.Resources.Add(typeof(Border), borderStyle);
-
-                    button.Click += (s, e) =>
-                    {
-                        if (s is Button btn && btn.Tag is int cardIndex)
-                        {
-                            _viewModel.GoToCard(cardIndex);
-                        }
-                    };
-
-                    SkipNumbersPanel.Children.Add(button);
-                }
-            }
         }
 
         // ========== COMPLETION DIALOG ==========
@@ -224,16 +170,17 @@ namespace BlueBerryDictionary.Pages
                 {
                     case GameCompletionDialog.CompletionAction.Restart:
                         _viewModel.RestartGame();
-                        UpdateSkipTracker();
                         break;
 
                     case GameCompletionDialog.CompletionAction.ReviewSkipped:
                         if (completionDialog.SelectedCardIndex.HasValue)
                         {
+                            // Go to specific card
                             _viewModel.GoToCard(completionDialog.SelectedCardIndex.Value);
                         }
                         else
                         {
+                            // Go to first skipped
                             _viewModel.GoToFirstSkipped();
                         }
                         break;
@@ -241,19 +188,17 @@ namespace BlueBerryDictionary.Pages
             }
             else
             {
-                // User closed - return to game selection
+                // User closed or clicked Close button - return to game selection
                 GamePlayPanel.Visibility = Visibility.Collapsed;
                 GameSelectionPanel.Visibility = Visibility.Visible;
             }
         }
 
-        // ========== EXIT GAME ==========
-
         private void ExitGame_Click(object sender, RoutedEventArgs e)
         {
             var result = MessageBox.Show(
-                "Bạn có chắc muốn thoát? Tiến trình sẽ không được lưu.",
-                "Xác nhận thoát",
+                "Are you sure you want to exit ? Progress will not be saved.",
+                "Confirm Exit",
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Question
             );

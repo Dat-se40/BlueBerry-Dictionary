@@ -53,9 +53,12 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+
+        <!-- Converter: String to Visibility -->
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
     </UserControl.Resources>
 
-    <Border x:Name="CardBorder"
+    <Border x:Name="CardBorder" Cursor="Hand"
             Background="{DynamicResource CardBackground}"
             CornerRadius="15" Padding="25" Margin="10"
             BorderBrush="{DynamicResource BorderColor}"
@@ -104,16 +107,16 @@
                         <TextBlock Text="{Binding PartOfSpeech}"
                                    FontSize="10" FontWeight="Bold" Foreground="White" />
                     </Border>
-        
+
                     <!-- Action Buttons -->
                     <Button Content="❤️" Width="40" Height="40" Name="btnFav"
                             Style="{StaticResource CardActionButton}"
                             Margin="3" Click="FavoriteButton_Click"/>
-        
+
                     <Button Content="💾" Width="40" Height="40" Name="btnSave"
                             Style="{StaticResource CardActionButton}"
                             Margin="3" Click="btnSave_Click"/>
-        
+
                     <Button Content="❌" Width="40" Height="40"
                             Style="{StaticResource DeleteButton}"
                             Margin="3"
@@ -152,22 +155,59 @@
                     <Run Text="{Binding Definition}" />
                 </TextBlock>
 
+                <!-- EXAMPLES SECTION -->
                 <Border BorderBrush="{DynamicResource ButtonColor}" BorderThickness="3,0,0,0" Padding="15,0,0,0">
                     <StackPanel>
-                        <TextBlock Text="{Binding Example1}"
-                                   FontStyle="Italic" FontSize="12"
-                                   Foreground="{DynamicResource SearchPlaceholder}" Margin="0,0,0,5" />
-                        <TextBlock Text="{Binding Example2}"
-                                   FontStyle="Italic" FontSize="12"
-                                   Foreground="{DynamicResource SearchPlaceholder}" />
+                        <!-- Example 1 (Always visible) -->
+                        <StackPanel x:Name="Example1Container" Margin="0,0,0,10">
+                            <TextBlock x:Name="Example1Label"
+                                       Text="Example:"
+                                       FontWeight="Bold"
+                                       FontSize="11"
+                                       Foreground="{DynamicResource ButtonColor}"
+                                       Margin="0,0,0,5" />
+                            <TextBlock x:Name="Example1Text"
+                                       Text="{Binding Example1}"
+                                       FontStyle="Italic" FontSize="12"
+                                       TextWrapping="Wrap"
+                                       Foreground="{DynamicResource SearchPlaceholder}" />
+                        </StackPanel>
+
+                        <!-- Example 2 / Note (Conditional) -->
+                        <Border x:Name="Example2Container"
+                                Visibility="Collapsed"
+                                Background="#FFF5E6"
+                                BorderBrush="#FFD700"
+                                BorderThickness="1"
+                                CornerRadius="6"
+                                Padding="12,8"
+                                Margin="0,10,0,0">
+                            <StackPanel>
+                                <TextBlock x:Name="Example2Label"
+                                           Text="Note:"
+                                           FontWeight="Bold"
+                                           FontSize="11"
+                                           Foreground="#FF8C00"
+                                           Margin="0,0,0,5" />
+                                <TextBlock x:Name="Example2Text"
+                                           Text="{Binding Example2}"
+                                           FontStyle="Italic" FontSize="12"
+                                           TextWrapping="Wrap"
+                                           Foreground="#FF8C00" />
+                            </StackPanel>
+                        </Border>
                     </StackPanel>
                 </Border>
             </StackPanel>
 
             <!-- FOOTER -->
             <Border BorderBrush="{DynamicResource SearchPlaceholder}" BorderThickness="0,1,0,0" Padding="0,15,0,0">
-                <TextBlock Text="{Binding TimeStamp}"
-                           FontSize="12" Foreground="{DynamicResource SearchPlaceholder}" />
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding ViewCount}"
+           FontSize="12" Foreground="{DynamicResource SearchPlaceholder}" Margin="0,0,20,0" />
+                    <TextBlock Text="{Binding TimeStamp}"
+           FontSize="12" Foreground="{DynamicResource SearchPlaceholder}" />
+                </StackPanel>
             </Border>
 
         </StackPanel>

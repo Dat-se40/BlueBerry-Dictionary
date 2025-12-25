@@ -1,8 +1,9 @@
-﻿using BlueBerryDictionary.Views.Dialogs;
+﻿using BlueBerryDictionary.Services;
+using BlueBerryDictionary.ViewModels;
+using BlueBerryDictionary.Views.Dialogs;
+using BlueBerryDictionary.Views.Dialogs.Introduces;
 using System.Windows;
 using System.Windows.Controls;
-using BlueBerryDictionary.ViewModels;
-using BlueBerryDictionary.Services;
 using System.Windows.Media;
 
 namespace BlueBerryDictionary.Views.Pages
@@ -125,7 +126,7 @@ namespace BlueBerryDictionary.Views.Pages
                         settings.CustomColorTheme = null;
                         SettingsService.Instance.SaveSettings();
 
-                        MessageBox.Show($"Đã áp dụng theme: {selectedTheme}", "Thành công",
+                        MessageBox.Show($"Theme applied: {selectedTheme}", "Completed successfully",
                             MessageBoxButton.OK, MessageBoxImage.Information);
 
                         // ✅ Chuyển sang "✓ Theme có sẵn"
@@ -164,7 +165,7 @@ namespace BlueBerryDictionary.Views.Pages
                         };
                         SettingsService.Instance.SaveSettings();
 
-                        MessageBox.Show("Đã áp dụng màu tùy chỉnh!", "Thành công",
+                        MessageBox.Show("Custom colors applied!", "Completed successfully",
                             MessageBoxButton.OK, MessageBoxImage.Information);
 
                         // ✅ Chuyển sang "✓ Màu tùy chỉnh"
@@ -190,8 +191,8 @@ namespace BlueBerryDictionary.Views.Pages
                     if (settings.ColorTheme != "default" && !string.IsNullOrEmpty(settings.ColorTheme))
                     {
                         var result = MessageBox.Show(
-                            "Bạn có chắc muốn reset về màu mặc định?",
-                            "Xác nhận",
+                            "Are you sure you want to reset to the default colors ?",
+                            "Confirmation",
                             MessageBoxButton.YesNo,
                             MessageBoxImage.Question
                         );
@@ -204,7 +205,7 @@ namespace BlueBerryDictionary.Views.Pages
                             settings.CustomColorTheme = null;
                             SettingsService.Instance.SaveSettings();
 
-                            MessageBox.Show("Đã reset về màu mặc định", "Thành công",
+                            MessageBox.Show("Reset to default colors successfully", "Completed successfully",
                                 MessageBoxButton.OK, MessageBoxImage.Information);
 
                             _isResetting = true;
@@ -277,7 +278,7 @@ namespace BlueBerryDictionary.Views.Pages
                             }
                         }
 
-                        MessageBox.Show($"Đã áp dụng font: {selectedFont.Source} ({selectedSize}pt)", "Thành công",
+                        MessageBox.Show($"Font applied successfully: {selectedFont.Source} ({selectedSize}pt)", "Completed successfully",
                             MessageBoxButton.OK, MessageBoxImage.Information);
 
                         _isResetting = true;
@@ -299,8 +300,8 @@ namespace BlueBerryDictionary.Views.Pages
                     if (!string.IsNullOrEmpty(settings.FontFamily) && settings.FontFamily != "Segoe UI")
                     {
                         var result = MessageBox.Show(
-                            "Bạn có chắc muốn reset về font mặc định (Segoe UI 14pt)?",
-                            "Xác nhận",
+                            "Are you sure you want to reset to the default font (Segoe UI 14pt) ?",
+                            "Confirmation",
                             MessageBoxButton.YesNo,
                             MessageBoxImage.Question
                         );
@@ -331,7 +332,7 @@ namespace BlueBerryDictionary.Views.Pages
                                 }
                             }
 
-                            MessageBox.Show("Đã reset về font mặc định", "Thành công",
+                            MessageBox.Show("Reset to default font successfully", "Completed successfully",
                                 MessageBoxButton.OK, MessageBoxImage.Information);
 
                             _isResetting = true;
@@ -390,6 +391,144 @@ namespace BlueBerryDictionary.Views.Pages
                 {
                     item.Visibility = Visibility.Collapsed;
                 }
+            }
+        }
+
+        // ========== USER GUIDE ========== ← THÊM METHOD NÀY
+        /// <summary>
+        /// Mở dialog Hướng dẫn sử dụng
+        /// </summary>
+        private void OpenUserGuide_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new UserGuideDialog
+            {
+                Owner = Window.GetWindow(this)
+            };
+            dialog.ShowDialog();
+        }
+
+        // ========== FAQ ==========
+        private void OpenFAQ_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var dialog = new FAQDialog
+                {
+                    Owner = Window.GetWindow(this)
+                };
+                dialog.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"❌ Error opening FAQ: {ex.Message}");
+                MessageBox.Show($"Unable to open FAQ:\n{ex.Message}", "Error",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        // ========== CONTACT ==========
+        private void OpenContact_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var dialog = new ContactDialog
+                {
+                    Owner = Window.GetWindow(this)
+                };
+                dialog.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Unable to open dialog:\n{ex.Message}", "Error",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        // ========== REPORT BUG ==========
+        private void OpenReportBug_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var dialog = new ReportBugDialog
+                {
+                    Owner = Window.GetWindow(this)
+                };
+                dialog.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Unable to open dialog:\n{ex.Message}", "Error",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        // ========== TERMS ==========
+        private void OpenTerms_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var dialog = new TermsDialog
+                {
+                    Owner = Window.GetWindow(this)
+                };
+                dialog.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Unable to open dialog:\n{ex.Message}", "Error",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        // ========== RATE APP ==========
+        private void OpenRateApp_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var dialog = new RateAppDialog
+                {
+                    Owner = Window.GetWindow(this)
+                };
+                dialog.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Unable to open dialog:\n{ex.Message}", "Error",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        // ========== ABOUT ==========
+        private void OpenAbout_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var dialog = new AboutDialog
+                {
+                    Owner = Window.GetWindow(this)
+                };
+                dialog.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Unable to open dialog:\n{ex.Message}", "Error",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        // ========== LICENSES ==========
+        private void OpenLicenses_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var dialog = new LicensesDialog
+                {
+                    Owner = Window.GetWindow(this)
+                };
+                dialog.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Unable to open dialog:\n{ex.Message}", "Error",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

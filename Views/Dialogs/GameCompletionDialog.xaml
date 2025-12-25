@@ -190,7 +190,7 @@
                                     </ItemsControl.ItemsPanel>
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
-                                            <Button Content="{Binding Display}"
+                                            <Button Content="{Binding}"
                                                     Background="#ffc107"
                                                     Foreground="#856404"
                                                     BorderBrush="#e0a800"
@@ -199,7 +199,8 @@
                                                     Margin="4"
                                                     FontWeight="SemiBold"
                                                     Cursor="Hand"
-                                                    Click="SkipNumber_Click">
+                                                    Click="SkipNumber_Click"
+                                                    Tag="{Binding}">
                                                 <Button.Resources>
                                                     <Style TargetType="Border">
                                                         <Setter Property="CornerRadius" Value="5" />

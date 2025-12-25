@@ -1,0 +1,61 @@
+[
+  {
+    "word": "analyze",
+    "phonetic": "/ˈæn.əl.aɪz/",
+    "phonetics": [
+      {
+        "text": "/ˈæn.əl.aɪz/",
+        "audio": "https://api.dictionaryapi.dev/media/pronunciations/en/analyze-us.mp3",
+        "sourceUrl": "https://commons.wikimedia.org/w/index.php?curid=1762969",
+        "license": {
+          "name": "BY-SA 3.0",
+          "url": "https://creativecommons.org/licenses/by-sa/3.0"
+        }
+      }
+    ],
+    "meanings": [
+      {
+        "partOfSpeech": "verb",
+        "definitions": [
+          {
+            "definition": "To examine methodically by separating into parts and studying their interrelations.",
+            "synonyms": [
+              "examine",
+              "study",
+              "investigate"
+            ],
+            "antonyms": [
+              "synthesize"
+            ],
+            "example": "The researcher analyzed the data to find patterns."
+          },
+          {
+            "definition": "To make a mathematical, chemical, or grammatical analysis of.",
+            "synonyms": [
+              "break down",
+              "dissect"
+            ],
+            "antonyms": [],
+            "example": "We need to analyze this chemical compound."
+          }
+        ],
+        "synonyms": [
+          "examine",
+          "evaluate",
+          "assess"
+        ],
+        "antonyms": [
+          "ignore",
+          "overlook"
+        ]
+      }
+    ],
+    "license": {
+      "name": "CC BY-SA 3.0",
+      "url": "https://creativecommons.org/licenses/by-sa/3.0"
+    },
+    "sourceUrls": [
+      "https://en.wiktionary.org/wiki/analyze"
+    ]
+  }
+]
