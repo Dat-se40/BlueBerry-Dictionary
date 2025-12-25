@@ -127,13 +127,8 @@
                                    Foreground="{DynamicResource TextColor}"
                                    Margin="0,0,0,10"/>
                         <TextBlock Style="{StaticResource LinkStyle}"
-                                   Text="24520280@gm.uit.edu.vn"
+                                   Text="labotanique117@gmail.com"
                                    MouseDown="EmailLink_Click"/>
-                        <TextBlock Text="(Click để mở ứng dụng email)"
-                                   FontSize="12"
-                                   Foreground="{DynamicResource TextColor}"
-                                   Opacity="0.6"
-                                   Margin="0,5,0,0"/>
                     </StackPanel>
                 </Border>
 
@@ -181,7 +176,7 @@
                                    FontSize="14"
                                    Foreground="{DynamicResource TextColor}"
                                    Margin="0,0,0,5"/>
-                        <TextBlock Text="Giảng viên: ThS. Mai Trọng Khang"
+                        <TextBlock Text="Giảng viên: Mai Trọng Khang"
                                    FontSize="14"
                                    Foreground="{DynamicResource TextColor}"
                                    Margin="0,0,0,5"/>
@@ -219,9 +214,6 @@
                 BorderThickness="0,1,0,0"
                 Padding="20">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Content="📧 Gửi Email"
-                        Style="{StaticResource ActionButtonStyle}"
-                        Click="SendEmail_Click"/>
                 <Button Content="Đóng"
                         Style="{StaticResource CloseButtonStyle}"
                         Click="CloseButton_Click"/>

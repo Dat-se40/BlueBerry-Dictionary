@@ -270,14 +270,10 @@
                                        MouseDown="GitHubLink_Click"/>
 
                             <TextBlock Style="{StaticResource LinkStyle}"
-                                       Text="📧 Email: 24520280@gm.uit.edu.vn"
+                                       Text="📧 Email: labotanique117@gmail.com"
                                        MouseDown="EmailLink_Click"
                                        Margin="0,10,0,5"/>
 
-                            <TextBlock Style="{StaticResource LinkStyle}"
-                                       Text="📖 Documentation and Wiki"
-                                       MouseDown="WikiLink_Click"
-                                       Margin="0,10,0,5"/>
                         </StackPanel>
                     </StackPanel>
                 </Border>

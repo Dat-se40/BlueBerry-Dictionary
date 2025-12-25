@@ -7,7 +7,7 @@ namespace BlueBerryDictionary.Views.Dialogs.Introduces
 {
     public partial class ContactDialog : Window
     {
-        private const string EMAIL = "24520280@gm.uit.edu.vn";
+        private const string EMAIL = "labotanique117@gmail.com";
         private const string GITHUB_REPO = "https://github.com/Dat-se40/BlueBerry-Dictionary";
 
         public ContactDialog()
@@ -22,11 +22,6 @@ namespace BlueBerryDictionary.Views.Dialogs.Introduces
         }
 
         private void EmailLink_Click(object sender, MouseButtonEventArgs e)
-        {
-            OpenEmailClient();
-        }
-
-        private void SendEmail_Click(object sender, RoutedEventArgs e)
         {
             OpenEmailClient();
         }

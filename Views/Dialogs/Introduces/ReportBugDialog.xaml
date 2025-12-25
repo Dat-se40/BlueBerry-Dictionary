@@ -209,13 +209,8 @@
                             <LineBreak/>
                             • Phù hợp cho vấn đề cá nhân
                             <LineBreak/>
-                            • Email: 24520280@gm.uit.edu.vn
+                            • Email: labotanique117@gmail.com
                         </TextBlock>
-                        <Button Content="📧 Gửi Email Báo Lỗi"
-                                Style="{StaticResource ActionButtonStyle}"
-                                HorizontalAlignment="Left"
-                                Click="SendBugEmail_Click"
-                                Margin="0,10,0,0"/>
                     </StackPanel>
                 </Border>
             </StackPanel>
