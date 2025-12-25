@@ -126,14 +126,16 @@
                                    FontWeight="SemiBold"
                                    Foreground="{DynamicResource TextColor}"
                                    Margin="0,0,0,10"/>
-                        <TextBlock Style="{StaticResource LinkStyle}"
-                                   Text="24520280@gm.uit.edu.vn"
-                                   MouseDown="EmailLink_Click"/>
-                        <TextBlock Text="(Click to open your email app)"
-                                   FontSize="12"
-                                   Foreground="{DynamicResource TextColor}"
-                                   Opacity="0.6"
-                                   Margin="0,5,0,0"/>
+                        <TextBox Text="labotanique117@gmail.com"
+                                 IsReadOnly="True"
+                                 BorderThickness="0"
+                                 Background="Transparent"
+                                 Foreground="{DynamicResource ButtonColor}"
+                                 FontSize="14"
+                                 Cursor="IBeam"
+                                 Style="{x:Null}"
+                                 Padding="0"
+                                 HorizontalAlignment="Left"/>
                     </StackPanel>
                 </Border>
 
@@ -219,9 +221,6 @@
                 BorderThickness="0,1,0,0"
                 Padding="20">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Content="📧 Send Email"
-                        Style="{StaticResource ActionButtonStyle}"
-                        Click="SendEmail_Click"/>
                 <Button Content="Close"
                         Style="{StaticResource CloseButtonStyle}"
                         Click="CloseButton_Click"/>

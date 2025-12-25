@@ -107,7 +107,7 @@
                         Padding="20"
                         Margin="0,0,0,15">
                     <StackPanel>
-                        <TextBlock Text="1️⃣ Detailed error description"
+                        <TextBlock Text="1️ Detailed error description"
                                    FontSize="15"
                                    FontWeight="SemiBold"
                                    Foreground="{DynamicResource TextColor}"
@@ -119,7 +119,7 @@
                             • What happened ? (Crash, unresponsive, incorrect display, etc.)
                         </TextBlock>
 
-                        <TextBlock Text="2️⃣ Steps to reproduce the issue"
+                        <TextBlock Text="2️ Steps to reproduce the issue"
                                    FontSize="15"
                                    FontWeight="SemiBold"
                                    Foreground="{DynamicResource TextColor}"
@@ -133,7 +133,7 @@
                             • Step 3: The error appears
                         </TextBlock>
 
-                        <TextBlock Text="3️⃣ Screenshot (if any)"
+                        <TextBlock Text="3️ Screenshot (if any)"
                                    FontSize="15"
                                    FontWeight="SemiBold"
                                    Foreground="{DynamicResource TextColor}"
@@ -209,13 +209,8 @@
                             <LineBreak/>
                             • Suitable for personal issues
                             <LineBreak/>
-                            • Email: 24520280@gm.uit.edu.vn
+                            • Email: labotanique117@gmail.com
                         </TextBlock>
-                        <Button Content="📧 Send Bug Report Email"
-                                Style="{StaticResource ActionButtonStyle}"
-                                HorizontalAlignment="Left"
-                                Click="SendBugEmail_Click"
-                                Margin="0,10,0,0"/>
                     </StackPanel>
                 </Border>
             </StackPanel>

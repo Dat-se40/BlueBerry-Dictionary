@@ -8,8 +8,7 @@ namespace BlueBerryDictionary.Views.Dialogs.Introduces
     public partial class AboutDialog : Window
     {
         private const string GITHUB_REPO = "https://github.com/Dat-se40/BlueBerry-Dictionary";
-        private const string EMAIL = "24520280@gm.uit.edu.vn";
-        private const string WIKI = "https://github.com/Dat-se40/BlueBerry-Dictionary/wiki";
+        private const string EMAIL = "labotanique117@gmail.com";
 
         public AboutDialog()
         {
@@ -42,11 +41,6 @@ namespace BlueBerryDictionary.Views.Dialogs.Introduces
                 MessageBox.Show($"Cannot open email client:\n{ex.Message}", "Error",
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
-        }
-
-        private void WikiLink_Click(object sender, MouseButtonEventArgs e)
-        {
-            OpenUrl(WIKI);
         }
 
         private void OpenUrl(string url)
