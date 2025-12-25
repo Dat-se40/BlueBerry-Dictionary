@@ -335,7 +335,7 @@ namespace BlueBerryDictionary
         private void SearchInput_GotFocus(object sender, RoutedEventArgs e)
         {
             // ✅ THÊM: Đổi màu khi focus
-            if (SearchInput.Text == "Nhập từ cần tra...")
+            if (SearchInput.Text == "Enter word to look up...")
             {
                 SearchInput.Text = "";
                 SearchInput.Foreground = (Brush)Application.Current.Resources["SearchText"];
@@ -353,7 +353,7 @@ namespace BlueBerryDictionary
             // ✅ THÊM: Hiện placeholder nếu rỗng
             if (string.IsNullOrWhiteSpace(SearchInput.Text))
             {
-                SearchInput.Text = "Nhập từ cần tra...";
+                SearchInput.Text = "Enter word to look up...";
                 SearchInput.Foreground = (Brush)Application.Current.Resources["SearchPlaceholder"];
             }
 

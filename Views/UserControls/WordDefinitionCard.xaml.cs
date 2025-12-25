@@ -220,7 +220,7 @@ namespace BlueBerryDictionary.Views.UserControls
         {
             if (File.Exists(FileStorage.GetWordFilePath(Word)))
             {
-                MessageBox.Show($"{Word} này đã được tải !");
+                MessageBox.Show($"{{Word}} has been downloaded!");
             }
             else
             {
@@ -228,7 +228,7 @@ namespace BlueBerryDictionary.Views.UserControls
                 try
                 {
                     FileStorage.Download(downloadedWord);
-                    MessageBox.Show($"{Word} này đã được tải thành công!");
+                    MessageBox.Show($"{{Word}} was downloaded successfully!");
                 }
                 catch (Exception ex)
                 {

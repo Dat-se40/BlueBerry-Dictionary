@@ -42,7 +42,7 @@
                              Click="btnDeleteAll_Click">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="🗑️" FontSize="16" Margin="0,0,8,0" />
-                                <TextBlock Text="Xóa tất cả" />
+                                <TextBlock Text="Delete All" />
                             </StackPanel>
                         </Button>
                     </Grid>
@@ -51,25 +51,25 @@
                     <WrapPanel Grid.Column="0" HorizontalAlignment="Left">
                         <Button Style="{StaticResource FilterChipStyle}" Tag="All" Click="Reload">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Tất cả" />
+                                <TextBlock Text="All" />
                             </StackPanel>
                         </Button>
 
                         <Button Style="{StaticResource FilterChipStyle}" Click="FilterByPartOfSpeed" Tag="noun">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Danh từ" />
+                                <TextBlock Text="Noun" />
                             </StackPanel>
                         </Button>
 
                         <Button Style="{StaticResource FilterChipStyle}" Click="FilterByPartOfSpeed" Tag="verb">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Động từ" />
+                                <TextBlock Text="Verb" />
                             </StackPanel>
                         </Button>
 
                         <Button Style="{StaticResource FilterChipStyle}" Click="FilterByPartOfSpeed" Tag="adjective">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Tính từ" />
+                                <TextBlock Text="Adjective" />
                             </StackPanel>
                         </Button>
                     </WrapPanel>

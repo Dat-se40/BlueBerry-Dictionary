@@ -29,7 +29,7 @@ namespace BlueBerryDictionary.Views.Dialogs
             var allTags = _tagService.GetAllTags();
             if (allTags == null || allTags.Count == 0)
             {
-                MessageBox.Show("Hiện chưa có tag nào để xoá!", "Thông báo",
+                MessageBox.Show("There are no tags to delete yet!", "Notification",
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
@@ -56,14 +56,14 @@ namespace BlueBerryDictionary.Views.Dialogs
 
                 if (selectedIds.Count == 0)
                 {
-                    MessageBox.Show("Vui lòng chọn ít nhất một tag!", "Thông báo",
+                    MessageBox.Show("Please select at least one tag!", "Notification",
                         MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
 
                 var confirm = MessageBox.Show(
-                    $"Bạn có chắc chắn muốn xoá {selectedIds.Count} tag không?",
-                    "Xác nhận",
+                    $"Are you sure you want to delete {{selectedIds.Count}} tag(s) ?",
+                    "Confirmation", 
                     MessageBoxButton.YesNo,
                     MessageBoxImage.Question);
 
@@ -77,8 +77,8 @@ namespace BlueBerryDictionary.Views.Dialogs
                         Console.WriteLine($"❌ Deleted tag: {id}");
                     }
 
-                    MessageBox.Show($"Đã xoá {selectedIds.Count} tag thành công.",
-                        "Thành công", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show($"Successfully deleted {{selectedIds.Count}} tag(s).",
+                        "Completed successfully", MessageBoxButton.OK, MessageBoxImage.Information);
 
                     // ========== TRIGGER EVENT FOR UI UPDATE ==========
                     OnTagsDeleted?.Invoke();
@@ -89,7 +89,7 @@ namespace BlueBerryDictionary.Views.Dialogs
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"❌ Lỗi khi xoá tag: {ex.Message}", "Lỗi",
+                MessageBox.Show($"❌ Error deleting tag: {ex.Message}", "Error",
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }

@@ -43,7 +43,7 @@
 
                 // Set word title
                 WordTitleText.Text = _word.word;
-                StepIndicator.Text = "Bước 1/2: Chọn nghĩa";
+                StepIndicator.Text = "Step 1/2: Select meaning";
 
                 // If only 1 meaning, auto-select and go to tags
                 if (_word.meanings.Count == 1)
@@ -189,14 +189,14 @@
             private void ShowTagSelection()
             {
                 _currentStep = 2;
-                StepIndicator.Text = "Bước 2/2: Chọn nhãn (tùy chọn)";
+                StepIndicator.Text = "Step 2/2: Select a tag for this word (optional)";
 
                 MeaningsPanel.Visibility = Visibility.Collapsed;
                 TagsPanel.Visibility = Visibility.Visible;
 
                 // Show selected meaning info
                 var selectedMeaning = _word.meanings[SelectedMeaningIndex];
-                SelectedMeaningText.Text = $"Nghĩa đã chọn: {selectedMeaning.partOfSpeech}";
+                SelectedMeaningText.Text = $"Selected meaning: {selectedMeaning.partOfSpeech}";
 
                 LoadTags();
             }
@@ -314,7 +314,7 @@
 
                 var text = new TextBlock
                 {
-                    Text = "Tạo nhãn mới",
+                    Text = "Create new tag",
                     FontSize = 14,
                     FontWeight = FontWeights.SemiBold,
                     Foreground = new SolidColorBrush(Color.FromRgb(45, 74, 204)),
@@ -360,7 +360,7 @@
                 {
                     // Back to meaning selection
                     _currentStep = 1;
-                    StepIndicator.Text = "Bước 1/2: Chọn nghĩa";
+                    StepIndicator.Text = "Step 1/2: Select meaning";
                     MeaningsPanel.Visibility = Visibility.Visible;
                     TagsPanel.Visibility = Visibility.Collapsed;
                 }

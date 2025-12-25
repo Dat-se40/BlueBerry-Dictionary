@@ -1,7 +1,7 @@
 ﻿<Window x:Class="BlueBerryDictionary.Views.Dialogs.Introduces.AboutDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Giới Thiệu Ứng Dụng"
+        Title="About the App"
         Width="600" Height="650"
         WindowStartupLocation="CenterScreen"
         Background="{DynamicResource MainBackground}"
@@ -84,7 +84,7 @@
                                FontSize="24"
                                FontWeight="Bold"
                                Foreground="White"/>
-                    <TextBlock Text="Từ điển thông minh cho mọi người"
+                    <TextBlock Text="A smart dictionary for everyone"
                                FontSize="14"
                                Foreground="White"
                                Opacity="0.9"
@@ -104,7 +104,7 @@
                         Padding="20"
                         Margin="0,0,0,15">
                     <StackPanel>
-                        <TextBlock Text="ℹ️ Thông Tin Phiên Bản"
+                        <TextBlock Text="ℹ️ Version Information"
                                    Style="{StaticResource HeaderStyle}"
                                    Margin="0,0,0,15"/>
 
@@ -171,26 +171,26 @@
                         Padding="20"
                         Margin="0,0,0,15">
                     <StackPanel>
-                        <TextBlock Text="👥 Đội Ngũ Phát Triển"
+                        <TextBlock Text="👥 Development Team"
                                    Style="{StaticResource HeaderStyle}"
                                    Margin="0,0,0,15"/>
 
                         <TextBlock Style="{StaticResource BodyStyle}">
-                            <Run Text="Môn học:" FontWeight="SemiBold"/>
+                            <Run Text="Subject:" FontWeight="SemiBold"/>
                             <Run Text="Lập trình trực quan"/>
                         </TextBlock>
 
                         <TextBlock Style="{StaticResource BodyStyle}">
-                            <Run Text="Giảng viên:" FontWeight="SemiBold"/>
+                            <Run Text="Lecturer:" FontWeight="SemiBold"/>
                             <Run Text="ThS. Mai Trọng Khang"/>
                         </TextBlock>
 
                         <TextBlock Style="{StaticResource BodyStyle}">
-                            <Run Text="Học kỳ:" FontWeight="SemiBold"/>
-                            <Run Text="1 - Năm 2024-2025"/>
+                            <Run Text="Semester:" FontWeight="SemiBold"/>
+                            <Run Text="1 - Academic Year 2024-2025"/>
                         </TextBlock>
 
-                        <TextBlock Text="Thành viên:"
+                        <TextBlock Text="Member:"
                                    FontWeight="SemiBold"
                                    Foreground="{DynamicResource TextColor}"
                                    Margin="0,15,0,8"/>
@@ -217,37 +217,37 @@
                         Padding="20"
                         Margin="0,0,0,15">
                     <StackPanel>
-                        <TextBlock Text="📝 Mô Tả"
+                        <TextBlock Text="📝 Description"
                                    Style="{StaticResource HeaderStyle}"
                                    Margin="0,0,0,15"/>
 
                         <TextBlock Style="{StaticResource BodyStyle}">
-                            BlueBerry Dictionary là ứng dụng từ điển tiếng Anh thông minh, được thiết kế để mang đến trải nghiệm tra cứu và học từ vựng hiệu quả nhất. Ứng dụng không chỉ là công cụ tra từ mà còn là người bạn đồng hành giúp bạn xây dựng kho từ vựng cá nhân một cách khoa học.
+                            BlueBerry Dictionary is a smart English dictionary app designed to provide the most effective vocabulary lookup and learning experience. The app is not only a tool for looking up words but also a companion that helps you build your personal vocabulary systematically.
                         </TextBlock>
 
-                        <TextBlock Text="Tính năng nổi bật:"
+                        <TextBlock Text="Key Features:"
                                    FontWeight="SemiBold"
                                    Foreground="{DynamicResource TextColor}"
                                    Margin="0,10,0,8"/>
 
                         <StackPanel Margin="15,0,0,0">
                             <TextBlock Style="{StaticResource BodyStyle}">
-                                ✅ Tra cứu từ với nhiều nguồn dữ liệu uy tín
+                                ✅ Look up words using multiple reliable sources
                             </TextBlock>
                             <TextBlock Style="{StaticResource BodyStyle}">
-                                ✅ Phát âm chuẩn US 🇺🇸 và UK 🇬🇧
+                                ✅ Accurate US 🇺🇸 and UK 🇬🇧 pronunciation
                             </TextBlock>
                             <TextBlock Style="{StaticResource BodyStyle}">
-                                ✅ Quản lý từ vựng với hệ thống Tags
+                                ✅ Manage vocabulary with a Tag system
                             </TextBlock>
                             <TextBlock Style="{StaticResource BodyStyle}">
-                                ✅ Đồng bộ dữ liệu qua Google Drive
+                                ✅ Sync data via Google Drive
                             </TextBlock>
                             <TextBlock Style="{StaticResource BodyStyle}">
-                                ✅ 23 themes + custom màu sắc
+                                ✅ 23 themes + custom colors
                             </TextBlock>
                             <TextBlock Style="{StaticResource BodyStyle}">
-                                ✅ Hỗ trợ offline mode
+                                ✅ Supports offline mode
                             </TextBlock>
                         </StackPanel>
                     </StackPanel>
@@ -260,7 +260,7 @@
                         CornerRadius="8"
                         Padding="20">
                     <StackPanel>
-                        <TextBlock Text="🔗 Liên Kết"
+                        <TextBlock Text="🔗 Link"
                                    Style="{StaticResource HeaderStyle}"
                                    Margin="0,0,0,15"/>
 
@@ -290,7 +290,7 @@
                 BorderBrush="{DynamicResource BorderColor}"
                 BorderThickness="0,1,0,0"
                 Padding="20">
-            <Button Content="Đóng"
+            <Button Content="Cancel"
                     Width="120"
                     Style="{StaticResource CloseButtonStyle}"
                     HorizontalAlignment="Right"

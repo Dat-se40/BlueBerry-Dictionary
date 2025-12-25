@@ -89,7 +89,7 @@ namespace BlueBerryDictionary
             catch (Exception ex)
             {
                 Console.WriteLine($"❌ Async data failed: {ex.Message}");
-                MessageBox.Show($"Lỗi đồng bộ dữ liệu:\n{ex.Message}", "Lỗi",
+                MessageBox.Show($"Data Sync Error:\n{ex.Message}", "Error",
                     MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }

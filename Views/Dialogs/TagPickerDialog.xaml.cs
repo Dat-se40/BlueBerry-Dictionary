@@ -169,7 +169,7 @@ namespace BlueBerryDictionary.Views.Dialogs
         {
             PreviewIcon.Text = _selectedIcon;
             PreviewName.Text = string.IsNullOrWhiteSpace(TagNameInput.Text)
-                ? "Tên tag"
+                ? "Tag Name"
                 : TagNameInput.Text;
             PreviewBorder.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(_selectedColor));
         }
@@ -192,7 +192,7 @@ namespace BlueBerryDictionary.Views.Dialogs
 
             if (string.IsNullOrWhiteSpace(tagName))
             {
-                MessageBox.Show("Vui lòng nhập tên tag!", "Lỗi",
+                MessageBox.Show("Please enter a tag name!", "Error",
                     MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
@@ -200,7 +200,7 @@ namespace BlueBerryDictionary.Views.Dialogs
             // Check duplicate
             if (_tagService.GetAllTags().Exists(t => t.Name.Equals(tagName, StringComparison.OrdinalIgnoreCase)))
             {
-                MessageBox.Show("Tag này đã tồn tại!", "Lỗi",
+                MessageBox.Show("This tag already exists!", "Error",
                     MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
@@ -209,7 +209,7 @@ namespace BlueBerryDictionary.Views.Dialogs
             var newTag = _tagService.CreateTag(tagName, _selectedIcon, _selectedColor);
             CreatedTagId = newTag.Id;
 
-            MessageBox.Show($"✅ Đã tạo tag '{tagName}' thành công!", "Thành công",
+            MessageBox.Show($"✅ Tag '{{tagName}}' created successfully!", "Completed successfully",
                 MessageBoxButton.OK, MessageBoxImage.Information);
 
             DialogResult = true;

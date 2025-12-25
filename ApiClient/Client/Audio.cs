@@ -28,7 +28,7 @@ namespace BlueBerryDictionary.ApiClient.Client
         {
             if (string.IsNullOrEmpty(audioUrl))
             {
-                MessageBox.Show("Không có file âm thanh", "Thông báo",
+                MessageBox.Show("No audio file available", "Notification",
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
@@ -48,7 +48,7 @@ namespace BlueBerryDictionary.ApiClient.Client
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi phát âm thanh: {ex.Message}", "Lỗi",
+                MessageBox.Show($"Error playing audio: {ex.Message}", "Error",
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }

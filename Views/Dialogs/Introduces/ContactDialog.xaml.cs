@@ -41,7 +41,7 @@ namespace BlueBerryDictionary.Views.Dialogs.Introduces
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Không thể mở link:\n{ex.Message}", "Lỗi",
+                MessageBox.Show($"Cannot open link:\n{ex.Message}", "Error",
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -52,14 +52,14 @@ namespace BlueBerryDictionary.Views.Dialogs.Introduces
             {
                 Process.Start(new ProcessStartInfo
                 {
-                    FileName = $"mailto:{EMAIL}?subject=BlueBerry Dictionary - Hỗ trợ",
+                    FileName = $"mailto:{EMAIL}?subject=BlueBerry Dictionary - Support",
                     UseShellExecute = true
                 });
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Không thể mở email client:\n{ex.Message}\n\nVui lòng gửi email thủ công đến: {EMAIL}",
-                    "Lỗi", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show($"Cannot open email client:\n{ex.Message}\n\nPlease send an email manually to: {EMAIL}",
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
     }

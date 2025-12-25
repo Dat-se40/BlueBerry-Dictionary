@@ -169,7 +169,7 @@
                            Foreground="{DynamicResource TextColor}"
                            HorizontalAlignment="Center"
                            Margin="0,0,0,10" />
-                <TextBlock Text="Học từ vựng qua trò chơi thú vị"
+                <TextBlock Text="Learn vocabulary through interesting games"
                            FontSize="16"
                            Foreground="{DynamicResource TextColor}"
                            Opacity="0.7"
@@ -207,7 +207,7 @@
                                            FontSize="28"
                                            FontWeight="Bold"
                                            Foreground="{DynamicResource TextColor}" />
-                                <TextBlock Text="Lật thẻ từ vựng để học nghĩa và cách dùng"
+                                <TextBlock Text="Flip the vocabulary card to learn the meaning and usage"
                                            FontSize="14"
                                            Foreground="{DynamicResource TextColor}"
                                            Opacity="0.7"
@@ -229,21 +229,21 @@
                                 <StackPanel Grid.Column="0" HorizontalAlignment="Center">
                                     <TextBlock Text="📚" FontSize="24" Foreground="{DynamicResource TextColor}"
                                                HorizontalAlignment="Center" />
-                                    <TextBlock Text="Ôn tập" FontSize="12" Foreground="{DynamicResource TextColor}"
+                                    <TextBlock Text="Review" FontSize="12" Foreground="{DynamicResource TextColor}"
                                                Opacity="0.7" HorizontalAlignment="Center" />
                                 </StackPanel>
 
                                 <StackPanel Grid.Column="1" HorizontalAlignment="Center">
                                     <TextBlock Text="⏱️" FontSize="24" Foreground="{DynamicResource TextColor}"
                                                HorizontalAlignment="Center" />
-                                    <TextBlock Text="Linh hoạt" FontSize="12" Foreground="{DynamicResource TextColor}"
+                                    <TextBlock Text="Flexible" FontSize="12" Foreground="{DynamicResource TextColor}"
                                                Opacity="0.7" HorizontalAlignment="Center" />
                                 </StackPanel>
 
                                 <StackPanel Grid.Column="2" HorizontalAlignment="Center">
                                     <TextBlock Text="🎯" FontSize="24" Foreground="{DynamicResource TextColor}"
                                                HorizontalAlignment="Center" />
-                                    <TextBlock Text="Hiệu quả" FontSize="12" Foreground="{DynamicResource TextColor}"
+                                    <TextBlock Text="Effective" FontSize="12" Foreground="{DynamicResource TextColor}"
                                                Opacity="0.7" HorizontalAlignment="Center" />
                                 </StackPanel>
                             </Grid>
@@ -252,7 +252,7 @@
                 </Border>
 
                 <!-- History Button -->
-                <Button Content="📊 Xem lịch sử luyện tập"
+                <Button Content="📊 View training history"
                         Style="{StaticResource SecondaryButtonStyle}"
                         HorizontalAlignment="Center"
                         Margin="0,20,0,0"
@@ -274,7 +274,7 @@
                     BorderThickness="0,0,0,2"
                     Padding="20,15">
                 <DockPanel>
-                    <Button Content="✕ Thoát"
+                    <Button Content="✕ Exit"
                             Style="{StaticResource DangerButtonStyle}"
                             DockPanel.Dock="Left"
                             Click="ExitGame_Click"

@@ -1,1 +1,132 @@
-[]
+[
+  {
+    "isFavorited": true,
+    "note": null,
+    "Word": "student",
+    "Phonetic": "ˈstü-dᵊnt",
+    "PartOfSpeech": "noun",
+    "Definition": "scholar, learner; especially : one who attends a school",
+    "Example": "He is a student of life.",
+    "Synonyms": [
+      "pupil",
+      "scholar"
+    ],
+    "Antonyms": [
+      "teacher"
+    ],
+    "Tags": [],
+    "AddedAt": "2025-12-19T22:56:26.1780189+07:00",
+    "ViewCount": 0,
+    "MeaningIndex": 0,
+    "HasRelatedWords": true
+  },
+  {
+    "isFavorited": true,
+    "note": null,
+    "Word": "scholar",
+    "Phonetic": "ˈskä-lər",
+    "PartOfSpeech": "noun",
+    "Definition": "a person who attends a school or studies under a teacher : pupil",
+    "Example": "",
+    "Synonyms": [
+      "pundit",
+      "sage",
+      "savant",
+      "ace",
+      "adept",
+      "artist",
+      "authority",
+      "cognoscente",
+      "connoisseur",
+      "crackerjack",
+      "dab",
+      "dab hand",
+      "expert",
+      "fiend",
+      "geek",
+      "guru",
+      "hand",
+      "hotshot",
+      "maestro",
+      "master",
+      "maven",
+      "meister",
+      "past master",
+      "proficient",
+      "shark",
+      "sharp",
+      "virtuoso",
+      "whiz",
+      "wizard",
+      "pupil",
+      "student"
+    ],
+    "Antonyms": [
+      "amateur",
+      "inexpert",
+      "nonexpert"
+    ],
+    "Tags": [],
+    "AddedAt": "2025-12-19T22:56:43.8003839+07:00",
+    "ViewCount": 0,
+    "MeaningIndex": 0,
+    "HasRelatedWords": true
+  },
+  {
+    "isFavorited": true,
+    "note": null,
+    "Word": "nonexpert",
+    "Phonetic": "ˌnän-ˈek-ˌspərt",
+    "PartOfSpeech": "noun",
+    "Definition": "a person who is not an expert —often used before another noun",
+    "Example": "",
+    "Synonyms": [
+      "amateur",
+      "dabbler",
+      "dilettante",
+      "hobbyist",
+      "layman",
+      "nonprofessional",
+      "potterer",
+      "putterer",
+      "tinkerer"
+    ],
+    "Antonyms": [
+      "authority",
+      "expert",
+      "pro",
+      "professional",
+      "specialist"
+    ],
+    "Tags": [],
+    "AddedAt": "2025-12-19T22:56:49.3256936+07:00",
+    "ViewCount": 0,
+    "MeaningIndex": 0,
+    "HasRelatedWords": true
+  },
+  {
+    "isFavorited": true,
+    "note": null,
+    "Word": "pro",
+    "Phonetic": "ˈprō",
+    "PartOfSpeech": "noun",
+    "Definition": "an argument or evidence in affirmation",
+    "Example": "What are the pros and cons of buying a car?",
+    "Synonyms": [
+      "advantage",
+      "plus",
+      "upside"
+    ],
+    "Antonyms": [
+      "con",
+      "disadvantage",
+      "downside",
+      "minus"
+    ],
+    "Tags": [],
+    "AddedAt": "2025-12-19T22:56:53.4547954+07:00",
+    "ViewCount": 0,
+    "MeaningIndex": 0,
+    "HasRelatedWords": true
+  }
+]

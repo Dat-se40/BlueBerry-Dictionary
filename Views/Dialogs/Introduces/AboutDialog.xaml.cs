@@ -37,7 +37,7 @@ namespace BlueBerryDictionary.Views.Dialogs.Introduces
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Không thể mở email client:\n{ex.Message}", "Lỗi",
+                MessageBox.Show($"Cannot open email client:\n{ex.Message}", "Error",
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -59,7 +59,7 @@ namespace BlueBerryDictionary.Views.Dialogs.Introduces
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Không thể mở link:\n{ex.Message}", "Lỗi",
+                MessageBox.Show($"Cannot open link:\n{ex.Message}", "Error",
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }

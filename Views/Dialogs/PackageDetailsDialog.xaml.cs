@@ -51,7 +51,7 @@ namespace BlueBerryDictionary.Views.Dialogs
 
         // Text nút tải full theo mode
         public string FullDownloadButtonText =>
-            IsDownloadedMode ? "💾 Cập nhật / Đồng bộ" : "💾 Tải xuống đã chọn";
+            IsDownloadedMode ? "💾 Update / Sync" : "💾 Download Selected";
 
         public string SelectionSummary
         {
@@ -61,7 +61,7 @@ namespace BlueBerryDictionary.Views.Dialogs
                     return string.Empty;
 
                 var selected = FilteredWords?.Count(w => w.IsSelected) ?? 0;
-                return $"Đã chọn: {selected}/{FilteredWords?.Count ?? 0} từ";
+                return $"Selected: {selected}/{FilteredWords?.Count ?? 0} words";
             }
         }
 
@@ -140,7 +140,7 @@ namespace BlueBerryDictionary.Views.Dialogs
             if (!ShowSelectionControls)
             {
                 // Mode preview: sau này bạn có thể xử lý kiểu "Tải metadata" ở đây nếu muốn
-                MessageBox.Show("Đây là chế độ xem thử, chưa hỗ trợ tải.", "Thông báo");
+                MessageBox.Show("This is a preview mode, downloading is not supported yet.", "Notification");
                 return;
             }
 
@@ -148,13 +148,13 @@ namespace BlueBerryDictionary.Views.Dialogs
 
             if (selectedWords.Count == 0)
             {
-                MessageBox.Show("Vui lòng chọn ít nhất 1 từ!", "Thông báo");
+                MessageBox.Show("Please select at least one word!", "Notification");
                 return;
             }
 
             var result = MessageBox.Show(
-                $"Tải xuống {selectedWords.Count} từ?\n\nDung lượng: {EstimatedSize}",
-                "Xác nhận",
+                $"Download {selectedWords.Count} words?\n\nSize: {EstimatedSize}",
+                "Confirm",
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Question
             );
@@ -170,8 +170,8 @@ namespace BlueBerryDictionary.Views.Dialogs
                 }
 
                 MessageBox.Show(
-                    $"✅ Đã tải xuống {selectedWords.Count} từ thành công!",
-                    "Thành công",
+                    $"✅ Successfully downloaded {selectedWords.Count} words!",
+                    "Completed successfully",
                     MessageBoxButton.OK,
                     MessageBoxImage.Information
                 );
@@ -181,7 +181,7 @@ namespace BlueBerryDictionary.Views.Dialogs
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

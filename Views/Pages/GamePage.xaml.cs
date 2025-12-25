@@ -197,8 +197,8 @@ namespace BlueBerryDictionary.Views.Pages
         private void ExitGame_Click(object sender, RoutedEventArgs e)
         {
             var result = MessageBox.Show(
-                "Bạn có chắc muốn thoát? Tiến trình sẽ không được lưu.",
-                "Xác nhận thoát",
+                "Are you sure you want to exit ? Progress will not be saved.",
+                "Confirm Exit",
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Question
             );

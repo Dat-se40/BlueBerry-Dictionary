@@ -85,26 +85,28 @@ namespace BlueBerryDictionary.Views.Dialogs.Introduces
         /// </summary>
         private void LoadIntroContent()
         {
-            AddSectionHeader("🎯 GIỚI THIỆU");
+            AddSectionHeader("🎯 INTRODUCTION");
 
-            AddBodyText("BlueBerry Dictionary là một ứng dụng từ điển tiếng Anh thông minh được phát triển với mục tiêu mang đến trải nghiệm tra cứu và học từ vựng hiệu quả nhất cho người dùng. Ứng dụng không chỉ đơn thuần là một công cụ tra từ, mà còn là người bạn đồng hành đắc lực giúp bạn xây dựng và quản lý kho từ vựng cá nhân một cách khoa học và hiệu quả.");
+            AddBodyText(
+                "BlueBerry Dictionary is a smart English dictionary app developed to provide users with the most effective vocabulary lookup and learning experience. The app is not just a simple lookup tool, but also a reliable companion to help you build and manage your personal vocabulary library efficiently and systematically.");
 
-            AddBodyText("Với giao diện thân thiện, hiện đại và nhiều tính năng nâng cao, BlueBerry Dictionary phù hợp cho mọi đối tượng người học - từ học sinh, sinh viên đang chuẩn bị cho các kỳ thi IELTS, TOEIC, đến những người đi làm cần nâng cao vốn từ vựng chuyên ngành. Đặc biệt, hệ thống đồng bộ dữ liệu qua Google Drive giúp bạn có thể học mọi lúc mọi nơi mà không lo mất dữ liệu.");
+            AddBodyText(
+                "With a friendly, modern interface and many advanced features, BlueBerry Dictionary is suitable for all learners – from students preparing for IELTS or TOEIC exams to professionals who want to improve their specialized vocabulary. Notably, data synchronization via Google Drive allows you to learn anytime, anywhere without worrying about losing your data.");
 
-            AddSubHeader("✨ Tính năng nổi bật");
-            AddBullet("✅ Tra cứu từ với nhiều nguồn dữ liệu uy tín");
-            AddBullet("✅ Phát âm chuẩn US 🇺🇸 và UK 🇬🇧");
-            AddBullet("✅ Quản lý từ vựng với hệ thống Tags (nhãn)");
-            AddBullet("✅ Lưu trữ lịch sử và từ yêu thích");
-            AddBullet("✅ Tùy chỉnh giao diện (23 themes + custom)");
-            AddBullet("✅ Đồng bộ dữ liệu qua Google Drive");
-            AddBullet("✅ Hỗ trợ offline mode");
+            AddSubHeader("✨ Key Features");
+            AddBullet("✅ Look up words from multiple trusted sources");
+            AddBullet("✅ Accurate US 🇺🇸 and UK 🇬🇧 pronunciation");
+            AddBullet("✅ Manage vocabulary with a tag system");
+            AddBullet("✅ Save search history and favorite words");
+            AddBullet("✅ Customize interface (23 themes + custom colors)");
+            AddBullet("✅ Sync data via Google Drive");
+            AddBullet("✅ Support offline mode");
 
-            AddSubHeader("👥 Đội ngũ phát triển");
-            AddBodyText("Môn học: Lập trình trực quan");
-            AddBodyText("Giảng viên: ThS. Mai Trọng Khang");
-            AddBodyText("Học kỳ: 1 - Năm 2024-2025");
-            AddBodyText("Thành viên:");
+            AddSubHeader("👥 Development Team");
+            AddBodyText("Subject: Lập trình trực quan");
+            AddBodyText("Lecturer: ThS. Mai Trọng Khang");
+            AddBodyText("Semester: 1 - Academic Year 2024-2025");
+            AddBodyText("Team Members:");
             AddBullet("• Nguyễn Tấn Đạt");
             AddBullet("• Võ Nguyễn Thanh Hương");
             AddBullet("• Phan Thế Phong");
@@ -115,58 +117,61 @@ namespace BlueBerryDictionary.Views.Dialogs.Introduces
         /// </summary>
         private void LoadSearchContent()
         {
-            AddSectionHeader("🔍 TRA CỨU TỪ VỰNG");
+            AddSectionHeader("🔍 WORD SEARCH");
 
-            AddSubHeader("📖 Tra từ cơ bản");
-            AddBodyText("Tính năng tra cứu từ vựng là trái tim của BlueBerry Dictionary. Khi bạn mở ứng dụng, thanh tìm kiếm nổi bật ở trung tâm màn hình sẵn sàng đón bạn.");
+            AddSubHeader("📖 Basic Lookup");
+            AddBodyText(
+                "The vocabulary lookup feature is the heart of BlueBerry Dictionary. When you open the app, the search bar prominently located at the center of the screen is ready to assist you.");
 
-            AddStep("Bước 1: Nhập từ cần tra vào thanh tìm kiếm");
-            AddStep("Bước 2: Chọn từ gợi ý hoặc nhấn Enter");
-            AddBullet("• Ứng dụng hiển thị gợi ý trong khi bạn gõ");
-            AddBullet("• Gợi ý dựa trên độ tương đồng với từ bạn nhập");
+            AddStep("Step 1: Enter the word you want to look up in the search bar");
+            AddStep("Step 2: Select a suggested word or press Enter");
+            AddBullet("• The app displays suggestions as you type");
+            AddBullet("• Suggestions are based on similarity to the word you entered");
 
-            AddStep("Bước 3: Xem thông tin từ vựng");
-            AddBullet("✅ Phiên âm: US 🇺🇸 và UK 🇬🇧");
-            AddBullet("✅ Nghĩa: Tất cả nghĩa của từ (danh từ, động từ, tính từ...)");
-            AddBullet("✅ Ví dụ: Câu ví dụ minh họa");
-            AddBullet("✅ Từ đồng nghĩa/Trái nghĩa (nếu có)");
+            AddStep("Step 3: View word information");
+            AddBullet("✅ Pronunciation: US 🇺🇸 and UK 🇬🇧");
+            AddBullet("✅ Meaning: All meanings of the word (noun, verb, adjective, etc.)");
+            AddBullet("✅ Examples: Sample sentences illustrating usage");
+            AddBullet("✅ Synonyms/Antonyms (if available)");
 
-            AddSubHeader("🔊 Phát âm chuẩn");
-            AddBodyText("BlueBerry Dictionary cung cấp cả hai giọng phát âm Mỹ và Anh, giúp bạn có thể lựa chọn accent phù hợp với mục tiêu học tập.");
-            AddStep("Cách 1: Click icon loa 🔊 bên cạnh phiên âm");
-            AddStep("Cách 2: Phím tắt");
-            AddBullet("• Ctrl + U: Phát âm US");
-            AddBullet("• Ctrl + K: Phát âm UK");
+            AddSubHeader("🔊 Accurate Pronunciation");
+            AddBodyText(
+                "BlueBerry Dictionary provides both American and British accents, allowing you to choose the accent that suits your learning goals.");
+            AddStep("Method 1: Click the speaker icon 🔊 next to the pronunciation");
+            AddStep("Method 2: Keyboard shortcuts");
+            AddBullet("• Ctrl + U: US pronunciation");
+            AddBullet("• Ctrl + K: UK pronunciation");
 
-            AddSubHeader("💾 Lưu từ vựng");
-            AddBodyText("Sau khi tra cứu một từ hữu ích, bạn có thể lưu lại để ôn tập sau này.");
+            AddSubHeader("💾 Save Words");
+            AddBodyText("After looking up a useful word, you can save it for later review.");
 
-            AddStep("Cách 1: Lưu toàn bộ từ");
-            AddBullet("1. Click nút 'Lưu từ' (💾) ở góc trên bên phải");
-            AddBullet("2. Từ sẽ được lưu vào My Words với tất cả nghĩa");
+            AddStep("Method 1: Save the entire word");
+            AddBullet("1. Click the 'Save Word' button (💾) at the top-right corner");
+            AddBullet("2. The word will be saved in My Words with all meanings");
 
-            AddStep("Cách 2: Lưu nghĩa cụ thể (Khuyến nghị)");
-            AddBullet("1. Click nút 'Lưu từ' (💾)");
-            AddBullet("2. Chọn các nghĩa bạn muốn lưu");
-            AddBullet("3. (Tùy chọn) Gắn nhãn (tags) cho từ");
-            AddBullet("4. Click 'Lưu'");
+            AddStep("Method 2: Save specific meanings (Recommended)");
+            AddBullet("1. Click the 'Save Word' button (💾)");
+            AddBullet("2. Select the meanings you want to save");
+            AddBullet("3. (Optional) Assign tags to the word");
+            AddBullet("4. Click 'Save'");
 
-            AddSubHeader("❤️ Đánh dấu yêu thích");
-            AddBullet("• Click icon ❤️ để thêm/bỏ từ khỏi danh sách yêu thích");
-            AddBullet("• Trái tim đỏ = Đã yêu thích");
-            AddBullet("• Trái tim xám = Chưa yêu thích");
+            AddSubHeader("❤️ Favorites");
+            AddBullet("• Click the ❤️ icon to add/remove a word from your favorites");
+            AddBullet("• Red heart = Favorited");
+            AddBullet("• Gray heart = Not favorited");
 
-            AddSubHeader("🌐 Chế độ Offline");
-            AddBodyText("Một trong những ưu điểm lớn của BlueBerry Dictionary là khả năng hoạt động offline.");
+            AddSubHeader("🌐 Offline Mode");
+            AddBodyText("One of the major advantages of BlueBerry Dictionary is its offline capability.");
 
-            AddStep("Tải từ về máy:");
-            AddBullet("1. Tra từ online lần đầu");
-            AddBullet("2. Click nút 'Tải về' (📥)");
-            AddBullet("3. Từ sẽ được lưu vào máy");
+            AddStep("Download words to your device:");
+            AddBullet("1. Look up the word online for the first time");
+            AddBullet("2. Click the 'Download' button (📥)");
+            AddBullet("3. The word will be saved locally");
 
-            AddStep("Sử dụng offline:");
-            AddBullet("• Lần sau tra từ, ứng dụng tự động dùng bản offline (nếu có)");
-            AddBullet("• Icon 📡: Xanh = Online, Xám = Offline");
+            AddStep("Using offline:");
+            AddBullet(
+                "• Next time you look up the word, the app automatically uses the offline version (if available)");
+            AddBullet("• Icon 📡: Green = Online, Gray = Offline");
         }
 
         /// <summary>
@@ -174,78 +179,80 @@ namespace BlueBerryDictionary.Views.Dialogs.Introduces
         /// </summary>
         private void LoadManageContent()
         {
-            AddSectionHeader("📚 QUẢN LÝ TỪ VỰNG CÁ NHÂN");
+            AddSectionHeader("📚 PERSONAL VOCABULARY MANAGEMENT");
 
-            AddSubHeader("📖 My Words - Kho từ vựng của bạn");
-            AddBodyText("My Words là tính năng trung tâm của BlueBerry Dictionary, nơi bạn xây dựng và quản lý kho từ vựng cá nhân của mình.");
-            AddStep("Truy cập: Sidebar → My Words");
+            AddSubHeader("📖 My Words - Your Vocabulary Library");
+            AddBodyText(
+                "My Words is the central feature of BlueBerry Dictionary, where you build and manage your personal vocabulary library.");
+            AddStep("Access: Sidebar → My Words");
 
-            AddSubHeader("🏷️ Tạo và quản lý Tags (Nhãn)");
-            AddBodyText("Tags là công cụ mạnh mẽ giúp bạn tổ chức từ vựng theo cách của riêng mình.");
+            AddSubHeader("🏷️ Create and Manage Tags");
+            AddBodyText("Tags are a powerful tool to organize your vocabulary your way.");
 
-            AddStep("Bước 1: Tạo nhãn mới");
-            AddBullet("1. Click nút '🏷️ Tạo nhãn mới'");
-            AddBullet("2. Điền thông tin:");
-            AddBullet("   • Tên nhãn: VD 'IELTS', 'Business English'");
-            AddBullet("   • Chọn icon: Click vào icon mẫu hoặc nhập emoji");
-            AddBullet("   • Chọn màu: Click vào bảng màu");
-            AddBullet("3. Click 'Tạo'");
+            AddStep("Step 1: Create a new tag");
+            AddBullet("1. Click the '🏷️ Create New Tag' button");
+            AddBullet("2. Fill in the details:");
+            AddBullet("   • Tag name: e.g., 'IELTS', 'Business English'");
+            AddBullet("   • Choose icon: Click a sample icon or enter an emoji");
+            AddBullet("   • Choose color: Click the color palette");
+            AddBullet("3. Click 'Create'");
 
-            AddStep("Bước 2: Gắn nhãn cho từ");
-            AddBullet("Cách 1: Khi lưu từ");
-            AddBullet("• Chọn nhãn từ dropdown trong dialog 'Chọn nghĩa để lưu'");
-            AddBullet("Cách 2: Gắn sau khi đã lưu");
-            AddBullet("1. Vào My Words");
-            AddBullet("2. Click vào từ cần gắn nhãn");
-            AddBullet("3. Click 'Gắn nhãn'");
-            AddBullet("4. Chọn nhãn từ danh sách");
+            AddStep("Step 2: Assign tags to words");
+            AddBullet("Method 1: When saving a word");
+            AddBullet("• Select a tag from the dropdown in the 'Select meanings to save' dialog");
+            AddBullet("Method 2: Assign after saving");
+            AddBullet("1. Go to My Words");
+            AddBullet("2. Click the word you want to tag");
+            AddBullet("3. Click 'Assign Tag'");
+            AddBullet("4. Choose a tag from the list");
 
-            AddStep("Xóa nhãn:");
-            AddBullet("1. Click icon ⚙️ trên thẻ nhãn");
-            AddBullet("2. Chọn các nhãn muốn xóa");
-            AddBullet("3. Xác nhận");
+            AddStep("Delete tags:");
+            AddBullet("1. Click the ⚙️ icon on the tag card");
+            AddBullet("2. Select the tags you want to delete");
+            AddBullet("3. Confirm");
 
-            AddSubHeader("🔍 Lọc từ vựng");
-            AddBodyText("Với hàng trăm hoặc hàng nghìn từ trong My Words, việc tìm kiếm và lọc trở nên cực kỳ quan trọng.");
+            AddSubHeader("🔍 Filter Words");
+            AddBodyText(
+                "With hundreds or thousands of words in My Words, searching and filtering becomes extremely important.");
 
-            AddStep("Lọc theo chữ cái:");
-            AddBullet("• Click vào chữ cái (A-Z) ở thanh bên trên");
-            AddBullet("• Chọn 'Tất cả' để bỏ lọc");
+            AddStep("Filter by letter:");
+            AddBullet("• Click a letter (A-Z) on the top sidebar");
+            AddBullet("• Select 'All' to remove filtering");
 
-            AddStep("Lọc theo loại từ:");
-            AddBullet("• Dropdown 'Loại từ' → Chọn:");
-            AddBullet("   - Tất cả");
-            AddBullet("   - Danh từ (noun)");
-            AddBullet("   - Động từ (verb)");
-            AddBullet("   - Tính từ (adjective)");
-            AddBullet("   - Trạng từ (adverb)");
+            AddStep("Filter by word type:");
+            AddBullet("• 'Word Type' dropdown → Choose:");
+            AddBullet("   - All");
+            AddBullet("   - Noun");
+            AddBullet("   - Verb");
+            AddBullet("   - Adjective");
+            AddBullet("   - Adverb");
 
-            AddStep("Lọc theo nhãn:");
-            AddBullet("• Click vào thẻ nhãn ở thanh bên trên");
-            AddBullet("• Chỉ hiển thị từ có nhãn đó");
+            AddStep("Filter by tag:");
+            AddBullet("• Click a tag on the top sidebar");
+            AddBullet("• Only words with that tag will be displayed");
 
-            AddStep("Tìm kiếm nhanh:");
-            AddBullet("• Nhập từ vào ô 'Tìm trong từ đã lưu...'");
-            AddBullet("• Kết quả hiển thị realtime");
+            AddStep("Quick search:");
+            AddBullet("• Type a word in the 'Search in saved words...' box");
+            AddBullet("• Results appear in real-time");
 
-            AddSubHeader("📊 Thống kê từ vựng");
-            AddBodyText("Ở góc trên bên phải, bạn sẽ thấy thống kê hữu ích:");
-            AddBullet("• 📚 Tổng số từ: Tổng số từ đã lưu");
-            AddBullet("• 🏷️ Nhãn: Số nhãn đã được tạo");
-            AddBullet("• 🆕 Từ mới tuần này: Từ đượcthêm trong 7 ngày gần nhất");
-            AddBullet("• 📅 Từ mới tháng này: Từ được thêm trong 30 ngày gần nhất");
+            AddSubHeader("📊 Vocabulary Statistics");
+            AddBodyText("At the top-right corner, you will see useful statistics:");
+            AddBullet("• 📚 Total words: Total words saved");
+            AddBullet("• 🏷️ Tags: Number of tags created");
+            AddBullet("• 🆕 New words this week: Words added in the last 7 days");
+            AddBullet("• 📅 New words this month: Words added in the last 30 days");
 
-            AddSubHeader("✏️ Chỉnh sửa/Xóa từ");
-            AddStep("Chỉnh sửa:");
-            AddBullet("1. Click vào từ trong My Words");
-            AddBullet("2. Click 'Chỉnh sửa'");
-            AddBullet("3. Sửa nghĩa, gắn/bỏ nhãn");
-            AddBullet("4. Click 'Lưu'");
+            AddSubHeader("✏️ Edit/Delete Words");
+            AddStep("Edit:");
+            AddBullet("1. Click a word in My Words");
+            AddBullet("2. Click 'Edit'");
+            AddBullet("3. Modify meanings, add/remove tags");
+            AddBullet("4. Click 'Save'");
 
-            AddStep("Xóa:");
-            AddBullet("1. Click vào từ");
-            AddBullet("2. Click 'Xóa'");
-            AddBullet("3. Xác nhận");
+            AddStep("Delete:");
+            AddBullet("1. Click a word");
+            AddBullet("2. Click 'Delete'");
+            AddBullet("3. Confirm");
         }
 
         /// <summary>
@@ -253,27 +260,29 @@ namespace BlueBerryDictionary.Views.Dialogs.Introduces
         /// </summary>
         private void LoadHistoryContent()
         {
-            AddSectionHeader("📜 LỊCH SỬ TRA CỨU");
+            AddSectionHeader("📜 SEARCH HISTORY");
 
-            AddBodyText("Trang History ghi lại toàn bộ lịch sử tra cứu của bạn, tạo thành một timeline về hành trình học từ vựng. Mỗi lần bạn tra một từ, nó sẽ được tự động thêm vào History với timestamp chính xác.");
+            AddBodyText(
+                "The History page records all your word lookups, creating a timeline of your vocabulary learning journey. Each time you look up a word, it is automatically added to History with an accurate timestamp.");
 
-            AddStep("Truy cập: Sidebar → History");
+            AddStep("Access: Sidebar → History");
 
-            AddSubHeader("✨ Tính năng");
-            AddBullet("✅ Xem tất cả từ đã tra (100 từ gần nhất)");
-            AddBullet("✅ Hiển thị thời gian tra cứu");
-            AddBullet("✅ Click vào từ để xem lại chi tiết");
-            AddBullet("✅ Xóa từng từ hoặc xóa toàn bộ lịch sử");
+            AddSubHeader("✨ Features");
+            AddBullet("✅ View all looked-up words (up to 100 most recent)");
+            AddBullet("✅ Display lookup time");
+            AddBullet("✅ Click on a word to view details");
+            AddBullet("✅ Delete individual words or clear the entire history");
 
-            AddSubHeader("🗑️ Xóa lịch sử");
-            AddStep("Xóa một từ:");
-            AddBullet("• Hover vào từ → Click 🗑️");
+            AddSubHeader("🗑️ Delete History");
+            AddStep("Delete a single word:");
+            AddBullet("• Hover over the word → Click 🗑️");
 
-            AddStep("Xóa toàn bộ:");
-            AddBullet("• Click 'Xóa tất cả lịch sử' → Xác nhận");
+            AddStep("Delete all history:");
+            AddBullet("• Click 'Clear All History' → Confirm");
 
-            AddSubHeader("💡 Mẹo sử dụng");
-            AddBodyText("Lịch sử này rất hữu ích khi bạn muốn tìm lại một từ mà mình đã tra nhưng quên mất không lưu. Thay vì phải tra lại từ đầu, bạn chỉ cần vào History, scroll xuống hoặc dùng tìm kiếm để tìm lại từ đó nhanh chóng.");
+            AddSubHeader("💡 Tips");
+            AddBodyText(
+                "This history is very useful when you want to find a word you looked up but forgot to save. Instead of looking it up from scratch, just go to History, scroll down, or use the search function to quickly find the word.");
         }
 
         /// <summary>
@@ -281,32 +290,35 @@ namespace BlueBerryDictionary.Views.Dialogs.Introduces
         /// </summary>
         private void LoadFavouriteContent()
         {
-            AddSectionHeader("❤️ TỪ YÊU THÍCH");
+            AddSectionHeader("❤️ FAVORITE WORDS");
 
-            AddBodyText("Favourite Words là nơi lưu trữ những từ đặc biệt quan trọng với bạn - có thể là những từ khó nhớ nhất, những từ bạn yêu thích nhất, hoặc những từ bạn muốn ôn tập thường xuyên hơn. Đây như một 'shortlist' trong kho từ vựng lớn của bạn.");
+            AddBodyText(
+                "Favourite Words is where you store the words that are especially important to you—these could be the hardest-to-remember words, your personal favorites, or words you want to review more frequently. Think of it as a 'shortlist' within your larger vocabulary library.");
 
-            AddStep("Truy cập: Sidebar → Favourite Words");
+            AddStep("Access: Sidebar → Favourite Words");
 
-            AddSubHeader("✨ Tính năng");
-            AddBullet("✅ Xem tất cả từ đã đánh dấu ❤️");
-            AddBullet("✅ Lọc theo chữ cái A-Z");
-            AddBullet("✅ Lọc theo loại từ (noun, verb, adjective...)");
-            AddBullet("✅ Tìm kiếm nhanh");
-            AddBullet("✅ Click để xem chi tiết");
+            AddSubHeader("✨ Features");
+            AddBullet("✅ View all words marked ❤️");
+            AddBullet("✅ Filter by letters A-Z");
+            AddBullet("✅ Filter by word type (noun, verb, adjective, etc.)");
+            AddBullet("✅ Quick search");
+            AddBullet("✅ Click to view details");
 
-            AddSubHeader("📊 Giới hạn");
-            AddBodyText("Số lượng từ yêu thích có giới hạn mặc định là 1000 từ. Tuy nhiên, bạn có thể thay đổi con số này trong Settings:");
-            AddBullet("• 500 từ (Tiết kiệm dung lượng)");
-            AddBullet("• 1000 từ (Mặc định)");
-            AddBullet("• 5000 từ (Cho người học nhiều)");
-            AddBullet("• Unlimited (Không giới hạn)");
+            AddSubHeader("📊 Limits");
+            AddBodyText(
+                "By default, the number of favourite words is limited to 1000. However, you can change this in Settings:");
+            AddBullet("• 500 words (Save storage)");
+            AddBullet("• 1000 words (Default)");
+            AddBullet("• 5000 words (For heavy learners)");
+            AddBullet("• Unlimited (No limit)");
 
-            AddSubHeader("💡 Mẹo sử dụng hiệu quả");
-            AddBodyText("Hai tính năng My Words và Favourite nên được sử dụng song song nhưng với mục đích khác nhau:");
-            AddBullet("• My Words: Kho từ chính, lưu trữ toàn bộ từ vựng đã học");
-            AddBullet("• Favourite: Danh sách ưu tiên, chỉ chứa từ khó nhớ cần ôn nhiều");
+            AddSubHeader("💡 Tips for Effective Use");
+            AddBodyText("The My Words and Favourite features should be used together but for different purposes:");
+            AddBullet("• My Words: Main vocabulary library, stores all learned words");
+            AddBullet("• Favourite: Priority list, contains only hard-to-remember words for frequent review");
 
-            AddBodyText("Mỗi ngày trước khi bắt đầu học, hãy mở Favourite và review nhanh các từ ở đó. Khi bạn cảm thấy đã thuộc một từ, có thể bỏ nó khỏi Favourite - nhưng nó vẫn ở trong My Words nếu bạn cần tra lại sau này.");
+            AddBodyText(
+                "Every day before you start studying, open Favourite and quickly review the words there. When you feel confident about a word, you can remove it from Favourite—it will still remain in My Words if you need to look it up later.");
         }
 
         /// <summary>
@@ -314,79 +326,82 @@ namespace BlueBerryDictionary.Views.Dialogs.Introduces
         /// </summary>
         private void LoadThemeContent()
         {
-            AddSectionHeader("🎨 TÙY CHỈNH GIAO DIỆN");
+            AddSectionHeader("🎨 INTERFACE CUSTOMIZATION");
 
-            AddBodyText("BlueBerry Dictionary cung cấp nhiều tùy chọn để bạn có thể cá nhân hóa giao diện theo sở thích và môi trường học tập của mình.");
+            AddBodyText(
+                "BlueBerry Dictionary offers various options so you can personalize the interface according to your preferences and learning environment.");
 
-            AddStep("Truy cập: Sidebar → ⚙️ Settings");
+            AddStep("Access: Sidebar → ⚙️ Settings");
 
-            AddSubHeader("🌓 Chế độ Sáng/Tối (Light/Dark Mode)");
-            AddBodyText("BlueBerry Dictionary cung cấp cả chế độ Light (sáng) và Dark (tối) để bạn có thể lựa chọn phù hợp nhất với mình.");
+            AddSubHeader("🌓 Light/Dark Mode");
+            AddBodyText(
+                "The app provides both Light and Dark modes so you can choose the one that suits you best.");
 
-            AddStep("Cách 1: Từ Settings");
-            AddBullet("1. Vào Settings");
-            AddBullet("2. Dropdown 'Chế độ hiển thị'");
-            AddBullet("3. Chọn:");
-            AddBullet("   • Light (Sáng) - Phù hợp ban ngày");
-            AddBullet("   • Dark (Tối) - Phù hợp ban đêm");
-            AddBullet("   • Auto (Tự động theo hệ thống)");
+            AddStep("Method 1: From Settings");
+            AddBullet("1. Go to Settings");
+            AddBullet("2. Dropdown 'Display Mode'");
+            AddBullet("3. Select:");
+            AddBullet("   • Light - Suitable for daytime");
+            AddBullet("   • Dark - Suitable for nighttime");
+            AddBullet("   • Auto - Follows system setting");
 
-            AddStep("Cách 2: Toggle nhanh");
-            AddBullet("• Click nút 🌙/☀️ ở góc trên bên phải");
-            AddBullet("• Chuyển đổi nhanh giữa Light và Dark");
+            AddStep("Method 2: Quick Toggle");
+            AddBullet("• Click the 🌙/☀️ button at the top-right corner");
+            AddBullet("• Quickly switch between Light and Dark");
 
-            AddSubHeader("🎨 Thay đổi màu sắc giao diện");
-            AddBodyText("Ngoài việc chọn Light hay Dark, bạn còn có thể thay đổi hoàn toàn bảng màu của giao diện.");
+            AddSubHeader("🎨 Change Interface Colors");
+            AddBodyText("Besides Light/Dark mode, you can fully customize the color scheme of the interface.");
 
-            AddStep("Option 1: Màu mặc định");
-            AddBullet("• Chọn 'Mặc định' trong dropdown 'Đổi nền'");
-            AddBullet("• Màu xanh pastel (Blue Gradient)");
+            AddStep("Option 1: Default Color");
+            AddBullet("• Choose 'Default' in the 'Change Background' dropdown");
+            AddBullet("• Pastel blue (Blue Gradient)");
 
-            AddStep("Option 2: Chọn theme có sẵn");
-            AddBullet("1. Dropdown 'Đổi nền' → 'Chọn theme có sẵn...'");
-            AddBullet("2. Chọn 1 trong 23 theme:");
-            AddBullet("   • Pastel Dream (Hồng nhạt)");
-            AddBullet("   • Lavender Mist (Tím lavender)");
-            AddBullet("   • Aqua Fresh (Xanh nước biển)");
-            AddBullet("   • Ocean Gradient (Xanh dương gradient)");
-            AddBullet("   • ...và 19 theme khác");
-            AddBullet("3. Click 'Áp dụng'");
+            AddStep("Option 2: Predefined Themes");
+            AddBullet("1. Dropdown 'Change Background' → 'Select a theme...'");
+            AddBullet("2. Choose one of 23 themes:");
+            AddBullet("   • Pastel Dream (Light Pink)");
+            AddBullet("   • Lavender Mist (Lavender)");
+            AddBullet("   • Aqua Fresh (Aqua Blue)");
+            AddBullet("   • Ocean Gradient (Blue Gradient)");
+            AddBullet("   • ...and 19 other themes");
+            AddBullet("3. Click 'Apply'");
 
-            AddStep("Option 3: Tùy chỉnh màu riêng");
-            AddBullet("1. Dropdown 'Đổi nền' → 'Chọn màu tùy chỉnh...'");
-            AddBullet("2. Chọn 3 màu:");
-            AddBullet("   • Primary: Màu chính (navbar, buttons)");
-            AddBullet("   • Secondary: Màu phụ (backgrounds)");
-            AddBullet("   • Accent: Màu nhấn (text, icons)");
-            AddBullet("3. Xem preview realtime");
-            AddBullet("4. Click 'Áp dụng'");
+            AddStep("Option 3: Custom Colors");
+            AddBullet("1. Dropdown 'Change Background' → 'Custom Colors...'");
+            AddBullet("2. Choose 3 colors:");
+            AddBullet("   • Primary: Main color (navbar, buttons)");
+            AddBullet("   • Secondary: Secondary color (backgrounds)");
+            AddBullet("   • Accent: Accent color (text, icons)");
+            AddBullet("3. Preview in real-time");
+            AddBullet("4. Click 'Apply'");
 
-            AddStep("Quay về mặc định:");
-            AddBullet("• Chọn 'Mặc định' → Xác nhận 'Yes'");
+            AddStep("Reset to Default:");
+            AddBullet("• Select 'Default' → Confirm 'Yes'");
 
-            AddSubHeader("🔤 Thay đổi font chữ");
-            AddBodyText("Font chữ cũng ảnh hưởng rất lớn đến trải nghiệm sử dụng. BlueBerry Dictionary cho phép bạn thay đổi font chữ cho toàn bộ ứng dụng.");
+            AddSubHeader("🔤 Change Font");
+            AddBodyText(
+                "Fonts greatly affect user experience. BlueBerry Dictionary allows you to change the font throughout the app.");
 
-            AddStep("Chọn font có sẵn:");
-            AddBullet("1. Dropdown 'Font chữ' → 'Chọn font...'");
-            AddBullet("2. Chọn font từ danh sách (Arial, Calibri, Times New Roman...)");
-            AddBullet("3. Kéo slider để điều chỉnh kích thước (10-24pt)");
-            AddBullet("4. Xem preview");
-            AddBullet("5. Click 'Áp dụng'");
+            AddStep("Select a font:");
+            AddBullet("1. Dropdown 'Font' → 'Select font...'");
+            AddBullet("2. Choose from the list (Arial, Calibri, Times New Roman...)");
+            AddBullet("3. Adjust size using the slider (10-24pt)");
+            AddBullet("4. Preview changes");
+            AddBullet("5. Click 'Apply'");
 
-            AddStep("Reset về mặc định:");
-            AddBullet("• Chọn 'Mặc định' (Segoe UI 14pt)");
+            AddStep("Reset to Default:");
+            AddBullet("• Select 'Default' (Segoe UI 14pt)");
 
-            AddSubHeader("📊 Giới hạn số từ yêu thích");
-            AddBullet("• 500 từ (Tiết kiệm dung lượng)");
-            AddBullet("• 1000 từ (Mặc định)");
-            AddBullet("• 5000 từ (Cho người học nhiều)");
-            AddBullet("• Unlimited (Không giới hạn)");
+            AddSubHeader("📊 Favourite Words Limit");
+            AddBullet("• 500 words (Save storage)");
+            AddBullet("• 1000 words (Default)");
+            AddBullet("• 5000 words (For heavy learners)");
+            AddBullet("• Unlimited");
 
-            AddSubHeader("💾 Tự động lưu");
-            AddStep("Toggle 'Tự động lưu':");
-            AddBullet("• Bật: Tự động lưu settings mỗi khi thay đổi");
-            AddBullet("• Tắt: Phải click 'Lưu cài đặt' thủ công");
+            AddSubHeader("💾 Auto Save");
+            AddStep("Toggle 'Auto Save':");
+            AddBullet("• On: Automatically saves settings on change");
+            AddBullet("• Off: Must click 'Save Settings' manually");
         }
 
         /// <summary>
@@ -394,67 +409,70 @@ namespace BlueBerryDictionary.Views.Dialogs.Introduces
         /// </summary>
         private void LoadSyncContent()
         {
-            AddSectionHeader("🔐 ĐĂNG NHẬP & ĐỒNG BỘ");
+            AddSectionHeader("🔐 LOGIN & SYNC");
 
-            AddSubHeader("🌟 Tại sao nên đăng nhập?");
-            AddBodyText("Một trong những tính năng mạnh mẽ nhất của BlueBerry Dictionary là khả năng đồng bộ dữ liệu qua Google Drive. Điều này có nghĩa là tất cả từ vựng, tags, lịch sử, và cài đặt của bạn sẽ được backup an toàn trên cloud và đồng bộ giữa nhiều thiết bị.");
+            AddSubHeader("🌟 Why Sign In?");
+            AddBodyText(
+                "One of the most powerful features of BlueBerry Dictionary is data synchronization via Google Drive. This means all your words, tags, history, and settings are safely backed up on the cloud and synchronized across multiple devices.");
 
-            AddBodyText("Hãy tưởng tượng bạn đang học trên máy tính ở nhà, đã lưu được 500 từ vựng. Hôm sau, bạn mang laptop đến trường để ôn bài. Chỉ cần đăng nhập bằng cùng tài khoản Google, tất cả dữ liệu đó sẽ tự động được tải về laptop, giống hệt như bạn đang dùng máy tính ở nhà.");
+            AddBodyText(
+                "Imagine you are studying at home on your computer and have saved 500 words. The next day, you bring your laptop to school to review. Simply sign in with the same Google account, and all that data will automatically be downloaded to your laptop, just like you were using your home computer.");
 
-            AddSubHeader("🔑 Cách đăng nhập");
-            AddStep("Lần đầu sử dụng:");
-            AddBullet("1. Mở ứng dụng");
-            AddBullet("2. Màn hình đăng nhập xuất hiện");
-            AddBullet("3. Click 'Đăng nhập với Google'");
-            AddBullet("4. Chọn tài khoản Google");
-            AddBullet("5. Cho phép quyền truy cập Google Drive");
+            AddSubHeader("🔑 How to Sign In");
+            AddStep("First-time use:");
+            AddBullet("1. Open the app");
+            AddBullet("2. The login screen appears");
+            AddBullet("3. Click 'Sign in with Google'");
+            AddBullet("4. Choose your Google account");
+            AddBullet("5. Grant access to Google Drive");
 
-            AddStep("Chế độ Guest:");
-            AddBullet("• Click 'Tiếp tục với Guest'");
-            AddBullet("• Không đồng bộ, dữ liệu chỉ lư");
+            AddStep("Guest Mode:");
+            AddBullet("• Click 'Continue as Guest'");
+            AddBullet("• No sync, data is stored locally only");
 
-            AddSubHeader("☁️ Đồng bộ dữ liệu");
-            AddBodyText("Sau khi đăng nhập, mọi thao tác thêm, sửa, xóa từ vựng của bạn sẽ tự động được đồng bộ lên Google Drive trong vài giây.");
+            AddSubHeader("☁️ Data Synchronization");
+            AddBodyText(
+                "Once signed in, any action you take to add, edit, or delete words will be automatically synchronized to Google Drive within a few seconds.");
 
-            AddStep("Dữ liệu được đồng bộ:");
-            AddBullet("✅ My Words (từ vựng đã lưu)");
-            AddBullet("✅ Tags (nhãn)");
-            AddBullet("✅ History (lịch sử tra cứu)");
-            AddBullet("✅ Favourite Words (từ yêu thích)");
-            AddBullet("✅ Settings (cài đặt)");
+            AddStep("Data that is synchronized:");
+            AddBullet("✅ My Words (saved words)");
+            AddBullet("✅ Tags");
+            AddBullet("✅ History (search history)");
+            AddBullet("✅ Favourite Words");
+            AddBullet("✅ Settings");
 
-            AddStep("Cách đồng bộ:");
-            AddBullet("Tự động:");
-            AddBullet("• Khi đăng nhập, dữ liệu tự động đồng bộ từ Google Drive");
-            AddBullet("• Khi thêm/sửa/xóa từ, tự động upload lên cloud");
-            AddBullet("Thủ công:");
-            AddBullet("1. Vào User Profile (Sidebar → Click avatar)");
-            AddBullet("2. Click 'Đồng bộ ngay'");
+            AddStep("How to sync:");
+            AddBullet("Automatic:");
+            AddBullet("• Upon sign-in, data is automatically synced from Google Drive");
+            AddBullet("• When adding/editing/deleting words, changes are automatically uploaded to the cloud");
+            AddBullet("Manual:");
+            AddBullet("1. Go to User Profile (Sidebar → Click avatar)");
+            AddBullet("2. Click 'Sync Now'");
 
-            AddStep("Trạng thái đồng bộ:");
-            AddBullet("• ✅ Xanh: Đã đồng bộ");
-            AddBullet("• 🔄 Vàng: Đang đồng bộ");
-            AddBullet("• ❌ Đỏ: Lỗi đồng bộ");
+            AddStep("Sync status:");
+            AddBullet("• ✅ Green: Synced");
+            AddBullet("• 🔄 Yellow: Syncing");
+            AddBullet("• ❌ Red: Sync failed");
 
-            AddSubHeader("👤 Quản lý tài khoản");
-            AddStep("Truy cập: Sidebar → Click vào avatar/tên");
+            AddSubHeader("👤 Account Management");
+            AddStep("Access: Sidebar → Click on avatar/name");
 
-            AddStep("Thông tin hiển thị:");
+            AddStep("Displayed information:");
             AddBullet("• Avatar");
-            AddBullet("• Tên tài khoản");
+            AddBullet("• Account name");
             AddBullet("• Email");
-            AddBullet("• Số từ đã lưu");
-            AddBullet("• Trạng thái đồng bộ");
+            AddBullet("• Number of saved words");
+            AddBullet("• Sync status");
 
-            AddStep("Đăng xuất:");
-            AddBullet("1. Click 'Đăng xuất'");
-            AddBullet("2. Xác nhận");
-            AddBullet("3. Dữ liệu local vẫn được giữ lại");
+            AddStep("Sign out:");
+            AddBullet("1. Click 'Sign Out'");
+            AddBullet("2. Confirm");
+            AddBullet("3. Local data will remain intact");
 
-            AddSubHeader("💡 Lưu ý quan trọng");
-            AddBullet("⚠️ Chỉ nên dùng 1 thiết bị tại 1 thời điểm để tránh xung đột dữ liệu");
-            AddBullet("⚠️ Đảm bảo có kết nối Internet ổn định khi đồng bộ");
-            AddBullet("⚠️ Dữ liệu được lưu trong thư mục BlueBerryDictionary trên Google Drive");
+            AddSubHeader("💡 Important Notes");
+            AddBullet("⚠️ Use only one device at a time to avoid data conflicts");
+            AddBullet("⚠️ Ensure a stable Internet connection when syncing");
+            AddBullet("⚠️ Data is stored in the BlueBerryDictionary folder on Google Drive");
         }
 
         // ==================== HELPER METHODS ====================

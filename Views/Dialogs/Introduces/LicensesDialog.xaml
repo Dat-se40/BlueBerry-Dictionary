@@ -1,7 +1,7 @@
 ﻿<Window x:Class="BlueBerryDictionary.Views.Dialogs.Introduces.LicensesDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Giấy Phép Mã Nguồn"
+        Title="Source Code License"
         Width="700" Height="700"
         WindowStartupLocation="CenterScreen"
         Background="{DynamicResource MainBackground}"
@@ -75,7 +75,7 @@
                 Background="{DynamicResource ButtonColor}"
                 Padding="30,20">
             <StackPanel>
-                <TextBlock Text="⚖️ GIẤY PHÉP MÃ NGUỒN"
+                <TextBlock Text="⚖️ SOURCE CODE LICENSE"
                            FontSize="24"
                            FontWeight="Bold"
                            Foreground="White"/>
@@ -203,7 +203,7 @@
                                    Foreground="{DynamicResource TextColor}"
                                    Margin="0,10,0,5"/>
                         <TextBlock Style="{StaticResource BodyStyle}">
-                            Nguồn dữ liệu từ điển chính
+                            Primary dictionary data source
                         </TextBlock>
                         <TextBlock Style="{StaticResource LinkStyle}"
                                    Text="🔗 https://dictionaryapi.dev"
@@ -216,7 +216,7 @@
                                    Foreground="{DynamicResource TextColor}"
                                    Margin="0,15,0,5"/>
                         <TextBlock Style="{StaticResource BodyStyle}">
-                            Nguồn từ điển bổ sung
+                            Additional dictionary sources
                         </TextBlock>
                         <TextBlock Style="{StaticResource LinkStyle}"
                                    Text="🔗 https://dictionaryapi.com"
@@ -229,7 +229,7 @@
                                    Foreground="{DynamicResource TextColor}"
                                    Margin="0,15,0,5"/>
                         <TextBlock Style="{StaticResource BodyStyle}">
-                            Nguồn phát âm audio
+                            Audio pronunciation sources
                         </TextBlock>
                         <TextBlock Style="{StaticResource LinkStyle}"
                                    Text="🔗 https://dictionary.cambridge.org"
@@ -249,24 +249,24 @@
                         </TextBlock>
 
                         <TextBlock Style="{StaticResource BodyStyle}">
-                            Chúng tôi xin gửi lời cảm ơn đến:
+                            We would like to express our sincere thanks to:
                         </TextBlock>
 
                         <StackPanel Margin="15,10,0,0">
                             <TextBlock Style="{StaticResource BodyStyle}">
-                                • WPF Community - Hỗ trợ kỹ thuật
+                                • WPF Community - Technical Support
                             </TextBlock>
                             <TextBlock Style="{StaticResource BodyStyle}">
-                                • .NET Foundation - Framework mạnh mẽ
+                                • .NET Foundation - Powerful Framework
                             </TextBlock>
                             <TextBlock Style="{StaticResource BodyStyle}">
-                                • Stack Overflow - Giải đáp thắc mắc
+                                • Stack Overflow – Question and Answer Platform
                             </TextBlock>
                             <TextBlock Style="{StaticResource BodyStyle}">
-                                • ThS. Mai Trọng Khang - Hướng dẫn nhiệt tình
+                                • ThS. Mai Trọng Khang - Thanks for the helpful guidance
                             </TextBlock>
                             <TextBlock Style="{StaticResource BodyStyle}">
-                                • Tất cả người dùng - Đóng góp ý kiến quý báu
+                                • Tất cả người dùng - Thank you for your valuable feedback and contributions
                             </TextBlock>
                         </StackPanel>
                     </StackPanel>
@@ -280,7 +280,7 @@
                 BorderBrush="{DynamicResource BorderColor}"
                 BorderThickness="0,1,0,0"
                 Padding="20">
-            <Button Content="Đóng"
+            <Button Content="Close"
                     Width="120"
                     Style="{StaticResource CloseButtonStyle}"
                     HorizontalAlignment="Right"

@@ -57,7 +57,7 @@ namespace BlueBerryDictionary.ViewModels
         public async Task LoadDataAsync()
         {
             IsLoading = true;
-            StatusMessage = "Đang tải danh sách packages...";
+            StatusMessage = "Loading package list...";
 
             try
             {
@@ -67,11 +67,11 @@ namespace BlueBerryDictionary.ViewModels
                 // Refresh UI
                 RefreshPackagesList();
 
-                StatusMessage = $"Đã tải {AvailablePackages.Count} packages";
+                StatusMessage = $"Packages {AvailablePackages.Count} downloaded";
             }
             catch (Exception ex)
             {
-                StatusMessage = $"Lỗi: {ex.Message}";
+                StatusMessage = $"Error: {ex.Message}";
                 Console.WriteLine($"❌ LoadData error: {ex.Message}");
             }
             finally
@@ -135,7 +135,7 @@ namespace BlueBerryDictionary.ViewModels
         [RelayCommand]
         private async Task RefreshFromServerAsync()
         {
-            StatusMessage = "Đang kiểm tra cập nhật...";
+            StatusMessage = "Checking for updates...";
 
             try
             {
@@ -148,8 +148,8 @@ namespace BlueBerryDictionary.ViewModels
                     RefreshPackagesList();
 
                     MessageBox.Show(
-                        "Danh sách packages đã được cập nhật!",
-                        "Thành công",
+                        "The package list has been updated!",
+                        "Completed successfully",
                         MessageBoxButton.OK,
                         MessageBoxImage.Information
                     );
@@ -157,8 +157,8 @@ namespace BlueBerryDictionary.ViewModels
                 else
                 {
                     MessageBox.Show(
-                        "Không thể kết nối server.\nSử dụng danh sách đã lưu.",
-                        "Cảnh báo",
+                        "Unable to connect to the server.\nUsing the saved list.",
+                        "Warning",
                         MessageBoxButton.OK,
                         MessageBoxImage.Warning
                     );
@@ -166,7 +166,7 @@ namespace BlueBerryDictionary.ViewModels
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", 
+                MessageBox.Show($"Error: {ex.Message}", "Error", 
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -180,11 +180,11 @@ namespace BlueBerryDictionary.ViewModels
             {
                 await _packageManager.DownloadPackageAsync(package.Id);
                 RefreshPackagesList();
-                MessageBox.Show($"✅ Đã tải package: {package.Name}", "Thành công");
+                MessageBox.Show($"✅ Package downloaded: {package.Name}", "Completed successfully");
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", 
+                MessageBox.Show($"Error: {ex.Message}", "Error", 
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -205,7 +205,7 @@ namespace BlueBerryDictionary.ViewModels
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi",
+                MessageBox.Show($"Error: {ex.Message}", "Error",
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -216,7 +216,7 @@ namespace BlueBerryDictionary.ViewModels
         {
             if (!package.IsDownloaded)
             {
-                MessageBox.Show("Vui lòng tải package trước!", "Cảnh báo");
+                MessageBox.Show("Please download the package first!", "Warning");
                 return;
             }
 
@@ -238,8 +238,8 @@ namespace BlueBerryDictionary.ViewModels
         public async Task DeletePackageAsync(TopicPackage package)
         {
             var result = MessageBox.Show(
-                $"Xóa package '{package.Name}'?\n\n(Các từ đã import vào My Words sẽ KHÔNG bị xóa)",
-                "Xác nhận",
+                $"Delete package '{package.Name}'?\n\n(Words imported into My Words will NOT be deleted)",
+                "Confirmation",
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Warning
             );
@@ -250,11 +250,11 @@ namespace BlueBerryDictionary.ViewModels
             {
                 await _packageManager.DeletePackageAsync(package.Id);
                 RefreshPackagesList();
-                MessageBox.Show($"Đã xóa package: {package.Name}", "Thành công");
+                MessageBox.Show($"Package deleted: {package.Name}", "Completed successfully");
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", 
+                MessageBox.Show($"Error: {ex.Message}", "Error", 
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }

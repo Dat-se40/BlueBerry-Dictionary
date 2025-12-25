@@ -126,7 +126,7 @@ namespace BlueBerryDictionary.Views.Pages
                         settings.CustomColorTheme = null;
                         SettingsService.Instance.SaveSettings();
 
-                        MessageBox.Show($"Đã áp dụng theme: {selectedTheme}", "Thành công",
+                        MessageBox.Show($"Theme applied: {selectedTheme}", "Completed successfully",
                             MessageBoxButton.OK, MessageBoxImage.Information);
 
                         // ✅ Chuyển sang "✓ Theme có sẵn"
@@ -165,7 +165,7 @@ namespace BlueBerryDictionary.Views.Pages
                         };
                         SettingsService.Instance.SaveSettings();
 
-                        MessageBox.Show("Đã áp dụng màu tùy chỉnh!", "Thành công",
+                        MessageBox.Show("Custom colors applied!", "Completed successfully",
                             MessageBoxButton.OK, MessageBoxImage.Information);
 
                         // ✅ Chuyển sang "✓ Màu tùy chỉnh"
@@ -191,8 +191,8 @@ namespace BlueBerryDictionary.Views.Pages
                     if (settings.ColorTheme != "default" && !string.IsNullOrEmpty(settings.ColorTheme))
                     {
                         var result = MessageBox.Show(
-                            "Bạn có chắc muốn reset về màu mặc định?",
-                            "Xác nhận",
+                            "Are you sure you want to reset to the default colors ?",
+                            "Confirmation",
                             MessageBoxButton.YesNo,
                             MessageBoxImage.Question
                         );
@@ -205,7 +205,7 @@ namespace BlueBerryDictionary.Views.Pages
                             settings.CustomColorTheme = null;
                             SettingsService.Instance.SaveSettings();
 
-                            MessageBox.Show("Đã reset về màu mặc định", "Thành công",
+                            MessageBox.Show("Reset to default colors successfully", "Completed successfully",
                                 MessageBoxButton.OK, MessageBoxImage.Information);
 
                             _isResetting = true;
@@ -278,7 +278,7 @@ namespace BlueBerryDictionary.Views.Pages
                             }
                         }
 
-                        MessageBox.Show($"Đã áp dụng font: {selectedFont.Source} ({selectedSize}pt)", "Thành công",
+                        MessageBox.Show($"Font applied successfully: {selectedFont.Source} ({selectedSize}pt)", "Completed successfully",
                             MessageBoxButton.OK, MessageBoxImage.Information);
 
                         _isResetting = true;
@@ -300,8 +300,8 @@ namespace BlueBerryDictionary.Views.Pages
                     if (!string.IsNullOrEmpty(settings.FontFamily) && settings.FontFamily != "Segoe UI")
                     {
                         var result = MessageBox.Show(
-                            "Bạn có chắc muốn reset về font mặc định (Segoe UI 14pt)?",
-                            "Xác nhận",
+                            "Are you sure you want to reset to the default font (Segoe UI 14pt) ?",
+                            "Confirmation",
                             MessageBoxButton.YesNo,
                             MessageBoxImage.Question
                         );
@@ -332,7 +332,7 @@ namespace BlueBerryDictionary.Views.Pages
                                 }
                             }
 
-                            MessageBox.Show("Đã reset về font mặc định", "Thành công",
+                            MessageBox.Show("Reset to default font successfully", "Completed successfully",
                                 MessageBoxButton.OK, MessageBoxImage.Information);
 
                             _isResetting = true;
@@ -421,7 +421,7 @@ namespace BlueBerryDictionary.Views.Pages
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine($"❌ Error opening FAQ: {ex.Message}");
-                MessageBox.Show($"Lỗi mở FAQ:\n{ex.Message}", "Lỗi",
+                MessageBox.Show($"Unable to open FAQ:\n{ex.Message}", "Error",
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -438,7 +438,7 @@ namespace BlueBerryDictionary.Views.Pages
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi mở dialog:\n{ex.Message}", "Lỗi",
+                MessageBox.Show($"Unable to open dialog:\n{ex.Message}", "Error",
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -456,7 +456,7 @@ namespace BlueBerryDictionary.Views.Pages
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi mở dialog:\n{ex.Message}", "Lỗi",
+                MessageBox.Show($"Unable to open dialog:\n{ex.Message}", "Error",
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -474,7 +474,7 @@ namespace BlueBerryDictionary.Views.Pages
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi mở dialog:\n{ex.Message}", "Lỗi",
+                MessageBox.Show($"Unable to open dialog:\n{ex.Message}", "Error",
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -491,7 +491,7 @@ namespace BlueBerryDictionary.Views.Pages
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi mở dialog:\n{ex.Message}", "Lỗi",
+                MessageBox.Show($"Unable to open dialog:\n{ex.Message}", "Error",
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -509,7 +509,7 @@ namespace BlueBerryDictionary.Views.Pages
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi mở dialog:\n{ex.Message}", "Lỗi",
+                MessageBox.Show($"Unable to open dialog:\n{ex.Message}", "Error",
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -527,7 +527,7 @@ namespace BlueBerryDictionary.Views.Pages
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi mở dialog:\n{ex.Message}", "Lỗi",
+                MessageBox.Show($"Unable to open dialog:\n{ex.Message}", "Error",
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
