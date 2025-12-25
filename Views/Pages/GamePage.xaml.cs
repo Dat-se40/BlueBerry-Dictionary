@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -47,8 +45,6 @@ namespace BlueBerryDictionary.Views.Pages
 
                 GameSelectionPanel.Visibility = Visibility.Collapsed;
                 GamePlayPanel.Visibility = Visibility.Visible;
-                FlashcardContainer.Visibility = Visibility.Visible;
-                CompletionContainer.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -90,7 +86,7 @@ namespace BlueBerryDictionary.Views.Pages
         {
             if (_viewModel.IsLastCard)
             {
-                ShowCompletion();
+                ShowCompletionDialog();
             }
             else
             {
@@ -104,7 +100,7 @@ namespace BlueBerryDictionary.Views.Pages
 
             if (_viewModel.IsLastCard)
             {
-                ShowCompletion();
+                ShowCompletionDialog();
             }
         }
 
@@ -147,63 +143,62 @@ namespace BlueBerryDictionary.Views.Pages
             _viewModel.IsFlipped = !_viewModel.IsFlipped;
         }
 
-        // ========== COMPLETION SCREEN ==========
+        // ========== COMPLETION DIALOG ==========
 
-        private void ShowCompletion()
+        private void ShowCompletionDialog()
         {
-            FlashcardContainer.Visibility = Visibility.Collapsed;
-            CompletionContainer.Visibility = Visibility.Visible;
-
             var completionData = _viewModel.CompleteGame();
 
-            TxtPercentage.Text = $"{completionData.Percentage}%";
-            TxtKnownCount.Text = $"{completionData.KnownCount} cards ({completionData.Percentage}%)";
-            TxtUnknownCount.Text = $"{completionData.UnknownCount} cards ({100 - completionData.Percentage}%)";
-            TxtTotalCount.Text = $"{completionData.TotalCount} cards";
-
-            if (completionData.SkippedIndices.Count > 0)
+            var completionDialog = new GameCompletionDialog
             {
-                Actions2Buttons.Visibility = Visibility.Collapsed;
-                Actions3Buttons.Visibility = Visibility.Visible;
-                SkippedListCompletion.Visibility = Visibility.Visible;
+                Owner = Window.GetWindow(this)
+            };
+
+            completionDialog.SetCompletionData(
+                completionData.Percentage,
+                completionData.KnownCount,
+                completionData.UnknownCount,
+                completionData.TotalCount,
+                completionData.SkippedIndices
+            );
+
+            var result = completionDialog.ShowDialog();
+
+            if (result == true)
+            {
+                switch (completionDialog.UserAction)
+                {
+                    case GameCompletionDialog.CompletionAction.Restart:
+                        _viewModel.RestartGame();
+                        break;
+
+                    case GameCompletionDialog.CompletionAction.ReviewSkipped:
+                        if (completionDialog.SelectedCardIndex.HasValue)
+                        {
+                            // Go to specific card
+                            _viewModel.GoToCard(completionDialog.SelectedCardIndex.Value);
+                        }
+                        else
+                        {
+                            // Go to first skipped
+                            _viewModel.GoToFirstSkipped();
+                        }
+                        break;
+                }
             }
             else
             {
-                Actions3Buttons.Visibility = Visibility.Collapsed;
-                Actions2Buttons.Visibility = Visibility.Visible;
-                SkippedListCompletion.Visibility = Visibility.Collapsed;
-            }
-        }
-
-        private void RestartGame_Click(object sender, RoutedEventArgs e)
-        {
-            _viewModel.RestartGame();
-            CompletionContainer.Visibility = Visibility.Collapsed;
-            FlashcardContainer.Visibility = Visibility.Visible;
-        }
-
-        private void ReviewSkippedOnly_Click(object sender, RoutedEventArgs e)
-        {
-            _viewModel.GoToFirstSkipped();
-            CompletionContainer.Visibility = Visibility.Collapsed;
-            FlashcardContainer.Visibility = Visibility.Visible;
-        }
-
-        private void SkipNumberCompletion_Click(object sender, RoutedEventArgs e)
-        {
-            if (sender is Button btn && btn.Tag is int index)
-            {
-                _viewModel.GoToCard(index);
-                CompletionContainer.Visibility = Visibility.Collapsed;
-                FlashcardContainer.Visibility = Visibility.Visible;
+                // User closed or clicked Close button - return to game selection
+                GamePlayPanel.Visibility = Visibility.Collapsed;
+                GameSelectionPanel.Visibility = Visibility.Visible;
             }
         }
 
         private void ExitGame_Click(object sender, RoutedEventArgs e)
         {
             var result = MessageBox.Show(
-                "Bạn có chắc muốn thoát? Tiến trình sẽ không được lưu.",
-                "Xác nhận thoát",
+                "Are you sure you want to exit ? Progress will not be saved.",
+                "Confirm Exit",
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Question
             );

@@ -1,7 +1,7 @@
 ﻿<Window x:Class="BlueBerryDictionary.Views.Dialogs.Introduces.ReportBugDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Báo Lỗi"
+        Title="Report a Bug"
         Width="650" Height="600"
         WindowStartupLocation="CenterScreen"
         Background="{DynamicResource MainBackground}"
@@ -75,11 +75,11 @@
                 Background="{DynamicResource ButtonColor}"
                 Padding="30,20">
             <StackPanel>
-                <TextBlock Text="🐛 BÁO LỖI"
+                <TextBlock Text="🐛 REPORT A BUG"
                            FontSize="24"
                            FontWeight="Bold"
                            Foreground="White"/>
-                <TextBlock Text="Giúp chúng tôi cải thiện ứng dụng"
+                <TextBlock Text="Help us improve the app"
                            FontSize="14"
                            Foreground="White"
                            Opacity="0.9"
@@ -92,12 +92,12 @@
             <StackPanel>
                 <!-- Intro -->
                 <TextBlock Style="{StaticResource BodyStyle}">
-                    Hãy cung cấp càng nhiều thông tin càng tốt để chúng tôi có thể nhanh chóng xác định và khắc phục vấn đề.
+                    Please provide as much information as possible so we can quickly identify and resolve the issue.
                 </TextBlock>
 
                 <!-- What to include -->
                 <TextBlock Style="{StaticResource HeaderStyle}" Margin="0,15,0,10">
-                    📝 Thông Tin Cần Cung Cấp
+                    📝 Information to Provide
                 </TextBlock>
 
                 <Border Background="{DynamicResource CardBackground}"
@@ -107,45 +107,45 @@
                         Padding="20"
                         Margin="0,0,0,15">
                     <StackPanel>
-                        <TextBlock Text="1️⃣ Mô tả chi tiết lỗi"
+                        <TextBlock Text="1️⃣ Detailed error description"
                                    FontSize="15"
                                    FontWeight="SemiBold"
                                    Foreground="{DynamicResource TextColor}"
                                    Margin="0,0,0,5"/>
                         <TextBlock Style="{StaticResource BodyStyle}"
                                    Margin="15,5,0,10">
-                            • Lỗi xảy ra ở đâu? (trang nào, tính năng gì)
+                            • Where did the error occur ? (Which page or feature ?)
                             <LineBreak/>
-                            • Điều gì xảy ra? (crash, không phản hồi, hiển thị sai...)
+                            • What happened ? (Crash, unresponsive, incorrect display, etc.)
                         </TextBlock>
 
-                        <TextBlock Text="2️⃣ Các bước để tái hiện lỗi"
+                        <TextBlock Text="2️⃣ Steps to reproduce the issue"
                                    FontSize="15"
                                    FontWeight="SemiBold"
                                    Foreground="{DynamicResource TextColor}"
                                    Margin="0,10,0,5"/>
                         <TextBlock Style="{StaticResource BodyStyle}"
                                    Margin="15,5,0,10">
-                            • Bước 1: Mở trang X
+                            • Step 1: Open page X
                             <LineBreak/>
-                            • Bước 2: Click vào nút Y
+                            • Step 2: Click the Y button
                             <LineBreak/>
-                            • Bước 3: Lỗi xuất hiện
+                            • Step 3: The error appears
                         </TextBlock>
 
-                        <TextBlock Text="3️⃣ Screenshot (nếu có)"
+                        <TextBlock Text="3️⃣ Screenshot (if any)"
                                    FontSize="15"
                                    FontWeight="SemiBold"
                                    Foreground="{DynamicResource TextColor}"
                                    Margin="0,10,0,5"/>
                         <TextBlock Style="{StaticResource BodyStyle}"
                                    Margin="15,5,0,10">
-                            • Chụp màn hình lỗi
+                            • Take a screenshot of the error
                             <LineBreak/>
-                            • Đính kèm trong email hoặc GitHub Issue
+                            • Attach it in the email or GitHub Issue
                         </TextBlock>
 
-                        <TextBlock Text="4️⃣ Thông tin hệ thống"
+                        <TextBlock Text="4️⃣ System Information"
                                    FontSize="15"
                                    FontWeight="SemiBold"
                                    Foreground="{DynamicResource TextColor}"
@@ -161,7 +161,7 @@
 
                 <!-- How to report -->
                 <TextBlock Style="{StaticResource HeaderStyle}" Margin="0,10,0,10">
-                    📬 Cách Gửi Báo Cáo
+                    📬 How to Submit a Report
                 </TextBlock>
 
                 <!-- Option 1: GitHub -->
@@ -172,19 +172,19 @@
                         Padding="20"
                         Margin="0,0,0,10">
                     <StackPanel>
-                        <TextBlock Text="✅ GitHub Issues (Khuyến nghị)"
+                        <TextBlock Text="✅ GitHub Issues (Recommendation)"
                                    FontSize="15"
                                    FontWeight="SemiBold"
                                    Foreground="{DynamicResource TextColor}"
                                    Margin="0,0,0,10"/>
                         <TextBlock Style="{StaticResource BodyStyle}">
-                            • Công khai, minh bạch
+                            • Open and transparent
                             <LineBreak/>
-                            • Theo dõi tiến độ fix realtime
+                            • Track fix progress in real-time
                             <LineBreak/>
-                            • Cộng đồng có thể hỗ trợ
+                            • Community can provide support
                         </TextBlock>
-                        <Button Content="🐙 Mở GitHub Issues"
+                        <Button Content="🐙 Open GitHub Issues"
                                 Style="{StaticResource ActionButtonStyle}"
                                 HorizontalAlignment="Left"
                                 Click="OpenGitHubIssues_Click"
@@ -205,13 +205,13 @@
                                    Foreground="{DynamicResource TextColor}"
                                    Margin="0,0,0,10"/>
                         <TextBlock Style="{StaticResource BodyStyle}">
-                            • Riêng tư hơn
+                            • More private
                             <LineBreak/>
-                            • Phù hợp cho vấn đề cá nhân
+                            • Suitable for personal issues
                             <LineBreak/>
                             • Email: 24520280@gm.uit.edu.vn
                         </TextBlock>
-                        <Button Content="📧 Gửi Email Báo Lỗi"
+                        <Button Content="📧 Send Bug Report Email"
                                 Style="{StaticResource ActionButtonStyle}"
                                 HorizontalAlignment="Left"
                                 Click="SendBugEmail_Click"
@@ -227,7 +227,7 @@
                 BorderBrush="{DynamicResource BorderColor}"
                 BorderThickness="0,1,0,0"
                 Padding="20">
-            <Button Content="Đóng"
+            <Button Content="Close"
                     Style="{StaticResource CloseButtonStyle}"
                     HorizontalAlignment="Right"
                     Click="CloseButton_Click"/>

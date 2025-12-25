@@ -1,74 +1,79 @@
 ﻿<local:WordListPageBase x:Class="BlueBerryDictionary.Views.Pages.HomePage"
-          xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-          xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-          xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-          xmlns:local="clr-namespace:BlueBerryDictionary.Views.Pages"
-          mc:Ignorable="d" 
-          d:DesignHeight="800" d:DesignWidth="1400"
-          Background="{DynamicResource MainBackground}">
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:local="clr-namespace:BlueBerryDictionary.Views.Pages"
+                        mc:Ignorable="d"
+                        d:DesignHeight="800" d:DesignWidth="1400"
+                        Background="{DynamicResource MainBackground}">
 
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <!-- Toolbar -->
-                <RowDefinition Height="*"/>
-                <!-- Main Content -->
-            </Grid.RowDefinitions>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <!-- Toolbar -->
+            <RowDefinition Height="*" />
+            <!-- Main Content -->
+        </Grid.RowDefinitions>
 
-            <!-- ================================= -->
-            <!-- TOOLBAR -->
-            <!-- ================================= -->
-            <Border Grid.Row="0"
-                    Background="{DynamicResource ToolbarBackground}"
-                    BorderBrush="{DynamicResource ToolbarBorder}"
-                    BorderThickness="0,0,0,2"
-                    Padding="15,10">
-                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <!-- Home -->
-                        <Button Style="{StaticResource ToolButtonStyle}" Tag="Home">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="🏠" FontSize="18" Margin="0,0,8,0"/>
-                                <TextBlock Text="Home" Tag="Home"/>
-                            </StackPanel>
-                        </Button>
+        <!-- ================================= -->
+        <!-- TOOLBAR -->
+        <!-- ================================= -->
+        <Border Grid.Row="0"
+                Background="{DynamicResource ToolbarBackground}"
+                BorderBrush="{DynamicResource ToolbarBorder}"
+                BorderThickness="0,0,0,2"
+                Padding="15,10">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <!-- Home -->
+                    <Button Style="{StaticResource ToolButtonStyle}" Tag="Home">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="🏠" FontSize="18" Margin="0,0,8,0" />
+                            <TextBlock Text="Home" Tag="Home"
+                                       VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
 
-                        <!-- History -->
-                        <Button Style="{StaticResource ToolButtonStyle}" Tag="History"
-                                Click="ButtnNavigate_Click">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="🕐" FontSize="18" Margin="0,0,8,0"/>
-                            <TextBlock Text="History" Tag="History"/>
-                            </StackPanel>
-                        </Button>
+                    <!-- History -->
+                    <Button Style="{StaticResource ToolButtonStyle}" Tag="History"
+                            Click="ButtnNavigate_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="🕐" FontSize="18" Margin="0,0,8,0" />
+                            <TextBlock Text="History" Tag="History"
+                                       VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
 
-                        <!-- Favourite -->
-                        <Button Style="{StaticResource ToolButtonStyle}" Tag="Favourite"
-                                Click="ButtnNavigate_Click">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="⭐" FontSize="18" Margin="0,0,8,0"/>
-                            <TextBlock Text="Favourite" Tag="Favourite"/>
-                            </StackPanel>
-                        </Button>
+                    <!-- Favourite -->
+                    <Button Style="{StaticResource ToolButtonStyle}" Tag="Favourite"
+                            Click="ButtnNavigate_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="⭐" FontSize="18" Margin="0,0,8,0" />
+                            <TextBlock Text="Favourite" Tag="Favourite"
+                                       VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
 
-                        <!-- My Words -->
-                        <Button Style="{StaticResource ToolButtonStyle}" Tag="MyWords"
-                                Click="ButtnNavigate_Click">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="📖" FontSize="18" Margin="0,0,8,0"/>
-                                <TextBlock Text="My Words"/>
-                            </StackPanel>
-                        </Button>
+                    <!-- My Words -->
+                    <Button Style="{StaticResource ToolButtonStyle}" Tag="MyWords"
+                            Click="ButtnNavigate_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="📖" FontSize="18" Margin="0,0,8,0" />
+                            <TextBlock Text="My Words"
+                                       VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
 
-                        <!-- Game -->
-                        <Button Style="{StaticResource ToolButtonStyle}" Tag="Game"
-                                Click="ButtnNavigate_Click">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="🎮" FontSize="18" Margin="0,0,8,0"/>
-                                <TextBlock Text="Game"/>
-                            </StackPanel>
-                        </Button>
+                    <!-- Game -->
+                    <Button Style="{StaticResource ToolButtonStyle}" Tag="Game"
+                            Click="ButtnNavigate_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="🎮" FontSize="18" Margin="0,0,8,0" />
+                            <TextBlock Text="Game"
+                                       VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
 
                         <!-- Offline -->
                         <Button Style="{StaticResource ToolButtonStyle}" Tag="Offline"
@@ -91,168 +96,171 @@
                 </ScrollViewer>
             </Border>
 
-            <!-- ================================= -->
-            <!-- MAIN CONTENT (ScrollViewer) -->
-            <!-- ================================= -->
-            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-                <StackPanel>
-                    <!-- Content Grid -->
-                    <Grid Margin="30">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
+        <!-- ================================= -->
+        <!-- MAIN CONTENT (ScrollViewer) -->
+        <!-- ================================= -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <!-- Content Grid -->
+                <Grid Margin="30">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
 
-                        <!-- Quote Card -->
-                        <Border Grid.Column="0" Style="{StaticResource CardStyle}" Margin="0,0,15,0">
-                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <!-- Quote Image -->
-                                <Border Width="200" Height="200" CornerRadius="100"
-                                        BorderBrush="{DynamicResource BorderColor}" BorderThickness="3" Margin="0,0,0,20">
-                                    <Border.Background>
-                                        <ImageBrush x:Name="QuoteImage" Stretch="UniformToFill"/>
-                                    </Border.Background>
-                                </Border>
+                    <!-- Quote Card -->
+                    <Border Grid.Column="0" Style="{StaticResource CardStyle}" Margin="0,0,15,0">
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <!-- Quote Image -->
+                            <Border Width="200" Height="200" CornerRadius="100"
+                                    BorderBrush="{DynamicResource BorderColor}" BorderThickness="3" Margin="0,0,0,20">
+                                <Border.Background>
+                                    <ImageBrush x:Name="QuoteImage" Stretch="UniformToFill" />
+                                </Border.Background>
+                            </Border>
 
-                                <!-- Quote Text -->
-                                <TextBlock Text="&quot;The limits of my language mean the limits of my world.&quot;"
-                                           FontSize="20" FontStyle="Italic" TextWrapping="Wrap" TextAlignment="Center"
-                                           Foreground="{DynamicResource TextColor}" LineHeight="28" Margin="0,0,0,15"
-                                           Name="QuoteText"/>
+                            <!-- Quote Text -->
+                            <TextBlock Text="&quot;The limits of my language mean the limits of my world.&quot;"
+                                       FontSize="20" FontStyle="Italic" TextWrapping="Wrap" TextAlignment="Center"
+                                       Foreground="{DynamicResource TextColor}" LineHeight="28" Margin="0,0,0,15"
+                                       Name="QuoteText" />
 
-                                <!-- Quote Author -->
-                                <TextBlock Text="— Ludwig Wittgenstein" FontSize="15" FontWeight="SemiBold"
-                                           Foreground="{DynamicResource TextColor}" Opacity="0.8" TextAlignment="Center"
-                                           Name="QuoteAuthor"/>
-                            </StackPanel>
-                        </Border>
+                            <!-- Quote Author -->
+                            <TextBlock Text="— Ludwig Wittgenstein" FontSize="15" FontWeight="SemiBold"
+                                       Foreground="{DynamicResource TextColor}" Opacity="0.8" TextAlignment="Center"
+                                       Name="QuoteAuthor" />
+                        </StackPanel>
+                    </Border>
 
-                        <!-- Word Collection Card -->
-                        <Border Grid.Column="1" Style="{StaticResource CardStyle}"
+                    <!-- Word Collection Card -->
+                    <Border Grid.Column="1" Style="{StaticResource CardStyle}"
                             BorderThickness="0" Margin="15,0,0,0">
-                            <Border BorderBrush="{DynamicResource BorderColor}"
+                        <Border BorderBrush="{DynamicResource BorderColor}"
                                 BorderThickness="4,0,0,0"
                                 CornerRadius="16">
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="*"/>
-                                    </Grid.RowDefinitions>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
 
-                                    <!-- Header -->
-                                    <Border Grid.Row="0" Background="{DynamicResource ToolbarBackground}"
-                                            CornerRadius="16,16,0,0" Padding="20">
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="📚" FontSize="22" Foreground="{DynamicResource TextColor}" Margin="0,0,10,0"/>
-                                            <TextBlock Text="Bộ sưu tập từ vựng của bạn" FontSize="17" FontWeight="Bold"
-                                                       Foreground="{DynamicResource TextColor}"/>
-                                        </StackPanel>
-                                    </Border>
+                                <!-- Header -->
+                                <Border Grid.Row="0" Background="{DynamicResource ToolbarBackground}"
+                                        CornerRadius="16,16,0,0" Padding="20">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="📚" FontSize="22" Foreground="{DynamicResource TextColor}"
+                                                   Margin="0,0,10,0" />
+                                        <TextBlock Text="Your vocabulary collection" FontSize="17" FontWeight="Bold"
+                                                   Foreground="{DynamicResource TextColor}" />
+                                    </StackPanel>
+                                </Border>
 
-                                    <!-- Word List -->
-                                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto"
-                                                  Padding="15" MaxHeight="500">
+                                <!-- Word List -->
+                                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto"
+                                              Padding="15" MaxHeight="500">
                                     <StackPanel x:Name="stpWordItems" HorizontalAlignment="Stretch">
                                     </StackPanel>
                                 </ScrollViewer>
-                                </Grid>
-                            </Border>
+                            </Grid>
                         </Border>
-                    </Grid>
+                    </Border>
+                </Grid>
 
-                    <!-- ================================= -->
-                    <!-- FOOTER -->
-                    <!-- ================================= -->
-                    <Border Background="{DynamicResource NavbarBackground}"
+                <!-- ================================= -->
+                <!-- FOOTER -->
+                <!-- ================================= -->
+                <Border Background="{DynamicResource NavbarBackground}"
                         Padding="40,30"
                         Margin="0,50,0,0"
                         TextElement.Foreground="White">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
 
-                            <!-- Thông tin đồ án -->
-                            <StackPanel Grid.Column="0" Margin="0,0,20,0">
-                                <TextBlock Text="📚 Thông tin đồ án" FontSize="16" FontWeight="Bold"
-                                           Foreground="White" Margin="0,0,0,10"/>
-                                <TextBlock Foreground="White" Opacity="0.9" TextWrapping="Wrap">
-                                    <Run Text="Môn học: " FontWeight="Bold"/>
-                                    <Run Text="Lập trình trực quan"/>
-                                </TextBlock>
-                                <TextBlock Foreground="White" Opacity="0.9" TextWrapping="Wrap">
-                                    <Run Text="Giảng viên: " FontWeight="Bold"/>
-                                    <Run Text="ThS. Mai Trọng Khang"/>
-                                </TextBlock>
-                                <TextBlock Foreground="White" Opacity="0.9" TextWrapping="Wrap">
-                                    <Run Text="Học kỳ: " FontWeight="Bold"/>
-                                    <Run Text="1 - Năm 2024-2025"/>
-                                </TextBlock>
-                            </StackPanel>
+                        <!-- Thông tin đồ án -->
+                        <StackPanel Grid.Column="0" Margin="0,0,20,0">
+                            <TextBlock Text="📚 Project Information" FontSize="16" FontWeight="Bold"
+                                       Foreground="White" Margin="0,0,0,10" />
+                            <TextBlock Foreground="White" Opacity="0.9" TextWrapping="Wrap">
+                                <Run Text="Subject: " FontWeight="Bold" />
+                                <Run Text="Lập trình trực quan" />
+                            </TextBlock>
+                            <TextBlock Foreground="White" Opacity="0.9" TextWrapping="Wrap">
+                                <Run Text="Lecturer: " FontWeight="Bold" />
+                                <Run Text="ThS. Mai Trọng Khang" />
+                            </TextBlock>
+                            <TextBlock Foreground="White" Opacity="0.9" TextWrapping="Wrap">
+                                <Run Text="Semester: " FontWeight="Bold" />
+                                <Run Text="1 - Academic Year 2024-2025" />
+                            </TextBlock>
+                        </StackPanel>
 
-                            <!-- Thành viên nhóm -->
-                            <StackPanel Grid.Column="1" Margin="0,0,20,0">
-                                <TextBlock Text="👥 Thành viên nhóm" FontSize="16" FontWeight="Bold"
-                                           Foreground="White" Margin="0,0,0,10"/>
-                                <TextBlock Foreground="White" Opacity="0.9" TextWrapping="Wrap" Margin="0,0,0,5">
-                                    <Run Text="Nguyễn Tấn Đạt" FontWeight="Bold"/><LineBreak/>
-                                    <Run Text="MSSV: 24520280"/>
-                                </TextBlock>
-                                <TextBlock Foreground="White" Opacity="0.9" TextWrapping="Wrap" Margin="0,0,0,5">
-                                    <Run Text="Võ Nguyễn Thanh Hương" FontWeight="Bold"/><LineBreak/>
-                                    <Run Text="MSSV: 24520649"/>
-                                </TextBlock>
-                                <TextBlock Foreground="White" Opacity="0.9" TextWrapping="Wrap">
-                                    <Run Text="Phan Thế Phong" FontWeight="Bold"/><LineBreak/>
-                                    <Run Text="MSSV: 24521342"/>
-                                </TextBlock>
-                            </StackPanel>
+                        <!-- Thành viên nhóm -->
+                        <StackPanel Grid.Column="1" Margin="0,0,20,0">
+                            <TextBlock Text="👥 Team Members" FontSize="16" FontWeight="Bold"
+                                       Foreground="White" Margin="0,0,0,10" />
+                            <TextBlock Foreground="White" Opacity="0.9" TextWrapping="Wrap" Margin="0,0,0,5">
+                                <Run Text="Nguyễn Tấn Đạt" FontWeight="Bold" /><LineBreak />
+                                <Run Text="MSSV: 24520280" />
+                            </TextBlock>
+                            <TextBlock Foreground="White" Opacity="0.9" TextWrapping="Wrap" Margin="0,0,0,5">
+                                <Run Text="Võ Nguyễn Thanh Hương" FontWeight="Bold" /><LineBreak />
+                                <Run Text="MSSV: 24520649" />
+                            </TextBlock>
+                            <TextBlock Foreground="White" Opacity="0.9" TextWrapping="Wrap">
+                                <Run Text="Phan Thế Phong" FontWeight="Bold" /><LineBreak />
+                                <Run Text="MSSV: 24521342" />
+                            </TextBlock>
+                        </StackPanel>
 
-                            <!-- Thời gian thực hiện -->
-                            <StackPanel Grid.Column="2" Margin="0,0,20,0">
-                                <TextBlock Text="📅 Thời gian" FontSize="16" FontWeight="Bold"
-                                           Foreground="White" Margin="0,0,0,10"/>
-                                <TextBlock Foreground="White" Opacity="0.9" TextWrapping="Wrap">
-                                    <Run Text="Bắt đầu: " FontWeight="Bold"/>
-                                    <Run Text="08/09/2025"/>
-                                </TextBlock>
-                                <TextBlock Foreground="White" Opacity="0.9" TextWrapping="Wrap">
-                                    <Run Text="Kết thúc: " FontWeight="Bold"/>
-                                    <Run Text="27/12/2025"/>
-                                </TextBlock>
-                                <TextBlock Foreground="White" Opacity="0.9" TextWrapping="Wrap">
-                                    <Run Text="Công nghệ: " FontWeight="Bold"/>
-                                    <Run Text="WPF .NET"/>
-                                </TextBlock>
-                                <TextBlock Foreground="White" Opacity="0.9" TextWrapping="Wrap">
-                                    <Run Text="Version: " FontWeight="Bold"/>
-                                    <Run Text="Microsoft.NETCore.App 9.0.8"/>
-                                </TextBlock>
-                            </StackPanel>
+                        <!-- Thời gian thực hiện -->
+                        <StackPanel Grid.Column="2" Margin="0,0,20,0">
+                            <TextBlock Text="📅 Time" FontSize="16" FontWeight="Bold"
+                                       Foreground="White" Margin="0,0,0,10" />
+                            <TextBlock Foreground="White" Opacity="0.9" TextWrapping="Wrap">
+                                <Run Text="Start: " FontWeight="Bold" />
+                                <Run Text="08/09/2025" />
+                            </TextBlock>
+                            <TextBlock Foreground="White" Opacity="0.9" TextWrapping="Wrap">
+                                <Run Text="Finish: " FontWeight="Bold" />
+                                <Run Text="27/12/2025" />
+                            </TextBlock>
+                            <TextBlock Foreground="White" Opacity="0.9" TextWrapping="Wrap">
+                                <Run Text="Technology: " FontWeight="Bold" />
+                                <Run Text="WPF .NET" />
+                            </TextBlock>
+                            <TextBlock Foreground="White" Opacity="0.9" TextWrapping="Wrap">
+                                <Run Text="Version: " FontWeight="Bold" />
+                                <Run Text="Microsoft.NETCore.App 9.0.8" />
+                            </TextBlock>
+                        </StackPanel>
 
-                            <!-- Liên hệ -->
+                        <!-- Liên hệ -->
                         <StackPanel Grid.Column="3">
-                            <TextBlock Text="📞 Liên hệ" FontSize="16" FontWeight="Bold"
-               Foreground="White" Margin="0,0,0,10"/>
-                            <TextBlock Text="Email: 24520280@gm.uit.edu.vn" Foreground="White" Opacity="0.9" TextWrapping="Wrap"/>
+                            <TextBlock Text="📞 Contact" FontSize="16" FontWeight="Bold"
+                                       Foreground="White" Margin="0,0,0,10" />
+                            <TextBlock Text="Email: 24520280@gm.uit.edu.vn" Foreground="White" Opacity="0.9"
+                                       TextWrapping="Wrap" />
 
                             <!-- Hyperlink có thể click -->
                             <TextBlock Foreground="White" Opacity="0.9" TextWrapping="Wrap">
-        <Hyperlink NavigateUri="https://github.com/Dat-se40/BlueBerry-Dictionary.git"
-                   RequestNavigate="Hyperlink_RequestNavigate" Foreground="White">
-            https://github.com/Dat-se40/BlueBerry-Dictionary.git
-        </Hyperlink>
+                                <Hyperlink NavigateUri="https://github.com/Dat-se40/BlueBerry-Dictionary.git"
+                                           RequestNavigate="Hyperlink_RequestNavigate" Foreground="White">
+                                    https://github.com/Dat-se40/BlueBerry-Dictionary.git
+                                </Hyperlink>
                             </TextBlock>
 
-                            <TextBlock Text="© 2024 Dictionary App" FontWeight="Bold" Foreground="White" Margin="0,10,0,0"/>
-                            <TextBlock Text="All rights reserved" Foreground="White" Opacity="0.9"/>
+                            <TextBlock Text="© 2024 Dictionary App" FontWeight="Bold" Foreground="White"
+                                       Margin="0,10,0,0" />
+                            <TextBlock Text="All rights reserved" Foreground="White" Opacity="0.9" />
                         </StackPanel>
                     </Grid>
-                    </Border>
-                </StackPanel>
-            </ScrollViewer>
-        </Grid>
-    </local:WordListPageBase>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</local:WordListPageBase>

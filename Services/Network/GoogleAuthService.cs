@@ -56,7 +56,7 @@ namespace BlueBerryDictionary.Services.Network
                     return new LoginResult
                     {
                         Success = false,
-                        ErrorMessage = "Google OAuth not configured"
+                        ErrorMessage = "Google Auth not configured"
                     };
                 }
 

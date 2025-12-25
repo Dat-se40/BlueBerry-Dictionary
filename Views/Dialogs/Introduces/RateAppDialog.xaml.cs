@@ -58,12 +58,12 @@ namespace BlueBerryDictionary.Views.Dialogs.Introduces
         {
             RatingText.Text = rating switch
             {
-                1 => "😢 Rất tệ - Chúng tôi sẽ cố gắng cải thiện",
-                2 => "😕 Không tốt - Cần nhiều cải tiến",
-                3 => "😐 Ổn - Có thể tốt hơn",
-                4 => "😊 Tốt - Cảm ơn bạn!",
-                5 => "🤩 Tuyệt vời - Bạn là người tuyệt vời!",
-                _ => "Click vào ngôi sao để đánh giá"
+                1 => "😢 Very bad – We’ll try to improve",
+                2 => "😕 Not good – Needs a lot of improvement",
+                3 => "😐 Okay – Could be better",
+                4 => "😊 Good – Thank you!",
+                5 => "🤩 Awesome – You’re amazing!",
+                _ => "Tap a star to rate"
             };
         }
 
@@ -71,15 +71,14 @@ namespace BlueBerryDictionary.Views.Dialogs.Introduces
         {
             if (_selectedRating == 0)
             {
-                MessageBox.Show("Vui lòng chọn số sao đánh giá!", "Thông báo",
+                MessageBox.Show("Please select a star rating!", "Notification",
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
             string feedback = FeedbackTextBox.Text.Trim();
-            string subject = $"BlueBerry Dictionary - Đánh giá {_selectedRating} sao";
-            string body = $"Đánh giá: {_selectedRating}/5 sao%0D%0A%0D%0ANhận xét:%0D%0A{feedback}";
-
+            string subject = $"BlueBerry Dictionary - {_selectedRating}-star rating";
+            string body = $"Rating: {_selectedRating}/5 stars%0D%0A%0D%0A" + $"Feedback:%0D%0A{feedback}";
             try
             {
                 Process.Start(new ProcessStartInfo
@@ -88,15 +87,17 @@ namespace BlueBerryDictionary.Views.Dialogs.Introduces
                     UseShellExecute = true
                 });
 
-                MessageBox.Show("Cảm ơn bạn đã đánh giá! 💙\n\nEmail client đã được mở. Vui lòng gửi email để hoàn tất đánh giá.",
-                    "Cảm ơn", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Thank you for your rating! 💙\n\nYour email client has been opened. Please send the email to complete your review.",
+                    "Thank you", MessageBoxButton.OK, MessageBoxImage.Information);
+
 
                 this.Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Không thể mở email client:\n{ex.Message}\n\nVui lòng gửi email thủ công đến: {EMAIL}",
-                    "Lỗi", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show($"Unable to open the email client:\n{ex.Message}\n\nPlease send the email manually to: {EMAIL}",
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+
             }
         }
 
@@ -112,7 +113,7 @@ namespace BlueBerryDictionary.Views.Dialogs.Introduces
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Không thể mở GitHub:\n{ex.Message}", "Lỗi",
+                MessageBox.Show($"Cannot open GitHub:\n{ex.Message}", "Error",
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }

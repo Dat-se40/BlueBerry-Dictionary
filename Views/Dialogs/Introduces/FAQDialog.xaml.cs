@@ -66,147 +66,148 @@ namespace BlueBerryDictionary.Views.Dialogs.Introduces
         // ========== SEARCH FAQ ==========
         private void LoadSearchFAQ()
         {
-            AddSection("🔍 VỀ TRA CỨU");
+            AddSection("🔍 ABOUT LOOKUP");
 
-            AddQuestion("Q1: Tại sao không tìm thấy từ?");
-            AddAnswer("Có một vài lý do khiến bạn không tìm thấy từ:");
-            AddBullet("✅ Kiểm tra chính tả - ứng dụng sẽ gợi ý từ tương tự");
-            AddBullet("✅ Thử tra từ đơn giản hơn (VD: \"running\" → \"run\")");
-            AddBullet("✅ Kiểm tra kết nối Internet (nếu tra online)");
-            AddBullet("✅ Một số từ hiếm có thể không có trong database");
+            AddQuestion("Q1: Why can’t I find a word?");
+            AddAnswer("There are several reasons why a word may not be found:");
+            AddBullet("✅ Check spelling – the app will suggest similar words");
+            AddBullet("✅ Try a simpler base word (e.g., \"running\" → \"run\")");
+            AddBullet("✅ Check your Internet connection (for online lookup)");
+            AddBullet("✅ Some rare words may not be available in the database");
 
-            AddQuestion("Q2: Tại sao không phát được âm thanh?");
-            AddAnswer("Hãy kiểm tra các nguyên nhân sau:");
-            AddBullet("✅ Kiểm tra loa/tai nghe");
-            AddBullet("✅ Kiểm tra kết nối Internet (audio stream từ server)");
-            AddBullet("✅ Thử phát lại hoặc restart ứng dụng");
-            AddBullet("✅ Một số từ hiếm có thể không có audio");
+            AddQuestion("Q2: Why can’t audio be played?");
+            AddAnswer("Please check the following:");
+            AddBullet("✅ Check your speaker/headphones");
+            AddBullet("✅ Check your Internet connection (audio is streamed from the server)");
+            AddBullet("✅ Try playing again or restart the app");
+            AddBullet("✅ Some rare words may not have audio");
 
-            AddQuestion("Q3: Offline mode hoạt động như thế nào?");
-            AddAnswer("Từ được tải về lưu ở: C:\\Users\\[YourName]\\AppData\\Local\\BlueBerryDictionary\\Data\\PersistentStorage\\StoredWord\\");
-            AddAnswer("Chỉ từ đã tải mới tra được offline. Không tải trước toàn bộ từ điển vì quá nặng.");
+            AddQuestion("Q3: How does offline mode work?");
+            AddAnswer("Downloaded words are stored at:");
+            AddAnswer("C:\\Users\\[YourName]\\AppData\\Local\\BlueBerryDictionary\\Data\\PersistentStorage\\StoredWord\\");
+            AddAnswer("Only downloaded words can be searched offline. The entire dictionary is not downloaded because it is too large.");
         }
 
         // ========== MANAGE FAQ ==========
         private void LoadManageFAQ()
         {
-            AddSection("📚 VỀ QUẢN LÝ TỪ VỰNG");
+            AddSection("📚 ABOUT VOCABULARY MANAGEMENT");
 
-            AddQuestion("Q4: Tối đa bao nhiêu từ trong My Words?");
-            AddAnswer("Không giới hạn! Nhưng app có thể chậm nếu >10,000 từ.");
-            AddAnswer("Khuyến nghị: Dùng tags để phân loại thay vì lưu quá nhiều từ.");
+            AddQuestion("Q4: Is there a limit to the number of words in My Words?");
+            AddAnswer("No limit! However, the app may become slower if you have more than 10,000 words.");
+            AddAnswer("Recommendation: Use tags to organize words instead of saving too many.");
 
-            AddQuestion("Q5: Làm sao để backup dữ liệu?");
-            AddAnswer("Cách 1: Đăng nhập Google (Khuyến nghị)");
-            AddBullet("• Dữ liệu tự động backup lên Google Drive");
-            AddBullet("• An toàn nhất!");
-            AddAnswer("Cách 2: Copy thủ công");
-            AddBullet("• Vào thư mục: C:\\Users\\[YourName]\\AppData\\Local\\BlueBerryDictionary\\");
-            AddBullet("• Copy toàn bộ thư mục Data/");
-            AddBullet("• Paste vào máy khác cùng đường dẫn");
+            AddQuestion("Q5: How can I back up my data?");
+            AddAnswer("Method 1: Sign in with Google (Recommended)");
+            AddBullet("• Data is automatically backed up to Google Drive");
+            AddBullet("• The safest option!");
+            AddAnswer("Method 2: Manual copy");
+            AddBullet("• Go to the folder: C:\\Users\\[YourName]\\AppData\\Local\\BlueBerryDictionary\\");
+            AddBullet("• Copy the entire Data/ folder");
+            AddBullet("• Paste it to another device using the same path");
 
-            AddQuestion("Q6: Xóa nhầm từ, có thể khôi phục?");
-            AddAnswer("❌ Không có tính năng undo");
-            AddAnswer("✅ Nếu đã đồng bộ Google Drive:");
-            AddBullet("1. Đăng xuất");
-            AddBullet("2. Đăng nhập lại");
-            AddBullet("3. Chọn \"Giữ dữ liệu trên cloud\"");
+            AddQuestion("Q6: I accidentally deleted a word. Can it be restored?");
+            AddAnswer("❌ There is no undo feature");
+            AddAnswer("✅ If you have synced with Google Drive:");
+            AddBullet("1. Sign out");
+            AddBullet("2. Sign in again");
+            AddBullet("3. Choose \"Keep cloud data\"");
 
-            AddQuestion("Q7: Tags có giới hạn không?");
-            AddAnswer("Không giới hạn số lượng tags. Mỗi từ có thể có nhiều tags.");
-            AddAnswer("Khuyến nghị: Tạo 5-10 tags chính (VD: IELTS, TOEIC, Daily)");
+            AddQuestion("Q7: Is there a limit to the number of tags?");
+            AddAnswer("There is no limit to the number of tags. Each word can have multiple tags.");
+            AddAnswer("Recommendation: Create 5–10 main tags (e.g., IELTS, TOEIC, Daily).");
         }
 
         // ========== THEME FAQ ==========
         private void LoadThemeFAQ()
         {
-            AddSection("🎨 VỀ GIAO DIỆN");
+            AddSection("🎨 ABOUT INTERFACE");
 
-            AddQuestion("Q8: Theme tùy chỉnh có lưu khi tắt app?");
-            AddAnswer("✅ Có, lưu tự động trong AppSettings.json");
-            AddAnswer("✅ Khi restart, theme được load lại");
+            AddQuestion("Q8: Is the custom theme saved when the app is closed?");
+            AddAnswer("✅ Yes, it is automatically saved in AppSettings.json");
+            AddAnswer("✅ The theme is reloaded when the app restarts");
 
-            AddQuestion("Q9: Làm sao để quay về màu mặc định?");
-            AddAnswer("1. Vào Settings");
-            AddAnswer("2. Dropdown \"Đổi nền\" → \"Mặc định\"");
-            AddAnswer("3. Xác nhận \"Yes\"");
+            AddQuestion("Q9: How can I reset to the default colors?");
+            AddAnswer("1. Go to Settings");
+            AddAnswer("2. Dropdown \"Change background\" → \"Default\"");
+            AddAnswer("3. Confirm \"Yes\"");
 
-            AddQuestion("Q10: Toggle Light/Dark có ảnh hưởng đến theme tùy chỉnh?");
-            AddAnswer("✅ Có! Theme tùy chỉnh sẽ tự động adapt sang Dark mode");
-            AddAnswer("Màu sẽ được tối hơn (darken) để phù hợp");
+            AddQuestion("Q10: Does the Light/Dark toggle affect custom themes?");
+            AddAnswer("✅ Yes! Custom themes automatically adapt to Dark mode");
+            AddAnswer("Colors will be darkened to match");
 
-            AddQuestion("Q11: Font chữ có áp dụng cho toàn bộ app?");
-            AddAnswer("✅ Có, áp dụng cho tất cả text trong app");
-            AddAnswer("⚠️ Một số icon (emoji) không thay đổi");
+            AddQuestion("Q11: Is the font applied across the entire app?");
+            AddAnswer("✅ Yes, it applies to all text in the app");
+            AddAnswer("⚠️ Some icons (emojis) are not affected");
         }
 
         // ========== SYNC FAQ ==========
         private void LoadSyncFAQ()
         {
-            AddSection("☁️ VỀ ĐỒNG BỘ");
+            AddSection("☁️ ABOUT SYNC");
 
-            AddQuestion("Q12: Đồng bộ mất bao lâu?");
-            AddAnswer("Lần đầu (merge data): 10-30 giây (tùy số từ)");
-            AddAnswer("Lần sau (incremental): 1-5 giây");
-            AddAnswer("Upload 1 từ mới: <1 giây");
+            AddQuestion("Q12: How long does syncing take?");
+            AddAnswer("First time (data merge): 10–30 seconds (depending on the number of words)");
+            AddAnswer("Next times (incremental sync): 1–5 seconds");
+            AddAnswer("Uploading 1 new word: < 1 second");
 
-            AddQuestion("Q13: Dữ liệu lưu ở đâu trên Google Drive?");
-            AddAnswer("Thư mục: BlueBerryDictionary/Users/[email]/");
+            AddQuestion("Q13: Where is the data stored on Google Drive?");
+            AddAnswer("Folder: BlueBerryDictionary/Users/[email]/");
             AddAnswer("Files:");
-            AddBullet("• MyWords.json (từ vựng)");
-            AddBullet("• Tags.json (nhãn)");
-            AddBullet("• Settings.json (cài đặt)");
+            AddBullet("• MyWords.json (vocabulary)");
+            AddBullet("• Tags.json (tags)");
+            AddBullet("• Settings.json (settings)");
 
-            AddQuestion("Q14: Có thể dùng nhiều thiết bị?");
-            AddAnswer("✅ Có! Đăng nhập cùng Google account");
-            AddAnswer("Dữ liệu tự động đồng bộ giữa các thiết bị");
-            AddAnswer("⚠️ Chỉ nên dùng 1 thiết bị tại 1 thời điểm (tránh conflict)");
+            AddQuestion("Q14: Can I use multiple devices?");
+            AddAnswer("✅ Yes! Sign in with the same Google account");
+            AddAnswer("Data is automatically synced across devices");
+            AddAnswer("⚠️ It is recommended to use only one device at a time (to avoid conflicts)");
 
-            AddQuestion("Q15: Không có Internet, có dùng được app?");
-            AddAnswer("✅ Có thể tra từ (nếu đã tải offline)");
-            AddAnswer("✅ Xem My Words, History, Favourite");
-            AddAnswer("❌ Không đồng bộ được");
-            AddAnswer("❌ Không tra từ mới online");
+            AddQuestion("Q15: Can I use the app without Internet?");
+            AddAnswer("✅ You can look up words (if they are downloaded for offline use)");
+            AddAnswer("✅ View My Words, History, and Favorites");
+            AddAnswer("❌ Sync is not available");
+            AddAnswer("❌ Online word lookup is not available");
 
-            AddQuestion("Q16: Lỗi \"Đồng bộ thất bại\", làm sao?");
-            AddAnswer("Cách 1: Kiểm tra kết nối");
-            AddBullet("• Mở trình duyệt, thử truy cập google.com");
-            AddBullet("• Kiểm tra firewall có chặn app không");
-            AddAnswer("Cách 2: Đăng xuất/nhập lại");
-            AddBullet("1. Đăng xuất");
-            AddBullet("2. Restart app");
-            AddBullet("3. Đăng nhập lại");
-            AddBullet("4. Chọn \"Merge data\" (gộp dữ liệu)");
+            AddQuestion("Q16: What should I do if I get a \"Sync failed\" error?");
+            AddAnswer("Method 1: Check your connection");
+            AddBullet("• Open a browser and try accessing google.com");
+            AddBullet("• Check if a firewall is blocking the app");
+            AddAnswer("Method 2: Sign out and sign in again");
+            AddBullet("1. Sign out");
+            AddBullet("2. Restart the app");
+            AddBullet("3. Sign in again");
+            AddBullet("4. Choose \"Merge data\"");
         }
 
         // ========== BUGS FAQ ==========
         private void LoadBugsFAQ()
         {
-            AddSection("🐛 VỀ LỖI KỸ THUẬT");
+            AddSection("🐛 ABOUT TECHNICAL ISSUES");
 
-            AddQuestion("Q17: App bị crash khi mở");
-            AddAnswer("1. Kiểm tra .NET 9.0 Runtime đã cài đúng chưa");
-            AddAnswer("2. Xóa file AppSettings.json (app sẽ tạo mới)");
-            AddAnswer("3. Reinstall app");
+            AddQuestion("Q17: The app crashes on startup");
+            AddAnswer("1. Check if .NET 9.0 Runtime is installed correctly");
+            AddAnswer("2. Delete the AppSettings.json file (the app will recreate it)");
+            AddAnswer("3. Reinstall the app");
 
-            AddQuestion("Q18: App chạy chậm, lag");
-            AddAnswer("Nguyên nhân: Quá nhiều từ trong My Words (>10,000)");
-            AddAnswer("Giải pháp:");
-            AddBullet("1. Xóa từ cũ không dùng");
-            AddBullet("2. Export ra file text, chỉ giữ từ quan trọng");
-            AddBullet("3. Sử dụng tính năng lọc thay vì load tất cả");
+            AddQuestion("Q18: The app is slow or laggy");
+            AddAnswer("Cause: Too many words in My Words (>10,000)");
+            AddAnswer("Solutions:");
+            AddBullet("1. Delete old or unused words");
+            AddBullet("2. Export to a text file and keep only important words");
+            AddBullet("3. Use filters instead of loading all words");
 
-            AddQuestion("Q19: Không thể đăng nhập Google");
-            AddAnswer("1. Kiểm tra trình duyệt mặc định (phải là Chrome/Edge/Firefox)");
-            AddAnswer("2. Xóa cookies Google");
-            AddAnswer("3. Thử đăng nhập Google trên trình duyệt trước");
-            AddAnswer("4. Disable antivirus tạm thời");
+            AddQuestion("Q19: Cannot sign in with Google");
+            AddAnswer("1. Check the default browser (must be Chrome / Edge / Firefox)");
+            AddAnswer("2. Clear Google cookies");
+            AddAnswer("3. Try signing in to Google in the browser first");
+            AddAnswer("4. Temporarily disable antivirus software");
 
-            AddQuestion("Q20: Icon/Hình ảnh không hiển thị");
-            AddAnswer("• Kiểm tra thư mục Resources/ còn đầy đủ không");
-            AddAnswer("• Reinstall app");
+            AddQuestion("Q20: Icons / images are not displayed");
+            AddAnswer("• Check if the Resources/ folder is complete");
+            AddAnswer("• Reinstall the app");
 
-            AddQuestion("❓ Vẫn gặp vấn đề?");
+            AddQuestion("❓ Still having issues?");
             AddAnswer("📧 Email: 24520280@gm.uit.edu.vn");
             AddAnswer("🐛 GitHub Issues: https://github.com/Dat-se40/BlueBerry-Dictionary/issues");
         }

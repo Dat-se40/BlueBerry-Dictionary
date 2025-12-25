@@ -82,12 +82,12 @@ namespace BlueBerryDictionary.Views.UserControls
 
         // Text các nút theo trạng thái
         public string DownloadButtonText =>
-            IsDownloaded ? "🔁 Tải lại / Cập nhật" : "💾 Tải thông tin";
+            IsDownloaded ? "🔁 Reload / Update" : "💾 Load Data";
 
         public string OpenButtonText =>
-            IsDownloaded ? "🔍 Mở gói" : "👁️ Xem trước";
+            IsDownloaded ? "🔍 Open Package" : "👁️ Preview";
 
-        public string DeleteButtonText => "🗑️ Xóa";
+        public string DeleteButtonText => "🗑️ Delete";
 
         // Commands
         public ICommand OpenPackageCommand { get; }

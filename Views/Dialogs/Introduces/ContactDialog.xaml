@@ -1,7 +1,7 @@
 ﻿<Window x:Class="BlueBerryDictionary.Views.Dialogs.Introduces.ContactDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Liên Hệ và Hỗ Trợ"
+        Title="Contact và Support"
         Width="600" Height="500"
         WindowStartupLocation="CenterScreen"
         Background="{DynamicResource MainBackground}"
@@ -89,11 +89,11 @@
                 Background="{DynamicResource ButtonColor}"
                 Padding="30,20">
             <StackPanel>
-                <TextBlock Text="📧 LIÊN HỆ &amp; HỖ TRỢ"
+                <TextBlock Text="📧 CONTACT &amp; SUPPORT"
                            FontSize="24"
                            FontWeight="Bold"
                            Foreground="White"/>
-                <TextBlock Text="Chúng tôi luôn sẵn sàng lắng nghe và hỗ trợ bạn"
+                <TextBlock Text="We are always ready to listen and assist you"
                            FontSize="14"
                            Foreground="White"
                            Opacity="0.9"
@@ -106,11 +106,11 @@
             <StackPanel>
                 <!-- Introduction -->
                 <TextBlock Style="{StaticResource HeaderStyle}">
-                    💬 Liên Hệ Với Chúng Tôi
+                    💬 Contact Us
                 </TextBlock>
 
                 <TextBlock Style="{StaticResource BodyStyle}">
-                    Nếu bạn gặp bất kỳ vấn đề nào không được đề cập trong hướng dẫn, hoặc có ý tưởng cải tiến ứng dụng, chúng tôi luôn sẵn sàng lắng nghe và hỗ trợ.
+                    If you encounter any issues not covered in the guide, or have suggestions for improving the app, we are always ready to listen and assist you.
                 </TextBlock>
 
                 <!-- Email -->
@@ -129,7 +129,7 @@
                         <TextBlock Style="{StaticResource LinkStyle}"
                                    Text="24520280@gm.uit.edu.vn"
                                    MouseDown="EmailLink_Click"/>
-                        <TextBlock Text="(Click để mở ứng dụng email)"
+                        <TextBlock Text="(Click to open your email app)"
                                    FontSize="12"
                                    Foreground="{DynamicResource TextColor}"
                                    Opacity="0.6"
@@ -153,12 +153,12 @@
                         <TextBlock Style="{StaticResource LinkStyle}"
                                    Text="github.com/Dat-se40/BlueBerry-Dictionary"
                                    MouseDown="GitHubLink_Click"/>
-                        <TextBlock Text="• Issues: Báo lỗi và theo dõi tiến độ fix"
+                        <TextBlock Text="• Issues: Report bugs and track fix progress"
                                    FontSize="13"
                                    Foreground="{DynamicResource TextColor}"
                                    Opacity="0.8"
                                    Margin="0,10,0,3"/>
-                        <TextBlock Text="• Discussions: Thảo luận tính năng mới"
+                        <TextBlock Text="• Discussions: Discuss new features"
                                    FontSize="13"
                                    Foreground="{DynamicResource TextColor}"
                                    Opacity="0.8"
@@ -168,7 +168,7 @@
 
                 <!-- Team Info -->
                 <TextBlock Style="{StaticResource HeaderStyle}" Margin="0,10,0,10">
-                    👥 Đội Ngũ Phát Triển
+                    👥 Development Team
                 </TextBlock>
 
                 <Border Background="{DynamicResource CardBackground}"
@@ -177,20 +177,20 @@
                         CornerRadius="8"
                         Padding="20">
                     <StackPanel>
-                        <TextBlock Text="Môn học: Lập trình trực quan"
+                        <TextBlock Text="Subject: Lập trình trực quan"
                                    FontSize="14"
                                    Foreground="{DynamicResource TextColor}"
                                    Margin="0,0,0,5"/>
-                        <TextBlock Text="Giảng viên: ThS. Mai Trọng Khang"
+                        <TextBlock Text="Lecturer: ThS. Mai Trọng Khang"
                                    FontSize="14"
                                    Foreground="{DynamicResource TextColor}"
                                    Margin="0,0,0,5"/>
-                        <TextBlock Text="Học kỳ: 1 - Năm 2024-2025"
+                        <TextBlock Text="Semester: 1 - Academic Year 2024-2025"
                                    FontSize="14"
                                    Foreground="{DynamicResource TextColor}"
                                    Margin="0,0,0,15"/>
 
-                        <TextBlock Text="Thành viên:"
+                        <TextBlock Text="Member:"
                                    FontSize="14"
                                    FontWeight="SemiBold"
                                    Foreground="{DynamicResource TextColor}"
@@ -219,10 +219,10 @@
                 BorderThickness="0,1,0,0"
                 Padding="20">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Content="📧 Gửi Email"
+                <Button Content="📧 Send Email"
                         Style="{StaticResource ActionButtonStyle}"
                         Click="SendEmail_Click"/>
-                <Button Content="Đóng"
+                <Button Content="Close"
                         Style="{StaticResource CloseButtonStyle}"
                         Click="CloseButton_Click"/>
             </StackPanel>

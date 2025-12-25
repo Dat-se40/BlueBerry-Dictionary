@@ -1,8 +1,7 @@
-﻿
-<Window x:Class="BlueBerryDictionary.Views.Dialogs.ThemePresetDialog"
+﻿<Window x:Class="BlueBerryDictionary.Views.Dialogs.ThemePresetDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Chọn chủ đề màu sắc"
+        Title="Select color theme"
         Width="800"
         Height="600"
         WindowStartupLocation="CenterOwner"
@@ -15,19 +14,19 @@
             BorderBrush="{DynamicResource BorderColor}" BorderThickness="2">
         <Grid Margin="30">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
             <!-- Header -->
             <Grid Margin="0,0,0,20">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="🎨" FontSize="28" Margin="0,0,12,0"/>
-                    <TextBlock Text="Chọn chủ đề có sẵn (18 themes)"
+                    <TextBlock Text="🎨" FontSize="28" Margin="0,0,12,0" />
+                    <TextBlock Text="Select a preset theme (23 themes)"
                                FontSize="22"
                                FontWeight="Bold"
                                Foreground="{DynamicResource TextColor}"
-                               VerticalAlignment="Center"/>
+                               VerticalAlignment="Center" />
                 </StackPanel>
 
                 <Button Content="×"
@@ -40,7 +39,7 @@
                         BorderThickness="0"
                         Foreground="{DynamicResource TextColor}"
                         Cursor="Hand"
-                        Click="Close_Click"/>
+                        Click="Close_Click" />
             </Grid>
 
             <!-- Theme Grid với ScrollViewer -->
@@ -53,25 +52,25 @@
                         <StackPanel Width="140">
                             <Border Height="90" CornerRadius="12">
                                 <Border.Effect>
-                                    <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.3"/>
+                                    <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.3" />
                                 </Border.Effect>
                                 <Border.Background>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                        <GradientStop Color="#CDB4DB" Offset="0"/>
-                                        <GradientStop Color="#A2D2FF" Offset="1"/>
+                                        <GradientStop Color="#CDB4DB" Offset="0" />
+                                        <GradientStop Color="#A2D2FF" Offset="1" />
                                     </LinearGradientBrush>
                                 </Border.Background>
                                 <!-- 3 màu chính -->
                                 <Grid>
                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Height="25">
-                                        <Border Background="#A2D2FF" Width="46.67"/>
-                                        <Border Background="#BDE0FE" Width="46.67"/>
-                                        <Border Background="#CDB4DB" Width="46.67"/>
+                                        <Border Background="#A2D2FF" Width="46.67" />
+                                        <Border Background="#BDE0FE" Width="46.67" />
+                                        <Border Background="#CDB4DB" Width="46.67" />
                                     </StackPanel>
                                 </Grid>
                             </Border>
                             <TextBlock Text="Pastel Dream" TextAlignment="Center" Margin="0,8,0,0"
-                                       Foreground="{DynamicResource TextColor}" FontWeight="SemiBold" FontSize="12"/>
+                                       Foreground="{DynamicResource TextColor}" FontWeight="SemiBold" FontSize="12" />
                         </StackPanel>
                     </Button>
 
@@ -81,24 +80,24 @@
                         <StackPanel Width="140">
                             <Border Height="90" CornerRadius="12">
                                 <Border.Effect>
-                                    <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.3"/>
+                                    <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.3" />
                                 </Border.Effect>
                                 <Border.Background>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                        <GradientStop Color="#B8C0FF" Offset="0"/>
-                                        <GradientStop Color="#E7C6FF" Offset="1"/>
+                                        <GradientStop Color="#B8C0FF" Offset="0" />
+                                        <GradientStop Color="#E7C6FF" Offset="1" />
                                     </LinearGradientBrush>
                                 </Border.Background>
                                 <Grid>
                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Height="25">
-                                        <Border Background="#C8B6FF" Width="46.67"/>
-                                        <Border Background="#E7C6FF" Width="46.67"/>
-                                        <Border Background="#B8C0FF" Width="46.67"/>
+                                        <Border Background="#C8B6FF" Width="46.67" />
+                                        <Border Background="#E7C6FF" Width="46.67" />
+                                        <Border Background="#B8C0FF" Width="46.67" />
                                     </StackPanel>
                                 </Grid>
                             </Border>
                             <TextBlock Text="Lavender Mist" TextAlignment="Center" Margin="0,8,0,0"
-                                       Foreground="{DynamicResource TextColor}" FontWeight="SemiBold" FontSize="12"/>
+                                       Foreground="{DynamicResource TextColor}" FontWeight="SemiBold" FontSize="12" />
                         </StackPanel>
                     </Button>
 
@@ -108,24 +107,24 @@
                         <StackPanel Width="140">
                             <Border Height="90" CornerRadius="12">
                                 <Border.Effect>
-                                    <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.3"/>
+                                    <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.3" />
                                 </Border.Effect>
                                 <Border.Background>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                        <GradientStop Color="#07BEB8" Offset="0"/>
-                                        <GradientStop Color="#68D8D6" Offset="1"/>
+                                        <GradientStop Color="#07BEB8" Offset="0" />
+                                        <GradientStop Color="#68D8D6" Offset="1" />
                                     </LinearGradientBrush>
                                 </Border.Background>
                                 <Grid>
                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Height="25">
-                                        <Border Background="#3DCCC7" Width="46.67"/>
-                                        <Border Background="#68D8D6" Width="46.67"/>
-                                        <Border Background="#07BEB8" Width="46.67"/>
+                                        <Border Background="#3DCCC7" Width="46.67" />
+                                        <Border Background="#68D8D6" Width="46.67" />
+                                        <Border Background="#07BEB8" Width="46.67" />
                                     </StackPanel>
                                 </Grid>
                             </Border>
                             <TextBlock Text="Aqua Fresh" TextAlignment="Center" Margin="0,8,0,0"
-                                       Foreground="{DynamicResource TextColor}" FontWeight="SemiBold" FontSize="12"/>
+                                       Foreground="{DynamicResource TextColor}" FontWeight="SemiBold" FontSize="12" />
                         </StackPanel>
                     </Button>
 
@@ -135,24 +134,24 @@
                         <StackPanel Width="140">
                             <Border Height="90" CornerRadius="12">
                                 <Border.Effect>
-                                    <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.3"/>
+                                    <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.3" />
                                 </Border.Effect>
                                 <Border.Background>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                        <GradientStop Color="#FF3333" Offset="0"/>
-                                        <GradientStop Color="#1A1A1A" Offset="1"/>
+                                        <GradientStop Color="#FF3333" Offset="0" />
+                                        <GradientStop Color="#1A1A1A" Offset="1" />
                                     </LinearGradientBrush>
                                 </Border.Background>
                                 <Grid>
                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Height="25">
-                                        <Border Background="#FF6666" Width="46.67"/>
-                                        <Border Background="#FF9999" Width="46.67"/>
-                                        <Border Background="#FF3333" Width="46.67"/>
+                                        <Border Background="#FF6666" Width="46.67" />
+                                        <Border Background="#FF9999" Width="46.67" />
+                                        <Border Background="#FF3333" Width="46.67" />
                                     </StackPanel>
                                 </Grid>
                             </Border>
                             <TextBlock Text="Anime Dark" TextAlignment="Center" Margin="0,8,0,0"
-                                       Foreground="{DynamicResource TextColor}" FontWeight="SemiBold" FontSize="12"/>
+                                       Foreground="{DynamicResource TextColor}" FontWeight="SemiBold" FontSize="12" />
                         </StackPanel>
                     </Button>
 
@@ -162,24 +161,24 @@
                         <StackPanel Width="140">
                             <Border Height="90" CornerRadius="12">
                                 <Border.Effect>
-                                    <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.3"/>
+                                    <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.3" />
                                 </Border.Effect>
                                 <Border.Background>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                        <GradientStop Color="#FFD6FF" Offset="0"/>
-                                        <GradientStop Color="#B8C0FF" Offset="1"/>
+                                        <GradientStop Color="#FFD6FF" Offset="0" />
+                                        <GradientStop Color="#B8C0FF" Offset="1" />
                                     </LinearGradientBrush>
                                 </Border.Background>
                                 <Grid>
                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Height="25">
-                                        <Border Background="#FFD6FF" Width="46.67"/>
-                                        <Border Background="#C8B6FF" Width="46.67"/>
-                                        <Border Background="#B8C0FF" Width="46.67"/>
+                                        <Border Background="#FFD6FF" Width="46.67" />
+                                        <Border Background="#C8B6FF" Width="46.67" />
+                                        <Border Background="#B8C0FF" Width="46.67" />
                                     </StackPanel>
                                 </Grid>
                             </Border>
                             <TextBlock Text="Purple Haze" TextAlignment="Center" Margin="0,8,0,0"
-                                       Foreground="{DynamicResource TextColor}" FontWeight="SemiBold" FontSize="12"/>
+                                       Foreground="{DynamicResource TextColor}" FontWeight="SemiBold" FontSize="12" />
                         </StackPanel>
                     </Button>
 
@@ -189,24 +188,24 @@
                         <StackPanel Width="140">
                             <Border Height="90" CornerRadius="12">
                                 <Border.Effect>
-                                    <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.3"/>
+                                    <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.3" />
                                 </Border.Effect>
                                 <Border.Background>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                        <GradientStop Color="#B6CCFE" Offset="0"/>
-                                        <GradientStop Color="#CCDBFD" Offset="1"/>
+                                        <GradientStop Color="#B6CCFE" Offset="0" />
+                                        <GradientStop Color="#CCDBFD" Offset="1" />
                                     </LinearGradientBrush>
                                 </Border.Background>
                                 <Grid>
                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Height="25">
-                                        <Border Background="#ABC4FF" Width="46.67"/>
-                                        <Border Background="#CCDBFD" Width="46.67"/>
-                                        <Border Background="#B6CCFE" Width="46.67"/>
+                                        <Border Background="#ABC4FF" Width="46.67" />
+                                        <Border Background="#CCDBFD" Width="46.67" />
+                                        <Border Background="#B6CCFE" Width="46.67" />
                                     </StackPanel>
                                 </Grid>
                             </Border>
                             <TextBlock Text="Alice Blue" TextAlignment="Center" Margin="0,8,0,0"
-                                       Foreground="{DynamicResource TextColor}" FontWeight="SemiBold" FontSize="12"/>
+                                       Foreground="{DynamicResource TextColor}" FontWeight="SemiBold" FontSize="12" />
                         </StackPanel>
                     </Button>
 
@@ -216,24 +215,24 @@
                         <StackPanel Width="140">
                             <Border Height="90" CornerRadius="12">
                                 <Border.Effect>
-                                    <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.3"/>
+                                    <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.3" />
                                 </Border.Effect>
                                 <Border.Background>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                        <GradientStop Color="#590D22" Offset="0"/>
-                                        <GradientStop Color="#FF758F" Offset="1"/>
+                                        <GradientStop Color="#590D22" Offset="0" />
+                                        <GradientStop Color="#FF758F" Offset="1" />
                                     </LinearGradientBrush>
                                 </Border.Background>
                                 <Grid>
                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Height="25">
-                                        <Border Background="#C9184A" Width="46.67"/>
-                                        <Border Background="#FF758F" Width="46.67"/>
-                                        <Border Background="#590D22" Width="46.67"/>
+                                        <Border Background="#C9184A" Width="46.67" />
+                                        <Border Background="#FF758F" Width="46.67" />
+                                        <Border Background="#590D22" Width="46.67" />
                                     </StackPanel>
                                 </Grid>
                             </Border>
                             <TextBlock Text="Cherry Blossom" TextAlignment="Center" Margin="0,8,0,0"
-                                       Foreground="{DynamicResource TextColor}" FontWeight="SemiBold" FontSize="12"/>
+                                       Foreground="{DynamicResource TextColor}" FontWeight="SemiBold" FontSize="12" />
                         </StackPanel>
                     </Button>
 
@@ -243,24 +242,24 @@
                         <StackPanel Width="140">
                             <Border Height="90" CornerRadius="12">
                                 <Border.Effect>
-                                    <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.3"/>
+                                    <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.3" />
                                 </Border.Effect>
                                 <Border.Background>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                        <GradientStop Color="#354F52" Offset="0"/>
-                                        <GradientStop Color="#84A98C" Offset="1"/>
+                                        <GradientStop Color="#354F52" Offset="0" />
+                                        <GradientStop Color="#84A98C" Offset="1" />
                                     </LinearGradientBrush>
                                 </Border.Background>
                                 <Grid>
                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Height="25">
-                                        <Border Background="#52796F" Width="46.67"/>
-                                        <Border Background="#84A98C" Width="46.67"/>
-                                        <Border Background="#354F52" Width="46.67"/>
+                                        <Border Background="#52796F" Width="46.67" />
+                                        <Border Background="#84A98C" Width="46.67" />
+                                        <Border Background="#354F52" Width="46.67" />
                                     </StackPanel>
                                 </Grid>
                             </Border>
                             <TextBlock Text="Forest Sage" TextAlignment="Center" Margin="0,8,0,0"
-                                       Foreground="{DynamicResource TextColor}" FontWeight="SemiBold" FontSize="12"/>
+                                       Foreground="{DynamicResource TextColor}" FontWeight="SemiBold" FontSize="12" />
                         </StackPanel>
                     </Button>
 
@@ -270,24 +269,24 @@
                         <StackPanel Width="140">
                             <Border Height="90" CornerRadius="12">
                                 <Border.Effect>
-                                    <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.3"/>
+                                    <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.3" />
                                 </Border.Effect>
                                 <Border.Background>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                        <GradientStop Color="#1E6091" Offset="0"/>
-                                        <GradientStop Color="#52B69A" Offset="1"/>
+                                        <GradientStop Color="#1E6091" Offset="0" />
+                                        <GradientStop Color="#52B69A" Offset="1" />
                                     </LinearGradientBrush>
                                 </Border.Background>
                                 <Grid>
                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Height="25">
-                                        <Border Background="#34A0A4" Width="46.67"/>
-                                        <Border Background="#52B69A" Width="46.67"/>
-                                        <Border Background="#1E6091" Width="46.67"/>
+                                        <Border Background="#34A0A4" Width="46.67" />
+                                        <Border Background="#52B69A" Width="46.67" />
+                                        <Border Background="#1E6091" Width="46.67" />
                                     </StackPanel>
                                 </Grid>
                             </Border>
                             <TextBlock Text="Ocean Gradient" TextAlignment="Center" Margin="0,8,0,0"
-                                       Foreground="{DynamicResource TextColor}" FontWeight="SemiBold" FontSize="12"/>
+                                       Foreground="{DynamicResource TextColor}" FontWeight="SemiBold" FontSize="12" />
                         </StackPanel>
                     </Button>
 
@@ -297,24 +296,24 @@
                         <StackPanel Width="140">
                             <Border Height="90" CornerRadius="12">
                                 <Border.Effect>
-                                    <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.3"/>
+                                    <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.3" />
                                 </Border.Effect>
                                 <Border.Background>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                        <GradientStop Color="#7400B8" Offset="0"/>
-                                        <GradientStop Color="#5390D9" Offset="1"/>
+                                        <GradientStop Color="#7400B8" Offset="0" />
+                                        <GradientStop Color="#5390D9" Offset="1" />
                                     </LinearGradientBrush>
                                 </Border.Background>
                                 <Grid>
                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Height="25">
-                                        <Border Background="#5E60CE" Width="46.67"/>
-                                        <Border Background="#5390D9" Width="46.67"/>
-                                        <Border Background="#7400B8" Width="46.67"/>
+                                        <Border Background="#5E60CE" Width="46.67" />
+                                        <Border Background="#5390D9" Width="46.67" />
+                                        <Border Background="#7400B8" Width="46.67" />
                                     </StackPanel>
                                 </Grid>
                             </Border>
                             <TextBlock Text="Violet Sunset" TextAlignment="Center" Margin="0,8,0,0"
-                                       Foreground="{DynamicResource TextColor}" FontWeight="SemiBold" FontSize="12"/>
+                                       Foreground="{DynamicResource TextColor}" FontWeight="SemiBold" FontSize="12" />
                         </StackPanel>
                     </Button>
 
@@ -324,24 +323,24 @@
                         <StackPanel Width="140">
                             <Border Height="90" CornerRadius="12">
                                 <Border.Effect>
-                                    <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.3"/>
+                                    <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.3" />
                                 </Border.Effect>
                                 <Border.Background>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                        <GradientStop Color="#778873" Offset="0"/>
-                                        <GradientStop Color="#D2DCB6" Offset="1"/>
+                                        <GradientStop Color="#778873" Offset="0" />
+                                        <GradientStop Color="#D2DCB6" Offset="1" />
                                     </LinearGradientBrush>
                                 </Border.Background>
                                 <Grid>
                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Height="25">
-                                        <Border Background="#A1BC98" Width="46.67"/>
-                                        <Border Background="#D2DCB6" Width="46.67"/>
-                                        <Border Background="#778873" Width="46.67"/>
+                                        <Border Background="#A1BC98" Width="46.67" />
+                                        <Border Background="#D2DCB6" Width="46.67" />
+                                        <Border Background="#778873" Width="46.67" />
                                     </StackPanel>
                                 </Grid>
                             </Border>
                             <TextBlock Text="Sage Green" TextAlignment="Center" Margin="0,8,0,0"
-                                       Foreground="{DynamicResource TextColor}" FontWeight="SemiBold" FontSize="12"/>
+                                       Foreground="{DynamicResource TextColor}" FontWeight="SemiBold" FontSize="12" />
                         </StackPanel>
                     </Button>
 
@@ -351,24 +350,24 @@
                         <StackPanel Width="140">
                             <Border Height="90" CornerRadius="12">
                                 <Border.Effect>
-                                    <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.3"/>
+                                    <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.3" />
                                 </Border.Effect>
                                 <Border.Background>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                        <GradientStop Color="#FF2DD1" Offset="0"/>
-                                        <GradientStop Color="#4DFFBE" Offset="1"/>
+                                        <GradientStop Color="#FF2DD1" Offset="0" />
+                                        <GradientStop Color="#4DFFBE" Offset="1" />
                                     </LinearGradientBrush>
                                 </Border.Background>
                                 <Grid>
                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Height="25">
-                                        <Border Background="#63C8FF" Width="46.67"/>
-                                        <Border Background="#4DFFBE" Width="46.67"/>
-                                        <Border Background="#FF2DD1" Width="46.67"/>
+                                        <Border Background="#63C8FF" Width="46.67" />
+                                        <Border Background="#4DFFBE" Width="46.67" />
+                                        <Border Background="#FF2DD1" Width="46.67" />
                                     </StackPanel>
                                 </Grid>
                             </Border>
                             <TextBlock Text="Neon Cyberpunk" TextAlignment="Center" Margin="0,8,0,0"
-                                       Foreground="{DynamicResource TextColor}" FontWeight="SemiBold" FontSize="12"/>
+                                       Foreground="{DynamicResource TextColor}" FontWeight="SemiBold" FontSize="12" />
                         </StackPanel>
                     </Button>
 
@@ -378,24 +377,24 @@
                         <StackPanel Width="140">
                             <Border Height="90" CornerRadius="12">
                                 <Border.Effect>
-                                    <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.3"/>
+                                    <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.3" />
                                 </Border.Effect>
                                 <Border.Background>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                        <GradientStop Color="#81BFDA" Offset="0"/>
-                                        <GradientStop Color="#FADA7A" Offset="1"/>
+                                        <GradientStop Color="#81BFDA" Offset="0" />
+                                        <GradientStop Color="#FADA7A" Offset="1" />
                                     </LinearGradientBrush>
                                 </Border.Background>
                                 <Grid>
                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Height="25">
-                                        <Border Background="#81BFDA" Width="46.67"/>
-                                        <Border Background="#B1F0F7" Width="46.67"/>
-                                        <Border Background="#FADA7A" Width="46.67"/>
+                                        <Border Background="#81BFDA" Width="46.67" />
+                                        <Border Background="#B1F0F7" Width="46.67" />
+                                        <Border Background="#FADA7A" Width="46.67" />
                                     </StackPanel>
                                 </Grid>
                             </Border>
                             <TextBlock Text="Pastel Sky" TextAlignment="Center" Margin="0,8,0,0"
-                                       Foreground="{DynamicResource TextColor}" FontWeight="SemiBold" FontSize="12"/>
+                                       Foreground="{DynamicResource TextColor}" FontWeight="SemiBold" FontSize="12" />
                         </StackPanel>
                     </Button>
 
@@ -405,24 +404,24 @@
                         <StackPanel Width="140">
                             <Border Height="90" CornerRadius="12">
                                 <Border.Effect>
-                                    <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.3"/>
+                                    <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.3" />
                                 </Border.Effect>
                                 <Border.Background>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                        <GradientStop Color="#DD7BDF" Offset="0"/>
-                                        <GradientStop Color="#B3BFFF" Offset="1"/>
+                                        <GradientStop Color="#DD7BDF" Offset="0" />
+                                        <GradientStop Color="#B3BFFF" Offset="1" />
                                     </LinearGradientBrush>
                                 </Border.Background>
                                 <Grid>
                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Height="25">
-                                        <Border Background="#DD7BDF" Width="46.67"/>
-                                        <Border Background="#FFBBE1" Width="46.67"/>
-                                        <Border Background="#B3BFFF" Width="46.67"/>
+                                        <Border Background="#DD7BDF" Width="46.67" />
+                                        <Border Background="#FFBBE1" Width="46.67" />
+                                        <Border Background="#B3BFFF" Width="46.67" />
                                     </StackPanel>
                                 </Grid>
                             </Border>
                             <TextBlock Text="Candy Dream" TextAlignment="Center" Margin="0,8,0,0"
-                                       Foreground="{DynamicResource TextColor}" FontWeight="SemiBold" FontSize="12"/>
+                                       Foreground="{DynamicResource TextColor}" FontWeight="SemiBold" FontSize="12" />
                         </StackPanel>
                     </Button>
 
@@ -432,24 +431,24 @@
                         <StackPanel Width="140">
                             <Border Height="90" CornerRadius="12">
                                 <Border.Effect>
-                                    <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.3"/>
+                                    <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.3" />
                                 </Border.Effect>
                                 <Border.Background>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                        <GradientStop Color="#FFA4A4" Offset="0"/>
-                                        <GradientStop Color="#BADFDB" Offset="1"/>
+                                        <GradientStop Color="#FFA4A4" Offset="0" />
+                                        <GradientStop Color="#BADFDB" Offset="1" />
                                     </LinearGradientBrush>
                                 </Border.Background>
                                 <Grid>
                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Height="25">
-                                        <Border Background="#FFA4A4" Width="46.67"/>
-                                        <Border Background="#FFBDBD" Width="46.67"/>
-                                        <Border Background="#BADFDB" Width="46.67"/>
+                                        <Border Background="#FFA4A4" Width="46.67" />
+                                        <Border Background="#FFBDBD" Width="46.67" />
+                                        <Border Background="#BADFDB" Width="46.67" />
                                     </StackPanel>
                                 </Grid>
                             </Border>
                             <TextBlock Text="Peach Blossom" TextAlignment="Center" Margin="0,8,0,0"
-                                       Foreground="{DynamicResource TextColor}" FontWeight="SemiBold" FontSize="12"/>
+                                       Foreground="{DynamicResource TextColor}" FontWeight="SemiBold" FontSize="12" />
                         </StackPanel>
                     </Button>
 
@@ -459,24 +458,24 @@
                         <StackPanel Width="140">
                             <Border Height="90" CornerRadius="12">
                                 <Border.Effect>
-                                    <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.3"/>
+                                    <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.3" />
                                 </Border.Effect>
                                 <Border.Background>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                        <GradientStop Color="#FF8F8F" Offset="0"/>
-                                        <GradientStop Color="#C2E2FA" Offset="1"/>
+                                        <GradientStop Color="#FF8F8F" Offset="0" />
+                                        <GradientStop Color="#C2E2FA" Offset="1" />
                                     </LinearGradientBrush>
                                 </Border.Background>
                                 <Grid>
                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Height="25">
-                                        <Border Background="#C2E2FA" Width="46.67"/>
-                                        <Border Background="#FFF1CB" Width="46.67"/>
-                                        <Border Background="#FF8F8F" Width="46.67"/>
+                                        <Border Background="#C2E2FA" Width="46.67" />
+                                        <Border Background="#FFF1CB" Width="46.67" />
+                                        <Border Background="#FF8F8F" Width="46.67" />
                                     </StackPanel>
                                 </Grid>
                             </Border>
                             <TextBlock Text="Soft Rainbow" TextAlignment="Center" Margin="0,8,0,0"
-                                       Foreground="{DynamicResource TextColor}" FontWeight="SemiBold" FontSize="12"/>
+                                       Foreground="{DynamicResource TextColor}" FontWeight="SemiBold" FontSize="12" />
                         </StackPanel>
                     </Button>
 
@@ -486,24 +485,24 @@
                         <StackPanel Width="140">
                             <Border Height="90" CornerRadius="12">
                                 <Border.Effect>
-                                    <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.3"/>
+                                    <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.3" />
                                 </Border.Effect>
                                 <Border.Background>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                        <GradientStop Color="#D9A299" Offset="0"/>
-                                        <GradientStop Color="#F0E4D3" Offset="1"/>
+                                        <GradientStop Color="#D9A299" Offset="0" />
+                                        <GradientStop Color="#F0E4D3" Offset="1" />
                                     </LinearGradientBrush>
                                 </Border.Background>
                                 <Grid>
                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Height="25">
-                                        <Border Background="#DCC5B2" Width="46.67"/>
-                                        <Border Background="#F0E4D3" Width="46.67"/>
-                                        <Border Background="#D9A299" Width="46.67"/>
+                                        <Border Background="#DCC5B2" Width="46.67" />
+                                        <Border Background="#F0E4D3" Width="46.67" />
+                                        <Border Background="#D9A299" Width="46.67" />
                                     </StackPanel>
                                 </Grid>
                             </Border>
                             <TextBlock Text="Latte" TextAlignment="Center" Margin="0,8,0,0"
-                                       Foreground="{DynamicResource TextColor}" FontWeight="SemiBold" FontSize="12"/>
+                                       Foreground="{DynamicResource TextColor}" FontWeight="SemiBold" FontSize="12" />
                         </StackPanel>
                     </Button>
 
@@ -513,24 +512,24 @@
                         <StackPanel Width="140">
                             <Border Height="90" CornerRadius="12">
                                 <Border.Effect>
-                                    <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.3"/>
+                                    <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.3" />
                                 </Border.Effect>
                                 <Border.Background>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                        <GradientStop Color="#BF9264" Offset="0"/>
-                                        <GradientStop Color="#BBD8A3" Offset="1"/>
+                                        <GradientStop Color="#BF9264" Offset="0" />
+                                        <GradientStop Color="#BBD8A3" Offset="1" />
                                     </LinearGradientBrush>
                                 </Border.Background>
                                 <Grid>
                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Height="25">
-                                        <Border Background="#6F826A" Width="46.67"/>
-                                        <Border Background="#BBD8A3" Width="46.67"/>
-                                        <Border Background="#BF9264" Width="46.67"/>
+                                        <Border Background="#6F826A" Width="46.67" />
+                                        <Border Background="#BBD8A3" Width="46.67" />
+                                        <Border Background="#BF9264" Width="46.67" />
                                     </StackPanel>
                                 </Grid>
                             </Border>
                             <TextBlock Text="Forest Meadow" TextAlignment="Center" Margin="0,8,0,0"
-                                       Foreground="{DynamicResource TextColor}" FontWeight="SemiBold" FontSize="12"/>
+                                       Foreground="{DynamicResource TextColor}" FontWeight="SemiBold" FontSize="12" />
                         </StackPanel>
                     </Button>
                     <!-- THEME 19: TROPICAL SUNSET -->
@@ -539,24 +538,24 @@
                         <StackPanel Width="140">
                             <Border Height="90" CornerRadius="12">
                                 <Border.Effect>
-                                    <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.3"/>
+                                    <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.3" />
                                 </Border.Effect>
                                 <Border.Background>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                        <GradientStop Color="#FFCF96" Offset="0"/>
-                                        <GradientStop Color="#FF8080" Offset="1"/>
+                                        <GradientStop Color="#FFCF96" Offset="0" />
+                                        <GradientStop Color="#FF8080" Offset="1" />
                                     </LinearGradientBrush>
                                 </Border.Background>
                                 <Grid>
                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Height="25">
-                                        <Border Background="#FFCF96" Width="46.67"/>
-                                        <Border Background="#F6FDC3" Width="46.67"/>
-                                        <Border Background="#FF8080" Width="46.67"/>
+                                        <Border Background="#FFCF96" Width="46.67" />
+                                        <Border Background="#F6FDC3" Width="46.67" />
+                                        <Border Background="#FF8080" Width="46.67" />
                                     </StackPanel>
                                 </Grid>
                             </Border>
                             <TextBlock Text="Tropical Sunset" TextAlignment="Center" Margin="0,8,0,0"
-                                       Foreground="{DynamicResource TextColor}" FontWeight="SemiBold" FontSize="12"/>
+                                       Foreground="{DynamicResource TextColor}" FontWeight="SemiBold" FontSize="12" />
                         </StackPanel>
                     </Button>
 
@@ -566,24 +565,24 @@
                         <StackPanel Width="140">
                             <Border Height="90" CornerRadius="12">
                                 <Border.Effect>
-                                    <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.3"/>
+                                    <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.3" />
                                 </Border.Effect>
                                 <Border.Background>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                        <GradientStop Color="#F8EDED" Offset="0"/>
-                                        <GradientStop Color="#E4BAD4" Offset="1"/>
+                                        <GradientStop Color="#F8EDED" Offset="0" />
+                                        <GradientStop Color="#E4BAD4" Offset="1" />
                                     </LinearGradientBrush>
                                 </Border.Background>
                                 <Grid>
                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Height="25">
-                                        <Border Background="#F8EDED" Width="46.67"/>
-                                        <Border Background="#F6DFEB" Width="46.67"/>
-                                        <Border Background="#E4BAD4" Width="46.67"/>
+                                        <Border Background="#F8EDED" Width="46.67" />
+                                        <Border Background="#F6DFEB" Width="46.67" />
+                                        <Border Background="#E4BAD4" Width="46.67" />
                                     </StackPanel>
                                 </Grid>
                             </Border>
                             <TextBlock Text="Soft Blossom" TextAlignment="Center" Margin="0,8,0,0"
-                                       Foreground="{DynamicResource TextColor}" FontWeight="SemiBold" FontSize="12"/>
+                                       Foreground="{DynamicResource TextColor}" FontWeight="SemiBold" FontSize="12" />
                         </StackPanel>
                     </Button>
 
@@ -593,24 +592,24 @@
                         <StackPanel Width="140">
                             <Border Height="90" CornerRadius="12">
                                 <Border.Effect>
-                                    <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.3"/>
+                                    <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.3" />
                                 </Border.Effect>
                                 <Border.Background>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                        <GradientStop Color="#F4BFBF" Offset="0"/>
-                                        <GradientStop Color="#8CC0DE" Offset="1"/>
+                                        <GradientStop Color="#F4BFBF" Offset="0" />
+                                        <GradientStop Color="#8CC0DE" Offset="1" />
                                     </LinearGradientBrush>
                                 </Border.Background>
                                 <Grid>
                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Height="25">
-                                        <Border Background="#F4BFBF" Width="46.67"/>
-                                        <Border Background="#FFD9C0" Width="46.67"/>
-                                        <Border Background="#8CC0DE" Width="46.67"/>
+                                        <Border Background="#F4BFBF" Width="46.67" />
+                                        <Border Background="#FFD9C0" Width="46.67" />
+                                        <Border Background="#8CC0DE" Width="46.67" />
                                     </StackPanel>
                                 </Grid>
                             </Border>
                             <TextBlock Text="Peachy Cream" TextAlignment="Center" Margin="0,8,0,0"
-                                       Foreground="{DynamicResource TextColor}" FontWeight="SemiBold" FontSize="12"/>
+                                       Foreground="{DynamicResource TextColor}" FontWeight="SemiBold" FontSize="12" />
                         </StackPanel>
                     </Button>
 
@@ -620,24 +619,24 @@
                         <StackPanel Width="140">
                             <Border Height="90" CornerRadius="12">
                                 <Border.Effect>
-                                    <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.3"/>
+                                    <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.3" />
                                 </Border.Effect>
                                 <Border.Background>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                        <GradientStop Color="#064232" Offset="0"/>
-                                        <GradientStop Color="#F5BABB" Offset="1"/>
+                                        <GradientStop Color="#064232" Offset="0" />
+                                        <GradientStop Color="#F5BABB" Offset="1" />
                                     </LinearGradientBrush>
                                 </Border.Background>
                                 <Grid>
                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Height="25">
-                                        <Border Background="#568F87" Width="46.67"/>
-                                        <Border Background="#F5BABB" Width="46.67"/>
-                                        <Border Background="#064232" Width="46.67"/>
+                                        <Border Background="#568F87" Width="46.67" />
+                                        <Border Background="#F5BABB" Width="46.67" />
+                                        <Border Background="#064232" Width="46.67" />
                                     </StackPanel>
                                 </Grid>
                             </Border>
                             <TextBlock Text="Teal Rose" TextAlignment="Center" Margin="0,8,0,0"
-                                       Foreground="{DynamicResource TextColor}" FontWeight="SemiBold" FontSize="12"/>
+                                       Foreground="{DynamicResource TextColor}" FontWeight="SemiBold" FontSize="12" />
                         </StackPanel>
                     </Button>
 
@@ -647,24 +646,24 @@
                         <StackPanel Width="140">
                             <Border Height="90" CornerRadius="12">
                                 <Border.Effect>
-                                    <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.3"/>
+                                    <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.3" />
                                 </Border.Effect>
                                 <Border.Background>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                        <GradientStop Color="#79E0EE" Offset="0"/>
-                                        <GradientStop Color="#D0F5BE" Offset="1"/>
+                                        <GradientStop Color="#79E0EE" Offset="0" />
+                                        <GradientStop Color="#D0F5BE" Offset="1" />
                                     </LinearGradientBrush>
                                 </Border.Background>
                                 <Grid>
                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Height="25">
-                                        <Border Background="#98EECC" Width="46.67"/>
-                                        <Border Background="#D0F5BE" Width="46.67"/>
-                                        <Border Background="#79E0EE" Width="46.67"/>
+                                        <Border Background="#98EECC" Width="46.67" />
+                                        <Border Background="#D0F5BE" Width="46.67" />
+                                        <Border Background="#79E0EE" Width="46.67" />
                                     </StackPanel>
                                 </Grid>
                             </Border>
                             <TextBlock Text="Fresh Mint" TextAlignment="Center" Margin="0,8,0,0"
-                                       Foreground="{DynamicResource TextColor}" FontWeight="SemiBold" FontSize="12"/>
+                                       Foreground="{DynamicResource TextColor}" FontWeight="SemiBold" FontSize="12" />
                         </StackPanel>
                     </Button>
 
@@ -674,4 +673,3 @@
         </Grid>
     </Border>
 </Window>
-

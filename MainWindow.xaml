@@ -66,8 +66,8 @@
                             Style="{StaticResource NavButtonStyle}"
                             Click="BackBtn_Click"
                             IsEnabled="False"
-                            ToolTip="Quay lại"
-                            Margin="0,0,8,0"
+                            ToolTip="Go Back"
+                            Margin="0,0,8,0" 
                             Foreground="{DynamicResource MainBackground}">
                         <TextBlock Text="◀" FontSize="16" FontWeight="Bold"/>
                     </Button>
@@ -78,7 +78,7 @@
                             Style="{StaticResource NavButtonStyle}"
                             Click="ForwardBtn_Click"
                             IsEnabled="False"
-                            ToolTip="Tiến tới"
+                            ToolTip="Next"
                             Margin="0,0,8,0"
                             Foreground="{DynamicResource MainBackground}">
                         <TextBlock Text="▶" FontSize="16" FontWeight="Bold"/>
@@ -89,7 +89,7 @@
                             Grid.Column="3"
                             Style="{StaticResource NavButtonStyle}"
                             Click="ReloadBtn_Click"
-                            ToolTip="Tải lại"
+                            ToolTip="Reload"
                             Margin="0,0,20,0"
                             Foreground="{DynamicResource MainBackground}">
                         <TextBlock x:Name="ReloadIcon" Text="🔄" FontSize="16"/>
@@ -316,8 +316,8 @@
                                 Click="SidebarItem_Click"
                                 Tag="Home">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="🏠" FontSize="20" Margin="0,0,15,0"/>
-                                <TextBlock Text="Home" FontSize="15"/>
+                                <TextBlock Text="🏠" FontSize="20" Margin="0,0,15,0" Width="24" TextAlignment="Center"/>
+                                <TextBlock Text="Home" FontSize="15" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
 
@@ -326,8 +326,8 @@
                                 Click="SidebarItem_Click"
                                 Tag="History">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="🕐" FontSize="20" Margin="0,0,15,0"/>
-                                <TextBlock Text="History" FontSize="15"/>
+                                <TextBlock Text="🕐" FontSize="20" Margin="0,0,15,0" Width="24" TextAlignment="Center"/>
+                                <TextBlock Text="History" FontSize="15" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
 
@@ -336,8 +336,8 @@
                                 Click="SidebarItem_Click"
                                 Tag="Favourite">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="⭐" FontSize="20" Margin="0,0,15,0"/>
-                                <TextBlock Text="Favorite" FontSize="15"/>
+                                <TextBlock Text="⭐" FontSize="20" Margin="0,0,15,0" Width="24" TextAlignment="Center"/>
+                                <TextBlock Text="Favorite" FontSize="15" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
 
@@ -346,8 +346,8 @@
                                 Click="SidebarItem_Click"
                                 Tag="MyWords">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="📚" FontSize="20" Margin="0,0,15,0"/>
-                                <TextBlock Text="My Words" FontSize="15"/>
+                                <TextBlock Text="📚" FontSize="20" Margin="0,0,15,0" Width="24" TextAlignment="Center"/>
+                                <TextBlock Text="My Words" FontSize="15" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
 
@@ -356,8 +356,8 @@
                                 Click="SidebarItem_Click"
                                 Tag="Game">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="🎮" FontSize="20" Margin="0,0,15,0"/>
-                                <TextBlock Text="Game" FontSize="15"/>
+                                <TextBlock Text="🎮" FontSize="20" Margin="0,0,15,0" Width="24" TextAlignment="Center"/>
+                                <TextBlock Text="Game" FontSize="15" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
 
@@ -366,8 +366,8 @@
                                 Click="SidebarItem_Click"
                                 Tag="Offline">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="📥" FontSize="20" Margin="0,0,15,0"/>
-                                <TextBlock Text="Offline mode" FontSize="15"/>
+                                <TextBlock Text="📥" FontSize="20" Margin="0,0,15,0" Width="24" TextAlignment="Center"/>
+                                <TextBlock Text="Offline mode" FontSize="15" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
 
@@ -376,8 +376,8 @@
                                 Click="SidebarItem_Click"
                                 Tag="Account">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="👤" FontSize="20" Margin="0,0,15,0"/>
-                                <TextBlock Text="Account" FontSize="15"/>
+                                <TextBlock Text="👤" FontSize="20" Margin="0,0,15,0" Width="24" TextAlignment="Center"/>
+                                <TextBlock Text="Account" FontSize="15" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
 
@@ -386,8 +386,8 @@
                                 Click="SidebarItem_Click"
                                 Tag="Setting">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="⚙️" FontSize="20" Margin="0,0,15,0"/>
-                                <TextBlock Text="Setting" FontSize="15"/>
+                                <TextBlock Text="⚙️" FontSize="20" Margin="0,0,15,0" Width="24" TextAlignment="Center"/>
+                                <TextBlock Text="Setting" FontSize="15" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
                     </StackPanel>

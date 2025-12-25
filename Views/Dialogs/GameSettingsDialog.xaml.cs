@@ -1,4 +1,4 @@
-﻿using BlueBerryDictionary.Models;
+using BlueBerryDictionary.Models;
 using BlueBerryDictionary.Services;
 using System;
 using System.Collections.Generic;
@@ -136,13 +136,13 @@ namespace BlueBerryDictionary.Views.Dialogs
             var words = GetWordsFromSource();
             int availableCount = words.Count;
 
-            TxtAvailableCards.Text = $"{availableCount} từ khả dụng";
+            TxtAvailableCards.Text = $"{availableCount} available words";
 
             // Update card count if exceeds available
             if (_selectedCardCount > availableCount)
             {
                 _selectedCardCount = Math.Max(1, availableCount);
-                TxtSelectedCount.Text = $"{_selectedCardCount} thẻ";
+                TxtSelectedCount.Text = $"{_selectedCardCount} cards";
             }
         }
 
@@ -192,8 +192,8 @@ namespace BlueBerryDictionary.Views.Dialogs
             if (sourceWords.Count == 0)
             {
                 MessageBox.Show(
-                    "Không có từ nào để học! Vui lòng chọn nguồn dữ liệu khác.",
-                    "Thông báo",
+                    "No words to study! Please select a different data source.",
+                    "Notification",
                     MessageBoxButton.OK,
                     MessageBoxImage.Information
                 );

@@ -1,7 +1,7 @@
 ﻿<Window x:Class="BlueBerryDictionary.Views.Dialogs.TagPickerDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Tạo nhãn mới"
+        Title="Create new tag"
         Height="650" Width="550"
         WindowStartupLocation="CenterOwner"
         ResizeMode="NoResize"
@@ -42,13 +42,13 @@
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel>
                 <!-- HEADER -->
-                <TextBlock Text="🏷️ Tạo nhãn mới"
+                <TextBlock Text="🏷️ Create new tag"
                            FontSize="28"
                            FontWeight="Bold"
                            Foreground="{DynamicResource TextColor}"
                            Margin="0,0,0,10"/>
 
-                <TextBlock Text="Tạo nhãn để phân loại từ vựng của bạn"
+                <TextBlock Text="Create a tag to organize your vocabulary"
                            FontSize="14"
                            Opacity="0.8"
                            Foreground="{DynamicResource TextColor}"
@@ -68,7 +68,7 @@
                                    Margin="0,0,10,0"
                                    Foreground="White"/>
                         <TextBlock x:Name="PreviewName"
-                                   Text="Tên tag"
+                                   Text="Tag name"
                                    FontSize="16"
                                    FontWeight="SemiBold"
                                    Foreground="White"/>
@@ -76,7 +76,7 @@
                 </Border>
 
                 <!-- TAG NAME -->
-                <TextBlock Text="Tên nhãn"
+                <TextBlock Text="Tag name"
                            FontSize="14"
                            FontWeight="SemiBold"
                            Foreground="{DynamicResource TextColor}"
@@ -112,7 +112,7 @@
                 </TextBox>
 
                 <!-- ICON SELECTION -->
-                <TextBlock Text="Chọn biểu tượng"
+                <TextBlock Text="Choose an icon"
                            FontSize="14"
                            FontWeight="SemiBold"
                            Foreground="{DynamicResource TextColor}"
@@ -128,7 +128,7 @@
                 </Border>
 
                 <!-- COLOR SELECTION -->
-                <TextBlock Text="Chọn màu"
+                <TextBlock Text="Choose a color"
                            FontSize="14"
                            FontWeight="SemiBold"
                            Foreground="{DynamicResource TextColor}"
@@ -152,7 +152,7 @@
 
                     <!-- Cancel Button -->
                     <Button Grid.Column="0"
-                            Content="❌ Hủy"
+                            Content="❌ Cancel"
                             Padding="0,14"
                             FontSize="14"
                             FontWeight="SemiBold"
@@ -191,7 +191,7 @@
                     <!-- Create Button -->
                     <Button x:Name="CreateButton"
                             Grid.Column="1"
-                            Content="✅ Tạo nhãn"
+                            Content="✅ Create Tag"
                             Padding="0,14"
                             FontSize="14"
                             FontWeight="SemiBold"

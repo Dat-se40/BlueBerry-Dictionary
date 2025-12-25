@@ -118,7 +118,7 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Text="📚 Số từ:" Opacity="0.8" Foreground="{DynamicResource ButtonColor}" FontSize="17"/>
+                    <TextBlock Grid.Column="0" Text="📚 Word Count:" Opacity="0.8" Foreground="{DynamicResource ButtonColor}" FontSize="17"/>
                     <TextBlock Grid.Column="1" Text="{Binding TotalItems}" 
                               FontWeight="Bold" Foreground="{DynamicResource ButtonColor}"
                                FontSize="17"/>
@@ -129,7 +129,7 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" FontSize="17" Text="📦 Dung lượng:" Opacity="0.8" Foreground="{DynamicResource ButtonColor}"/>
+                    <TextBlock Grid.Column="0" FontSize="17" Text="📦 Size:" Opacity="0.8" Foreground="{DynamicResource ButtonColor}"/>
                     <TextBlock Grid.Column="1" Text="{Binding SizeText}" 
                               FontWeight="Bold" Foreground="{DynamicResource ButtonColor}"
                                FontSize="17"/>
@@ -141,7 +141,7 @@
                         <ColumnDefinition Width="661*"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" FontSize="17" Text="📊 Cấp độ:" Opacity="0.8" Foreground="{DynamicResource ButtonColor}" Grid.ColumnSpan="2"/>
+                    <TextBlock Grid.Column="0" FontSize="17" Text="📊 Level:" Opacity="0.8" Foreground="{DynamicResource ButtonColor}" Grid.ColumnSpan="2"/>
                     <TextBlock Grid.Column="2" Text="{Binding Level}" 
                               FontWeight="Bold" Foreground="{DynamicResource ButtonColor}"
                                FontSize="17"/>
@@ -155,7 +155,7 @@
                         <ColumnDefinition Width="629*"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" FontSize="17" Text="📅 Ngày tải:" Opacity="0.8" Foreground="{DynamicResource ButtonColor}" Grid.ColumnSpan="2"/>
+                    <TextBlock Grid.Column="0" FontSize="17" Text="📅 Download Date:" Opacity="0.8" Foreground="{DynamicResource ButtonColor}" Grid.ColumnSpan="2"/>
                     <TextBlock Grid.Column="2" Text="{Binding DownloadDate}" 
                               FontWeight="Bold" Foreground="{DynamicResource ButtonColor}"
                                FontSize="17"/>

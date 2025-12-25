@@ -1,7 +1,7 @@
 ﻿<Window x:Class="BlueBerryDictionary.Views.Dialogs.Introduces.TermsDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Điều Khoản Dịch Vụ"
+        Title="Terms of Service"
         Width="700" Height="650"
         WindowStartupLocation="CenterScreen"
         Background="{DynamicResource MainBackground}"
@@ -66,7 +66,7 @@
                 Background="{DynamicResource ButtonColor}"
                 Padding="30,20">
             <StackPanel>
-                <TextBlock Text="📄 ĐIỀU KHOẢN DỊCH VỤ"
+                <TextBlock Text="📄 TERMS OF SERVICE"
                            FontSize="24"
                            FontWeight="Bold"
                            Foreground="White"/>
@@ -83,7 +83,7 @@
             <StackPanel>
                 <!-- License -->
                 <TextBlock Style="{StaticResource HeaderStyle}">
-                    ⚖️ Giấy Phép (License)
+                    ⚖️ License
                 </TextBlock>
 
                 <Border Background="{DynamicResource CardBackground}"
@@ -115,7 +115,7 @@
 
                 <!-- Privacy -->
                 <TextBlock Style="{StaticResource HeaderStyle}">
-                    🔒 Chính Sách Bảo Mật (Privacy Policy)
+                    🔒 Privacy Policy
                 </TextBlock>
 
                 <Border Background="{DynamicResource CardBackground}"
@@ -125,52 +125,52 @@
                         Padding="20"
                         Margin="0,0,0,15">
                     <StackPanel>
-                        <TextBlock Text="1. Dữ liệu thu thập"
+                        <TextBlock Text="1. Collected Data"
                                    FontSize="15"
                                    FontWeight="SemiBold"
                                    Foreground="{DynamicResource TextColor}"
                                    Margin="0,0,0,10"/>
                         <TextBlock Style="{StaticResource BodyStyle}" Margin="15,0,0,10">
-                            • Từ vựng bạn lưu (My Words)
+                            • Vocabulary you saved (My Words)
                             <LineBreak/>
-                            • Lịch sử tra cứu
+                            • Search history
                             <LineBreak/>
-                            • Cài đặt ứng dụng
+                            • App settings
                             <LineBreak/>
-                            • Thông tin Google account (nếu đăng nhập)
+                            • Google account information (if logged in)
                         </TextBlock>
 
-                        <TextBlock Text="2. Mục đích sử dụng"
+                        <TextBlock Text="2. Purpose of Use"
                                    FontSize="15"
                                    FontWeight="SemiBold"
                                    Foreground="{DynamicResource TextColor}"
                                    Margin="0,10,0,10"/>
                         <TextBlock Style="{StaticResource BodyStyle}" Margin="15,0,0,10">
-                            • Lưu trữ dữ liệu cá nhân
+                            • Store personal data
                             <LineBreak/>
-                            • Đồng bộ giữa các thiết bị
+                            • Sync across devices
                             <LineBreak/>
-                            • Cải thiện trải nghiệm người dùng
+                            • Improve user experience
                         </TextBlock>
 
-                        <TextBlock Text="3. Bảo vệ dữ liệu"
+                        <TextBlock Text="3. Data Protection"
                                    FontSize="15"
                                    FontWeight="SemiBold"
                                    Foreground="{DynamicResource TextColor}"
                                    Margin="0,10,0,10"/>
                         <TextBlock Style="{StaticResource BodyStyle}" Margin="15,0,0,10">
-                            • Dữ liệu được lưu trữ trên Google Drive của BẠN
+                            • Data is stored on YOUR Google Drive
                             <LineBreak/>
-                            • Chúng tôi KHÔNG thu thập hoặc bán dữ liệu
+                            • We do NOT collect or sell your data
                             <LineBreak/>
-                            • Bạn có quyền xóa dữ liệu bất cứ lúc nào
+                            • You have the right to delete your data at any time
                         </TextBlock>
                     </StackPanel>
                 </Border>
 
                 <!-- Terms of Use -->
                 <TextBlock Style="{StaticResource HeaderStyle}">
-                    📋 Điều Khoản Sử Dụng
+                    📋 Terms of Use
                 </TextBlock>
 
                 <Border Background="{DynamicResource CardBackground}"
@@ -181,30 +181,30 @@
                         Margin="0,0,0,15">
                     <StackPanel>
                         <TextBlock Style="{StaticResource BodyStyle}">
-                            ✅ Bạn ĐƯỢC PHÉP:
+                            ✅ YOU ARE ALLOWED TO:
                             <LineBreak/>
-                            • Sử dụng ứng dụng miễn phí
+                            • Use the app for free
                             <LineBreak/>
-                            • Sao chép và phân phối
+                            • Copy and distribute
                             <LineBreak/>
-                            • Chỉnh sửa mã nguồn (nếu có)
+                            • Modify the source code (if available)
                         </TextBlock>
 
                         <TextBlock Style="{StaticResource BodyStyle}" Margin="0,15,0,0">
-                            ❌ Bạn KHÔNG ĐƯỢC:
+                            ❌ YOU ARE NOT ALLOWED TO:
                             <LineBreak/>
-                            • Sử dụng cho mục đích bất hợp pháp
+                            • Use it for illegal purposes
                             <LineBreak/>
-                            • Bán hoặc thương mại hóa trái phép
+                            • Sell or commercialize it unlawfully
                             <LineBreak/>
-                            • Xóa bản quyền và giấy phép
+                            • Remove copyright and license
                         </TextBlock>
                     </StackPanel>
                 </Border>
 
                 <!-- Contact -->
                 <TextBlock Style="{StaticResource HeaderStyle}">
-                    📧 Liên Hệ
+                    📧 Contact
                 </TextBlock>
 
                 <Border Background="{DynamicResource CardBackground}"
@@ -214,7 +214,7 @@
                         Padding="20">
                     <StackPanel>
                         <TextBlock Style="{StaticResource BodyStyle}">
-                            Nếu bạn có câu hỏi về điều khoản này, vui lòng liên hệ:
+                            If you have any questions about these terms, please contact:
                             <LineBreak/><LineBreak/>
                             Email: 24520280@gm.uit.edu.vn
                             <LineBreak/>
@@ -231,7 +231,7 @@
                 BorderBrush="{DynamicResource BorderColor}"
                 BorderThickness="0,1,0,0"
                 Padding="20">
-            <Button Content="Đóng"
+            <Button Content="Close"
                     Width="120"
                     Style="{StaticResource CloseButtonStyle}"
                     HorizontalAlignment="Right"

@@ -87,7 +87,7 @@ namespace BlueBerryDictionary.Views.Dialogs
             }
             else
             {
-                MessageBox.Show("Vui lòng chọn font!", "Thông báo",
+                MessageBox.Show("Please select a font!", "Notification",
                     MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }

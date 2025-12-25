@@ -285,15 +285,16 @@ namespace BlueBerryDictionary.ViewModels
         [RelayCommand]
         private void AddWord()
         {
-            MessageBox.Show("Chức năng thêm từ mới đang phát triển");
+            // TODO: Show dialog to add new word
+            MessageBox.Show("The add new word feature is under development");
         }
 
         [RelayCommand]
         private void DeleteWord(string word)
         {
             var result = MessageBox.Show(
-                $"Bạn có chắc muốn xóa từ '{word}'?",
-                "Xác nhận",
+                $"Are you sure you want to delete this word '{word}'?",
+                "Confirmation",
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Question
             );

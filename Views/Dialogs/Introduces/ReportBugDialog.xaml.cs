@@ -32,7 +32,7 @@ namespace BlueBerryDictionary.Views.Dialogs.Introduces
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Không thể mở GitHub:\n{ex.Message}", "Lỗi",
+                MessageBox.Show($"Cannot open GitHub:\n{ex.Message}", "Error",
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -41,8 +41,11 @@ namespace BlueBerryDictionary.Views.Dialogs.Introduces
         {
             try
             {
-                string subject = "BlueBerry Dictionary - Báo lỗi";
-                string body = "Mô tả lỗi:%0D%0A%0D%0ACác bước tái hiện:%0D%0A1. %0D%0A2. %0D%0A3. %0D%0A%0D%0AHệ thống:%0D%0AWindows: %0D%0AApp version: 1.0.0";
+                string subject = "BlueBerry Dictionary - Bug Report";
+                string body = 
+                    "Error description:%0D%0A%0D%0A" +
+                    "Steps to reproduce:%0D%0A1. %0D%0A2. %0D%0A3. %0D%0A%0D%0A" +
+                    "System:%0D%0AWindows: %0D%0AApp version: 1.0.0";
 
                 Process.Start(new ProcessStartInfo
                 {
@@ -52,8 +55,12 @@ namespace BlueBerryDictionary.Views.Dialogs.Introduces
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Không thể mở email client:\n{ex.Message}\n\nVui lòng gửi email thủ công đến: {EMAIL}",
-                    "Lỗi", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(
+                    $"Cannot open the email client:\n{ex.Message}\n\nPlease send the email manually to: {EMAIL}",
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning
+                );
             }
         }
 
