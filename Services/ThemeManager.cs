@@ -141,6 +141,13 @@ namespace BlueBerryDictionary.Services
             UpdateResource("ToolbarBorder", $"{prefix}ToolbarBorder");
             UpdateResource("SidebarHover", $"{prefix}SidebarHover");
             UpdateResource("SidebarHoverText", $"{prefix}SidebarHoverText");
+
+            // ✅ THÊM: Suggestions Popup
+            UpdateResource("SuggestionsBackground", $"{prefix}SuggestionsBackground");
+            UpdateResource("SuggestionsBorder", $"{prefix}SuggestionsBorder");
+            UpdateResource("SuggestionsItemBorder", $"{prefix}SuggestionsItemBorder");
+            UpdateResource("SuggestionsItemHover", $"{prefix}SuggestionsItemHover");
+            UpdateResource("SuggestionsItemSelected", $"{prefix}SuggestionsItemSelected");
         }
 
         /// <summary>
@@ -246,6 +253,13 @@ namespace BlueBerryDictionary.Services
                 // Tool Button
                 UpdateGradientBrush(_appResources, "LightToolButtonActive",
                     theme.Primary, theme.Secondary);
+
+                // ✅ THÊM: Suggestions Popup Colors (Light Mode)
+                UpdateSolidBrush(_appResources, "LightSuggestionsBackground", Color.FromRgb(255, 255, 255));
+                UpdateSolidBrush(_appResources, "LightSuggestionsBorder", theme.Secondary);
+                UpdateSolidBrush(_appResources, "LightSuggestionsItemBorder", lightest);
+                UpdateSolidBrush(_appResources, "LightSuggestionsItemHover", lightest);
+                UpdateSolidBrush(_appResources, "LightSuggestionsItemSelected", hoverColor1);
             }
             // Dark Mode Colors
             else
@@ -307,6 +321,12 @@ namespace BlueBerryDictionary.Services
                 // Tool Button
                 UpdateGradientBrush(_appResources, "DarkToolButtonActive",
                     theme.Primary, theme.Secondary);
+                // ✅ THÊM: Suggestions Popup Colors (Dark Mode)
+                UpdateSolidBrush(_appResources, "DarkSuggestionsBackground", dark);
+                UpdateSolidBrush(_appResources, "DarkSuggestionsBorder", theme.Primary);
+                UpdateSolidBrush(_appResources, "DarkSuggestionsItemBorder", Color.FromRgb(51, 65, 85));
+                UpdateSolidBrush(_appResources, "DarkSuggestionsItemHover", Color.FromRgb(51, 65, 85));
+                UpdateSolidBrush(_appResources, "DarkSuggestionsItemSelected", Color.FromRgb(71, 85, 105));
             }
 
             // Apply current theme mode
