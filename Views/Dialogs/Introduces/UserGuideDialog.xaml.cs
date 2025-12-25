@@ -135,13 +135,12 @@ namespace BlueBerryDictionary.Views.Dialogs.Introduces
             AddBullet("✅ Examples: Sample sentences illustrating usage");
             AddBullet("✅ Synonyms/Antonyms (if available)");
 
-            AddSubHeader("🔊 Accurate Pronunciation");
+            AddSubHeader("🔊 Pronunciation Guide");
             AddBodyText(
                 "BlueBerry Dictionary provides both American and British accents, allowing you to choose the accent that suits your learning goals.");
-            AddStep("Method 1: Click the speaker icon 🔊 next to the pronunciation");
-            AddStep("Method 2: Keyboard shortcuts");
-            AddBullet("• Ctrl + U: US pronunciation");
-            AddBullet("• Ctrl + K: UK pronunciation");
+            AddStep("• US Pronunciation: Click 🔊 next to US phonetic");
+            AddStep("• UK Pronunciation: Click 🔊 next to UK phonetic");
+
 
             AddSubHeader("💾 Save Words");
             AddBodyText("After looking up a useful word, you can save it for later review.");
@@ -243,17 +242,26 @@ namespace BlueBerryDictionary.Views.Dialogs.Introduces
             AddBullet("• 🆕 New words this week: Words added in the last 7 days");
             AddBullet("• 📅 New words this month: Words added in the last 30 days");
 
-            AddSubHeader("✏️ Edit/Delete Words");
-            AddStep("Edit:");
-            AddBullet("1. Click a word in My Words");
-            AddBullet("2. Click 'Edit'");
-            AddBullet("3. Modify meanings, add/remove tags");
-            AddBullet("4. Click 'Save'");
+            AddSectionHeader("✏️ Delete Word");
+            AddStep("1. Click the '❌' icon next to the word");
+            AddStep("2. The word will be deleted from your library");
 
-            AddStep("Delete:");
-            AddBullet("1. Click a word");
-            AddBullet("2. Click 'Delete'");
-            AddBullet("3. Confirm");
+            AddSectionHeader("🏷️ Tags (Organize Vocabulary)");
+            AddStep("Show tag created time, color, and icon");
+            AddStep("To create a tag:");
+            AddBullet("1. Click '🏷️' in DetailsPage");
+            AddBullet("2. Enter tag name (e.g., 'IELTS Speaking', 'Business')");
+            AddBullet("3. Choose an icon and color");
+            AddBullet("4. Click 'Create'");
+
+            AddStep("Attach tag:");
+            AddBullet("• In History/Favorite → select a word → click 🏷️");
+
+            AddStep("Delete tag:");
+            AddBullet("1. Click '❌' button");
+            AddBullet("2. Select tags to remove");
+            AddBullet("3. Confirm deletion (tag removed from system but words remain)");
+
         }
 
         /// <summary>
@@ -304,14 +312,6 @@ namespace BlueBerryDictionary.Views.Dialogs.Introduces
             AddBullet("✅ Filter by word type (noun, verb, adjective, etc.)");
             AddBullet("✅ Quick search");
             AddBullet("✅ Click to view details");
-
-            AddSubHeader("📊 Limits");
-            AddBodyText(
-                "By default, the number of favourite words is limited to 1000. However, you can change this in Settings:");
-            AddBullet("• 500 words (Save storage)");
-            AddBullet("• 1000 words (Default)");
-            AddBullet("• 5000 words (For heavy learners)");
-            AddBullet("• Unlimited (No limit)");
 
             AddSubHeader("💡 Tips for Effective Use");
             AddBodyText("The My Words and Favourite features should be used together but for different purposes:");
@@ -393,16 +393,6 @@ namespace BlueBerryDictionary.Views.Dialogs.Introduces
             AddStep("Reset to Default:");
             AddBullet("• Select 'Default' (Segoe UI 14pt)");
 
-            AddSubHeader("📊 Favourite Words Limit");
-            AddBullet("• 500 words (Save storage)");
-            AddBullet("• 1000 words (Default)");
-            AddBullet("• 5000 words (For heavy learners)");
-            AddBullet("• Unlimited");
-
-            AddSubHeader("💾 Auto Save");
-            AddStep("Toggle 'Auto Save':");
-            AddBullet("• On: Automatically saves settings on change");
-            AddBullet("• Off: Must click 'Save Settings' manually");
         }
 
         /// <summary>

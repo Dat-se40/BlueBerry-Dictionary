@@ -183,34 +183,40 @@ namespace BlueBerryDictionary.Views.Dialogs.Introduces
         // ========== BUGS FAQ ==========
         private void LoadBugsFAQ()
         {
-            AddSection("🐛 ABOUT TECHNICAL ISSUES");
+            AddSection("🐛 TECHNICAL ISSUES");
 
-            AddQuestion("Q17: The app crashes on startup");
-            AddAnswer("1. Check if .NET 9.0 Runtime is installed correctly");
-            AddAnswer("2. Delete the AppSettings.json file (the app will recreate it)");
-            AddAnswer("3. Reinstall the app");
+            AddQuestion("Q17: The app doesn’t open or closes immediately");
+            AddBullet("• Restart your PC");
+            AddBullet("• Reinstall BlueBerry Dictionary if it still fails");
 
             AddQuestion("Q18: The app is slow or laggy");
-            AddAnswer("Cause: Too many words in My Words (>10,000)");
-            AddAnswer("Solutions:");
-            AddBullet("1. Delete old or unused words");
-            AddBullet("2. Export to a text file and keep only important words");
-            AddBullet("3. Use filters instead of loading all words");
+            AddBullet("• Too many saved words (>10,000)");
+            AddBullet("• Delete old words or tags");
+            AddBullet("• Use filters instead of loading all");
+            AddBullet("• Restart the app after cleaning");
 
             AddQuestion("Q19: Cannot sign in with Google");
-            AddAnswer("1. Check the default browser (must be Chrome / Edge / Firefox)");
-            AddAnswer("2. Clear Google cookies");
-            AddAnswer("3. Try signing in to Google in the browser first");
-            AddAnswer("4. Temporarily disable antivirus software");
+            AddBullet("• Ensure default browser is Chrome, Edge, or Firefox");
+            AddBullet("• Sign in to Google in that browser first");
+            AddBullet("• Clear Google cookies");
 
-            AddQuestion("Q20: Icons / images are not displayed");
-            AddAnswer("• Check if the Resources/ folder is complete");
-            AddAnswer("• Reinstall the app");
+            AddQuestion("Q20: Icons or images do not appear");
+            AddBullet("• Do not delete Resources/ files");
+            AddBullet("• Reinstall the app if visuals are missing");
+            AddBullet("• If colors look wrong, change theme in Settings ");
 
-            AddQuestion("❓ Still having issues?");
-            AddAnswer("📧 Email: 24520280@gm.uit.edu.vn");
-            AddAnswer("🐛 GitHub Issues: https://github.com/Dat-se40/BlueBerry-Dictionary/issues");
+            AddQuestion("Q21: No sound or audio not playing");
+            AddBullet("• Check speaker or headphone");
+            AddBullet("• Ensure volume is not muted");
+            AddBullet("• Verify Internet connection");
+            AddBullet("• Some words have no audio");
+            AddBullet("• Restart app to reset the audio player");
+
+            AddQuestion("Q22: Found a bug or something not working?");
+            AddBullet("• Report at: https://github.com/Dat-se40/BlueBerry-Dictionary/issues");
+            AddBullet("• Or email: labotanique117@gmail.com");
         }
+
 
         // ========== HELPER METHODS ==========
         private void AddSection(string text)
