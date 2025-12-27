@@ -258,9 +258,9 @@
 
     <!-- Danger Button (Đỏ) -->
     <Style x:Key="DangerButtonStyle" TargetType="Button">
-        <Setter Property="Background" Value="#FFF1F2"/>
+        <Setter Property="Background" Value="{DynamicResource SearchBackground}"/>
         <Setter Property="Foreground" Value="#DC2626"/>
-        <Setter Property="BorderBrush" Value="#FECACA"/>
+        <Setter Property="BorderBrush" Value="#DC2626"/>
         <Setter Property="BorderThickness" Value="2"/>
         <Setter Property="Padding" Value="20,10"/>
         <Setter Property="FontWeight" Value="SemiBold"/>
