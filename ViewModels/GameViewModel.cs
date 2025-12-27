@@ -127,9 +127,17 @@ namespace BlueBerryDictionary.ViewModels
         {
             _gameLogService = GameLogService.Instance;
             _tagService = TagService.Instance;
+            
+            _skippedCards.CollectionChanged += SkippedCards_CollectionChanged;
         }
 
         #endregion
+        
+        private void SkippedCards_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(HasSkippedCards));
+            OnPropertyChanged(nameof(SkipTrackerMessage));
+        }
 
         #region Game lifecycle
 
