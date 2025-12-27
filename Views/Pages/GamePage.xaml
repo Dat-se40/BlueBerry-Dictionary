@@ -197,6 +197,7 @@
                                     DockPanel.Dock="Left"
                                     Margin="0,0,20,0">
                                 <TextBlock Text="📇" FontSize="40"
+                                           Foreground="{DynamicResource TextColor}"
                                            HorizontalAlignment="Center"
                                            VerticalAlignment="Center" />
                             </Border>
