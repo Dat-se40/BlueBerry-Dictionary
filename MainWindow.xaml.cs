@@ -334,7 +334,7 @@ namespace BlueBerryDictionary
 
         private void SearchInput_GotFocus(object sender, RoutedEventArgs e)
         {
-            // Đổi màu khi focus
+            // ✅ THÊM: Đổi màu khi focus
             if (SearchInput.Text == "Enter word to look up...")
             {
                 SearchInput.Text = "";

@@ -6,7 +6,7 @@ namespace BlueBerryDictionary.Views.Dialogs.Introduces
 {
     public partial class ReportBugDialog : Window
     {
-        private const string EMAIL = "24520280@gm.uit.edu.vn";
+        private const string EMAIL = "labotanique117@gmail.com";
         private const string GITHUB_ISSUES = "https://github.com/Dat-se40/BlueBerry-Dictionary/issues/new";
 
         public ReportBugDialog()

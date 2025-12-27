@@ -67,7 +67,7 @@
                             Click="BackBtn_Click"
                             IsEnabled="False"
                             ToolTip="Go Back"
-                            Margin="0,0,8,0"
+                            Margin="0,0,8,0" 
                             Foreground="{DynamicResource MainBackground}">
                         <TextBlock Text="◀" FontSize="16" FontWeight="Bold"/>
                     </Button>

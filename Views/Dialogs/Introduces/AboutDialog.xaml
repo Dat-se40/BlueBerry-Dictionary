@@ -268,16 +268,16 @@
                             <TextBlock Style="{StaticResource LinkStyle}"
                                        Text="🐙 GitHub Repository"
                                        MouseDown="GitHubLink_Click"/>
-
-                            <TextBlock Style="{StaticResource LinkStyle}"
-                                       Text="📧 Email: 24520280@gm.uit.edu.vn"
-                                       MouseDown="EmailLink_Click"
-                                       Margin="0,10,0,5"/>
-
-                            <TextBlock Style="{StaticResource LinkStyle}"
-                                       Text="📖 Documentation and Wiki"
-                                       MouseDown="WikiLink_Click"
-                                       Margin="0,10,0,5"/>
+                            <TextBox Text="labotanique117@gmail.com"
+                                 IsReadOnly="True"
+                                 BorderThickness="0"
+                                 Background="Transparent"
+                                 Foreground="{DynamicResource ButtonColor}"
+                                 FontSize="14"
+                                 Cursor="IBeam"
+                                 Style="{x:Null}"
+                                 Padding="0"
+                                 HorizontalAlignment="Left" />
                         </StackPanel>
                     </StackPanel>
                 </Border>
@@ -290,7 +290,7 @@
                 BorderBrush="{DynamicResource BorderColor}"
                 BorderThickness="0,1,0,0"
                 Padding="20">
-            <Button Content="Cancel"
+            <Button Content="Close"
                     Width="120"
                     Style="{StaticResource CloseButtonStyle}"
                     HorizontalAlignment="Right"

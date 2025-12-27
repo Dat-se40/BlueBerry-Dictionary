@@ -285,6 +285,7 @@ namespace BlueBerryDictionary.ViewModels
         [RelayCommand]
         private void AddWord()
         {
+            // TODO: Show dialog to add new word
             MessageBox.Show("The add new word feature is under development");
         }
 

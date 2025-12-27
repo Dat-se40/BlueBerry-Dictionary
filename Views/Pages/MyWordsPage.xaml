@@ -203,7 +203,7 @@
                                     <TextBlock Text="Create New Tag" FontSize="16" />
                                 </StackPanel>
                             </Button>
-                            <Button Style="{StaticResource DangerButtonStyle}" Command="{Binding OpenRemoveTagDialogCommand}">
+                            <Button Style="{StaticResource ClearButtonStyle}" Command="{Binding OpenRemoveTagDialogCommand}">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="❌" FontSize="16" Margin="0,0,8,0" />
                                     <TextBlock Text="Delete Tag" FontSize="16"/>

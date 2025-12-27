@@ -86,6 +86,12 @@ namespace BlueBerryDictionary.Views.Pages
         {
             if (_viewModel.IsLastCard)
             {
+                if (!_viewModel.KnownCards.Contains(_viewModel.CurrentCardIndex) && 
+                    !_viewModel.SkippedCards.Contains(_viewModel.CurrentCardIndex))
+                {
+                    _viewModel.KnownCards.Add(_viewModel.CurrentCardIndex);
+                }
+        
                 ShowCompletionDialog();
             }
             else
@@ -96,11 +102,14 @@ namespace BlueBerryDictionary.Views.Pages
 
         private void SkipCard_Click(object sender, RoutedEventArgs e)
         {
-            _viewModel.SkipCurrentCard();
-
             if (_viewModel.IsLastCard)
             {
+                _viewModel.SkipCurrentCard();
                 ShowCompletionDialog();
+            }
+            else
+            {
+                _viewModel.SkipCurrentCard();
             }
         }
 

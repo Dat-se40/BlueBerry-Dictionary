@@ -163,6 +163,7 @@ namespace BlueBerryDictionary.Views.Dialogs
         {
             if (!ShowSelectionControls)
             {
+                // Mode preview: sau này bạn có thể xử lý kiểu "Tải metadata" ở đây nếu muốn
                 MessageBox.Show("This is a preview mode, downloading is not supported yet.", "Notification");
                 return;
             }

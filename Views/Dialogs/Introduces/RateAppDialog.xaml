@@ -116,49 +116,6 @@
                 </TextBlock>
 
                 <!-- Star Rating -->
-                <Border Background="{DynamicResource CardBackground}"
-                        BorderBrush="{DynamicResource BorderColor}"
-                        BorderThickness="1"
-                        CornerRadius="8"
-                        Padding="20"
-                        Margin="0,0,0,20">
-                    <StackPanel>
-                        <TextBlock Text="Your rating"
-                                   FontSize="16"
-                                   FontWeight="SemiBold"
-                                   Foreground="{DynamicResource TextColor}"
-                                   HorizontalAlignment="Center"
-                                   Margin="0,0,0,15"/>
-
-                        <!-- Star Buttons -->
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" x:Name="StarPanel">
-                            <Button Style="{StaticResource StarButtonStyle}" Tag="1" Click="Star_Click">
-                                <TextBlock Text="☆" x:Name="Star1"/>
-                            </Button>
-                            <Button Style="{StaticResource StarButtonStyle}" Tag="2" Click="Star_Click">
-                                <TextBlock Text="☆" x:Name="Star2"/>
-                            </Button>
-                            <Button Style="{StaticResource StarButtonStyle}" Tag="3" Click="Star_Click">
-                                <TextBlock Text="☆" x:Name="Star3"/>
-                            </Button>
-                            <Button Style="{StaticResource StarButtonStyle}" Tag="4" Click="Star_Click">
-                                <TextBlock Text="☆" x:Name="Star4"/>
-                            </Button>
-                            <Button Style="{StaticResource StarButtonStyle}" Tag="5" Click="Star_Click">
-                                <TextBlock Text="☆" x:Name="Star5"/>
-                            </Button>
-                        </StackPanel>
-
-                        <!-- Rating Text -->
-                        <TextBlock x:Name="RatingText"
-                                   Text="Tap a star to rate"
-                                   FontSize="14"
-                                   Foreground="{DynamicResource TextColor}"
-                                   HorizontalAlignment="Center"
-                                   Opacity="0.7"
-                                   Margin="0,15,0,0"/>
-                    </StackPanel>
-                </Border>
 
                 <!-- Feedback Section -->
                 <Border Background="{DynamicResource CardBackground}"
@@ -228,11 +185,6 @@
                 BorderThickness="0,1,0,0"
                 Padding="20">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Content="Submit review"
-                        Style="{StaticResource ActionButtonStyle}"
-                        x:Name="SubmitButton"
-                        IsEnabled="False"
-                        Click="Submit_Click"/>
                 <Button Content="Close"
                         Style="{StaticResource CloseButtonStyle}"
                         Click="Close_Click"/>

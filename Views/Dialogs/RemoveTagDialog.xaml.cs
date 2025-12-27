@@ -63,7 +63,7 @@ namespace BlueBerryDictionary.Views.Dialogs
                 }
 
                 var confirm = MessageBox.Show(
-                    $"Are you sure you want to delete {{selectedIds.Count}} tag(s) ?",
+                    $"Are you sure you want to delete {selectedIds.Count} tag(s) ?",
                     "Confirmation", 
                     MessageBoxButton.YesNo,
                     MessageBoxImage.Question);
@@ -78,7 +78,7 @@ namespace BlueBerryDictionary.Views.Dialogs
                         Console.WriteLine($"❌ Deleted tag: {id}");
                     }
 
-                    MessageBox.Show($"Successfully deleted {{selectedIds.Count}} tag(s).",
+                    MessageBox.Show($"Successfully deleted {selectedIds.Count} tag(s).",
                         "Completed successfully", MessageBoxButton.OK, MessageBoxImage.Information);
 
                     // ========== TRIGGER EVENT FOR UI UPDATE ==========
