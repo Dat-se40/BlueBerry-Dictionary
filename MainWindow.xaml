@@ -67,8 +67,7 @@
                             Click="BackBtn_Click"
                             IsEnabled="False"
                             ToolTip="Go Back"
-                            Margin="0,0,8,0" 
-                            Foreground="{DynamicResource MainBackground}">
+                            Margin="0,0,8,0" >
                         <TextBlock Text="◀" FontSize="16" FontWeight="Bold"/>
                     </Button>
 
@@ -79,8 +78,7 @@
                             Click="ForwardBtn_Click"
                             IsEnabled="False"
                             ToolTip="Next"
-                            Margin="0,0,8,0"
-                            Foreground="{DynamicResource MainBackground}">
+                            Margin="0,0,8,0">
                         <TextBlock Text="▶" FontSize="16" FontWeight="Bold"/>
                     </Button>
 
@@ -95,7 +93,7 @@
                         <TextBlock x:Name="ReloadIcon" Text="🔄" FontSize="16"/>
                     </Button>
 
-                    <!-- Search Container - ĐỔI THÀNH GRID -->
+                    <!-- Search Container -->
                     <Grid Grid.Column="4"
                           MaxWidth="700"
                           HorizontalAlignment="Stretch"
@@ -144,20 +142,20 @@
 
                         <!-- Popup Suggestions  -->
                         <Popup x:Name="SuggestionsPopup"
-       PlacementTarget="{Binding ElementName=SearchInput}"
-       Placement="Bottom"
-       Width="{Binding ElementName=SearchInput, Path=ActualWidth}"
-       MaxHeight="300"
-       IsOpen="{Binding IsSuggestionsOpen, Mode=TwoWay}"
-       StaysOpen="False"
-       AllowsTransparency="True"
-       PopupAnimation="Slide">
+                               PlacementTarget="{Binding ElementName=SearchInput}"
+                               Placement="Bottom"
+                               Width="{Binding ElementName=SearchInput, Path=ActualWidth}"
+                               MaxHeight="300"
+                               IsOpen="{Binding IsSuggestionsOpen, Mode=TwoWay}"
+                               StaysOpen="False"
+                               AllowsTransparency="True"
+                               PopupAnimation="Slide">
 
                             <Border Background="{DynamicResource SuggestionsBackground}"
-            BorderBrush="{DynamicResource SuggestionsBorder}"
-            BorderThickness="2"
-            CornerRadius="0,0,12,12"
-            Padding="0">
+                                    BorderBrush="{DynamicResource SuggestionsBorder}"
+                                    BorderThickness="2"
+                                    CornerRadius="0,0,12,12"
+                                    Padding="0">
                                 <Border.Effect>
                                     <DropShadowEffect BlurRadius="10"
                               ShadowDepth="2"

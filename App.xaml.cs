@@ -196,7 +196,6 @@ namespace BlueBerryDictionary
 
         protected override void OnExit(ExitEventArgs e)
         {
-            // Cleanup: Stop watching system theme
             SystemThemeDetector.StopWatching();
 
             base.OnExit(e);

@@ -37,7 +37,6 @@ namespace BlueBerryDictionary.Pages
         }
         void LoadDefCards() 
         {
-            // Se lam lai sau!
             mainContent.Children.Clear();
             foreach (var item in HistoryItems)
             {

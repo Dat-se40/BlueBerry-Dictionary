@@ -87,55 +87,57 @@
                     BorderThickness="2"
                     CornerRadius="12"
                     Background="{DynamicResource SearchBackground}">
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <ListBox x:Name="FontListBox"
-                             BorderThickness="0"
-                             Background="Transparent"
-                             SelectionMode="Single"
-                             SelectionChanged="FontListBox_SelectionChanged">
-                        <ListBox.ItemContainerStyle>
-                            <Style TargetType="ListBoxItem">
-                                <Setter Property="Padding" Value="15,12"/>
-                                <Setter Property="Cursor" Value="Hand"/>
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="ListBoxItem">
-                                            <Border Background="{TemplateBinding Background}"
+                <ListBox x:Name="FontListBox"
+                         BorderThickness="0"
+                         Background="Transparent"
+                         SelectionMode="Single"
+                         SelectionChanged="FontListBox_SelectionChanged"
+                         ScrollViewer.VerticalScrollBarVisibility="Auto"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                         VirtualizingPanel.IsVirtualizing="True"
+                         VirtualizingPanel.VirtualizationMode="Recycling">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="Padding" Value="15,12"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ListBoxItem">
+                                        <Border Background="{TemplateBinding Background}"
                                                     Padding="{TemplateBinding Padding}">
-                                                <ContentPresenter/>
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="{DynamicResource ToolButtonActive}"/>
-                                        <Setter Property="Foreground" Value="White"/>
-                                    </Trigger>
-                                    <Trigger Property="IsSelected" Value="True">
-                                        <Setter Property="Background" Value="{DynamicResource ToolButtonActive}"/>
-                                        <Setter Property="Foreground" Value="White"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </ListBox.ItemContainerStyle>
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel>
-                                    <TextBlock Text="{Binding Source}"
+                                            <ContentPresenter/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="{DynamicResource ToolButtonActive}"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                </Trigger>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Background" Value="{DynamicResource ToolButtonActive}"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Source}"
                                                FontFamily="{Binding}"
                                                FontSize="16"
                                                FontWeight="SemiBold"/>
-                                    <TextBlock Text="The quick brown fox jumps"
+                                <TextBlock Text="The quick brown fox jumps"
                                                FontFamily="{Binding}"
                                                FontSize="13"
                                                Opacity="0.7"
                                                Margin="0,5,0,0"/>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                </ScrollViewer>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
             </Border>
 
             <!-- Preview -->
@@ -163,7 +165,7 @@
 
             <!-- Apply Button -->
             <Button Grid.Row="4"
-                    Content="✓ Apply"
+                    Content="Apply"
                     Style="{StaticResource SecondaryButtonStyle}"
                     Padding="0,14"
                     FontSize="16"

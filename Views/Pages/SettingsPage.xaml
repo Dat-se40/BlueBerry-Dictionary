@@ -70,7 +70,7 @@
                                       SelectionChanged="ThemeModeComboBox_SelectionChanged">
                                 <ComboBoxItem Content="Light" Style="{StaticResource ComboBoxItemFirstStyle}"/>
                                 <ComboBoxItem Content="Dark" Style="{StaticResource ComboBoxItemStyle}"/>
-                                <ComboBoxItem Content="Automatic" Style="{StaticResource ComboBoxItemLastStyle}"/> 
+                                <ComboBoxItem Content="System" Style="{StaticResource ComboBoxItemLastStyle}"/> 
                             </ComboBox>
 
                         </Grid>

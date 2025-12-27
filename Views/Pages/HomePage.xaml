@@ -191,7 +191,7 @@
                             </TextBlock>
                             <TextBlock Foreground="White" Opacity="0.9" TextWrapping="Wrap">
                                 <Run Text="Lecturer: " FontWeight="Bold" />
-                                <Run Text="ThS. Mai Trọng Khang" />
+                                <Run Text="Mai Trọng Khang" />
                             </TextBlock>
                             <TextBlock Foreground="White" Opacity="0.9" TextWrapping="Wrap">
                                 <Run Text="Semester: " FontWeight="Bold" />
