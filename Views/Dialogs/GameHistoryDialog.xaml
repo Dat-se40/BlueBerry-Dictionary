@@ -175,14 +175,6 @@
 
             <!-- Header -->
             <DockPanel Grid.Row="0" Margin="30,25,30,20">
-                <Button Content="✕"
-                        Width="40" Height="40"
-                        Background="Transparent"
-                        BorderThickness="0"
-                        FontSize="20"
-                        Cursor="Hand"
-                        DockPanel.Dock="Right"
-                        Click="Close_Click" />
                 <TextBlock Text="📊 Training history"
                            FontSize="28"
                            FontWeight="Bold"
@@ -267,7 +259,7 @@
             <!-- Action Buttons -->
             <UniformGrid Grid.Row="3" Columns="2" Rows="1" Margin="30,20,30,30">
                 <Button Content="🗑️ Delete All"
-                        Style="{StaticResource DangerButtonStyle}"
+                        Style="{StaticResource ClearButtonStyle}"
                         Margin="0,0,10,0"
                         Click="ClearHistory_Click" />
                 <Button Content="✓ Close"
