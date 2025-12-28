@@ -1,10 +1,12 @@
 ﻿using BlueBerryDictionary.Helpers;
 using BlueBerryDictionary.Models;
+using BlueBerryDictionary.Services.Network;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BlueBerryDictionary.Services
 {
@@ -14,7 +16,7 @@ namespace BlueBerryDictionary.Services
     public class GameLogService
     {
         private static GameLogService _instance;
-        private static readonly object _lock = new object(); // Lock cho thread-safe singleton
+        private static readonly object _lock = new object();
 
         private GameLog _gameLog;
         private readonly string _logPath;
@@ -30,9 +32,6 @@ namespace BlueBerryDictionary.Services
             }
         }
 
-        /// <summary>
-        /// Instance singleton
-        /// </summary>
         private GameLogService()
         {
             var baseDir = AppDomain.CurrentDomain.BaseDirectory;
@@ -42,6 +41,84 @@ namespace BlueBerryDictionary.Services
             
             LoadLog();
         }
+
+        #region Core Methods
+
+        /// <summary>
+        /// Thêm session mới
+        /// </summary>
+        public void AddSession(GameSession session)
+        {
+            _gameLog.Sessions.Add(session);
+            _gameLog.TotalGamesPlayed++;
+            _gameLog.TotalCardsStudied += session.TotalCards;
+            SaveLog();
+        }
+
+        /// <summary>
+        /// Lấy tất cả sessions (mới nhất trước)
+        /// </summary>
+        public List<GameSession> GetAllSessions()
+        {
+            return _gameLog.Sessions.OrderByDescending(s => s.StartTime).ToList();
+        }
+
+        /// <summary>
+        /// Lấy N sessions gần nhất
+        /// </summary>
+        public List<GameSession> GetRecentSessions(int count = 10)
+        {
+            return _gameLog.Sessions
+                .OrderByDescending(s => s.StartTime)
+                .Take(count)
+                .ToList();
+        }
+
+        /// <summary>
+        /// Xóa 1 session
+        /// </summary>
+        public void DeleteSession(string sessionId)
+        {
+            var session = _gameLog.Sessions.FirstOrDefault(s => s.Id == sessionId);
+            if (session != null)
+            {
+                _gameLog.Sessions.Remove(session);
+                _gameLog.TotalGamesPlayed--;
+                _gameLog.TotalCardsStudied -= session.TotalCards;
+                SaveLog();
+            }
+        }
+
+        /// <summary>
+        /// Xóa tất cả sessions
+        /// </summary>
+        public void ClearAllSessions()
+        {
+            _gameLog.Sessions.Clear();
+            _gameLog.TotalGamesPlayed = 0;
+            _gameLog.TotalCardsStudied = 0;
+            SaveLog();
+        }
+
+        #endregion
+
+        #region Statistics
+
+        public int GetTotalGamesPlayed() => _gameLog.TotalGamesPlayed;
+        public int GetTotalCardsStudied() => _gameLog.TotalCardsStudied;
+        
+        public double GetAverageAccuracy()
+        {
+            if (_gameLog.Sessions.Count == 0) return 0;
+            return _gameLog.Sessions.Average(s => s.AccuracyPercentage);
+        }
+        
+        public TimeSpan GetTotalStudyTime()
+        {
+            return TimeSpan.FromSeconds(_gameLog.Sessions.Sum(s => s.Duration.TotalSeconds));
+        }
+
+        #endregion
 
         #region Load & Save
 
@@ -73,104 +150,33 @@ namespace BlueBerryDictionary.Services
                 _gameLog.LastUpdated = DateTime.Now;
                 var json = JsonConvert.SerializeObject(_gameLog, Formatting.Indented);
                 File.WriteAllText(_logPath, json);
-                Console.WriteLine($"✅ Game log saved: {_gameLog.Sessions.Count} sessions");
+                
+                // Auto sync to Drive
+                _ = AutoSyncToDriveAsync();
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"❌ Save game log error: {ex.Message}");
             }
         }
-        #endregion
 
-        #region Thêm session
-        /// <summary>
-        /// Thêm session mới vào log
-        /// </summary>
-        public void AddSession(GameSession session)
+        private async Task AutoSyncToDriveAsync()
         {
-            _gameLog.Sessions.Add(session);
-            _gameLog.TotalGamesPlayed++;
-            _gameLog.TotalCardsStudied += session.TotalCards;
-            SaveLog();
-        }
-
-        #endregion
-
-        #region Lấy thống kê
-
-        public List<GameSession> GetAllSessions()
-        {
-            return _gameLog.Sessions.OrderByDescending(s => s.StartTime).ToList();
-        }
-        
-        public List<GameSession> GetRecentSessions(int count = 10)
-        {
-            return _gameLog.Sessions
-                .OrderByDescending(s => s.StartTime)
-                .Take(count)
-                .ToList();
-        }
-        
-        public List<GameSession> GetSessionsByDate(DateTime date)
-        {
-            return _gameLog.Sessions
-                .Where(s => s.StartTime.Date == date.Date)
-                .OrderByDescending(s => s.StartTime)
-                .ToList();
-        }
-        
-        public List<GameSession> GetSessionsByDateRange(DateTime startDate, DateTime endDate)
-        {
-            return _gameLog.Sessions
-                .Where(s => s.StartTime.Date >= startDate.Date && s.StartTime.Date <= endDate.Date)
-                .OrderByDescending(s => s.StartTime)
-                .ToList();
-        }
-        
-        public int GetTotalGamesPlayed() => _gameLog.TotalGamesPlayed;
-        
-        public int GetTotalCardsStudied() => _gameLog.TotalCardsStudied;
-        
-        public double GetAverageAccuracy()
-        {
-            if (_gameLog.Sessions.Count == 0) return 0;
-            return _gameLog.Sessions.Average(s => s.AccuracyPercentage);
-        }
-        
-        public TimeSpan GetTotalStudyTime()
-        {
-            return TimeSpan.FromSeconds(_gameLog.Sessions.Sum(s => s.Duration.TotalSeconds));
-        }
-        
-        public Dictionary<string, int> GetDataSourceDistribution()
-        {
-            return _gameLog.Sessions
-                .GroupBy(s => s.DataSourceName)
-                .ToDictionary(g => g.Key, g => g.Count());
-        }
-
-        #endregion
-
-        #region Xóa dữ liệu
-        public void DeleteSession(string sessionId)
-        {
-            var session = _gameLog.Sessions.FirstOrDefault(s => s.Id == sessionId);
-            if (session != null)
+            try
             {
-                _gameLog.Sessions.Remove(session);
-                _gameLog.TotalGamesPlayed--;
-                _gameLog.TotalCardsStudied -= session.TotalCards;
-                SaveLog();
+                var cloudService = CloudSyncService.Instance;
+                
+                if (string.IsNullOrEmpty(cloudService._appFolderId))
+                    return;
+
+                await cloudService.UploadFileAsync("GameLog.json", _logPath);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"⚠️ GameLog auto sync failed: {ex.Message}");
             }
         }
-        
-        public void ClearAllSessions()
-        {
-            _gameLog.Sessions.Clear();
-            _gameLog.TotalGamesPlayed = 0;
-            _gameLog.TotalCardsStudied = 0;
-            SaveLog();
-        }
+
         #endregion
     }
 }
