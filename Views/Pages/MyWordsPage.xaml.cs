@@ -24,13 +24,13 @@ namespace BlueBerryDictionary.Pages
             this.DataContext = myWordsViewModel;
 
             myWordsViewModel.acOnFilterWordsChanged += this.LoadDefCards;
-            myWordsViewModel.acOnTagChanged += this.LoadData; // ✅ New listener
+            myWordsViewModel.acOnTagChanged += this.LoadData; 
 
             // ========== LISTEN TO REMOVE TAG DIALOG ==========
             RemoveTagDialog.OnTagsDeleted += () =>
             {
                 Console.WriteLine("🔄 Tags deleted, refreshing tags dropdown...");
-                LoadTags(); // ✅ Reload tags immediately
+                LoadTags(); // Reload tags immediately
             };
 
             LoadData();
@@ -77,7 +77,6 @@ namespace BlueBerryDictionary.Pages
         }
         public void LoadDefCards()
         {
-            // ✅ FIX: Không filter thêm, tin tưởng vào ViewModel
             var upload = myWordsViewModel.FilteredWords;
 
             Console.WriteLine($"🔍 LoadDefCards: {upload.Count()} words");
@@ -191,10 +190,6 @@ namespace BlueBerryDictionary.Pages
         {
             if (letter == "All") return true;
 
-            // TODO: Kiểm tra trong database/collection
-            // return allWords.Any(w => w.Word.StartsWith(letter, StringComparison.OrdinalIgnoreCase));
-
-            // Tạm thời hardcode
             return letter == "A" || letter == "B" || letter == "K";
         }
 

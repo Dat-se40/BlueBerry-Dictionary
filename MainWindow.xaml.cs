@@ -53,7 +53,7 @@ namespace BlueBerryDictionary
             };
         }
 
-        // THÊM: Sync toggle button với theme hiện tại
+        // Sync toggle button với theme hiện tại
         private void SyncThemeToggle()
         {
             bool isDark = ThemeManager.Instance.CurrentTheme == Services.ThemeMode.Dark;
@@ -77,7 +77,7 @@ namespace BlueBerryDictionary
             }
         }
 
-        // THÊM: Handler khi theme thay đổi (từ Settings)
+        // Handler khi theme thay đổi (từ Settings)
         private void OnThemeChanged(Services.ThemeMode newTheme)
         {
             Dispatcher.Invoke(() => SyncThemeToggle());

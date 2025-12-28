@@ -30,7 +30,6 @@ namespace BlueBerryDictionary.Views.Pages
         }
         public override void LoadData()
         {
-            // Đây cũng chính là reset, cập nhật lại!
             CurrentFilterWords = fullWords;
         }
         public void LoadDefCards()

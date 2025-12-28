@@ -42,7 +42,7 @@ namespace BlueBerryDictionary.Views.Pages
                 _ => 0
             };
 
-            // ✅ COLOR THEME - XỬ LÝ 3 TRƯỜNG HỢP
+            // COLOR THEME - XỬ LÝ 3 TRƯỜNG HỢP
             if (settings.ColorTheme == "custom" && settings.CustomColorTheme != null)
             {
                 // Custom color

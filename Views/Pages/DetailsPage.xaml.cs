@@ -379,19 +379,19 @@ namespace BlueBerryDictionary.Views.Pages
                 FavoriteBtn.Background = Brushes.LightPink;
                 FavoriteBtn.Foreground = Brushes.DeepPink;
 
-                // ✅ Check xem từ đã tồn tại chưa
+                // Check xem từ đã tồn tại chưa
                 var existingWord = TagService.Instance.FindWordInsensitive(_word.word);
 
                 if (existingWord != null)
                 {
-                    // ✅ Từ đã tồn tại → Chỉ update isFavorited
+                    // Từ đã tồn tại → Chỉ update isFavorited
                     existingWord.isFavorited = true;
                     TagService.Instance.SaveWords(); // ← Lưu lại
                     Console.WriteLine($"✅ Updated favorite status for existing word '{_word.word}'");
                 }
                 else
                 {
-                    // ✅ Từ chưa tồn tại → Tạo mới
+                    // Từ chưa tồn tại → Tạo mới
                     var newWS = WordShortened.FromWord(_word);
                     newWS.isFavorited = true;
                     TagService.Instance.AddNewWordShortened(newWS);
@@ -425,7 +425,7 @@ namespace BlueBerryDictionary.Views.Pages
             {
                 var tagService = TagService.Instance;
 
-                // ✅ Show dialog để chọn meaning và tags
+                // Show dialog để chọn meaning và tags
                 var dialog = new MeaningSelectorDialog(_word)
                 {
                     Owner = Window.GetWindow(this)
@@ -438,7 +438,7 @@ namespace BlueBerryDictionary.Views.Pages
 
                     Console.WriteLine($"💾 Save_Click: word='{_word.word}', meaningIndex={meaningIndex}, tags={selectedTags.Count}");
 
-                    // ✅ AddWord() sẽ tự xử lý:
+                    // AddWord() sẽ tự xử lý:
                     //    - Nếu từ chưa tồn tại → Tạo mới với tags
                     //    - Nếu từ đã tồn tại → Cập nhật tags
                     var savedWord = tagService.AddWord(_word, selectedTags);
