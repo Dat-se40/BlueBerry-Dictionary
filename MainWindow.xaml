@@ -91,7 +91,8 @@
                             Click="ReloadBtn_Click"
                             ToolTip="Reload"
                             Margin="0,0,20,0"
-                            Foreground="{DynamicResource MainBackground}">
+                            Foreground="{DynamicResource MainBackground}"
+                            Visibility="Collapsed">
                         <TextBlock x:Name="ReloadIcon" Text="🔄" FontSize="16"/>
                     </Button>
 
