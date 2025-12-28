@@ -17,7 +17,13 @@ BlueBerry Dictionary là ứng dụng từ điển tiếng Anh được xây d�
 - **Framework**: WPF .NET
 - **Runtime**: Microsoft.NETCore.App 9.0.8
 - **Pattern**: MVVM (Model-View-ViewModel)
-
+### Build .exe file
+```
+dotnet clean
+dotnet publish -c Release -r win-x64 --self-contained true
+cd bin\Release\net9.0-windows\win-x64\publish
+.\BlueBerryDictionary.exe
+```
 ---
 
 ## Chức năng chính
