@@ -202,6 +202,69 @@ namespace BlueBerryDictionary.Services.Network
                 throw;
             }
         }
+        
+        /// <summary>
+        /// Merge GameLog từ Drive với local
+        /// Logic: Merge sessions theo ID, tổng hợp thống kê
+        /// </summary>
+        public async Task MergeGameLogAsync(string driveJsonData)
+        {
+            try
+            {
+                var driveGameLog = JsonConvert.DeserializeObject<GameLog>(driveJsonData);
+                if (driveGameLog == null || driveGameLog.Sessions == null) return;
+
+                // Đọc local data
+                var localPath = GetLocalFilePath("GameLog.json");
+                GameLog localGameLog;
+
+                if (File.Exists(localPath))
+                {
+                    var localJson = await File.ReadAllTextAsync(localPath);
+                    localGameLog = JsonConvert.DeserializeObject<GameLog>(localJson) 
+                                   ?? new GameLog();
+                }
+                else
+                {
+                    localGameLog = new GameLog();
+                }
+
+                int added = 0;
+
+                // Merge sessions theo Id (unique)
+                foreach (var driveSession in driveGameLog.Sessions)
+                {
+                    var exists = localGameLog.Sessions.Any(s => s.Id == driveSession.Id);
+                    if (!exists)
+                    {
+                        localGameLog.Sessions.Add(driveSession);
+                        added++;
+                    }
+                }
+
+                // Sắp xếp sessions theo thời gian (mới nhất lên đầu)
+                localGameLog.Sessions = localGameLog.Sessions
+                    .OrderByDescending(s => s.StartTime)
+                    .ToList();
+
+                // Cập nhật thống kê
+                localGameLog.TotalGamesPlayed = localGameLog.Sessions.Count;
+                localGameLog.TotalCardsStudied = localGameLog.Sessions.Sum(s => s.TotalCards);
+                localGameLog.LastUpdated = DateTime.Now;
+
+                // Lưu lại
+                var mergedJson = JsonConvert.SerializeObject(localGameLog, Formatting.Indented);
+                await File.WriteAllTextAsync(localPath, mergedJson);
+
+                Console.WriteLine($"✅ GameLog merged: +{added} sessions, Total: {localGameLog.TotalGamesPlayed}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"❌ Merge GameLog error: {ex.Message}");
+                throw;
+            }
+        }
+        
         /// <summary>
         /// Download file từ Drive vào memory (KHÔNG ghi file local)
         /// </summary>

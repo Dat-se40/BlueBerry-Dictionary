@@ -252,6 +252,5 @@ namespace BlueBerryDictionary.Views.Dialogs
                 return firstDef?.definition ?? "No definition";
             }
         }
-
     }
 }
